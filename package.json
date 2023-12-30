@@ -1,0 +1,21 @@
+{
+  "name": "lasertime",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "npx nodemon"
+  },
+  "dependencies": {
+    "dmxnet": "^0.9.0",
+    "easymidi": "^3.1.0",
+    "midi": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/midi": "^2.0.3",
+    "@types/node": "^20.10.5",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2"
+  }
+}
