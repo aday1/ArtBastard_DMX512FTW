@@ -4,84 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scenes</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        #sceneList {
-            margin-top: 20px;
-        }
-        .scene-item {
-            background-color: #ecf0f1;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .scene-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .scene-name {
-            font-weight: bold;
-        }
-        .scene-osc {
-            font-size: 12px;
-            color: #7f8c8d;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        .scene-form {
-            margin-top: 20px;
-            background-color: #ecf0f1;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .scene-form input {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .midi-learn {
-            background-color: #2ecc71;
-        }
-        .midi-forget {
-            background-color: #e74c3c;
-        }
-        #debugInfo {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f1c40f;
-            border-radius: 5px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-    </style>
+    <link rel="stylesheet" href="scenes.css">
 </head>
 <body>
     <h1>Scenes</h1>
     <div id="sceneList"></div>
     <div class="scene-form">
         <input type="text" id="sceneName" placeholder="Scene Name">
-        <input type="text" id="sceneOscValue" placeholder="OSC Value">
+        <input type="text" id="sceneOscAddress" placeholder="OSC Address">
         <button id="saveScene">Save Scene</button>
     </div>
     <div id="debugInfo"></div>
@@ -91,7 +21,7 @@
         const socket = io();
         const sceneListContainer = document.getElementById('sceneList');
         const sceneNameInput = document.getElementById('sceneName');
-        const sceneOscValueInput = document.getElementById('sceneOscValue');
+        const sceneOscAddressInput = document.getElementById('sceneOscAddress');
         const saveSceneButton = document.getElementById('saveScene');
         const debugInfo = document.getElementById('debugInfo');
         let editingSceneName = null;
@@ -113,6 +43,7 @@
                         <div>
                             <button class="load-scene" data-scene="${scene.name}">Load</button>
                             <button class="edit-scene" data-scene="${scene.name}">Edit</button>
+                            <button class="delete-scene" data-scene="${scene.name}">Delete</button>
                             <button class="midi-learn" data-scene="${scene.name}">MIDI Learn</button>
                             <button class="midi-forget" data-scene="${scene.name}">MIDI Forget</button>
                         </div>
@@ -120,7 +51,7 @@
                     <div class="scene-details">
                         <span class="scene-osc">OSC: ${scene.oscAddress || 'N/A'}</span>
                         <div class="scene-osc-edit">
-                            <input type="text" value="${scene.oscValue || ''}" placeholder="OSC Value">
+                            <input type="text" value="${scene.oscAddress || ''}" placeholder="OSC Address">
                             <button class="update-osc" data-scene="${scene.name}">Update OSC</button>
                         </div>
                     </div>
@@ -144,9 +75,19 @@
                     const scene = scenes.find(s => s.name === sceneName);
                     if (scene) {
                         sceneNameInput.value = scene.name;
-                        sceneOscValueInput.value = scene.oscValue || '';
+                        sceneOscAddressInput.value = scene.oscAddress || '';
                         editingSceneName = scene.name;
                         saveSceneButton.textContent = 'Update Scene';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.delete-scene').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sceneName = e.target.getAttribute('data-scene');
+                    if (confirm(`Are you sure you want to delete the scene "${sceneName}"?`)) {
+                        log(`Deleting scene: ${sceneName}`);
+                        socket.emit('deleteScene', sceneName);
                     }
                 });
             });
@@ -154,9 +95,9 @@
             document.querySelectorAll('.update-osc').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const sceneName = e.target.getAttribute('data-scene');
-                    const oscValue = e.target.previousElementSibling.value;
-                    log(`Updating OSC for scene: ${sceneName}, value: ${oscValue}`);
-                    socket.emit('updateSceneOsc', { name: sceneName, oscValue: oscValue });
+                    const oscAddress = e.target.previousElementSibling.value;
+                    log(`Updating OSC for scene: ${sceneName}, address: ${oscAddress}`);
+                    socket.emit('updateSceneOsc', { name: sceneName, oscAddress: oscAddress });
                 });
             });
 
@@ -180,18 +121,18 @@
         // Save Scene
         saveSceneButton.addEventListener('click', () => {
             const sceneName = sceneNameInput.value.trim();
-            const sceneOscValue = sceneOscValueInput.value.trim();
-            log(`Attempting to save scene: ${sceneName}, OSC Value: ${sceneOscValue}`);
+            const sceneOscAddress = sceneOscAddressInput.value.trim();
+            log(`Attempting to save scene: ${sceneName}, OSC Address: ${sceneOscAddress}`);
             if (sceneName) {
                 if (editingSceneName) {
                     log(`Updating existing scene: ${editingSceneName} to ${sceneName}`);
-                    socket.emit('updateScene', { oldName: editingSceneName, newName: sceneName, oscValue: sceneOscValue });
+                    socket.emit('updateScene', { oldName: editingSceneName, newName: sceneName, oscAddress: sceneOscAddress });
                 } else {
                     log(`Saving new scene: ${sceneName}`);
-                    socket.emit('saveScene', sceneName, sceneOscValue);
+                    socket.emit('saveScene', sceneName, sceneOscAddress);
                 }
                 sceneNameInput.value = '';
-                sceneOscValueInput.value = '';
+                sceneOscAddressInput.value = '';
                 editingSceneName = null;
                 saveSceneButton.textContent = 'Save Scene';
             } else {
@@ -200,10 +141,16 @@
             }
         });
 
-        // Handle new scene added or updated
+        // Handle new scene added
         socket.on('sceneAdded', (scene) => {
             log(`Scene added: ${JSON.stringify(scene)}`);
             socket.emit('getSceneList');
+        });
+
+        // Handle scene list updated
+        socket.on('sceneListUpdated', (scenes) => {
+            log(`Scene list updated: ${JSON.stringify(scenes)}`);
+            updateSceneList(scenes);
         });
 
         socket.on('sceneUpdated', (scene) => {
@@ -221,6 +168,12 @@
         socket.on('sceneList', (scenes) => {
             log(`Received scene list: ${JSON.stringify(scenes)}`);
             updateSceneList(scenes);
+        });
+
+        // Handle scene deleted
+        socket.on('sceneDeleted', (sceneName) => {
+            log(`Scene deleted: ${sceneName}`);
+            socket.emit('getSceneList');
         });
 
         // Handle errors
