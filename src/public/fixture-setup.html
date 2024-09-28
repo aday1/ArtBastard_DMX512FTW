@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaserTime - Fixture Setup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Main Control</a></li>
+            <li><a href="midi-setup.html">MIDI Setup</a></li>
+            <li><a href="fixture-setup.html">Fixture Setup</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Fixture Setup</h1>
+        <div>
+            <h2>Add New Fixture</h2>
+            <input type="text" id="fixtureName" placeholder="Fixture Name">
+            <input type="number" id="startAddress" placeholder="Start Address">
+            <input type="number" id="channelCount" placeholder="Channel Count">
+            <button id="addFixture">Add Fixture</button>
+        </div>
+        <div>
+            <h2>Fixture List</h2>
+            <div id="fixtureList"></div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="fixture-setup.js"></script>
+</body>
+</html>

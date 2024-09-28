@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        #sceneList {
+            margin-top: 20px;
+        }
+        .scene-item {
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .scene-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .scene-name {
+            font-weight: bold;
+        }
+        .scene-osc {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .scene-form {
+            margin-top: 20px;
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .scene-form input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        .midi-learn {
+            background-color: #2ecc71;
+        }
+        .midi-forget {
+            background-color: #e74c3c;
+        }
+        #debugInfo {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f1c40f;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scenes</h1>
+    <div id="sceneList"></div>
+    <div class="scene-form">
+        <input type="text" id="sceneName" placeholder="Scene Name">
+        <input type="text" id="sceneOscValue" placeholder="OSC Value">
+        <button id="saveScene">Save Scene</button>
+    </div>
+    <div id="debugInfo"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const sceneListContainer = document.getElementById('sceneList');
+        const sceneNameInput = document.getElementById('sceneName');
+        const sceneOscValueInput = document.getElementById('sceneOscValue');
+        const saveSceneButton = document.getElementById('saveScene');
+        const debugInfo = document.getElementById('debugInfo');
+        let editingSceneName = null;
+
+        function log(message) {
+            console.log(message);
+            debugInfo.textContent += message + '\n';
+        }
+
+        function updateSceneList(scenes) {
+            log('Updating scene list');
+            sceneListContainer.innerHTML = '';
+            scenes.forEach(scene => {
+                const sceneElement = document.createElement('div');
+                sceneElement.className = 'scene-item';
+                sceneElement.innerHTML = `
+                    <div class="scene-header">
+                        <span class="scene-name">${scene.name}</span>
+                        <div>
+                            <button class="load-scene" data-scene="${scene.name}">Load</button>
+                            <button class="edit-scene" data-scene="${scene.name}">Edit</button>
+                            <button class="midi-learn" data-scene="${scene.name}">MIDI Learn</button>
+                            <button class="midi-forget" data-scene="${scene.name}">MIDI Forget</button>
+                        </div>
+                    </div>
+                    <div class="scene-details">
+                        <span class="scene-osc">OSC: ${scene.oscAddress || 'N/A'}</span>
+                        <div class="scene-osc-edit">
+                            <input type="text" value="${scene.oscValue || ''}" placeholder="OSC Value">
+                            <button class="update-osc" data-scene="${scene.name}">Update OSC</button>
+                        </div>
+                    </div>
+                `;
+                sceneListContainer.appendChild(sceneElement);
+            });
+
+            // Add event listeners to buttons
+            document.querySelectorAll('.load-scene').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sceneName = e.target.getAttribute('data-scene');
+                    log(`Loading scene: ${sceneName}`);
+                    socket.emit('loadScene', sceneName);
+                });
+            });
+
+            document.querySelectorAll('.edit-scene').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sceneName = e.target.getAttribute('data-scene');
+                    log(`Editing scene: ${sceneName}`);
+                    const scene = scenes.find(s => s.name === sceneName);
+                    if (scene) {
+                        sceneNameInput.value = scene.name;
+                        sceneOscValueInput.value = scene.oscValue || '';
+                        editingSceneName = scene.name;
+                        saveSceneButton.textContent = 'Update Scene';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.update-osc').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sceneName = e.target.getAttribute('data-scene');
+                    const oscValue = e.target.previousElementSibling.value;
+                    log(`Updating OSC for scene: ${sceneName}, value: ${oscValue}`);
+                    socket.emit('updateSceneOsc', { name: sceneName, oscValue: oscValue });
+                });
+            });
+
+            document.querySelectorAll('.midi-learn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sceneName = e.target.getAttribute('data-scene');
+                    log(`Starting MIDI learn for scene: ${sceneName}`);
+                    socket.emit('startSceneMidiLearn', sceneName);
+                });
+            });
+
+            document.querySelectorAll('.midi-forget').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const sceneName = e.target.getAttribute('data-scene');
+                    log(`Forgetting MIDI for scene: ${sceneName}`);
+                    socket.emit('forgetSceneMidi', sceneName);
+                });
+            });
+        }
+
+        // Save Scene
+        saveSceneButton.addEventListener('click', () => {
+            const sceneName = sceneNameInput.value.trim();
+            const sceneOscValue = sceneOscValueInput.value.trim();
+            log(`Attempting to save scene: ${sceneName}, OSC Value: ${sceneOscValue}`);
+            if (sceneName) {
+                if (editingSceneName) {
+                    log(`Updating existing scene: ${editingSceneName} to ${sceneName}`);
+                    socket.emit('updateScene', { oldName: editingSceneName, newName: sceneName, oscValue: sceneOscValue });
+                } else {
+                    log(`Saving new scene: ${sceneName}`);
+                    socket.emit('saveScene', sceneName, sceneOscValue);
+                }
+                sceneNameInput.value = '';
+                sceneOscValueInput.value = '';
+                editingSceneName = null;
+                saveSceneButton.textContent = 'Save Scene';
+            } else {
+                log('Error: Scene name is empty');
+                alert('Please enter a scene name');
+            }
+        });
+
+        // Handle new scene added or updated
+        socket.on('sceneAdded', (scene) => {
+            log(`Scene added: ${JSON.stringify(scene)}`);
+            socket.emit('getSceneList');
+        });
+
+        socket.on('sceneUpdated', (scene) => {
+            log(`Scene updated: ${JSON.stringify(scene)}`);
+            socket.emit('getSceneList');
+        });
+
+        // Handle scene OSC updated
+        socket.on('sceneOscUpdated', (scene) => {
+            log(`Scene OSC updated: ${JSON.stringify(scene)}`);
+            socket.emit('getSceneList');
+        });
+
+        // Handle Scene List
+        socket.on('sceneList', (scenes) => {
+            log(`Received scene list: ${JSON.stringify(scenes)}`);
+            updateSceneList(scenes);
+        });
+
+        // Handle errors
+        socket.on('error', (error) => {
+            log(`Error: ${error.message}`);
+            alert('An error occurred: ' + error.message);
+        });
+
+        // Request initial scene list
+        socket.emit('getSceneList');
+
+        // Expose updateSceneList function to parent window
+        window.updateSceneList = updateSceneList;
+    </script>
+</body>
+</html>

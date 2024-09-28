@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaserTime - OSC Debug</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Main Control</a></li>
+            <li><a href="midi-osc-setup.html">MIDI/OSC Setup</a></li>
+            <li><a href="fixture-setup.html">Fixture Setup</a></li>
+            <li><a href="osc-debug.html">OSC Debug</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>OSC Debug</h1>
+        <div>
+            <h2>Incoming OSC Messages</h2>
+            <div id="oscMessages" class="debug-messages"></div>
+        </div>
+        <div>
+            <h2>Send Test OSC Message</h2>
+            <input type="text" id="oscTestAddress" placeholder="OSC Address">
+            <input type="text" id="oscTestValue" placeholder="Value">
+            <button id="sendOscTest">Send Test Message</button>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="osc-debug.js"></script>
+</body>
+</html>

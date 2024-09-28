@@ -1,0 +1,194 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+    min-height: 100vh;
+}
+
+.main-content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background-color: #2980b9;
+}
+
+select, input, button {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #bdc3c7;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.content-area {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#dmxChannels, #groupControls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.dmx-channel, .fixture-channel, .group-channel {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 15px);
+    box-sizing: border-box;
+}
+
+.dmx-channel label, .fixture-channel label, .group-channel label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.dmx-channel input[type="range"], .fixture-channel input[type="range"], .group-channel input[type="range"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.midi-learn {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.midi-learn:hover {
+    background-color: #27ae60;
+}
+
+.midi-learn.learning {
+    background-color: #f39c12;
+}
+
+.midi-learn.mapped {
+    background-color: #e74c3c;
+}
+
+.osc-value {
+    width: calc(100% - 10px);
+    margin-top: 5px;
+}
+
+#statusMessage {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.success {
+    background-color: #2ecc71;
+}
+
+.error {
+    background-color: #e74c3c;
+}
+
+#fixtureForm, #groupForm {
+    background-color: #ecf0f1;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fixture-item, .group-item {
+    background-color: #ecf0f1;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fixture-controls, .group-controls {
+    margin-top: 10px;
+}
+
+#artnetDiagnostics {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#midiMessages, #oscMessages {
+    height: 200px;
+    overflow-y: auto;
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#midiOscSetup, #fixtureSetup, #oscDebug {
+    display: none;
+}
+
+#mainControl {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .dmx-channel, .fixture-channel, .group-channel {
+        width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 480px) {
+    .dmx-channel, .fixture-channel, .group-channel {
+        width: 100%;
+    }
+}

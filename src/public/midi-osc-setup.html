@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaserTime - MIDI/OSC Setup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Main Control</a></li>
+            <li><a href="midi-osc-setup.html">MIDI/OSC Setup</a></li>
+            <li><a href="fixture-setup.html">Fixture Setup</a></li>
+            <li><a href="osc-debug.html">OSC Debug</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>MIDI/OSC Setup</h1>
+        <div>
+            <h2>MIDI Setup</h2>
+            <label for="midiInterface">Select MIDI Interface:</label>
+            <select id="midiInterface"></select>
+        </div>
+        <div>
+            <h2>OSC Setup</h2>
+            <label for="oscInputPort">OSC Input Port:</label>
+            <input type="number" id="oscInputPort" value="3333">
+            <label for="oscOutputPort">OSC Output Port:</label>
+            <input type="number" id="oscOutputPort" value="3334">
+            <label for="oscOutputAddress">OSC Output Address:</label>
+            <input type="text" id="oscOutputAddress" value="127.0.0.1">
+            <button id="saveOscSettings">Save OSC Settings</button>
+        </div>
+        <div>
+            <h2>MIDI Mappings</h2>
+            <div id="midiMappings"></div>
+        </div>
+        <div>
+            <button id="forgetAllMidi">Forget All MIDI Mappings</button>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="midi-osc-setup.js"></script>
+</body>
+</html>

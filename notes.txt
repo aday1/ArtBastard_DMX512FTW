@@ -1,3 +1,7 @@
+RUN WITH: yarn start:dev
+
+
+LASER (of some description)
 channel 1 - 64-128 = cycle
 channel 2 - select scene
     - 186 - apple
