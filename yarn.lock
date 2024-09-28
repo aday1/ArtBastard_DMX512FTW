@@ -234,6 +234,11 @@
   dependencies:
     undici-types "~5.26.4"
 
+"@types/ping@^0.4.4":
+  version "0.4.4"
+  resolved "https://registry.npmjs.org/@types/ping/-/ping-0.4.4.tgz"
+  integrity sha512-ifvo6w2f5eJYlXm+HiVx67iJe8WZp87sfa683nlqED5Vnt9Z93onkokNoWqOG21EaE8fMxyKPobE+mkPEyxsdw==
+
 "@types/qs@*":
   version "6.9.16"
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.16.tgz"
@@ -1128,6 +1133,11 @@ picomatch@^2.0.4, picomatch@^2.2.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
+
+ping@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.npmjs.org/ping/-/ping-0.4.4.tgz"
+  integrity sha512-56ZMC0j7SCsMMLdOoUg12VZCfj/+ZO+yfOSjaNCRrmZZr6GLbN2X/Ui56T15dI8NhiHckaw5X2pvyfAomanwqQ==
 
 pkg-prebuilds@^0.2.1:
   version "0.2.1"
