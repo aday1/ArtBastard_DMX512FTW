@@ -1,3 +1,6 @@
+*I'd like to thank Claude.dev tbh, but yeah this is completely not finished but ill keep my main working releases here*
+
+
 # LaserTime Web Interface
 
 LaserTime Web Interface is a web-based application for controlling DMX lighting fixtures, managing scenes, and creating fixture groups. It supports MIDI mapping, OSC communication, and ArtNET protocol for DMX over Ethernet.
