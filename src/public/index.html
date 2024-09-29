@@ -292,7 +292,124 @@
         });
 
         function updateDmxChannels(dmxChannels, fixtures, groups, midiMappings) {
-            // ... (keep the existing updateDmxChannels function)
+            dmxChannelsContainer.innerHTML = '';
+            groupControlsContainer.innerHTML = '';
+
+            // Create DMX channel sliders
+            dmxChannels.forEach((value, index) => {
+                const channelDiv = document.createElement('div');
+                channelDiv.className = 'dmx-channel';
+                channelDiv.innerHTML = `
+                    <label for="dmx-${index}">Channel ${index + 1}:</label>
+                    <input type="range" id="dmx-${index}" min="0" max="255" value="${value}">
+                    <span>${value}</span>
+                    <button class="midi-learn" data-channel="${index}">MIDI Learn</button>
+                    <button class="midi-forget" data-channel="${index}">Forget MIDI</button>
+                    <input type="color" id="color-${index}">
+                    <span class="midi-value"></span>
+                `;
+                dmxChannelsContainer.appendChild(channelDiv);
+
+                const slider = channelDiv.querySelector(`input[type="range"]`);
+                const valueDisplay = channelDiv.querySelector('span');
+                const midiLearnButton = channelDiv.querySelector('.midi-learn');
+                const midiForgetButton = channelDiv.querySelector('.midi-forget');
+                const colorPicker = channelDiv.querySelector(`input[type="color"]`);
+                const midiValueSpan = channelDiv.querySelector('.midi-value');
+
+                slider.addEventListener('input', () => {
+                    const value = parseInt(slider.value);
+                    valueDisplay.textContent = value;
+                    socket.emit('setDmxChannel', { channel: index, value: value });
+                });
+
+                midiLearnButton.addEventListener('click', () => {
+                    if (currentMidiLearnButton) {
+                        currentMidiLearnButton.classList.remove('learning');
+                    }
+                    currentMidiLearnButton = midiLearnButton;
+                    currentMidiLearnButton.classList.add('learning');
+                    log(`MIDI learn started for DMX channel ${index}`);
+                });
+
+                midiForgetButton.addEventListener('click', () => {
+                    socket.emit('forgetMidi', index);
+                    log(`MIDI mapping forgotten for DMX channel ${index}`);
+                });
+
+                colorPicker.addEventListener('input', () => {
+                    const color = colorPicker.value;
+                    const rgb = hexToRgb(color);
+                    if (rgb && index + 2 < dmxChannels.length) {
+                        socket.emit('setDmxChannel', { channel: index, value: rgb.r });
+                        socket.emit('setDmxChannel', { channel: index + 1, value: rgb.g });
+                        socket.emit('setDmxChannel', { channel: index + 2, value: rgb.b });
+                    }
+                });
+
+                if (midiMappings[index]) {
+                    midiValueSpan.textContent = `MIDI: Ch ${midiMappings[index].channel}, Note ${midiMappings[index].note}`;
+                }
+            });
+
+            // Create group controls
+            groups.forEach((group, index) => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'group-control';
+                groupDiv.innerHTML = `
+                    <h3>${group.name}</h3>
+                    <input type="range" id="group-${index}" min="0" max="255" value="0">
+                    <span>0</span>
+                    <input type="color" id="group-color-${index}">
+                `;
+                groupControlsContainer.appendChild(groupDiv);
+
+                const slider = groupDiv.querySelector(`input[type="range"]`);
+                const valueDisplay = groupDiv.querySelector('span');
+                const colorPicker = groupDiv.querySelector(`input[type="color"]`);
+
+                slider.addEventListener('input', () => {
+                    const value = parseInt(slider.value);
+                    valueDisplay.textContent = value;
+                    group.fixtureIndices.forEach(fixtureIndex => {
+                        const fixture = fixtures[fixtureIndex];
+                        fixture.channels.forEach((channel, channelIndex) => {
+                            if (channel.type === 'intensity') {
+                                const dmxChannel = fixture.startAddress + channelIndex;
+                                socket.emit('setDmxChannel', { channel: dmxChannel, value: value });
+                            }
+                        });
+                    });
+                });
+
+                colorPicker.addEventListener('input', () => {
+                    const color = colorPicker.value;
+                    const rgb = hexToRgb(color);
+                    if (rgb) {
+                        group.fixtureIndices.forEach(fixtureIndex => {
+                            const fixture = fixtures[fixtureIndex];
+                            let redChannel = -1, greenChannel = -1, blueChannel = -1;
+                            fixture.channels.forEach((channel, channelIndex) => {
+                                if (channel.type === 'red') redChannel = fixture.startAddress + channelIndex;
+                                if (channel.type === 'green') greenChannel = fixture.startAddress + channelIndex;
+                                if (channel.type === 'blue') blueChannel = fixture.startAddress + channelIndex;
+                            });
+                            if (redChannel !== -1) socket.emit('setDmxChannel', { channel: redChannel, value: rgb.r });
+                            if (greenChannel !== -1) socket.emit('setDmxChannel', { channel: greenChannel, value: rgb.g });
+                            if (blueChannel !== -1) socket.emit('setDmxChannel', { channel: blueChannel, value: rgb.b });
+                        });
+                    }
+                });
+            });
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
         }
 
         // Handle DMX updates
