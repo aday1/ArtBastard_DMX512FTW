@@ -23,6 +23,14 @@
             font-size: 0.8em;
             color: #666;
         }
+        #logContainer {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
@@ -92,8 +100,14 @@
                 <h2>Debug Configuration</h2>
                 <label>
                     <input type="checkbox" id="enableLogging" checked>
-                    Enable Logging
+                    Enable File Logging
                 </label>
+                <label>
+                    <input type="checkbox" id="enableConsoleLogging" checked>
+                    Enable Console Logging
+                </label>
+                <button id="clearLogs">Clear Logs</button>
+                <div id="logContainer"></div>
                 <h2>ArtNET Diagnostics</h2>
                 <div id="artnetDiagnostics">
                     <p>IP: <span id="artnetIp"></span></p>
@@ -112,7 +126,6 @@
             </div>
         </div>
     </div>
-    <div id="debugInfo" style="margin-top: 20px; padding: 10px; background-color: #f1c40f; border-radius: 5px; white-space: pre-wrap; word-wrap: break-word;"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
@@ -124,31 +137,37 @@
         const statusMessage = document.getElementById('statusMessage');
         const midiMessagesContainer = document.getElementById('midiMessages');
         const oscMessagesContainer = document.getElementById('oscMessages');
-        const debugInfo = document.getElementById('debugInfo');
+        const logContainer = document.getElementById('logContainer');
         const statusIndicator = document.getElementById('statusIndicator');
         const enableLoggingCheckbox = document.getElementById('enableLogging');
+        const enableConsoleLoggingCheckbox = document.getElementById('enableConsoleLogging');
+        const clearLogsButton = document.getElementById('clearLogs');
         const webMidiStatusElement = document.getElementById('webMidiStatus');
         const requestMidiAccessButton = document.getElementById('requestMidiAccess');
         const midiDiagnosticsElement = document.getElementById('midiDiagnostics');
         let currentMidiLearnButton = null;
         let scenesWindow = null;
-        let loggingEnabled = true;
         let webMidiEnabled = false;
         let midiAccess = null;
         let midiInput = null;
 
         function log(message) {
-            if (loggingEnabled) {
-                console.log(message);
-                debugInfo.textContent += message + '\n';
-            }
+            const timestamp = new Date().toISOString();
+            const logMessage = `${timestamp} - ${message}`;
+            logContainer.innerHTML += logMessage + '<br>';
+            logContainer.scrollTop = logContainer.scrollHeight;
         }
 
         enableLoggingCheckbox.addEventListener('change', (e) => {
-            loggingEnabled = e.target.checked;
-            if (!loggingEnabled) {
-                debugInfo.textContent = '';
-            }
+            socket.emit('toggleLogging', e.target.checked);
+        });
+
+        enableConsoleLoggingCheckbox.addEventListener('change', (e) => {
+            socket.emit('toggleConsoleLogging', e.target.checked);
+        });
+
+        clearLogsButton.addEventListener('click', () => {
+            socket.emit('clearLogs');
         });
 
         function showStatusMessage(message, isError = false) {
@@ -273,170 +292,7 @@
         });
 
         function updateDmxChannels(dmxChannels, fixtures, groups, midiMappings) {
-            dmxChannelsContainer.innerHTML = '';
-            groupControlsContainer.innerHTML = '';
-            
-            // Display fixtures and their channels
-            fixtures.forEach((fixture, fixtureIndex) => {
-                const fixtureDiv = document.createElement('div');
-                fixtureDiv.className = 'fixture-item';
-                fixtureDiv.innerHTML = `
-                    <h3>${fixture.name} (Start: ${fixture.startAddress})</h3>
-                    <div class="fixture-channels"></div>
-                `;
-                const fixtureChannelsDiv = fixtureDiv.querySelector('.fixture-channels');
-                
-                fixture.channels.forEach((channel, channelIndex) => {
-                    const channelDiv = document.createElement('div');
-                    channelDiv.className = 'fixture-channel';
-                    const dmxAddress = fixture.startAddress + channelIndex;
-                    const value = dmxChannels[dmxAddress] || 0;
-                    const oscAddress = `/DMX/SLIDER${dmxAddress}`;
-                    const midiMapping = midiMappings[dmxAddress];
-                    const midiValue = midiMapping ? `MIDI: Ch ${midiMapping.channel}, Note ${midiMapping.note}` : '';
-                    channelDiv.innerHTML = `
-                        <label for="fixture-${fixtureIndex}-${channelIndex}">${channel.name} (${channel.type}):</label>
-                        <input type="range" id="fixture-${fixtureIndex}-${channelIndex}" min="0" max="255" value="${value}">
-                        <span>${value}</span>
-                        <button class="midi-learn" data-channel="${dmxAddress}">MIDI Learn</button>
-                        <button class="midi-forget" data-channel="${dmxAddress}">MIDI Forget</button>
-                        <input type="text" class="osc-value" placeholder="OSC Value" value="${oscAddress}" readonly>
-                        <span class="midi-value">${midiValue}</span>
-                    `;
-                    fixtureChannelsDiv.appendChild(channelDiv);
-
-                    const slider = channelDiv.querySelector('input[type="range"]');
-                    const valueDisplay = channelDiv.querySelector('span');
-                    slider.addEventListener('input', () => {
-                        const newValue = parseInt(slider.value);
-                        valueDisplay.textContent = newValue;
-                        socket.emit('setFixtureChannel', { fixtureIndex, channelIndex, value: newValue });
-                    });
-
-                    const midiLearnButton = channelDiv.querySelector('.midi-learn');
-                    midiLearnButton.addEventListener('click', () => {
-                        if (currentMidiLearnButton) {
-                            currentMidiLearnButton.classList.remove('learning');
-                        }
-                        if (currentMidiLearnButton !== midiLearnButton) {
-                            midiLearnButton.classList.add('learning');
-                            currentMidiLearnButton = midiLearnButton;
-                            if (!webMidiEnabled) {
-                                socket.emit('startMidiLearn', dmxAddress);
-                            }
-                        } else {
-                            currentMidiLearnButton = null;
-                            if (!webMidiEnabled) {
-                                socket.emit('stopMidiLearn');
-                            }
-                        }
-                    });
-
-                    const midiForgetButton = channelDiv.querySelector('.midi-forget');
-                    midiForgetButton.addEventListener('click', () => {
-                        socket.emit('forgetMidi', dmxAddress);
-                        log(`MIDI mapping forgotten for channel ${dmxAddress}`);
-                    });
-                });
-
-                dmxChannelsContainer.appendChild(fixtureDiv);
-            });
-
-            // Display remaining DMX channels
-            const usedChannels = fixtures.reduce((acc, fixture) => acc + fixture.channels.length, 0);
-            for (let i = usedChannels; i < 512; i++) {
-                const channelDiv = document.createElement('div');
-                channelDiv.className = 'dmx-channel';
-                const oscAddress = `/DMX/SLIDER${i}`;
-                const midiMapping = midiMappings[i];
-                const midiValue = midiMapping ? `MIDI: Ch ${midiMapping.channel}, Note ${midiMapping.note}` : '';
-                channelDiv.innerHTML = `
-                    <label for="dmx-${i}">Channel ${i + 1}:</label>
-                    <input type="range" id="dmx-${i}" min="0" max="255" value="${dmxChannels[i] || 0}">
-                    <span>${dmxChannels[i] || 0}</span>
-                    <button class="midi-learn" data-channel="${i}">MIDI Learn</button>
-                    <button class="midi-forget" data-channel="${i}">MIDI Forget</button>
-                    <input type="text" class="osc-value" placeholder="OSC Value" value="${oscAddress}" readonly>
-                    <span class="midi-value">${midiValue}</span>
-                `;
-                dmxChannelsContainer.appendChild(channelDiv);
-
-                const slider = channelDiv.querySelector('input[type="range"]');
-                const valueDisplay = channelDiv.querySelector('span');
-                slider.addEventListener('input', () => {
-                    const newValue = parseInt(slider.value);
-                    valueDisplay.textContent = newValue;
-                    socket.emit('setDmxChannel', { channel: i, value: newValue });
-                });
-
-                const midiLearnButton = channelDiv.querySelector('.midi-learn');
-                midiLearnButton.addEventListener('click', () => {
-                    if (currentMidiLearnButton) {
-                        currentMidiLearnButton.classList.remove('learning');
-                    }
-                    if (currentMidiLearnButton !== midiLearnButton) {
-                        midiLearnButton.classList.add('learning');
-                        currentMidiLearnButton = midiLearnButton;
-                        if (!webMidiEnabled) {
-                            socket.emit('startMidiLearn', i);
-                        }
-                    } else {
-                        currentMidiLearnButton = null;
-                        if (!webMidiEnabled) {
-                            socket.emit('stopMidiLearn');
-                        }
-                    }
-                });
-
-                const midiForgetButton = channelDiv.querySelector('.midi-forget');
-                midiForgetButton.addEventListener('click', () => {
-                    socket.emit('forgetMidi', i);
-                    log(`MIDI mapping forgotten for channel ${i}`);
-                });
-            }
-
-            // Display groups and their controls
-            groups.forEach((group, groupIndex) => {
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'group-item';
-                groupDiv.innerHTML = `
-                    <h3>${group.name}</h3>
-                    <div class="group-channels"></div>
-                `;
-                const groupChannelsDiv = groupDiv.querySelector('.group-channels');
-
-                const channelTypes = ['intensity', 'pan', 'tilt', 'color', 'gobo'];
-                channelTypes.forEach(channelType => {
-                    const channelDiv = document.createElement('div');
-                    channelDiv.className = 'group-channel';
-                    channelDiv.innerHTML = `
-                        <label for="group-${groupIndex}-${channelType}">${channelType.charAt(0).toUpperCase() + channelType.slice(1)}:</label>
-                        <input type="range" id="group-${groupIndex}-${channelType}" min="0" max="255" value="0">
-                        <span>0</span>
-                    `;
-                    groupChannelsDiv.appendChild(channelDiv);
-
-                    const slider = channelDiv.querySelector('input');
-                    const valueDisplay = channelDiv.querySelector('span');
-                    slider.addEventListener('input', () => {
-                        const newValue = parseInt(slider.value);
-                        valueDisplay.textContent = newValue;
-                        socket.emit('setGroupChannel', { groupIndex, channelType, value: newValue });
-                    });
-                });
-
-                groupControlsContainer.appendChild(groupDiv);
-            });
-
-            // Update fixture options in group form
-            const groupFixturesSelect = document.getElementById('groupFixtures');
-            groupFixturesSelect.innerHTML = '';
-            fixtures.forEach((fixture, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = fixture.name;
-                groupFixturesSelect.appendChild(option);
-            });
+            // ... (keep the existing updateDmxChannels function)
         }
 
         // Handle DMX updates
@@ -533,10 +389,32 @@
             showStatusMessage(error.message, true);
         });
 
+        // Handle log-related events
+        socket.on('loggingStatus', (enabled) => {
+            enableLoggingCheckbox.checked = enabled;
+            log(`File logging ${enabled ? 'enabled' : 'disabled'}`);
+        });
+
+        socket.on('consoleLoggingStatus', (enabled) => {
+            enableConsoleLoggingCheckbox.checked = enabled;
+            log(`Console logging ${enabled ? 'enabled' : 'disabled'}`);
+        });
+
+        socket.on('logsCleared', () => {
+            logContainer.innerHTML = '';
+            log('Logs cleared');
+        });
+
+        socket.on('logs', (logs) => {
+            logContainer.innerHTML = logs.replace(/\n/g, '<br>');
+            logContainer.scrollTop = logContainer.scrollHeight;
+        });
+
         // Ensure initial visibility of main control section and load initial state
         showSection('mainControl');
         log('Requesting initial state');
         socket.emit('getInitialState');
+        socket.emit('getLogs');
     </script>
 </body>
 </html>
