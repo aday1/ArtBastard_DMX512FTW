@@ -70,10 +70,15 @@ const DATA_DIR = path.join(__dirname, '..', 'data');
 const SCENES_FILE = path.join(DATA_DIR, 'scenes.json');
 const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
 const EXPORT_FILE = path.join(DATA_DIR, 'export_config.json');
+const LOGS_DIR = path.join(__dirname, '..', 'logs');
+const LOG_FILE = path.join(LOGS_DIR, 'app.log');
 
-// Ensure data directory exists
+// Ensure data and logs directories exist
 if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+if (!fs.existsSync(LOGS_DIR)) {
+    fs.mkdirSync(LOGS_DIR, { recursive: true });
 }
 
 // Default ArtNet configuration
@@ -86,14 +91,36 @@ let artNetConfig: ArtNetConfig = {
     base_refresh_interval: 1000
 };
 
+// Logging configuration
+let isLoggingEnabled = true;
+let isConsoleLoggingEnabled = true;
+
+function log(message: string) {
+    const timestamp = new Date().toISOString();
+    const logMessage = `${timestamp} - ${message}\n`;
+
+    if (isLoggingEnabled) {
+        fs.appendFileSync(LOG_FILE, logMessage);
+    }
+
+    if (isConsoleLoggingEnabled) {
+        console.log(message);
+    }
+}
+
+function clearLogs() {
+    fs.writeFileSync(LOG_FILE, '');
+    log('Logs cleared');
+}
+
 function loadConfig() {
     if (fs.existsSync(CONFIG_FILE)) {
         const data = fs.readFileSync(CONFIG_FILE, 'utf-8');
         const parsedConfig = JSON.parse(data);
         artNetConfig = { ...artNetConfig, ...parsedConfig.artNetConfig };
         midiMappings = parsedConfig.midiMappings || {};
-        console.log('Config loaded:', artNetConfig);
-        console.log('MIDI mappings loaded:', midiMappings);
+        log('Config loaded: ' + JSON.stringify(artNetConfig));
+        log('MIDI mappings loaded: ' + JSON.stringify(midiMappings));
     } else {
         saveConfig();
     }
@@ -105,7 +132,7 @@ function saveConfig() {
         midiMappings
     };
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(configToSave, null, 2));
-    console.log('Config saved:', configToSave);
+    log('Config saved: ' + JSON.stringify(configToSave));
 }
 
 function exportConfig() {
@@ -117,7 +144,7 @@ function exportConfig() {
         midiMappings
     };
     fs.writeFileSync(EXPORT_FILE, JSON.stringify(exportableConfig, null, 2));
-    console.log('Config exported to:', EXPORT_FILE);
+    log('Config exported to: ' + EXPORT_FILE);
     return EXPORT_FILE;
 }
 
@@ -129,14 +156,14 @@ function importConfig(importedConfig: ExportableConfig) {
     midiMappings = importedConfig.midiMappings;
     saveConfig();
     saveScenes();
-    console.log('Config imported and saved');
+    log('Config imported and saved');
 }
 
 function listMidiInterfaces() {
     const inputs = easymidi.getInputs();
     const outputs = easymidi.getOutputs();
-    console.log("Available MIDI Inputs:", inputs);
-    console.log("Available MIDI Outputs:", outputs);
+    log("Available MIDI Inputs: " + JSON.stringify(inputs));
+    log("Available MIDI Outputs: " + JSON.stringify(outputs));
     return { inputs, outputs };
 }
 
@@ -165,22 +192,22 @@ function saveScene(name: string): Scene {
     };
     scenes.push(scene);
     saveScenes();
-    console.log(`Scene saved: ${name}`);
+    log(`Scene saved: ${name}`);
     return scene;
 }
 
 function saveScenes() {
     fs.writeFileSync(SCENES_FILE, JSON.stringify(scenes, null, 2));
-    console.log(`Scenes saved to ${SCENES_FILE}`);
+    log(`Scenes saved to ${SCENES_FILE}`);
 }
 
 function loadScenes() {
     if (fs.existsSync(SCENES_FILE)) {
         const data = fs.readFileSync(SCENES_FILE, 'utf-8');
         scenes = JSON.parse(data);
-        console.log(`Scenes loaded from ${SCENES_FILE}`);
+        log(`Scenes loaded from ${SCENES_FILE}`);
     } else {
-        console.log(`No scenes file found at ${SCENES_FILE}`);
+        log(`No scenes file found at ${SCENES_FILE}`);
     }
 }
 
@@ -189,10 +216,10 @@ function deleteScene(name: string): boolean {
     scenes = scenes.filter(scene => scene.name !== name);
     if (scenes.length < initialLength) {
         saveScenes();
-        console.log(`Scene deleted: ${name}`);
+        log(`Scene deleted: ${name}`);
         return true;
     }
-    console.log(`Scene not found: ${name}`);
+    log(`Scene not found: ${name}`);
     return false;
 }
 
@@ -201,17 +228,17 @@ function updateSceneOsc(name: string, oscAddress: string): boolean {
     if (scene) {
         scene.oscAddress = oscAddress;
         saveScenes();
-        console.log(`Scene OSC updated: ${name}, new OSC: ${oscAddress}`);
+        log(`Scene OSC updated: ${name}, new OSC: ${oscAddress}`);
         return true;
     }
-    console.log(`Scene not found for OSC update: ${name}`);
+    log(`Scene not found for OSC update: ${name}`);
     return false;
 }
 
 function learnMidiMapping(dmxChannel: number, midiChannel: number, note: number) {
     midiMappings[dmxChannel] = { channel: midiChannel, note: note };
     saveConfig();
-    console.log(`MIDI mapping learned for DMX channel ${dmxChannel}: Channel ${midiChannel}, Note ${note}`);
+    log(`MIDI mapping learned for DMX channel ${dmxChannel}: Channel ${midiChannel}, Note ${note}`);
     return true;
 }
 
@@ -219,10 +246,10 @@ function forgetMidiMapping(dmxChannel: number) {
     if (midiMappings[dmxChannel]) {
         delete midiMappings[dmxChannel];
         saveConfig();
-        console.log(`MIDI mapping forgotten for DMX channel ${dmxChannel}`);
+        log(`MIDI mapping forgotten for DMX channel ${dmxChannel}`);
         return true;
     }
-    console.log(`No MIDI mapping found for DMX channel ${dmxChannel}`);
+    log(`No MIDI mapping found for DMX channel ${dmxChannel}`);
     return false;
 }
 
@@ -239,7 +266,7 @@ async function getArtNetDiagnostics() {
             pingTime: pingResult.time
         };
     } catch (error) {
-        console.error('Error getting ArtNET diagnostics:', error);
+        log('Error getting ArtNET diagnostics: ' + (error instanceof Error ? error.message : String(error)));
         return {
             error: 'Failed to retrieve ArtNET diagnostics',
             details: error instanceof Error ? error.message : String(error)
@@ -268,7 +295,7 @@ export function startLaserTime(io: Server) {
             log: { level: 'info' },
         });
     } else {
-        console.error('Unable to initialize dmxnet. Please check the library.');
+        log('Unable to initialize dmxnet. Please check the library.');
         return;
     }
 
@@ -288,14 +315,59 @@ export function startLaserTime(io: Server) {
         // Send ArtNet configuration
         socket.emit('artNetConfig', artNetConfig);
 
+        // New log-related socket events
+        socket.on('toggleLogging', (enabled: boolean) => {
+            isLoggingEnabled = enabled;
+            log(`Logging ${isLoggingEnabled ? 'enabled' : 'disabled'}`);
+            io.emit('loggingStatus', isLoggingEnabled);
+        });
+
+        socket.on('toggleConsoleLogging', (enabled: boolean) => {
+            isConsoleLoggingEnabled = enabled;
+            log(`Console logging ${isConsoleLoggingEnabled ? 'enabled' : 'disabled'}`);
+            io.emit('consoleLoggingStatus', isConsoleLoggingEnabled);
+        });
+
+        socket.on('clearLogs', () => {
+            clearLogs();
+            io.emit('logsCleared');
+        });
+
+        socket.on('getLogs', () => {
+            const logs = fs.readFileSync(LOG_FILE, 'utf-8');
+            socket.emit('logs', logs);
+        });
+
+        // Handle setDmxChannel event
+        socket.on('setDmxChannel', ({ channel, value }) => {
+            log(`Received setDmxChannel: Channel ${channel}, Value ${value}`);
+            dmxChannels[channel] = value;
+            sender?.setChannel(channel, value);
+            io.emit('dmxUpdate', { channel, value });
+        });
+
+        // Handle setFixtureChannel event
+        socket.on('setFixtureChannel', ({ fixtureIndex, channelIndex, value }) => {
+            log(`Received setFixtureChannel: Fixture ${fixtureIndex}, Channel ${channelIndex}, Value ${value}`);
+            const fixture = fixtures[fixtureIndex];
+            if (fixture) {
+                const dmxChannel = fixture.startAddress + channelIndex;
+                dmxChannels[dmxChannel] = value;
+                sender?.setChannel(dmxChannel, value);
+                io.emit('dmxUpdate', { channel: dmxChannel, value });
+            } else {
+                log(`Fixture with index ${fixtureIndex} not found`);
+            }
+        });
+
         socket.on('saveScene', (name: string) => {
-            console.log(`Received saveScene request: ${name}`);
+            log(`Received saveScene request: ${name}`);
             const scene = saveScene(name);
             // Emit the new scene to all connected clients
             io.emit('sceneAdded', { name: scene.name, oscAddress: scene.oscAddress });
             // Also emit the updated scene list to all clients
             io.emit('sceneListUpdated', scenes.map(s => ({ name: s.name, oscAddress: s.oscAddress })));
-            console.log(`Emitted sceneAdded and sceneListUpdated events: ${scene.name}`);
+            log(`Emitted sceneAdded and sceneListUpdated events: ${scene.name}`);
         });
 
         socket.on('loadScene', (name: string) => {
@@ -309,33 +381,33 @@ export function startLaserTime(io: Server) {
                 // Emit the updated DMX state to all connected clients
                 io.emit('dmxStateUpdated', getDmxStateWithFixtures());
                 io.emit('sceneLoaded', { name: scene.name, channelValues: scene.channelValues });
-                console.log(`Scene loaded and DMX state updated: ${name}`);
+                log(`Scene loaded and DMX state updated: ${name}`);
             } else {
                 socket.emit('error', { message: `Scene not found: ${name}` });
             }
         });
 
         socket.on('deleteScene', (name: string) => {
-            console.log(`Received deleteScene request: ${name}`);
+            log(`Received deleteScene request: ${name}`);
             if (deleteScene(name)) {
                 // Emit the deleted scene name to all connected clients
                 io.emit('sceneDeleted', name);
                 // Also emit the updated scene list to all clients
                 io.emit('sceneListUpdated', scenes.map(s => ({ name: s.name, oscAddress: s.oscAddress })));
-                console.log(`Emitted sceneDeleted and sceneListUpdated events: ${name}`);
+                log(`Emitted sceneDeleted and sceneListUpdated events: ${name}`);
             } else {
                 socket.emit('error', { message: `Failed to delete scene: ${name}` });
             }
         });
 
         socket.on('updateSceneOsc', ({ name, oscAddress }) => {
-            console.log(`Received updateSceneOsc request: ${name}, ${oscAddress}`);
+            log(`Received updateSceneOsc request: ${name}, ${oscAddress}`);
             if (updateSceneOsc(name, oscAddress)) {
                 // Emit the updated scene to all connected clients
                 io.emit('sceneOscUpdated', { name, oscAddress });
                 // Also emit the updated scene list to all clients
                 io.emit('sceneListUpdated', scenes.map(s => ({ name: s.name, oscAddress: s.oscAddress })));
-                console.log(`Emitted sceneOscUpdated and sceneListUpdated events: ${name}`);
+                log(`Emitted sceneOscUpdated and sceneListUpdated events: ${name}`);
             } else {
                 socket.emit('error', { message: `Failed to update OSC for scene: ${name}` });
             }
@@ -362,7 +434,7 @@ export function startLaserTime(io: Server) {
         });
 
         socket.on('midiLearned', ({ dmxChannel, midiMapping }) => {
-            console.log(`Received MIDI learn request: DMX Channel ${dmxChannel}, MIDI Mapping: ${JSON.stringify(midiMapping)}`);
+            log(`Received MIDI learn request: DMX Channel ${dmxChannel}, MIDI Mapping: ${JSON.stringify(midiMapping)}`);
             if (learnMidiMapping(dmxChannel, midiMapping.channel, midiMapping.note)) {
                 io.emit('midiLearned', { dmxChannel, midiMapping });
             } else {
@@ -371,7 +443,7 @@ export function startLaserTime(io: Server) {
         });
 
         socket.on('forgetMidi', (dmxChannel: number) => {
-            console.log(`Received forgetMidi request for DMX channel ${dmxChannel}`);
+            log(`Received forgetMidi request for DMX channel ${dmxChannel}`);
             if (forgetMidiMapping(dmxChannel)) {
                 io.emit('midiMappingForgotten', dmxChannel);
             } else {
