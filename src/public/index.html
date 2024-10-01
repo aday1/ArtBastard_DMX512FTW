@@ -23,13 +23,19 @@
             font-size: 0.8em;
             color: #666;
         }
-        #logContainer {
+        #logContainer, #midiMessages {
             max-height: 300px;
             overflow-y: auto;
             border: 1px solid #ccc;
             padding: 10px;
             margin-top: 10px;
             background-color: #f9f9f9;
+        }
+        #midiSimulator {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -43,7 +49,7 @@
             <button id="navMidiOsc">MIDI/OSC Setup</button>
             <button id="navFixture">Fixture Setup</button>
             <button id="navOscDebug">OSC Debug</button>
-            <button id="navDebug">Debug</button>
+            <button id="navMisc">Misc</button>
             <button id="openScenesWindow">Open Scenes</button>
         </nav>
         <div class="content-area">
@@ -71,6 +77,31 @@
                 <div id="midiMessages"></div>
                 <h3>MIDI Diagnostic Information</h3>
                 <div id="midiDiagnostics"></div>
+                <h3>MIDI Simulator</h3>
+                <div id="midiSimulator">
+                    <form id="midiSimulatorForm">
+                        <label>
+                            Type:
+                            <select name="type">
+                                <option value="noteon">Note On</option>
+                                <option value="cc">Control Change</option>
+                            </select>
+                        </label>
+                        <label>
+                            Channel:
+                            <input type="number" name="channel" min="0" max="15" value="0">
+                        </label>
+                        <label>
+                            Note/Controller:
+                            <input type="number" name="note" min="0" max="127" value="60">
+                        </label>
+                        <label>
+                            Velocity/Value:
+                            <input type="number" name="velocity" min="0" max="127" value="64">
+                        </label>
+                        <button type="submit">Send MIDI Message</button>
+                    </form>
+                </div>
             </div>
             <div id="fixtureSetup" style="display: none;">
                 <h2>Fixture Management</h2>
@@ -96,8 +127,8 @@
                 <h2>OSC Debug</h2>
                 <div id="oscMessages"></div>
             </div>
-            <div id="debug" style="display: none;">
-                <h2>Debug Configuration</h2>
+            <div id="misc" style="display: none;">
+                <h2>Misc Configuration</h2>
                 <label>
                     <input type="checkbox" id="enableLogging" checked>
                     Enable File Logging
@@ -108,10 +139,38 @@
                 </label>
                 <button id="clearLogs">Clear Logs</button>
                 <div id="logContainer"></div>
+                <h2>ArtNET Configuration</h2>
+                <form id="artnetConfigForm">
+                    <label>
+                        IP:
+                        <input type="text" id="artnetIp" name="ip" required>
+                    </label>
+                    <label>
+                        Subnet:
+                        <input type="number" id="artnetSubnet" name="subnet" min="0" max="15" required>
+                    </label>
+                    <label>
+                        Universe:
+                        <input type="number" id="artnetUniverse" name="universe" min="0" max="15" required>
+                    </label>
+                    <label>
+                        Net:
+                        <input type="number" id="artnetNet" name="net" min="0" max="127" required>
+                    </label>
+                    <label>
+                        Port:
+                        <input type="number" id="artnetPort" name="port" min="1" max="65535" required>
+                    </label>
+                    <label>
+                        Base Refresh Interval (ms):
+                        <input type="number" id="artnetRefreshInterval" name="base_refresh_interval" min="1" required>
+                    </label>
+                    <button type="submit">Update ArtNET Configuration</button>
+                </form>
                 <h2>ArtNET Diagnostics</h2>
                 <div id="artnetDiagnostics">
-                    <p>IP: <span id="artnetIp"></span></p>
-                    <p>Universe: <span id="artnetUniverse"></span></p>
+                    <p>IP: <span id="artnetIpDisplay"></span></p>
+                    <p>Universe: <span id="artnetUniverseDisplay"></span></p>
                     <p>Status: <span id="artnetStatus"></span></p>
                     <p>Channels Transmitted: <span id="artnetChannelsTransmitted"></span></p>
                     <p>Total Channels: <span id="artnetTotalChannels"></span></p>
@@ -145,6 +204,7 @@
         const webMidiStatusElement = document.getElementById('webMidiStatus');
         const requestMidiAccessButton = document.getElementById('requestMidiAccess');
         const midiDiagnosticsElement = document.getElementById('midiDiagnostics');
+        const artnetConfigForm = document.getElementById('artnetConfigForm');
         let currentMidiLearnButton = null;
         let scenesWindow = null;
         let webMidiEnabled = false;
@@ -185,11 +245,11 @@
         document.getElementById('navMidiOsc').addEventListener('click', () => showSection('midiOscSetup'));
         document.getElementById('navFixture').addEventListener('click', () => showSection('fixtureSetup'));
         document.getElementById('navOscDebug').addEventListener('click', () => showSection('oscDebug'));
-        document.getElementById('navDebug').addEventListener('click', () => showSection('debug'));
+        document.getElementById('navMisc').addEventListener('click', () => showSection('misc'));
         document.getElementById('openScenesWindow').addEventListener('click', openScenesWindow);
 
         function showSection(sectionId) {
-            ['mainControl', 'midiOscSetup', 'fixtureSetup', 'oscDebug', 'debug'].forEach(id => {
+            ['mainControl', 'midiOscSetup', 'fixtureSetup', 'oscDebug', 'misc'].forEach(id => {
                 document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
             });
         }
@@ -286,9 +346,10 @@
         initWebMidi();
 
         // Handle initial state
-        socket.on('initialState', ({ dmxChannels, fixtures, groups, midiMappings }) => {
+        socket.on('initialState', ({ dmxChannels, fixtures, groups, midiMappings, artnetConfig }) => {
             log('Received initial state');
             updateDmxChannels(dmxChannels, fixtures, groups, midiMappings);
+            updateArtnetConfigForm(artnetConfig);
         });
 
         function updateDmxChannels(dmxChannels, fixtures, groups, midiMappings) {
@@ -330,6 +391,7 @@
                     currentMidiLearnButton = midiLearnButton;
                     currentMidiLearnButton.classList.add('learning');
                     log(`MIDI learn started for DMX channel ${index}`);
+                    socket.emit('startMidiLearn', index);
                 });
 
                 midiForgetButton.addEventListener('click', () => {
@@ -432,8 +494,8 @@
         // Handle ArtNET diagnostics
         socket.on('artnetDiagnostics', (diagnostics) => {
             log(`Received ArtNET diagnostics: ${JSON.stringify(diagnostics)}`);
-            document.getElementById('artnetIp').textContent = diagnostics.ip;
-            document.getElementById('artnetUniverse').textContent = diagnostics.universe;
+            document.getElementById('artnetIpDisplay').textContent = diagnostics.ip;
+            document.getElementById('artnetUniverseDisplay').textContent = diagnostics.universe;
             document.getElementById('artnetStatus').textContent = diagnostics.status;
             document.getElementById('artnetChannelsTransmitted').textContent = diagnostics.channelsTransmitted;
             document.getElementById('artnetTotalChannels').textContent = diagnostics.totalChannels;
@@ -525,6 +587,59 @@
         socket.on('logs', (logs) => {
             logContainer.innerHTML = logs.replace(/\n/g, '<br>');
             logContainer.scrollTop = logContainer.scrollHeight;
+        });
+
+        // Add this new code for MIDI simulation
+        const midiSimulatorForm = document.getElementById('midiSimulatorForm');
+        midiSimulatorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(midiSimulatorForm);
+            const midiMessage = {
+                type: formData.get('type'),
+                channel: parseInt(formData.get('channel')),
+                note: parseInt(formData.get('note')),
+                velocity: parseInt(formData.get('velocity'))
+            };
+            socket.emit('simulateMidi', midiMessage);
+            log(`Simulated MIDI message sent: ${JSON.stringify(midiMessage)}`);
+        });
+
+        // Update the existing MIDI message handler
+        socket.on('midiMessage', (msg) => {
+            log(`MIDI message received: ${JSON.stringify(msg)}`);
+            midiMessagesContainer.innerHTML = `${new Date().toISOString()} - ${JSON.stringify(msg)}<br>` + midiMessagesContainer.innerHTML;
+            if (midiMessagesContainer.childNodes.length > 100) {
+                midiMessagesContainer.removeChild(midiMessagesContainer.lastChild);
+            }
+        });
+
+        // ArtNET Configuration
+        function updateArtnetConfigForm(config) {
+            document.getElementById('artnetIp').value = config.ip;
+            document.getElementById('artnetSubnet').value = config.subnet;
+            document.getElementById('artnetUniverse').value = config.universe;
+            document.getElementById('artnetNet').value = config.net;
+            document.getElementById('artnetPort').value = config.port;
+            document.getElementById('artnetRefreshInterval').value = config.base_refresh_interval;
+        }
+
+        artnetConfigForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(artnetConfigForm);
+            const config = Object.fromEntries(formData.entries());
+            config.subnet = parseInt(config.subnet);
+            config.universe = parseInt(config.universe);
+            config.net = parseInt(config.net);
+            config.port = parseInt(config.port);
+            config.base_refresh_interval = parseInt(config.base_refresh_interval);
+            socket.emit('updateArtnetConfig', config);
+            log(`ArtNET configuration update requested: ${JSON.stringify(config)}`);
+        });
+
+        socket.on('artnetConfigUpdated', (config) => {
+            log(`ArtNET configuration updated: ${JSON.stringify(config)}`);
+            updateArtnetConfigForm(config);
+            showStatusMessage('ArtNET configuration updated successfully');
         });
 
         // Ensure initial visibility of main control section and load initial state
