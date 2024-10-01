@@ -5399,3 +5399,470 @@
 2024-10-01T06:42:52.721Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
 2024-10-01T06:42:52.722Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
 2024-10-01T06:42:59.150Z - User disconnected
+2024-10-01T06:43:43.111Z - Setting DMX channel 0 to value 150
+2024-10-01T06:43:43.116Z - DMX channel 0 set to 150
+2024-10-01T06:43:43.176Z - Setting DMX channel 0 to value 152
+2024-10-01T06:43:43.179Z - DMX channel 0 set to 152
+2024-10-01T06:43:43.213Z - Setting DMX channel 0 to value 153
+2024-10-01T06:43:43.215Z - DMX channel 0 set to 153
+2024-10-01T06:43:43.218Z - Setting DMX channel 0 to value 155
+2024-10-01T06:43:43.224Z - DMX channel 0 set to 155
+2024-10-01T06:43:43.286Z - Setting DMX channel 0 to value 156
+2024-10-01T06:43:43.289Z - DMX channel 0 set to 156
+2024-10-01T06:43:43.291Z - Setting DMX channel 0 to value 157
+2024-10-01T06:43:43.295Z - DMX channel 0 set to 157
+2024-10-01T06:44:11.588Z - User disconnected
+2024-10-01T06:44:11.893Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:44:11.894Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:44:11.896Z - A user connected
+2024-10-01T06:44:11.901Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:44:11.937Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:44:13.131Z - Setting DMX channel 0 to value 131
+2024-10-01T06:44:13.134Z - DMX channel 0 set to 131
+2024-10-01T06:44:13.138Z - Setting DMX channel 0 to value 135
+2024-10-01T06:44:13.141Z - DMX channel 0 set to 135
+2024-10-01T06:44:13.143Z - Setting DMX channel 0 to value 140
+2024-10-01T06:44:13.146Z - DMX channel 0 set to 140
+2024-10-01T06:44:13.175Z - Setting DMX channel 0 to value 150
+2024-10-01T06:44:13.178Z - DMX channel 0 set to 150
+2024-10-01T06:44:13.182Z - Setting DMX channel 0 to value 156
+2024-10-01T06:44:13.185Z - DMX channel 0 set to 156
+2024-10-01T06:44:13.187Z - Setting DMX channel 0 to value 161
+2024-10-01T06:44:13.189Z - DMX channel 0 set to 161
+2024-10-01T06:44:13.249Z - Setting DMX channel 0 to value 168
+2024-10-01T06:44:13.251Z - DMX channel 0 set to 168
+2024-10-01T06:44:13.257Z - Setting DMX channel 0 to value 171
+2024-10-01T06:44:13.260Z - DMX channel 0 set to 171
+2024-10-01T06:44:13.262Z - Setting DMX channel 0 to value 176
+2024-10-01T06:44:13.265Z - DMX channel 0 set to 176
+2024-10-01T06:44:13.266Z - Setting DMX channel 0 to value 179
+2024-10-01T06:44:13.269Z - DMX channel 0 set to 179
+2024-10-01T06:44:13.388Z - Setting DMX channel 0 to value 182
+2024-10-01T06:44:13.391Z - DMX channel 0 set to 182
+2024-10-01T06:44:13.398Z - Setting DMX channel 0 to value 184
+2024-10-01T06:44:13.400Z - DMX channel 0 set to 184
+2024-10-01T06:44:13.402Z - Setting DMX channel 0 to value 187
+2024-10-01T06:44:13.404Z - DMX channel 0 set to 187
+2024-10-01T06:44:13.406Z - Setting DMX channel 0 to value 189
+2024-10-01T06:44:13.409Z - DMX channel 0 set to 189
+2024-10-01T06:44:13.410Z - Setting DMX channel 0 to value 190
+2024-10-01T06:44:13.413Z - DMX channel 0 set to 190
+2024-10-01T06:44:13.414Z - Setting DMX channel 0 to value 191
+2024-10-01T06:44:13.416Z - DMX channel 0 set to 191
+2024-10-01T06:44:13.418Z - Setting DMX channel 0 to value 192
+2024-10-01T06:44:13.420Z - DMX channel 0 set to 192
+2024-10-01T06:44:13.422Z - Setting DMX channel 0 to value 193
+2024-10-01T06:44:13.424Z - DMX channel 0 set to 193
+2024-10-01T06:44:13.559Z - Setting DMX channel 0 to value 194
+2024-10-01T06:44:13.561Z - DMX channel 0 set to 194
+2024-10-01T06:44:13.563Z - Setting DMX channel 0 to value 195
+2024-10-01T06:44:13.566Z - DMX channel 0 set to 195
+2024-10-01T06:44:13.568Z - Setting DMX channel 0 to value 196
+2024-10-01T06:44:13.571Z - DMX channel 0 set to 196
+2024-10-01T06:44:13.572Z - Setting DMX channel 0 to value 197
+2024-10-01T06:44:13.575Z - DMX channel 0 set to 197
+2024-10-01T06:44:13.576Z - Setting DMX channel 0 to value 199
+2024-10-01T06:44:13.578Z - DMX channel 0 set to 199
+2024-10-01T06:44:13.596Z - Setting DMX channel 0 to value 201
+2024-10-01T06:44:13.598Z - DMX channel 0 set to 201
+2024-10-01T06:44:13.602Z - Setting DMX channel 0 to value 202
+2024-10-01T06:44:13.605Z - DMX channel 0 set to 202
+2024-10-01T06:44:13.659Z - Setting DMX channel 0 to value 203
+2024-10-01T06:44:13.662Z - DMX channel 0 set to 203
+2024-10-01T06:44:13.666Z - Setting DMX channel 0 to value 206
+2024-10-01T06:44:13.669Z - DMX channel 0 set to 206
+2024-10-01T06:44:13.737Z - Setting DMX channel 0 to value 208
+2024-10-01T06:44:13.740Z - DMX channel 0 set to 208
+2024-10-01T06:44:13.744Z - Setting DMX channel 0 to value 209
+2024-10-01T06:44:13.748Z - DMX channel 0 set to 209
+2024-10-01T06:44:13.751Z - Setting DMX channel 0 to value 211
+2024-10-01T06:44:13.755Z - DMX channel 0 set to 211
+2024-10-01T06:44:13.780Z - Setting DMX channel 0 to value 212
+2024-10-01T06:44:13.784Z - DMX channel 0 set to 212
+2024-10-01T06:44:14.091Z - Setting DMX channel 0 to value 211
+2024-10-01T06:44:14.095Z - DMX channel 0 set to 211
+2024-10-01T06:44:14.097Z - Setting DMX channel 0 to value 209
+2024-10-01T06:44:14.099Z - DMX channel 0 set to 209
+2024-10-01T06:44:14.101Z - Setting DMX channel 0 to value 207
+2024-10-01T06:44:14.103Z - DMX channel 0 set to 207
+2024-10-01T06:44:14.104Z - Setting DMX channel 0 to value 202
+2024-10-01T06:44:14.107Z - DMX channel 0 set to 202
+2024-10-01T06:44:14.108Z - Setting DMX channel 0 to value 183
+2024-10-01T06:44:14.110Z - DMX channel 0 set to 183
+2024-10-01T06:44:14.112Z - Setting DMX channel 0 to value 163
+2024-10-01T06:44:14.115Z - DMX channel 0 set to 163
+2024-10-01T06:44:14.116Z - Setting DMX channel 0 to value 136
+2024-10-01T06:44:14.118Z - DMX channel 0 set to 136
+2024-10-01T06:44:14.120Z - Setting DMX channel 0 to value 95
+2024-10-01T06:44:14.122Z - DMX channel 0 set to 95
+2024-10-01T06:44:14.123Z - Setting DMX channel 0 to value 79
+2024-10-01T06:44:14.128Z - DMX channel 0 set to 79
+2024-10-01T06:44:14.129Z - Setting DMX channel 0 to value 67
+2024-10-01T06:44:14.131Z - DMX channel 0 set to 67
+2024-10-01T06:44:14.133Z - Setting DMX channel 0 to value 61
+2024-10-01T06:44:14.135Z - DMX channel 0 set to 61
+2024-10-01T06:44:14.136Z - Setting DMX channel 0 to value 60
+2024-10-01T06:44:14.138Z - DMX channel 0 set to 60
+2024-10-01T06:44:14.140Z - Setting DMX channel 0 to value 59
+2024-10-01T06:44:14.142Z - DMX channel 0 set to 59
+2024-10-01T06:44:14.262Z - Setting DMX channel 0 to value 58
+2024-10-01T06:44:14.264Z - DMX channel 0 set to 58
+2024-10-01T06:44:14.266Z - Setting DMX channel 0 to value 56
+2024-10-01T06:44:14.268Z - DMX channel 0 set to 56
+2024-10-01T06:44:14.270Z - Setting DMX channel 0 to value 53
+2024-10-01T06:44:14.272Z - DMX channel 0 set to 53
+2024-10-01T06:44:14.279Z - Setting DMX channel 0 to value 48
+2024-10-01T06:44:14.281Z - DMX channel 0 set to 48
+2024-10-01T06:44:14.294Z - Setting DMX channel 0 to value 26
+2024-10-01T06:44:14.296Z - DMX channel 0 set to 26
+2024-10-01T06:44:14.317Z - Setting DMX channel 0 to value 8
+2024-10-01T06:44:14.319Z - DMX channel 0 set to 8
+2024-10-01T06:44:14.338Z - Setting DMX channel 0 to value 0
+2024-10-01T06:44:14.340Z - DMX channel 0 set to 0
+2024-10-01T06:44:20.824Z - Starting MIDI learn for DMX channel 0
+2024-10-01T06:44:21.364Z - Setting DMX channel 0 to value 48
+2024-10-01T06:44:21.368Z - DMX channel 0 set to 48
+2024-10-01T06:44:22.380Z - Setting DMX channel 0 to value 47
+2024-10-01T06:44:22.384Z - DMX channel 0 set to 47
+2024-10-01T06:44:22.495Z - Setting DMX channel 0 to value 48
+2024-10-01T06:44:22.499Z - DMX channel 0 set to 48
+2024-10-01T06:44:22.548Z - Setting DMX channel 0 to value 51
+2024-10-01T06:44:22.551Z - DMX channel 0 set to 51
+2024-10-01T06:44:22.554Z - Setting DMX channel 0 to value 54
+2024-10-01T06:44:22.558Z - DMX channel 0 set to 54
+2024-10-01T06:44:22.560Z - Setting DMX channel 0 to value 59
+2024-10-01T06:44:22.563Z - DMX channel 0 set to 59
+2024-10-01T06:44:22.572Z - Setting DMX channel 0 to value 70
+2024-10-01T06:44:22.576Z - DMX channel 0 set to 70
+2024-10-01T06:44:22.578Z - Setting DMX channel 0 to value 79
+2024-10-01T06:44:22.582Z - DMX channel 0 set to 79
+2024-10-01T06:44:22.587Z - Setting DMX channel 0 to value 90
+2024-10-01T06:44:22.591Z - DMX channel 0 set to 90
+2024-10-01T06:44:22.643Z - Setting DMX channel 0 to value 96
+2024-10-01T06:44:22.646Z - DMX channel 0 set to 96
+2024-10-01T06:44:22.649Z - Setting DMX channel 0 to value 99
+2024-10-01T06:44:22.655Z - DMX channel 0 set to 99
+2024-10-01T06:44:22.661Z - Setting DMX channel 0 to value 104
+2024-10-01T06:44:22.663Z - DMX channel 0 set to 104
+2024-10-01T06:44:22.666Z - Setting DMX channel 0 to value 108
+2024-10-01T06:44:22.669Z - DMX channel 0 set to 108
+2024-10-01T06:44:22.675Z - Setting DMX channel 0 to value 112
+2024-10-01T06:44:22.680Z - DMX channel 0 set to 112
+2024-10-01T06:44:22.687Z - Setting DMX channel 0 to value 119
+2024-10-01T06:44:22.692Z - DMX channel 0 set to 119
+2024-10-01T06:44:22.738Z - Setting DMX channel 0 to value 121
+2024-10-01T06:44:22.740Z - DMX channel 0 set to 121
+2024-10-01T06:44:22.742Z - Setting DMX channel 0 to value 119
+2024-10-01T06:44:22.744Z - DMX channel 0 set to 119
+2024-10-01T06:44:23.988Z - Setting DMX channel 0 to value 109
+2024-10-01T06:44:23.990Z - DMX channel 0 set to 109
+2024-10-01T06:44:24.014Z - Setting DMX channel 0 to value 112
+2024-10-01T06:44:24.016Z - DMX channel 0 set to 112
+2024-10-01T06:44:24.062Z - Setting DMX channel 0 to value 114
+2024-10-01T06:44:24.064Z - DMX channel 0 set to 114
+2024-10-01T06:44:24.066Z - Setting DMX channel 0 to value 115
+2024-10-01T06:44:24.070Z - DMX channel 0 set to 115
+2024-10-01T06:44:24.094Z - Setting DMX channel 0 to value 116
+2024-10-01T06:44:24.096Z - DMX channel 0 set to 116
+2024-10-01T06:44:24.142Z - Setting DMX channel 0 to value 119
+2024-10-01T06:44:24.145Z - DMX channel 0 set to 119
+2024-10-01T06:44:24.149Z - Setting DMX channel 0 to value 130
+2024-10-01T06:44:24.152Z - DMX channel 0 set to 130
+2024-10-01T06:44:24.157Z - Setting DMX channel 0 to value 133
+2024-10-01T06:44:24.159Z - DMX channel 0 set to 133
+2024-10-01T06:44:24.206Z - Setting DMX channel 0 to value 141
+2024-10-01T06:44:24.208Z - DMX channel 0 set to 141
+2024-10-01T06:44:24.210Z - Setting DMX channel 0 to value 151
+2024-10-01T06:44:24.213Z - DMX channel 0 set to 151
+2024-10-01T06:44:24.215Z - Setting DMX channel 0 to value 156
+2024-10-01T06:44:24.217Z - DMX channel 0 set to 156
+2024-10-01T06:44:24.222Z - Setting DMX channel 0 to value 160
+2024-10-01T06:44:24.226Z - DMX channel 0 set to 160
+2024-10-01T06:44:24.235Z - Setting DMX channel 0 to value 163
+2024-10-01T06:44:24.238Z - DMX channel 0 set to 163
+2024-10-01T06:44:24.291Z - Setting DMX channel 0 to value 156
+2024-10-01T06:44:24.294Z - DMX channel 0 set to 156
+2024-10-01T06:44:24.338Z - Setting DMX channel 0 to value 149
+2024-10-01T06:44:24.340Z - DMX channel 0 set to 149
+2024-10-01T06:44:24.386Z - Setting DMX channel 0 to value 137
+2024-10-01T06:44:24.388Z - DMX channel 0 set to 137
+2024-10-01T06:44:24.390Z - Setting DMX channel 0 to value 125
+2024-10-01T06:44:24.392Z - DMX channel 0 set to 125
+2024-10-01T06:44:24.451Z - Setting DMX channel 0 to value 109
+2024-10-01T06:44:24.453Z - DMX channel 0 set to 109
+2024-10-01T06:44:24.455Z - Setting DMX channel 0 to value 84
+2024-10-01T06:44:24.457Z - DMX channel 0 set to 84
+2024-10-01T06:44:24.459Z - Setting DMX channel 0 to value 67
+2024-10-01T06:44:24.461Z - DMX channel 0 set to 67
+2024-10-01T06:44:24.462Z - Setting DMX channel 0 to value 55
+2024-10-01T06:44:24.465Z - DMX channel 0 set to 55
+2024-10-01T06:44:24.467Z - Setting DMX channel 0 to value 40
+2024-10-01T06:44:24.469Z - DMX channel 0 set to 40
+2024-10-01T06:44:24.471Z - Setting DMX channel 0 to value 35
+2024-10-01T06:44:24.473Z - DMX channel 0 set to 35
+2024-10-01T06:44:24.482Z - Setting DMX channel 0 to value 33
+2024-10-01T06:44:24.484Z - DMX channel 0 set to 33
+2024-10-01T06:44:24.486Z - Setting DMX channel 0 to value 31
+2024-10-01T06:44:24.488Z - DMX channel 0 set to 31
+2024-10-01T06:44:24.492Z - Setting DMX channel 0 to value 30
+2024-10-01T06:44:24.495Z - DMX channel 0 set to 30
+2024-10-01T06:44:24.616Z - Setting DMX channel 0 to value 31
+2024-10-01T06:44:24.618Z - DMX channel 0 set to 31
+2024-10-01T06:44:24.666Z - Setting DMX channel 0 to value 32
+2024-10-01T06:44:24.669Z - DMX channel 0 set to 32
+2024-10-01T06:44:24.878Z - Setting DMX channel 0 to value 31
+2024-10-01T06:44:24.880Z - DMX channel 0 set to 31
+2024-10-01T06:44:24.899Z - Setting DMX channel 0 to value 29
+2024-10-01T06:44:24.902Z - DMX channel 0 set to 29
+2024-10-01T06:44:24.943Z - Setting DMX channel 0 to value 24
+2024-10-01T06:44:24.946Z - DMX channel 0 set to 24
+2024-10-01T06:44:24.950Z - Setting DMX channel 0 to value 19
+2024-10-01T06:44:24.953Z - DMX channel 0 set to 19
+2024-10-01T06:44:24.964Z - Setting DMX channel 0 to value 8
+2024-10-01T06:44:24.966Z - DMX channel 0 set to 8
+2024-10-01T06:44:25.023Z - Setting DMX channel 0 to value 1
+2024-10-01T06:44:25.025Z - DMX channel 0 set to 1
+2024-10-01T06:44:25.026Z - Setting DMX channel 0 to value 0
+2024-10-01T06:44:25.029Z - DMX channel 0 set to 0
+2024-10-01T06:44:30.826Z - MIDI learn timeout
+2024-10-01T06:56:27.466Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T06:56:27.478Z - MIDI mappings loaded: {}
+2024-10-01T06:56:27.720Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:27.721Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:27.731Z - Connected to MIDI input: Midi Through:Midi Through Port-0 14:0
+2024-10-01T06:56:27.955Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T06:56:31.786Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:31.789Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:31.794Z - A user connected
+2024-10-01T06:56:31.802Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:31.805Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:33.762Z - User disconnected
+2024-10-01T06:56:33.918Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:33.919Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:33.921Z - A user connected
+2024-10-01T06:56:33.929Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:33.930Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:35.876Z - User disconnected
+2024-10-01T06:56:35.990Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:35.991Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:35.994Z - A user connected
+2024-10-01T06:56:36.000Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:36.001Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:36.274Z - User disconnected
+2024-10-01T06:56:36.393Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:36.394Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:56:36.395Z - A user connected
+2024-10-01T06:56:36.403Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:56:36.404Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:57:04.215Z - User disconnected
+2024-10-01T06:57:05.072Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:57:05.073Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:57:05.076Z - A user connected
+2024-10-01T06:57:05.084Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:57:05.085Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:57:07.520Z - User disconnected
+2024-10-01T06:57:07.642Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:57:07.643Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:57:07.644Z - A user connected
+2024-10-01T06:57:07.650Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:57:07.651Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:57:09.660Z - User disconnected
+2024-10-01T06:57:09.922Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:57:09.923Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:57:09.925Z - A user connected
+2024-10-01T06:57:09.934Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:57:09.935Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:58:03.757Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:58:03.759Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:58:03.761Z - A user connected
+2024-10-01T06:58:03.768Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:58:03.770Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T06:58:06.242Z - User disconnected
+2024-10-01T06:59:59.201Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T06:59:59.205Z - MIDI mappings loaded: {}
+2024-10-01T06:59:59.240Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:59:59.241Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T06:59:59.251Z - Connected to MIDI input: Midi Through:Midi Through Port-0 14:0
+2024-10-01T06:59:59.444Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T07:04:28.755Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T07:04:28.760Z - MIDI mappings loaded: {}
+2024-10-01T07:04:28.803Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:28.804Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:28.816Z - Connected to MIDI input: Midi Through:Midi Through Port-0 14:0
+2024-10-01T07:04:29.008Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T07:04:32.086Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:32.089Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:04:32.094Z - A user connected
+2024-10-01T07:04:32.103Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:32.105Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:04:34.084Z - User disconnected
+2024-10-01T07:04:34.616Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:34.618Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:04:34.620Z - A user connected
+2024-10-01T07:04:34.626Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:34.627Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:04:36.157Z - User disconnected
+2024-10-01T07:04:36.688Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:36.690Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:04:36.692Z - A user connected
+2024-10-01T07:04:36.701Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:04:36.703Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:08:36.286Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T07:08:36.291Z - MIDI mappings loaded: {}
+2024-10-01T07:08:36.354Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:08:36.356Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:08:36.368Z - Connected to MIDI input: Midi Through:Midi Through Port-0 14:0
+2024-10-01T07:08:36.554Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2024-10-01T07:08:39.489Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:08:39.490Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:08:39.500Z - A user connected
+2024-10-01T07:08:39.508Z - Available MIDI Inputs: ["Midi Through:Midi Through Port-0 14:0"]
+2024-10-01T07:08:39.510Z - Available MIDI Outputs: ["Midi Through:Midi Through Port-0 14:0","RtMidi Input Client:RtMidi Input 130:0"]
+2024-10-01T07:08:40.573Z - Setting DMX channel 0 to value 18
+2024-10-01T07:08:40.583Z - DMX channel 0 set to 18
+2024-10-01T07:08:40.689Z - Setting DMX channel 0 to value 19
+2024-10-01T07:08:40.692Z - DMX channel 0 set to 19
+2024-10-01T07:08:40.707Z - Setting DMX channel 0 to value 20
+2024-10-01T07:08:40.713Z - DMX channel 0 set to 20
+2024-10-01T07:08:40.719Z - Setting DMX channel 0 to value 21
+2024-10-01T07:08:40.722Z - DMX channel 0 set to 21
+2024-10-01T07:08:40.730Z - Setting DMX channel 0 to value 25
+2024-10-01T07:08:40.733Z - DMX channel 0 set to 25
+2024-10-01T07:08:40.777Z - Setting DMX channel 0 to value 34
+2024-10-01T07:08:40.780Z - DMX channel 0 set to 34
+2024-10-01T07:08:40.782Z - Setting DMX channel 0 to value 43
+2024-10-01T07:08:40.787Z - DMX channel 0 set to 43
+2024-10-01T07:08:40.812Z - Setting DMX channel 0 to value 52
+2024-10-01T07:08:40.814Z - DMX channel 0 set to 52
+2024-10-01T07:08:40.868Z - Setting DMX channel 0 to value 56
+2024-10-01T07:08:40.871Z - DMX channel 0 set to 56
+2024-10-01T07:08:40.876Z - Setting DMX channel 0 to value 59
+2024-10-01T07:08:40.879Z - DMX channel 0 set to 59
+2024-10-01T07:08:40.881Z - Setting DMX channel 0 to value 63
+2024-10-01T07:08:40.883Z - DMX channel 0 set to 63
+2024-10-01T07:08:40.888Z - Setting DMX channel 0 to value 65
+2024-10-01T07:08:40.891Z - DMX channel 0 set to 65
+2024-10-01T07:08:40.906Z - Setting DMX channel 0 to value 69
+2024-10-01T07:08:40.908Z - DMX channel 0 set to 69
+2024-10-01T07:08:40.918Z - Setting DMX channel 0 to value 80
+2024-10-01T07:08:40.921Z - DMX channel 0 set to 80
+2024-10-01T07:08:40.923Z - Setting DMX channel 0 to value 91
+2024-10-01T07:08:40.928Z - DMX channel 0 set to 91
+2024-10-01T07:08:40.930Z - Setting DMX channel 0 to value 105
+2024-10-01T07:08:40.933Z - DMX channel 0 set to 105
+2024-10-01T07:08:40.942Z - Setting DMX channel 0 to value 112
+2024-10-01T07:08:40.946Z - DMX channel 0 set to 112
+2024-10-01T07:08:40.951Z - Setting DMX channel 0 to value 123
+2024-10-01T07:08:40.954Z - DMX channel 0 set to 123
+2024-10-01T07:08:40.965Z - Setting DMX channel 0 to value 132
+2024-10-01T07:08:40.967Z - DMX channel 0 set to 132
+2024-10-01T07:08:40.991Z - Setting DMX channel 0 to value 137
+2024-10-01T07:08:40.994Z - DMX channel 0 set to 137
+2024-10-01T07:08:40.999Z - Setting DMX channel 0 to value 140
+2024-10-01T07:08:41.001Z - DMX channel 0 set to 140
+2024-10-01T07:08:41.007Z - Setting DMX channel 0 to value 144
+2024-10-01T07:08:41.010Z - DMX channel 0 set to 144
+2024-10-01T07:08:41.023Z - Setting DMX channel 0 to value 147
+2024-10-01T07:08:41.026Z - DMX channel 0 set to 147
+2024-10-01T07:08:41.039Z - Setting DMX channel 0 to value 153
+2024-10-01T07:08:41.042Z - DMX channel 0 set to 153
+2024-10-01T07:08:41.059Z - Setting DMX channel 0 to value 164
+2024-10-01T07:08:41.062Z - DMX channel 0 set to 164
+2024-10-01T07:08:41.073Z - Setting DMX channel 0 to value 170
+2024-10-01T07:08:41.076Z - DMX channel 0 set to 170
+2024-10-01T07:08:41.098Z - Setting DMX channel 0 to value 176
+2024-10-01T07:08:41.101Z - DMX channel 0 set to 176
+2024-10-01T07:08:41.111Z - Setting DMX channel 0 to value 180
+2024-10-01T07:08:41.114Z - DMX channel 0 set to 180
+2024-10-01T07:08:41.123Z - Setting DMX channel 0 to value 182
+2024-10-01T07:08:41.125Z - DMX channel 0 set to 182
+2024-10-01T07:08:41.144Z - Setting DMX channel 0 to value 185
+2024-10-01T07:08:41.146Z - DMX channel 0 set to 185
+2024-10-01T07:08:41.174Z - Setting DMX channel 0 to value 187
+2024-10-01T07:08:41.177Z - DMX channel 0 set to 187
+2024-10-01T07:08:41.181Z - Setting DMX channel 0 to value 188
+2024-10-01T07:08:41.184Z - DMX channel 0 set to 188
+2024-10-01T07:08:41.197Z - Setting DMX channel 0 to value 188
+2024-10-01T07:08:41.199Z - DMX channel 0 set to 188
+2024-10-01T07:08:41.232Z - Setting DMX channel 0 to value 182
+2024-10-01T07:08:41.235Z - DMX channel 0 set to 182
+2024-10-01T07:08:41.240Z - Setting DMX channel 0 to value 176
+2024-10-01T07:08:41.242Z - DMX channel 0 set to 176
+2024-10-01T07:08:41.253Z - Setting DMX channel 0 to value 169
+2024-10-01T07:08:41.256Z - DMX channel 0 set to 169
+2024-10-01T07:08:41.272Z - Setting DMX channel 0 to value 161
+2024-10-01T07:08:41.275Z - DMX channel 0 set to 161
+2024-10-01T07:08:41.288Z - Setting DMX channel 0 to value 158
+2024-10-01T07:08:41.290Z - DMX channel 0 set to 158
+2024-10-01T07:08:41.309Z - Setting DMX channel 0 to value 156
+2024-10-01T07:08:41.311Z - DMX channel 0 set to 156
+2024-10-01T07:08:41.322Z - Setting DMX channel 0 to value 141
+2024-10-01T07:08:41.325Z - DMX channel 0 set to 141
+2024-10-01T07:08:41.341Z - Setting DMX channel 0 to value 118
+2024-10-01T07:08:41.343Z - DMX channel 0 set to 118
+2024-10-01T07:08:41.355Z - Setting DMX channel 0 to value 88
+2024-10-01T07:08:41.358Z - DMX channel 0 set to 88
+2024-10-01T07:08:41.373Z - Setting DMX channel 0 to value 34
+2024-10-01T07:08:41.376Z - DMX channel 0 set to 34
+2024-10-01T07:08:41.401Z - Setting DMX channel 0 to value 12
+2024-10-01T07:08:41.403Z - DMX channel 0 set to 12
+2024-10-01T07:08:41.409Z - Setting DMX channel 0 to value 0
+2024-10-01T07:08:41.411Z - DMX channel 0 set to 0
+2024-10-01T07:08:41.422Z - Setting DMX channel 0 to value 0
+2024-10-01T07:08:41.425Z - DMX channel 0 set to 0
+2024-10-01T07:08:44.481Z - Starting MIDI learn for DMX channel 0
+2024-10-01T07:08:46.287Z - Starting MIDI learn for DMX channel 0
+2024-10-01T07:08:52.782Z - Setting DMX channel 0 to value 53
+2024-10-01T07:08:52.784Z - DMX channel 0 set to 53
+2024-10-01T07:08:56.290Z - MIDI learn timeout
+2024-10-01T07:08:58.220Z - Starting MIDI learn for DMX channel 0
+2024-10-01T07:09:01.935Z - Setting DMX channel 0 to value 56
+2024-10-01T07:09:01.938Z - DMX channel 0 set to 56
+2024-10-01T07:09:01.998Z - Setting DMX channel 0 to value 57
+2024-10-01T07:09:02.000Z - DMX channel 0 set to 57
+2024-10-01T07:09:02.028Z - Setting DMX channel 0 to value 59
+2024-10-01T07:09:02.030Z - DMX channel 0 set to 59
+2024-10-01T07:09:02.041Z - Setting DMX channel 0 to value 60
+2024-10-01T07:09:02.043Z - DMX channel 0 set to 60
+2024-10-01T07:09:02.059Z - Setting DMX channel 0 to value 67
+2024-10-01T07:09:02.061Z - DMX channel 0 set to 67
+2024-10-01T07:09:02.090Z - Setting DMX channel 0 to value 79
+2024-10-01T07:09:02.093Z - DMX channel 0 set to 79
+2024-10-01T07:09:02.107Z - Setting DMX channel 0 to value 98
+2024-10-01T07:09:02.109Z - DMX channel 0 set to 98
+2024-10-01T07:09:02.111Z - Setting DMX channel 0 to value 137
+2024-10-01T07:09:02.113Z - DMX channel 0 set to 137
+2024-10-01T07:09:02.144Z - Setting DMX channel 0 to value 157
+2024-10-01T07:09:02.147Z - DMX channel 0 set to 157
+2024-10-01T07:09:02.151Z - Setting DMX channel 0 to value 180
+2024-10-01T07:09:02.154Z - DMX channel 0 set to 180
+2024-10-01T07:09:02.159Z - Setting DMX channel 0 to value 190
+2024-10-01T07:09:02.161Z - DMX channel 0 set to 190
+2024-10-01T07:09:02.179Z - Setting DMX channel 0 to value 201
+2024-10-01T07:09:02.182Z - DMX channel 0 set to 201
+2024-10-01T07:09:02.190Z - Setting DMX channel 0 to value 205
+2024-10-01T07:09:02.193Z - DMX channel 0 set to 205
+2024-10-01T07:09:02.215Z - Setting DMX channel 0 to value 206
+2024-10-01T07:09:02.217Z - DMX channel 0 set to 206
+2024-10-01T07:09:02.228Z - Setting DMX channel 0 to value 208
+2024-10-01T07:09:02.230Z - DMX channel 0 set to 208
+2024-10-01T07:09:02.239Z - Setting DMX channel 0 to value 208
+2024-10-01T07:09:02.242Z - DMX channel 0 set to 208
+2024-10-01T07:09:02.306Z - Setting DMX channel 0 to value 209
+2024-10-01T07:09:02.308Z - DMX channel 0 set to 209
+2024-10-01T07:09:04.891Z - Starting MIDI learn for DMX channel 0
+2024-10-01T07:09:12.483Z - Setting DMX channel 0 to value 65
+2024-10-01T07:09:12.486Z - DMX channel 0 set to 65
+2024-10-01T07:09:12.568Z - Setting DMX channel 0 to value 66
+2024-10-01T07:09:12.571Z - DMX channel 0 set to 66
+2024-10-01T07:09:12.667Z - Setting DMX channel 0 to value 65
+2024-10-01T07:09:12.670Z - DMX channel 0 set to 65
+2024-10-01T07:09:12.722Z - Setting DMX channel 0 to value 64
+2024-10-01T07:09:12.725Z - DMX channel 0 set to 64
+2024-10-01T07:09:12.729Z - Setting DMX channel 0 to value 62
+2024-10-01T07:09:12.732Z - DMX channel 0 set to 62
+2024-10-01T07:09:12.784Z - Setting DMX channel 0 to value 61
+2024-10-01T07:09:12.786Z - DMX channel 0 set to 61
+2024-10-01T07:09:12.790Z - Setting DMX channel 0 to value 60
+2024-10-01T07:09:12.794Z - DMX channel 0 set to 60
+2024-10-01T07:09:14.893Z - MIDI learn timeout

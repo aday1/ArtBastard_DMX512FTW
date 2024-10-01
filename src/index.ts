@@ -36,7 +36,6 @@ interface MidiMapping {
 
 type MidiMappings = { [dmxChannel: number]: MidiMapping };
 
-// Extend the MidiMessage type from easymidi
 interface MidiMessage {
     _type: string;
     channel: number;
@@ -126,14 +125,14 @@ function initializeMidi(io: Server) {
                 const extendedMsg: ExtendedMidiMessage = { ...msg, _type: 'noteon' };
                 log(`MIDI Note On received: ${JSON.stringify(extendedMsg)}`);
                 io.emit('midiMessage', extendedMsg);
-                handleMidiLearn(extendedMsg);
+                handleMidiLearn(io, extendedMsg);
             });
 
             midiInput.on('cc', (msg: MidiMessage) => {
                 const extendedMsg: ExtendedMidiMessage = { ...msg, _type: 'cc', value: msg.value };
                 log(`MIDI CC received: ${JSON.stringify(extendedMsg)}`);
                 io.emit('midiMessage', extendedMsg);
-                handleMidiLearn(extendedMsg);
+                handleMidiLearn(io, extendedMsg);
             });
 
             io.emit('midiInputsAvailable', inputs);
@@ -147,14 +146,14 @@ function initializeMidi(io: Server) {
     }
 }
 
-function handleMidiLearn(msg: ExtendedMidiMessage) {
+function handleMidiLearn(io: Server, msg: ExtendedMidiMessage) {
     if (currentMidiLearnChannel !== null) {
         const midiMapping: MidiMapping = {
             channel: msg.channel,
             note: msg._type === 'noteon' ? msg.note : undefined,
             controller: msg._type === 'cc' ? msg.controller : undefined
         };
-        learnMidiMapping(currentMidiLearnChannel, midiMapping);
+        learnMidiMapping(io, currentMidiLearnChannel, midiMapping);
         currentMidiLearnChannel = null;
         if (midiLearnTimeout) {
             clearTimeout(midiLearnTimeout);
@@ -163,11 +162,11 @@ function handleMidiLearn(msg: ExtendedMidiMessage) {
     }
 }
 
-function learnMidiMapping(dmxChannel: number, midiMapping: MidiMapping) {
+function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMapping) {
     midiMappings[dmxChannel] = midiMapping;
     saveConfig();
     log(`MIDI mapping learned for DMX channel ${dmxChannel}: ${JSON.stringify(midiMapping)}`);
-    return true;
+    io.emit('midiLearned', { dmxChannel, midiMapping });
 }
 
 function loadConfig() {
@@ -250,7 +249,7 @@ function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, n
 
     log(`Simulated MIDI ${type} received: ${JSON.stringify(msg)}`);
     io.emit('midiMessage', msg);
-    handleMidiLearn(msg);
+    handleMidiLearn(io, msg);
 }
 
 function startLaserTime(io: Server) {
@@ -316,6 +315,21 @@ function startLaserTime(io: Server) {
             log(`Setting DMX channel ${channel} to value ${value}`);
             updateDmxChannel(channel, value);
             io.emit('dmxUpdate', { channel, value });
+        });
+
+        socket.on('updateArtnetConfig', (newConfig: ArtNetConfig) => {
+            log(`Updating ArtNet config: ${JSON.stringify(newConfig)}`);
+            artNetConfig = newConfig;
+            saveConfig();
+            initializeArtNet(); // Reinitialize ArtNet with new config
+            io.emit('artnetConfigUpdated', artNetConfig);
+        });
+
+        socket.on('forgetMidi', (dmxChannel: number) => {
+            log(`Forgetting MIDI mapping for DMX channel ${dmxChannel}`);
+            delete midiMappings[dmxChannel];
+            saveConfig();
+            io.emit('midiMappingForgotten', dmxChannel);
         });
 
         socket.on('disconnect', () => {
