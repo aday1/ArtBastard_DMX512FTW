@@ -1,4 +1,4 @@
-import easymidi, { Input, MidiMessage } from 'easymidi';
+import easymidi, { Input } from 'easymidi';
 import { Server, Socket } from 'socket.io';
 import os from 'os';
 import { UDPPort, OscMessage } from 'osc';
@@ -11,12 +11,6 @@ import ping from 'ping';
 import dmxnet from 'dmxnet';
 
 // Type definitions
-interface Scene {
-    name: string;
-    channelValues: number[];
-    oscAddress: string;
-}
-
 interface Fixture {
     name: string;
     startAddress: number;
@@ -28,13 +22,10 @@ interface Group {
     fixtureIndices: number[];
 }
 
-interface ArtNetConfig {
-    ip: string;
-    subnet: number;
-    universe: number;
-    net: number;
-    port: number;
-    base_refresh_interval: number;
+interface Scene {
+    name: string;
+    channelValues: number[];
+    oscAddress: string;
 }
 
 interface MidiMapping {
@@ -45,17 +36,27 @@ interface MidiMapping {
 
 type MidiMappings = { [dmxChannel: number]: MidiMapping };
 
-// Create a base MIDI message type without controller and value
-type BaseMidiMessage = Omit<MidiMessage, 'controller' | 'value'>;
-
-// Update the ExtendedMidiMessage interface
-interface ExtendedMidiMessage extends BaseMidiMessage {
-    _type: 'noteon' | 'cc';
+// Extend the MidiMessage type from easymidi
+interface MidiMessage {
+    _type: string;
     channel: number;
     note?: number;
     velocity?: number;
-    controller?: number;
     value?: number;
+    controller?: number;
+}
+
+interface ExtendedMidiMessage extends MidiMessage {
+    _type: 'noteon' | 'cc';
+}
+
+interface ArtNetConfig {
+    ip: string;
+    subnet: number;
+    universe: number;
+    net: number;
+    port: number;
+    base_refresh_interval: number;
 }
 
 // Variable declarations
@@ -134,6 +135,8 @@ function initializeMidi(io: Server) {
                 io.emit('midiMessage', extendedMsg);
                 handleMidiLearn(extendedMsg);
             });
+
+            io.emit('midiInputsAvailable', inputs);
         } catch (error) {
             log(`Error initializing MIDI input: ${error}`);
             io.emit('error', { message: 'Failed to initialize MIDI input' });
@@ -148,10 +151,10 @@ function handleMidiLearn(msg: ExtendedMidiMessage) {
     if (currentMidiLearnChannel !== null) {
         const midiMapping: MidiMapping = {
             channel: msg.channel,
-            note: msg.note,
-            controller: msg.controller
+            note: msg._type === 'noteon' ? msg.note : undefined,
+            controller: msg._type === 'cc' ? msg.controller : undefined
         };
-        learnMidiMapping(currentMidiLearnChannel, midiMapping.channel, midiMapping.note || midiMapping.controller || 0);
+        learnMidiMapping(currentMidiLearnChannel, midiMapping);
         currentMidiLearnChannel = null;
         if (midiLearnTimeout) {
             clearTimeout(midiLearnTimeout);
@@ -160,30 +163,10 @@ function handleMidiLearn(msg: ExtendedMidiMessage) {
     }
 }
 
-function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
-    const msg: ExtendedMidiMessage = {
-        _type: type,
-        channel,
-        note,
-        velocity,
-        value: velocity
-    };
-
-    if (type === 'cc') {
-        msg.controller = note;
-        delete msg.note;
-        delete msg.velocity;
-    }
-
-    log(`Simulated MIDI ${type} received: ${JSON.stringify(msg)}`);
-    io.emit('midiMessage', msg);
-    handleMidiLearn(msg);
-}
-
-function learnMidiMapping(dmxChannel: number, midiChannel: number, noteOrController: number) {
-    midiMappings[dmxChannel] = { channel: midiChannel, note: noteOrController };
+function learnMidiMapping(dmxChannel: number, midiMapping: MidiMapping) {
+    midiMappings[dmxChannel] = midiMapping;
     saveConfig();
-    log(`MIDI mapping learned for DMX channel ${dmxChannel}: Channel ${midiChannel}, Note/CC ${noteOrController}`);
+    log(`MIDI mapping learned for DMX channel ${dmxChannel}: ${JSON.stringify(midiMapping)}`);
     return true;
 }
 
@@ -244,7 +227,30 @@ function updateDmxChannel(channel: number, value: number) {
     if (artnetSender) {
         artnetSender.setChannel(channel, value);
         artnetSender.transmit();
+        log(`DMX channel ${channel} set to ${value}`);
+    } else {
+        log('ArtNet sender not initialized');
     }
+}
+
+function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
+    const msg: ExtendedMidiMessage = {
+        _type: type,
+        channel,
+        note,
+        velocity,
+        value: velocity
+    };
+
+    if (type === 'cc') {
+        msg.controller = note;
+        delete msg.note;
+        delete msg.velocity;
+    }
+
+    log(`Simulated MIDI ${type} received: ${JSON.stringify(msg)}`);
+    io.emit('midiMessage', msg);
+    handleMidiLearn(msg);
 }
 
 function startLaserTime(io: Server) {
@@ -265,6 +271,31 @@ function startLaserTime(io: Server) {
             artNetConfig
         });
 
+        // Send available MIDI inputs to the client
+        const { inputs } = listMidiInterfaces();
+        socket.emit('midiInputsAvailable', inputs);
+
+        socket.on('requestMidiInputs', () => {
+            const { inputs } = listMidiInterfaces();
+            socket.emit('midiInputsAvailable', inputs);
+        });
+
+        socket.on('selectMidiInput', (inputId: string) => {
+            const { inputs } = listMidiInterfaces();
+            const selectedInput = inputs.find(input => input === inputId);
+            if (selectedInput) {
+                if (midiInput) {
+                    midiInput.close();
+                }
+                midiInput = new easymidi.Input(selectedInput);
+                log(`Connected to MIDI input: ${selectedInput}`);
+                socket.emit('midiInputSelected', selectedInput);
+            } else {
+                log(`Invalid MIDI input selected: ${inputId}`);
+                socket.emit('error', { message: 'Invalid MIDI input selected' });
+            }
+        });
+
         socket.on('startMidiLearn', (dmxChannel: number) => {
             log(`Starting MIDI learn for DMX channel ${dmxChannel}`);
             currentMidiLearnChannel = dmxChannel;
@@ -281,32 +312,10 @@ function startLaserTime(io: Server) {
             io.emit('midiLearnStarted', dmxChannel);
         });
 
-        socket.on('cancelMidiLearn', () => {
-            log('Cancelling MIDI learn');
-            currentMidiLearnChannel = null;
-            if (midiLearnTimeout) {
-                clearTimeout(midiLearnTimeout);
-                midiLearnTimeout = null;
-            }
-            io.emit('midiLearnCancelled');
-        });
-
-        socket.on('simulateMidi', ({ type, channel, note, velocity }) => {
-            simulateMidiInput(io, type, channel, note, velocity);
-        });
-
         socket.on('setDmxChannel', ({ channel, value }) => {
             log(`Setting DMX channel ${channel} to value ${value}`);
             updateDmxChannel(channel, value);
             io.emit('dmxUpdate', { channel, value });
-        });
-
-        socket.on('updateArtnetConfig', (newConfig: ArtNetConfig) => {
-            log(`Updating ArtNet config: ${JSON.stringify(newConfig)}`);
-            artNetConfig = newConfig;
-            saveConfig();
-            initializeArtNet(); // Reinitialize ArtNet with new config
-            io.emit('artnetConfigUpdated', artNetConfig);
         });
 
         socket.on('disconnect', () => {
