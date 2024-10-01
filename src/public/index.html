@@ -37,6 +37,12 @@
             border: 1px solid #ccc;
             background-color: #f0f0f0;
         }
+        #debugInfo {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -184,6 +190,10 @@
                 <button id="loadAllSettings">Load All Settings</button>
             </div>
         </div>
+        <div id="debugInfo">
+            <h3>Debug Information</h3>
+            <pre id="debugOutput"></pre>
+        </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -198,11 +208,8 @@
         const oscMessagesContainer = document.getElementById('oscMessages');
         const logContainer = document.getElementById('logContainer');
         const statusIndicator = document.getElementById('statusIndicator');
-        const enableLoggingCheckbox = document.getElementById('enableLogging');
-        const enableConsoleLoggingCheckbox = document.getElementById('enableConsoleLogging');
-        const clearLogsButton = document.getElementById('clearLogs');
+        const debugOutput = document.getElementById('debugOutput');
         const webMidiStatusElement = document.getElementById('webMidiStatus');
-        const requestMidiAccessButton = document.getElementById('requestMidiAccess');
         const midiDiagnosticsElement = document.getElementById('midiDiagnostics');
         const artnetConfigForm = document.getElementById('artnetConfigForm');
         let currentMidiLearnButton = null;
@@ -214,21 +221,10 @@
         function log(message) {
             const timestamp = new Date().toISOString();
             const logMessage = `${timestamp} - ${message}`;
-            logContainer.innerHTML += logMessage + '<br>';
-            logContainer.scrollTop = logContainer.scrollHeight;
+            console.log(logMessage);
+            debugOutput.textContent += logMessage + '\n';
+            debugOutput.scrollTop = debugOutput.scrollHeight;
         }
-
-        enableLoggingCheckbox.addEventListener('change', (e) => {
-            socket.emit('toggleLogging', e.target.checked);
-        });
-
-        enableConsoleLoggingCheckbox.addEventListener('change', (e) => {
-            socket.emit('toggleConsoleLogging', e.target.checked);
-        });
-
-        clearLogsButton.addEventListener('click', () => {
-            socket.emit('clearLogs');
-        });
 
         function showStatusMessage(message, isError = false) {
             statusMessage.textContent = message;
@@ -269,13 +265,15 @@
 
         // Web MIDI API initialization
         function initWebMidi() {
+            log('Initializing Web MIDI API...');
             if (navigator.requestMIDIAccess) {
                 navigator.requestMIDIAccess({ sysex: false })
                     .then(onMIDISuccess, onMIDIFailure);
             } else {
-                webMidiStatusElement.textContent = 'Web MIDI API not supported in this browser';
-                log('Web MIDI API not supported');
-                updateMidiDiagnostics('Web MIDI API not supported');
+                const errorMsg = 'Web MIDI API not supported in this browser';
+                webMidiStatusElement.textContent = errorMsg;
+                log(errorMsg);
+                updateMidiDiagnostics(errorMsg);
             }
         }
 
@@ -290,12 +288,14 @@
         }
 
         function onMIDIFailure(error) {
-            log('Failed to initialize Web MIDI API: ' + error.name);
-            webMidiStatusElement.textContent = 'Failed to initialize Web MIDI API: ' + error.message;
-            updateMidiDiagnostics(`Failed to initialize Web MIDI API: ${error.name} - ${error.message}`);
+            const errorMsg = `Failed to initialize Web MIDI API: ${error.name} - ${error.message}`;
+            log(errorMsg);
+            webMidiStatusElement.textContent = errorMsg;
+            updateMidiDiagnostics(errorMsg);
         }
 
         function updateMidiInputs() {
+            log('Updating MIDI inputs...');
             midiInputSelect.innerHTML = '<option value="">Select MIDI Input</option>';
             let inputCount = 0;
             for (let input of midiAccess.inputs.values()) {
@@ -304,8 +304,13 @@
                 option.text = input.name;
                 midiInputSelect.add(option);
                 inputCount++;
+                log(`MIDI input found: ${input.name} (${input.id})`);
             }
             updateMidiDiagnostics(`MIDI Inputs available: ${inputCount}`);
+            if (inputCount === 0) {
+                log('No MIDI inputs found');
+                updateMidiDiagnostics('No MIDI inputs found');
+            }
         }
 
         function updateMidiDiagnostics(message) {
@@ -330,26 +335,30 @@
             log(str);
             midiMessagesContainer.innerHTML += str + '<br>';
             
-            if (currentMidiLearnButton && event.data[0] === 144) { // Note On message
+            if (currentMidiLearnButton) {
                 let dmxChannel = parseInt(currentMidiLearnButton.dataset.channel);
                 let midiChannel = event.data[0] & 0xF;
-                let note = event.data[1];
-                socket.emit('midiLearned', { dmxChannel, midiMapping: { channel: midiChannel, note: note } });
+                let midiMapping;
+                
+                if (event.data[0] >> 4 === 11) { // CC message
+                    midiMapping = { channel: midiChannel, controller: event.data[1] };
+                } else if (event.data[0] >> 4 === 9) { // Note On message
+                    midiMapping = { channel: midiChannel, note: event.data[1] };
+                }
+                
+                if (midiMapping) {
+                    socket.emit('midiLearned', { dmxChannel, midiMapping });
+                }
             }
         }
 
-        requestMidiAccessButton.addEventListener('click', function() {
-            initWebMidi();
-        });
-
-        // Initialize Web MIDI on page load
-        initWebMidi();
+        document.getElementById('requestMidiAccess').addEventListener('click', initWebMidi);
 
         // Handle initial state
-        socket.on('initialState', ({ dmxChannels, fixtures, groups, midiMappings, artnetConfig }) => {
+        socket.on('initialState', ({ dmxChannels, fixtures, groups, midiMappings, artNetConfig }) => {
             log('Received initial state');
             updateDmxChannels(dmxChannels, fixtures, groups, midiMappings);
-            updateArtnetConfigForm(artnetConfig);
+            updateArtnetConfigForm(artNetConfig);
         });
 
         function updateDmxChannels(dmxChannels, fixtures, groups, midiMappings) {
@@ -410,7 +419,8 @@
                 });
 
                 if (midiMappings[index]) {
-                    midiValueSpan.textContent = `MIDI: Ch ${midiMappings[index].channel}, Note ${midiMappings[index].note}`;
+                    const mapping = midiMappings[index];
+                    midiValueSpan.textContent = `MIDI: Ch ${mapping.channel}, ${mapping.controller !== undefined ? 'CC ' + mapping.controller : 'Note ' + mapping.note}`;
                 }
             });
 
@@ -474,145 +484,6 @@
             } : null;
         }
 
-        // Handle DMX updates
-        socket.on('dmxUpdate', ({ channel, value }) => {
-            log(`DMX update: Channel ${channel}, Value ${value}`);
-            const slider = document.querySelector(`input[id^="dmx-${channel}"], input[id^="fixture-"][id$="-${channel % 512}"]`);
-            if (slider) {
-                const valueDisplay = slider.nextElementSibling;
-                slider.value = value;
-                valueDisplay.textContent = value;
-            }
-        });
-
-        // Handle DMX state updates (for scene loading)
-        socket.on('dmxStateUpdated', ({ dmxChannels, fixtures, groups, midiMappings }) => {
-            log('DMX state updated');
-            updateDmxChannels(dmxChannels, fixtures, groups, midiMappings);
-        });
-
-        // Handle ArtNET diagnostics
-        socket.on('artnetDiagnostics', (diagnostics) => {
-            log(`Received ArtNET diagnostics: ${JSON.stringify(diagnostics)}`);
-            document.getElementById('artnetIpDisplay').textContent = diagnostics.ip;
-            document.getElementById('artnetUniverseDisplay').textContent = diagnostics.universe;
-            document.getElementById('artnetStatus').textContent = diagnostics.status;
-            document.getElementById('artnetChannelsTransmitted').textContent = diagnostics.channelsTransmitted;
-            document.getElementById('artnetTotalChannels').textContent = diagnostics.totalChannels;
-            
-            // Update status indicator
-            statusIndicator.className = diagnostics.pingStatus === 'Reachable' ? 'status-reachable' : 'status-unreachable';
-        });
-
-        // Handle Scene List
-        socket.on('sceneList', (scenes) => {
-            log(`Received scene list: ${JSON.stringify(scenes)}`);
-            if (scenesWindow && !scenesWindow.closed) {
-                scenesWindow.updateSceneList(scenes);
-            }
-        });
-
-        // Handle Scene Loaded
-        socket.on('sceneLoaded', (scene) => {
-            log(`Scene loaded: ${JSON.stringify(scene)}`);
-            showStatusMessage(`Scene loaded: ${scene.name}`);
-        });
-
-        // Handle Scene Added or Updated
-        socket.on('sceneAdded', (scene) => {
-            log(`Scene added: ${JSON.stringify(scene)}`);
-            showStatusMessage(`Scene saved: ${scene.name}`);
-            socket.emit('getSceneList');
-        });
-
-        socket.on('sceneUpdated', (scene) => {
-            log(`Scene updated: ${JSON.stringify(scene)}`);
-            showStatusMessage(`Scene updated: ${scene.name}`);
-            socket.emit('getSceneList');
-        });
-
-        // Handle Scene OSC Updated
-        socket.on('sceneOscUpdated', (scene) => {
-            log(`Scene OSC updated: ${JSON.stringify(scene)}`);
-            showStatusMessage(`Scene OSC updated: ${scene.name}`);
-            socket.emit('getSceneList');
-        });
-
-        // Handle MIDI Learn
-        socket.on('midiLearned', ({ dmxChannel, midiMapping }) => {
-            log(`MIDI learned for DMX channel ${dmxChannel}: ${JSON.stringify(midiMapping)}`);
-            const midiValueSpan = document.querySelector(`#dmx-${dmxChannel} + span + button + button + input + span.midi-value`);
-            if (midiValueSpan) {
-                midiValueSpan.textContent = `MIDI: Ch ${midiMapping.channel}, Note ${midiMapping.note}`;
-            }
-            if (currentMidiLearnButton) {
-                currentMidiLearnButton.classList.remove('learning');
-                currentMidiLearnButton = null;
-            }
-            showStatusMessage(`MIDI learned for DMX channel ${dmxChannel}`);
-        });
-
-        // Handle MIDI Forget
-        socket.on('midiMappingForgotten', (dmxChannel) => {
-            log(`MIDI mapping forgotten for DMX channel ${dmxChannel}`);
-            const midiValueSpan = document.querySelector(`#dmx-${dmxChannel} + span + button + button + input + span.midi-value`);
-            if (midiValueSpan) {
-                midiValueSpan.textContent = '';
-            }
-            showStatusMessage(`MIDI mapping forgotten for DMX channel ${dmxChannel}`);
-        });
-
-        // Handle errors
-        socket.on('error', (error) => {
-            log(`Error: ${error.message}`);
-            showStatusMessage(error.message, true);
-        });
-
-        // Handle log-related events
-        socket.on('loggingStatus', (enabled) => {
-            enableLoggingCheckbox.checked = enabled;
-            log(`File logging ${enabled ? 'enabled' : 'disabled'}`);
-        });
-
-        socket.on('consoleLoggingStatus', (enabled) => {
-            enableConsoleLoggingCheckbox.checked = enabled;
-            log(`Console logging ${enabled ? 'enabled' : 'disabled'}`);
-        });
-
-        socket.on('logsCleared', () => {
-            logContainer.innerHTML = '';
-            log('Logs cleared');
-        });
-
-        socket.on('logs', (logs) => {
-            logContainer.innerHTML = logs.replace(/\n/g, '<br>');
-            logContainer.scrollTop = logContainer.scrollHeight;
-        });
-
-        // Add this new code for MIDI simulation
-        const midiSimulatorForm = document.getElementById('midiSimulatorForm');
-        midiSimulatorForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(midiSimulatorForm);
-            const midiMessage = {
-                type: formData.get('type'),
-                channel: parseInt(formData.get('channel')),
-                note: parseInt(formData.get('note')),
-                velocity: parseInt(formData.get('velocity'))
-            };
-            socket.emit('simulateMidi', midiMessage);
-            log(`Simulated MIDI message sent: ${JSON.stringify(midiMessage)}`);
-        });
-
-        // Update the existing MIDI message handler
-        socket.on('midiMessage', (msg) => {
-            log(`MIDI message received: ${JSON.stringify(msg)}`);
-            midiMessagesContainer.innerHTML = `${new Date().toISOString()} - ${JSON.stringify(msg)}<br>` + midiMessagesContainer.innerHTML;
-            if (midiMessagesContainer.childNodes.length > 100) {
-                midiMessagesContainer.removeChild(midiMessagesContainer.lastChild);
-            }
-        });
-
         // ArtNET Configuration
         function updateArtnetConfigForm(config) {
             document.getElementById('artnetIp').value = config.ip;
@@ -646,7 +517,9 @@
         showSection('mainControl');
         log('Requesting initial state');
         socket.emit('getInitialState');
-        socket.emit('getLogs');
+
+        // Initialize Web MIDI on page load
+        initWebMidi();
     </script>
 </body>
 </html>
