@@ -110,84 +110,14 @@
                 </div>
             </div>
             <div id="fixtureSetup" style="display: none;">
-                <h2>Fixture Management</h2>
-                <div id="fixtureForm">
-                    <input type="text" id="fixtureName" placeholder="Fixture Name">
-                    <input type="number" id="fixtureStartAddress" placeholder="Start Address">
-                    <div id="fixtureChannels"></div>
-                    <button id="addFixtureChannel">Add Channel</button>
-                    <button id="saveFixture">Save Fixture</button>
-                </div>
-                <div id="fixtureList"></div>
-                <h2>Group Management</h2>
-                <div id="groupForm">
-                    <input type="text" id="groupName" placeholder="Group Name">
-                    <select id="groupFixtures" multiple>
-                        <!-- Fixture options will be dynamically added here -->
-                    </select>
-                    <button id="saveGroup">Save Group</button>
-                </div>
-                <div id="groupList"></div>
+                <!-- Fixture setup content -->
             </div>
             <div id="oscDebug" style="display: none;">
                 <h2>OSC Debug</h2>
                 <div id="oscMessages"></div>
             </div>
             <div id="misc" style="display: none;">
-                <h2>Misc Configuration</h2>
-                <label>
-                    <input type="checkbox" id="enableLogging" checked>
-                    Enable File Logging
-                </label>
-                <label>
-                    <input type="checkbox" id="enableConsoleLogging" checked>
-                    Enable Console Logging
-                </label>
-                <button id="clearLogs">Clear Logs</button>
-                <div id="logContainer"></div>
-                <h2>ArtNET Configuration</h2>
-                <form id="artnetConfigForm">
-                    <label>
-                        IP:
-                        <input type="text" id="artnetIp" name="ip" required>
-                    </label>
-                    <label>
-                        Subnet:
-                        <input type="number" id="artnetSubnet" name="subnet" min="0" max="15" required>
-                    </label>
-                    <label>
-                        Universe:
-                        <input type="number" id="artnetUniverse" name="universe" min="0" max="15" required>
-                    </label>
-                    <label>
-                        Net:
-                        <input type="number" id="artnetNet" name="net" min="0" max="127" required>
-                    </label>
-                    <label>
-                        Port:
-                        <input type="number" id="artnetPort" name="port" min="1" max="65535" required>
-                    </label>
-                    <label>
-                        Base Refresh Interval (ms):
-                        <input type="number" id="artnetRefreshInterval" name="base_refresh_interval" min="1" required>
-                    </label>
-                    <button type="submit">Update ArtNET Configuration</button>
-                </form>
-                <h2>ArtNET Diagnostics</h2>
-                <div id="artnetDiagnostics">
-                    <p>IP: <span id="artnetIpDisplay"></span></p>
-                    <p>Universe: <span id="artnetUniverseDisplay"></span></p>
-                    <p>Status: <span id="artnetStatus"></span></p>
-                    <p>Channels Transmitted: <span id="artnetChannelsTransmitted"></span></p>
-                    <p>Total Channels: <span id="artnetTotalChannels"></span></p>
-                </div>
-                <h2>ArtNET Device Search</h2>
-                <button id="searchArtnetDevices">Search for ArtNET Devices</button>
-                <div id="artnetDevices"></div>
-                <h2>Settings Management</h2>
-                <button id="nukeSettings">NUKE SETTINGS</button>
-                <button id="saveAllSettings">Save All Settings</button>
-                <button id="loadAllSettings">Load All Settings</button>
+                <!-- Misc content -->
             </div>
         </div>
         <div id="debugInfo">
@@ -197,329 +127,338 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io();
-        const dmxChannelsContainer = document.getElementById('dmxChannels');
-        const groupControlsContainer = document.getElementById('groupControls');
-        const fixtureListContainer = document.getElementById('fixtureList');
-        const groupListContainer = document.getElementById('groupList');
-        const midiInputSelect = document.getElementById('midiInputSelect');
-        const statusMessage = document.getElementById('statusMessage');
-        const midiMessagesContainer = document.getElementById('midiMessages');
-        const oscMessagesContainer = document.getElementById('oscMessages');
-        const logContainer = document.getElementById('logContainer');
-        const statusIndicator = document.getElementById('statusIndicator');
-        const debugOutput = document.getElementById('debugOutput');
-        const webMidiStatusElement = document.getElementById('webMidiStatus');
-        const midiDiagnosticsElement = document.getElementById('midiDiagnostics');
-        const artnetConfigForm = document.getElementById('artnetConfigForm');
-        let currentMidiLearnButton = null;
-        let scenesWindow = null;
-        let webMidiEnabled = false;
-        let midiAccess = null;
-        let midiInput = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            const socket = io();
+            const dmxChannelsContainer = document.getElementById('dmxChannels');
+            const groupControlsContainer = document.getElementById('groupControls');
+            const midiInputSelect = document.getElementById('midiInputSelect');
+            const statusMessage = document.getElementById('statusMessage');
+            const midiMessagesContainer = document.getElementById('midiMessages');
+            const oscMessagesContainer = document.getElementById('oscMessages');
+            const logContainer = document.getElementById('logContainer');
+            const statusIndicator = document.getElementById('statusIndicator');
+            const debugOutput = document.getElementById('debugOutput');
+            const webMidiStatusElement = document.getElementById('webMidiStatus');
+            const midiDiagnosticsElement = document.getElementById('midiDiagnostics');
+            let currentMidiLearnButton = null;
+            let scenesWindow = null;
+            let webMidiEnabled = false;
+            let midiAccess = null;
+            let midiInput = null;
 
-        function log(message) {
-            const timestamp = new Date().toISOString();
-            const logMessage = `${timestamp} - ${message}`;
-            console.log(logMessage);
-            debugOutput.textContent += logMessage + '\n';
-            debugOutput.scrollTop = debugOutput.scrollHeight;
-        }
-
-        function showStatusMessage(message, isError = false) {
-            statusMessage.textContent = message;
-            statusMessage.className = isError ? 'error' : 'success';
-            statusMessage.style.display = 'block';
-            setTimeout(() => {
-                statusMessage.style.display = 'none';
-            }, 3000);
-            log(message);
-        }
-
-        // Navigation
-        document.getElementById('navMain').addEventListener('click', () => showSection('mainControl'));
-        document.getElementById('navMidiOsc').addEventListener('click', () => showSection('midiOscSetup'));
-        document.getElementById('navFixture').addEventListener('click', () => showSection('fixtureSetup'));
-        document.getElementById('navOscDebug').addEventListener('click', () => showSection('oscDebug'));
-        document.getElementById('navMisc').addEventListener('click', () => showSection('misc'));
-        document.getElementById('openScenesWindow').addEventListener('click', openScenesWindow);
-
-        function showSection(sectionId) {
-            ['mainControl', 'midiOscSetup', 'fixtureSetup', 'oscDebug', 'misc'].forEach(id => {
-                document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
-            });
-        }
-
-        function openScenesWindow() {
-            log('Opening scenes window');
-            if (scenesWindow && !scenesWindow.closed) {
-                scenesWindow.focus();
-            } else {
-                scenesWindow = window.open('scenes.html', 'ScenesWindow', 'width=400,height=600');
-                scenesWindow.onload = () => {
-                    log('Scenes window loaded, requesting scene list');
-                    socket.emit('getSceneList');
-                };
+            function log(message) {
+                const timestamp = new Date().toISOString();
+                const logMessage = `${timestamp} - ${message}`;
+                console.log(logMessage);
+                debugOutput.textContent += logMessage + '\n';
+                debugOutput.scrollTop = debugOutput.scrollHeight;
             }
-        }
 
-        // Web MIDI API initialization
-        function initWebMidi() {
-            log('Initializing Web MIDI API...');
-            if (navigator.requestMIDIAccess) {
-                navigator.requestMIDIAccess({ sysex: false })
-                    .then(onMIDISuccess, onMIDIFailure);
-            } else {
-                const errorMsg = 'Web MIDI API not supported in this browser';
-                webMidiStatusElement.textContent = errorMsg;
+            function showStatusMessage(message, isError = false) {
+                statusMessage.textContent = message;
+                statusMessage.className = isError ? 'error' : 'success';
+                statusMessage.style.display = 'block';
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 3000);
+                log(message);
+            }
+
+            // Navigation
+            document.getElementById('navMain').addEventListener('click', () => showSection('mainControl'));
+            document.getElementById('navMidiOsc').addEventListener('click', () => showSection('midiOscSetup'));
+            document.getElementById('navFixture').addEventListener('click', () => showSection('fixtureSetup'));
+            document.getElementById('navOscDebug').addEventListener('click', () => showSection('oscDebug'));
+            document.getElementById('navMisc').addEventListener('click', () => showSection('misc'));
+            document.getElementById('openScenesWindow').addEventListener('click', openScenesWindow);
+
+            function showSection(sectionId) {
+                ['mainControl', 'midiOscSetup', 'fixtureSetup', 'oscDebug', 'misc'].forEach(id => {
+                    document.getElementById(id).style.display = id === sectionId ? 'block' : 'none';
+                });
+            }
+
+            function openScenesWindow() {
+                log('Opening scenes window');
+                if (scenesWindow && !scenesWindow.closed) {
+                    scenesWindow.focus();
+                } else {
+                    scenesWindow = window.open('scenes.html', 'ScenesWindow', 'width=400,height=600');
+                    scenesWindow.onload = () => {
+                        log('Scenes window loaded, requesting scene list');
+                        socket.emit('getSceneList');
+                    };
+                }
+            }
+
+            // Web MIDI API initialization
+            function initWebMidi() {
+                log('Initializing Web MIDI API...');
+                if (navigator.requestMIDIAccess) {
+                    navigator.requestMIDIAccess({ sysex: false })
+                        .then(onMIDISuccess, onMIDIFailure);
+                } else {
+                    const errorMsg = 'Web MIDI API not supported in this browser';
+                    webMidiStatusElement.textContent = errorMsg;
+                    log(errorMsg);
+                    updateMidiDiagnostics(errorMsg);
+                }
+            }
+
+            function onMIDISuccess(midiAccessObj) {
+                log('Web MIDI API initialized successfully');
+                midiAccess = midiAccessObj;
+                webMidiEnabled = true;
+                webMidiStatusElement.textContent = 'Web MIDI API enabled';
+                updateMidiInputs();
+                midiAccess.onstatechange = updateMidiInputs;
+                updateMidiDiagnostics('Web MIDI API initialized successfully');
+            }
+
+            function onMIDIFailure(error) {
+                const errorMsg = `Failed to initialize Web MIDI API: ${error.name} - ${error.message}`;
                 log(errorMsg);
+                webMidiStatusElement.textContent = errorMsg;
                 updateMidiDiagnostics(errorMsg);
             }
-        }
 
-        function onMIDISuccess(midiAccessObj) {
-            log('Web MIDI API initialized successfully');
-            midiAccess = midiAccessObj;
-            webMidiEnabled = true;
-            webMidiStatusElement.textContent = 'Web MIDI API enabled';
-            updateMidiInputs();
-            midiAccess.onstatechange = updateMidiInputs;
-            updateMidiDiagnostics('Web MIDI API initialized successfully');
-        }
-
-        function onMIDIFailure(error) {
-            const errorMsg = `Failed to initialize Web MIDI API: ${error.name} - ${error.message}`;
-            log(errorMsg);
-            webMidiStatusElement.textContent = errorMsg;
-            updateMidiDiagnostics(errorMsg);
-        }
-
-        function updateMidiInputs() {
-            log('Updating MIDI inputs...');
-            midiInputSelect.innerHTML = '<option value="">Select MIDI Input</option>';
-            let inputCount = 0;
-            for (let input of midiAccess.inputs.values()) {
-                let option = document.createElement('option');
-                option.value = input.id;
-                option.text = input.name;
-                midiInputSelect.add(option);
-                inputCount++;
-                log(`MIDI input found: ${input.name} (${input.id})`);
-            }
-            updateMidiDiagnostics(`MIDI Inputs available: ${inputCount}`);
-            if (inputCount === 0) {
-                log('No MIDI inputs found');
-                updateMidiDiagnostics('No MIDI inputs found');
-            }
-        }
-
-        function updateMidiDiagnostics(message) {
-            midiDiagnosticsElement.innerHTML += `<p>${new Date().toISOString()}: ${message}</p>`;
-        }
-
-        midiInputSelect.addEventListener('change', function() {
-            if (midiInput) {
-                midiInput.onmidimessage = null;
-            }
-            let id = midiInputSelect.value;
-            if (id) {
-                midiInput = midiAccess.inputs.get(id);
-                midiInput.onmidimessage = onMIDIMessage;
-                log(`MIDI input selected: ${midiInput.name}`);
-                updateMidiDiagnostics(`MIDI input selected: ${midiInput.name}`);
-            }
-        });
-
-        function onMIDIMessage(event) {
-            let str = `MIDI message received - data: [${event.data.join(', ')}]`;
-            log(str);
-            midiMessagesContainer.innerHTML += str + '<br>';
-            
-            if (currentMidiLearnButton) {
-                let dmxChannel = parseInt(currentMidiLearnButton.dataset.channel);
-                let midiChannel = event.data[0] & 0xF;
-                let midiMapping;
-                
-                if (event.data[0] >> 4 === 11) { // CC message
-                    midiMapping = { channel: midiChannel, controller: event.data[1] };
-                } else if (event.data[0] >> 4 === 9) { // Note On message
-                    midiMapping = { channel: midiChannel, note: event.data[1] };
+            function updateMidiInputs() {
+                log('Updating MIDI inputs...');
+                midiInputSelect.innerHTML = '<option value="">Select MIDI Input</option>';
+                let inputCount = 0;
+                for (let input of midiAccess.inputs.values()) {
+                    let option = document.createElement('option');
+                    option.value = input.id;
+                    option.text = input.name;
+                    midiInputSelect.add(option);
+                    inputCount++;
+                    log(`MIDI input found: ${input.name} (${input.id})`);
                 }
-                
-                if (midiMapping) {
-                    socket.emit('midiLearned', { dmxChannel, midiMapping });
+                updateMidiDiagnostics(`MIDI Inputs available: ${inputCount}`);
+                if (inputCount === 0) {
+                    log('No MIDI inputs found');
+                    updateMidiDiagnostics('No MIDI inputs found');
                 }
             }
-        }
 
-        document.getElementById('requestMidiAccess').addEventListener('click', initWebMidi);
+            function updateMidiDiagnostics(message) {
+                midiDiagnosticsElement.innerHTML += `<p>${new Date().toISOString()}: ${message}</p>`;
+            }
 
-        // Handle initial state
-        socket.on('initialState', ({ dmxChannels, fixtures, groups, midiMappings, artNetConfig }) => {
-            log('Received initial state');
-            updateDmxChannels(dmxChannels, fixtures, groups, midiMappings);
-            updateArtnetConfigForm(artNetConfig);
-        });
-
-        function updateDmxChannels(dmxChannels, fixtures, groups, midiMappings) {
-            dmxChannelsContainer.innerHTML = '';
-            groupControlsContainer.innerHTML = '';
-
-            // Create DMX channel sliders
-            dmxChannels.forEach((value, index) => {
-                const channelDiv = document.createElement('div');
-                channelDiv.className = 'dmx-channel';
-                channelDiv.innerHTML = `
-                    <label for="dmx-${index}">Channel ${index + 1}:</label>
-                    <input type="range" id="dmx-${index}" min="0" max="255" value="${value}">
-                    <span>${value}</span>
-                    <button class="midi-learn" data-channel="${index}">MIDI Learn</button>
-                    <button class="midi-forget" data-channel="${index}">Forget MIDI</button>
-                    <input type="color" id="color-${index}">
-                    <span class="midi-value"></span>
-                `;
-                dmxChannelsContainer.appendChild(channelDiv);
-
-                const slider = channelDiv.querySelector(`input[type="range"]`);
-                const valueDisplay = channelDiv.querySelector('span');
-                const midiLearnButton = channelDiv.querySelector('.midi-learn');
-                const midiForgetButton = channelDiv.querySelector('.midi-forget');
-                const colorPicker = channelDiv.querySelector(`input[type="color"]`);
-                const midiValueSpan = channelDiv.querySelector('.midi-value');
-
-                slider.addEventListener('input', () => {
-                    const value = parseInt(slider.value);
-                    valueDisplay.textContent = value;
-                    socket.emit('setDmxChannel', { channel: index, value: value });
-                });
-
-                midiLearnButton.addEventListener('click', () => {
-                    if (currentMidiLearnButton) {
-                        currentMidiLearnButton.classList.remove('learning');
-                    }
-                    currentMidiLearnButton = midiLearnButton;
-                    currentMidiLearnButton.classList.add('learning');
-                    log(`MIDI learn started for DMX channel ${index}`);
-                    socket.emit('startMidiLearn', index);
-                });
-
-                midiForgetButton.addEventListener('click', () => {
-                    socket.emit('forgetMidi', index);
-                    log(`MIDI mapping forgotten for DMX channel ${index}`);
-                });
-
-                colorPicker.addEventListener('input', () => {
-                    const color = colorPicker.value;
-                    const rgb = hexToRgb(color);
-                    if (rgb && index + 2 < dmxChannels.length) {
-                        socket.emit('setDmxChannel', { channel: index, value: rgb.r });
-                        socket.emit('setDmxChannel', { channel: index + 1, value: rgb.g });
-                        socket.emit('setDmxChannel', { channel: index + 2, value: rgb.b });
-                    }
-                });
-
-                if (midiMappings[index]) {
-                    const mapping = midiMappings[index];
-                    midiValueSpan.textContent = `MIDI: Ch ${mapping.channel}, ${mapping.controller !== undefined ? 'CC ' + mapping.controller : 'Note ' + mapping.note}`;
+            midiInputSelect.addEventListener('change', function() {
+                if (midiInput) {
+                    midiInput.onmidimessage = null;
+                }
+                let id = midiInputSelect.value;
+                if (id) {
+                    midiInput = midiAccess.inputs.get(id);
+                    midiInput.onmidimessage = onMIDIMessage;
+                    log(`MIDI input selected: ${midiInput.name}`);
+                    updateMidiDiagnostics(`MIDI input selected: ${midiInput.name}`);
                 }
             });
 
-            // Create group controls
-            groups.forEach((group, index) => {
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'group-control';
-                groupDiv.innerHTML = `
-                    <h3>${group.name}</h3>
-                    <input type="range" id="group-${index}" min="0" max="255" value="0">
-                    <span>0</span>
-                    <input type="color" id="group-color-${index}">
-                `;
-                groupControlsContainer.appendChild(groupDiv);
+            function onMIDIMessage(event) {
+                let str = `MIDI message received - data: [${event.data.join(', ')}]`;
+                log(str);
+                midiMessagesContainer.innerHTML += str + '<br>';
+                
+                if (currentMidiLearnButton) {
+                    let dmxChannel = parseInt(currentMidiLearnButton.dataset.channel);
+                    let midiChannel = event.data[0] & 0xF;
+                    let midiMapping;
+                    
+                    if (event.data[0] >> 4 === 11) { // CC message
+                        midiMapping = { channel: midiChannel, controller: event.data[1] };
+                    } else if (event.data[0] >> 4 === 9) { // Note On message
+                        midiMapping = { channel: midiChannel, note: event.data[1] };
+                    }
+                    
+                    if (midiMapping) {
+                        socket.emit('midiLearned', { dmxChannel, midiMapping });
+                        currentMidiLearnButton.classList.remove('learning');
+                        currentMidiLearnButton = null;
+                        showStatusMessage(`MIDI mapping learned for DMX channel ${dmxChannel}`);
+                    }
+                }
+            }
 
-                const slider = groupDiv.querySelector(`input[type="range"]`);
-                const valueDisplay = groupDiv.querySelector('span');
-                const colorPicker = groupDiv.querySelector(`input[type="color"]`);
+            document.getElementById('requestMidiAccess').addEventListener('click', initWebMidi);
 
-                slider.addEventListener('input', () => {
-                    const value = parseInt(slider.value);
-                    valueDisplay.textContent = value;
-                    group.fixtureIndices.forEach(fixtureIndex => {
-                        const fixture = fixtures[fixtureIndex];
-                        fixture.channels.forEach((channel, channelIndex) => {
-                            if (channel.type === 'intensity') {
-                                const dmxChannel = fixture.startAddress + channelIndex;
-                                socket.emit('setDmxChannel', { channel: dmxChannel, value: value });
-                            }
-                        });
+            // Handle initial state
+            socket.on('initialState', ({ dmxChannels, fixtures, groups, midiMappings, artNetConfig }) => {
+                log('Received initial state');
+                updateDmxChannels(dmxChannels, fixtures, groups, midiMappings);
+            });
+
+            function updateDmxChannels(dmxChannels, fixtures, groups, midiMappings) {
+                dmxChannelsContainer.innerHTML = '';
+                groupControlsContainer.innerHTML = '';
+
+                // Create DMX channel sliders
+                dmxChannels.forEach((value, index) => {
+                    const channelDiv = document.createElement('div');
+                    channelDiv.className = 'dmx-channel';
+                    channelDiv.innerHTML = `
+                        <label for="dmx-${index}">Channel ${index + 1}:</label>
+                        <input type="range" id="dmx-${index}" min="0" max="255" value="${value}">
+                        <span>${value}</span>
+                        <button class="midi-learn" data-channel="${index}">MIDI Learn</button>
+                        <button class="midi-forget" data-channel="${index}">Forget MIDI</button>
+                        <input type="color" id="color-${index}">
+                        <span class="midi-value"></span>
+                    `;
+                    dmxChannelsContainer.appendChild(channelDiv);
+
+                    const slider = channelDiv.querySelector(`input[type="range"]`);
+                    const valueDisplay = channelDiv.querySelector('span');
+                    const midiLearnButton = channelDiv.querySelector('.midi-learn');
+                    const midiForgetButton = channelDiv.querySelector('.midi-forget');
+                    const colorPicker = channelDiv.querySelector(`input[type="color"]`);
+                    const midiValueSpan = channelDiv.querySelector('.midi-value');
+
+                    slider.addEventListener('input', () => {
+                        const value = parseInt(slider.value);
+                        valueDisplay.textContent = value;
+                        socket.emit('setDmxChannel', { channel: index, value: value });
                     });
+
+                    midiLearnButton.addEventListener('click', () => {
+                        if (currentMidiLearnButton) {
+                            currentMidiLearnButton.classList.remove('learning');
+                        }
+                        currentMidiLearnButton = midiLearnButton;
+                        currentMidiLearnButton.classList.add('learning');
+                        log(`MIDI learn started for DMX channel ${index}`);
+                        socket.emit('startMidiLearn', index);
+                    });
+
+                    midiForgetButton.addEventListener('click', () => {
+                        socket.emit('forgetMidi', index);
+                        log(`MIDI mapping forgotten for DMX channel ${index}`);
+                    });
+
+                    colorPicker.addEventListener('input', () => {
+                        const color = colorPicker.value;
+                        const rgb = hexToRgb(color);
+                        if (rgb && index + 2 < dmxChannels.length) {
+                            socket.emit('setDmxChannel', { channel: index, value: rgb.r });
+                            socket.emit('setDmxChannel', { channel: index + 1, value: rgb.g });
+                            socket.emit('setDmxChannel', { channel: index + 2, value: rgb.b });
+                        }
+                    });
+
+                    if (midiMappings[index]) {
+                        const mapping = midiMappings[index];
+                        midiValueSpan.textContent = `MIDI: Ch ${mapping.channel}, ${mapping.controller !== undefined ? 'CC ' + mapping.controller : 'Note ' + mapping.note}`;
+                    }
                 });
 
-                colorPicker.addEventListener('input', () => {
-                    const color = colorPicker.value;
-                    const rgb = hexToRgb(color);
-                    if (rgb) {
+                // Create group controls
+                groups.forEach((group, index) => {
+                    const groupDiv = document.createElement('div');
+                    groupDiv.className = 'group-control';
+                    groupDiv.innerHTML = `
+                        <h3>${group.name}</h3>
+                        <input type="range" id="group-${index}" min="0" max="255" value="0">
+                        <span>0</span>
+                        <input type="color" id="group-color-${index}">
+                    `;
+                    groupControlsContainer.appendChild(groupDiv);
+
+                    const slider = groupDiv.querySelector(`input[type="range"]`);
+                    const valueDisplay = groupDiv.querySelector('span');
+                    const colorPicker = groupDiv.querySelector(`input[type="color"]`);
+
+                    slider.addEventListener('input', () => {
+                        const value = parseInt(slider.value);
+                        valueDisplay.textContent = value;
                         group.fixtureIndices.forEach(fixtureIndex => {
                             const fixture = fixtures[fixtureIndex];
-                            let redChannel = -1, greenChannel = -1, blueChannel = -1;
                             fixture.channels.forEach((channel, channelIndex) => {
-                                if (channel.type === 'red') redChannel = fixture.startAddress + channelIndex;
-                                if (channel.type === 'green') greenChannel = fixture.startAddress + channelIndex;
-                                if (channel.type === 'blue') blueChannel = fixture.startAddress + channelIndex;
+                                if (channel.type === 'intensity') {
+                                    const dmxChannel = fixture.startAddress + channelIndex;
+                                    socket.emit('setDmxChannel', { channel: dmxChannel, value: value });
+                                }
                             });
-                            if (redChannel !== -1) socket.emit('setDmxChannel', { channel: redChannel, value: rgb.r });
-                            if (greenChannel !== -1) socket.emit('setDmxChannel', { channel: greenChannel, value: rgb.g });
-                            if (blueChannel !== -1) socket.emit('setDmxChannel', { channel: blueChannel, value: rgb.b });
                         });
-                    }
+                    });
+
+                    colorPicker.addEventListener('input', () => {
+                        const color = colorPicker.value;
+                        const rgb = hexToRgb(color);
+                        if (rgb) {
+                            group.fixtureIndices.forEach(fixtureIndex => {
+                                const fixture = fixtures[fixtureIndex];
+                                let redChannel = -1, greenChannel = -1, blueChannel = -1;
+                                fixture.channels.forEach((channel, channelIndex) => {
+                                    if (channel.type === 'red') redChannel = fixture.startAddress + channelIndex;
+                                    if (channel.type === 'green') greenChannel = fixture.startAddress + channelIndex;
+                                    if (channel.type === 'blue') blueChannel = fixture.startAddress + channelIndex;
+                                });
+                                if (redChannel !== -1) socket.emit('setDmxChannel', { channel: redChannel, value: rgb.r });
+                                if (greenChannel !== -1) socket.emit('setDmxChannel', { channel: greenChannel, value: rgb.g });
+                                if (blueChannel !== -1) socket.emit('setDmxChannel', { channel: blueChannel, value: rgb.b });
+                            });
+                        }
+                    });
                 });
+            }
+
+            function hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            }
+
+            // Ensure initial visibility of main control section and load initial state
+            showSection('mainControl');
+            log('Requesting initial state');
+            socket.emit('getInitialState');
+
+            // Initialize Web MIDI on page load
+            initWebMidi();
+
+            // Handle MIDI learned event from server
+            socket.on('midiLearned', ({ dmxChannel, midiMapping }) => {
+                log(`MIDI learned for DMX channel ${dmxChannel}: ${JSON.stringify(midiMapping)}`);
+                const midiValueSpan = document.querySelector(`#dmx-${dmxChannel} + span + button + button + input + span.midi-value`);
+                if (midiValueSpan) {
+                    midiValueSpan.textContent = `MIDI: Ch ${midiMapping.channel}, ${midiMapping.controller !== undefined ? 'CC ' + midiMapping.controller : 'Note ' + midiMapping.note}`;
+                }
+                if (currentMidiLearnButton) {
+                    currentMidiLearnButton.classList.remove('learning');
+                    currentMidiLearnButton = null;
+                }
+                showStatusMessage(`MIDI learned for DMX channel ${dmxChannel}`);
             });
-        }
 
-        function hexToRgb(hex) {
-            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-            return result ? {
-                r: parseInt(result[1], 16),
-                g: parseInt(result[2], 16),
-                b: parseInt(result[3], 16)
-            } : null;
-        }
+            // Handle MIDI learn timeout
+            socket.on('midiLearnTimeout', (dmxChannel) => {
+                log(`MIDI learn timeout for DMX channel ${dmxChannel}`);
+                if (currentMidiLearnButton) {
+                    currentMidiLearnButton.classList.remove('learning');
+                    currentMidiLearnButton = null;
+                }
+                showStatusMessage(`MIDI learn timeout for DMX channel ${dmxChannel}`, true);
+            });
 
-        // ArtNET Configuration
-        function updateArtnetConfigForm(config) {
-            document.getElementById('artnetIp').value = config.ip;
-            document.getElementById('artnetSubnet').value = config.subnet;
-            document.getElementById('artnetUniverse').value = config.universe;
-            document.getElementById('artnetNet').value = config.net;
-            document.getElementById('artnetPort').value = config.port;
-            document.getElementById('artnetRefreshInterval').value = config.base_refresh_interval;
-        }
-
-        artnetConfigForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(artnetConfigForm);
-            const config = Object.fromEntries(formData.entries());
-            config.subnet = parseInt(config.subnet);
-            config.universe = parseInt(config.universe);
-            config.net = parseInt(config.net);
-            config.port = parseInt(config.port);
-            config.base_refresh_interval = parseInt(config.base_refresh_interval);
-            socket.emit('updateArtnetConfig', config);
-            log(`ArtNET configuration update requested: ${JSON.stringify(config)}`);
+            // Handle DMX updates
+            socket.on('dmxUpdate', ({ channel, value }) => {
+                log(`DMX update: Channel ${channel}, Value ${value}`);
+                const slider = document.querySelector(`#dmx-${channel}`);
+                if (slider) {
+                    slider.value = value;
+                    const valueDisplay = slider.nextElementSibling;
+                    if (valueDisplay) {
+                        valueDisplay.textContent = value;
+                    }
+                }
+            });
         });
-
-        socket.on('artnetConfigUpdated', (config) => {
-            log(`ArtNET configuration updated: ${JSON.stringify(config)}`);
-            updateArtnetConfigForm(config);
-            showStatusMessage('ArtNET configuration updated successfully');
-        });
-
-        // Ensure initial visibility of main control section and load initial state
-        showSection('mainControl');
-        log('Requesting initial state');
-        socket.emit('getInitialState');
-
-        // Initialize Web MIDI on page load
-        initWebMidi();
     </script>
 </body>
 </html>
