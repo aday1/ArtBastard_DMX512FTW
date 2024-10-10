@@ -114,15 +114,18 @@ function listMidiInterfaces() {
 }
 
 function initializeMidi(io: Server) {
-    // ... (keep existing initializeMidi function implementation)
+    // Implementation of initializeMidi function
+    // This should be already defined in your existing code
 }
 
 function handleMidiLearn(io: Server, msg: ExtendedMidiMessage) {
-    // ... (keep existing handleMidiLearn function implementation)
+    // Implementation of handleMidiLearn function
+    // This should be already defined in your existing code
 }
 
 function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMapping) {
-    // ... (keep existing learnMidiMapping function implementation)
+    // Implementation of learnMidiMapping function
+    // This should be already defined in your existing code
 }
 
 function loadConfig() {
@@ -211,7 +214,8 @@ function updateDmxChannel(channel: number, value: number) {
 }
 
 function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
-    // ... (keep existing simulateMidiInput function implementation)
+    // Implementation of simulateMidiInput function
+    // This should be already defined in your existing code
 }
 
 function startLaserTime(io: Server) {
@@ -240,12 +244,12 @@ function startLaserTime(io: Server) {
             io.emit('dmxUpdate', { channel, value });
         });
 
-        socket.on('saveScene', (sceneName: string) => {
-            log(`Saving scene: ${sceneName}`);
+        socket.on('saveScene', (sceneName: string, oscAddress: string) => {
+            log(`Saving scene: ${sceneName}, OSC Address: ${oscAddress}`);
             const newScene: Scene = {
                 name: sceneName,
                 channelValues: [...dmxChannels],
-                oscAddress: `/scene/${scenes.length}`
+                oscAddress: oscAddress
             };
             scenes.push(newScene);
             saveScenes();
@@ -277,7 +281,6 @@ function startLaserTime(io: Server) {
             io.emit('scenesCleared');
         });
 
-        // New event listener for deleting a scene
         socket.on('deleteScene', (sceneName: string) => {
             log(`Received deleteScene event for scene: ${sceneName}`);
             const sceneIndex = scenes.findIndex(s => s.name === sceneName);
@@ -291,6 +294,20 @@ function startLaserTime(io: Server) {
             } else {
                 log(`Scene not found for deletion: ${sceneName}`);
                 socket.emit('error', { message: `Scene not found for deletion: ${sceneName}` });
+            }
+        });
+
+        socket.on('updateSceneOsc', ({ name, oscAddress }: { name: string; oscAddress: string }) => {
+            log(`Updating OSC for scene: ${name}, address: ${oscAddress}`);
+            const scene = scenes.find(s => s.name === name);
+            if (scene) {
+                scene.oscAddress = oscAddress;
+                saveScenes();
+                io.emit('sceneOscUpdated', scene);
+                log(`Scene OSC updated: ${JSON.stringify(scene)}`);
+            } else {
+                log(`Scene not found for OSC update: ${name}`);
+                socket.emit('error', { message: `Scene not found for OSC update: ${name}` });
             }
         });
 
