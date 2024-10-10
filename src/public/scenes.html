@@ -64,7 +64,7 @@
                 button.addEventListener('click', (e) => {
                     const sceneName = e.target.getAttribute('data-scene');
                     log(`Loading scene: ${sceneName}`);
-                    socket.emit('loadScene', sceneName);
+                    socket.emit('loadScene', { name: sceneName, duration: 0 }); // Add duration parameter
                 });
             });
 
