@@ -150,6 +150,7 @@ function saveConfig() {
 function loadScenes() {
     if (fs.existsSync(SCENES_FILE)) {
         const data = fs.readFileSync(SCENES_FILE, 'utf-8');
+        log('Raw scenes data from file: ' + data);
         scenes = JSON.parse(data);
         log('Scenes loaded: ' + JSON.stringify(scenes));
     } else {
@@ -159,8 +160,14 @@ function loadScenes() {
 }
 
 function saveScenes() {
-    fs.writeFileSync(SCENES_FILE, JSON.stringify(scenes, null, 2));
-    log('Scenes saved: ' + JSON.stringify(scenes));
+    const scenesToSave = JSON.stringify(scenes, null, 2);
+    log('Saving scenes: ' + scenesToSave);
+    fs.writeFileSync(SCENES_FILE, scenesToSave);
+    log('Scenes saved to file');
+    
+    // Verify the file was written correctly
+    const savedData = fs.readFileSync(SCENES_FILE, 'utf-8');
+    log('Verified saved scenes: ' + savedData);
 }
 
 function initOsc(io: Server) {
@@ -268,6 +275,23 @@ function startLaserTime(io: Server) {
             scenes = [];
             saveScenes();
             io.emit('scenesCleared');
+        });
+
+        // New event listener for deleting a scene
+        socket.on('deleteScene', (sceneName: string) => {
+            log(`Received deleteScene event for scene: ${sceneName}`);
+            const sceneIndex = scenes.findIndex(s => s.name === sceneName);
+            log(`Scene index: ${sceneIndex}`);
+            if (sceneIndex !== -1) {
+                scenes.splice(sceneIndex, 1);
+                log(`Scenes after deletion: ${JSON.stringify(scenes)}`);
+                saveScenes();
+                io.emit('sceneDeleted', sceneName);
+                log(`Scene deleted: ${sceneName}`);
+            } else {
+                log(`Scene not found for deletion: ${sceneName}`);
+                socket.emit('error', { message: `Scene not found for deletion: ${sceneName}` });
+            }
         });
 
         socket.on('disconnect', () => {
