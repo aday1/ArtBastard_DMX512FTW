@@ -59,6 +59,8 @@ interface ArtNetConfig {
 
 // Variable declarations
 let dmxChannels: number[] = new Array(512).fill(0);
+let oscAssignments: string[] = new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`);
+let channelNames: string[] = new Array(512).fill('').map((_, i) => `CH ${i + 1}`);
 let fixtures: Fixture[] = [];
 let groups: Group[] = [];
 let scenes: Scene[] = [];
@@ -114,18 +116,50 @@ function listMidiInterfaces() {
 }
 
 function initializeMidi(io: Server) {
-    // Implementation of initializeMidi function
-    // This should be already defined in your existing code
+    const inputs = easymidi.getInputs();
+    if (inputs.length > 0) {
+        midiInput = new easymidi.Input(inputs[0]);
+        midiInput.on('noteon', (msg) => handleMidiMessage(io, 'noteon', msg));
+        midiInput.on('cc', (msg) => handleMidiMessage(io, 'cc', msg));
+        log(`MIDI input initialized: ${inputs[0]}`);
+    } else {
+        log('No MIDI inputs available');
+    }
 }
 
-function handleMidiLearn(io: Server, msg: ExtendedMidiMessage) {
-    // Implementation of handleMidiLearn function
-    // This should be already defined in your existing code
+function handleMidiMessage(io: Server, type: 'noteon' | 'cc', msg: any) {
+    if (currentMidiLearnChannel !== null) {
+        const mapping: MidiMapping = {
+            channel: msg.channel,
+            [type === 'noteon' ? 'note' : 'controller']: msg[type === 'noteon' ? 'note' : 'controller']
+        };
+        midiMappings[currentMidiLearnChannel] = mapping;
+        io.emit('midiMappingLearned', { channel: currentMidiLearnChannel, mapping });
+        log(`MIDI mapping learned for channel ${currentMidiLearnChannel}: ${JSON.stringify(mapping)}`);
+        currentMidiLearnChannel = null;
+    } else {
+        // Handle regular MIDI input
+        Object.entries(midiMappings).forEach(([channel, mapping]) => {
+            if (mapping.channel === msg.channel &&
+                ((type === 'noteon' && mapping.note === msg.note) ||
+                (type === 'cc' && mapping.controller === msg.controller))) {
+                const value = type === 'noteon' ? msg.velocity : msg.value;
+                updateDmxChannel(parseInt(channel), value);
+                io.emit('dmxUpdate', { channel: parseInt(channel), value });
+            }
+        });
+    }
 }
 
-function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMapping) {
-    // Implementation of learnMidiMapping function
-    // This should be already defined in your existing code
+function updateDmxChannel(channel: number, value: number) {
+    dmxChannels[channel] = value;
+    if (artnetSender) {
+        artnetSender.setChannel(channel, value);
+        artnetSender.transmit();
+        log(`DMX channel ${channel} set to ${value}`);
+    } else {
+        log('ArtNet sender not initialized');
+    }
 }
 
 function loadConfig() {
@@ -202,20 +236,14 @@ function initializeArtNet() {
     }
 }
 
-function updateDmxChannel(channel: number, value: number) {
-    dmxChannels[channel] = value;
-    if (artnetSender) {
-        artnetSender.setChannel(channel, value);
-        artnetSender.transmit();
-        log(`DMX channel ${channel} set to ${value}`);
-    } else {
-        log('ArtNet sender not initialized');
-    }
+function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
+    handleMidiMessage(io, type, { channel, [type === 'noteon' ? 'note' : 'controller']: note, [type === 'noteon' ? 'velocity' : 'value']: velocity });
 }
 
-function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
-    // Implementation of simulateMidiInput function
-    // This should be already defined in your existing code
+function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMapping) {
+    midiMappings[dmxChannel] = midiMapping;
+    io.emit('midiMappingLearned', { channel: dmxChannel, mapping: midiMapping });
+    log(`MIDI mapping learned for channel ${dmxChannel}: ${JSON.stringify(midiMapping)}`);
 }
 
 function startLaserTime(io: Server) {
@@ -231,6 +259,8 @@ function startLaserTime(io: Server) {
         // Send initial state to the client
         socket.emit('initialState', {
             dmxChannels,
+            oscAssignments,
+            channelNames,
             fixtures,
             groups,
             midiMappings,
@@ -244,71 +274,37 @@ function startLaserTime(io: Server) {
             io.emit('dmxUpdate', { channel, value });
         });
 
-        socket.on('saveScene', (sceneName: string, oscAddress: string) => {
-            log(`Saving scene: ${sceneName}, OSC Address: ${oscAddress}`);
-            const newScene: Scene = {
-                name: sceneName,
-                channelValues: [...dmxChannels],
-                oscAddress: oscAddress
-            };
-            scenes.push(newScene);
-            saveScenes();
-            io.emit('sceneAdded', newScene);
+        socket.on('updateOscAssignment', ({ channel, oscAddress }: { channel: number; oscAddress: string }) => {
+            log(`Updating OSC assignment for channel ${channel} to ${oscAddress}`);
+            oscAssignments[channel] = oscAddress;
+            io.emit('oscAssignmentUpdated', { channel, oscAddress });
         });
 
-        socket.on('loadScene', ({ name, duration }: { name: string; duration: number }) => {
-            log(`Loading scene: ${name}, duration: ${duration}ms`);
-            const scene = scenes.find(s => s.name === name);
-            if (scene) {
-                scene.channelValues.forEach((value, index) => {
-                    updateDmxChannel(index, value);
-                });
-                io.emit('sceneLoaded', { name, duration });
-            } else {
-                log(`Scene not found: ${name}`);
-                socket.emit('error', { message: `Scene not found: ${name}` });
+        socket.on('updateChannelName', ({ channel, name }: { channel: number; name: string }) => {
+            log(`Updating name for channel ${channel} to ${name}`);
+            channelNames[channel] = `CH ${channel + 1} ${name}`;
+            io.emit('channelNameUpdated', { channel, name: channelNames[channel] });
+        });
+
+        socket.on('startMidiLearn', ({ channel }: { channel: number }) => {
+            log(`Starting MIDI learn for channel ${channel}`);
+            currentMidiLearnChannel = channel;
+            if (midiLearnTimeout) {
+                clearTimeout(midiLearnTimeout);
             }
+            midiLearnTimeout = setTimeout(() => {
+                if (currentMidiLearnChannel !== null) {
+                    log(`MIDI learn timed out for channel ${currentMidiLearnChannel}`);
+                    currentMidiLearnChannel = null;
+                    socket.emit('midiLearnTimeout', { channel });
+                }
+            }, 10000); // 10 seconds timeout
         });
 
-        socket.on('getSceneList', () => {
-            socket.emit('sceneList', scenes);
-        });
-
-        socket.on('clearAllScenes', () => {
-            log('Clearing all scenes');
-            scenes = [];
-            saveScenes();
-            io.emit('scenesCleared');
-        });
-
-        socket.on('deleteScene', (sceneName: string) => {
-            log(`Received deleteScene event for scene: ${sceneName}`);
-            const sceneIndex = scenes.findIndex(s => s.name === sceneName);
-            log(`Scene index: ${sceneIndex}`);
-            if (sceneIndex !== -1) {
-                scenes.splice(sceneIndex, 1);
-                log(`Scenes after deletion: ${JSON.stringify(scenes)}`);
-                saveScenes();
-                io.emit('sceneDeleted', sceneName);
-                log(`Scene deleted: ${sceneName}`);
-            } else {
-                log(`Scene not found for deletion: ${sceneName}`);
-                socket.emit('error', { message: `Scene not found for deletion: ${sceneName}` });
-            }
-        });
-
-        socket.on('updateSceneOsc', ({ name, oscAddress }: { name: string; oscAddress: string }) => {
-            log(`Updating OSC for scene: ${name}, address: ${oscAddress}`);
-            const scene = scenes.find(s => s.name === name);
-            if (scene) {
-                scene.oscAddress = oscAddress;
-                saveScenes();
-                io.emit('sceneOscUpdated', scene);
-                log(`Scene OSC updated: ${JSON.stringify(scene)}`);
-            } else {
-                log(`Scene not found for OSC update: ${name}`);
-                socket.emit('error', { message: `Scene not found for OSC update: ${name}` });
-            }
+        socket.on('forgetMidiMapping', ({ channel }: { channel: number }) => {
+            log(`Forgetting MIDI mapping for channel ${channel}`);
+            delete midiMappings[channel];
+            io.emit('midiMappingForgotten', { channel });
         });
 
         socket.on('disconnect', () => {
