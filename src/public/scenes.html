@@ -116,6 +116,11 @@
                     socket.emit('forgetSceneMidi', sceneName);
                 });
             });
+
+            // Notify parent window of scene list update
+            if (window.opener && !window.opener.closed) {
+                window.opener.postMessage({ type: 'sceneListUpdated', scenes: scenes }, '*');
+            }
         }
 
         // Save Scene

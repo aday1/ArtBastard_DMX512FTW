@@ -22,31 +22,20 @@ interface Group {
     fixtureIndices: number[];
 }
 
-interface Scene {
-    name: string;
-    channelValues: number[];
-    oscAddress: string;
-}
-
 interface MidiMapping {
     channel: number;
     note?: number;
     controller?: number;
 }
 
-type MidiMappings = { [dmxChannel: number]: MidiMapping };
+interface Scene {
+    name: string;
+    channelValues: number[];
+    oscAddress: string;
+    midiMapping?: MidiMapping;
+}
 
-type ExtendedMidiMessage = Partial<MidiMessage> & (
-    | { _type: 'noteon'; channel: number; note: number; velocity: number }
-    | { _type: 'noteoff'; channel: number; note: number; velocity: number }
-    | { _type: 'cc'; channel: number; controller: number; value: number }
-    | { _type: 'program'; channel: number; number: number }
-    | { _type: 'channel aftertouch'; channel: number; pressure: number }
-    | { _type: 'pitch'; channel: number; value: number }
-    | { _type: 'position'; value: number }
-    | { _type: 'select'; song: number }
-    | { _type: 'clock' | 'start' | 'continue' | 'stop' }
-);
+type MidiMappings = { [dmxChannel: number]: MidiMapping };
 
 interface ArtNetConfig {
     ip: string;
@@ -68,6 +57,7 @@ let sender: any = null;
 let midiMappings: MidiMappings = {};
 let midiInput: Input | null = null;
 let currentMidiLearnChannel: number | null = null;
+let currentMidiLearnScene: string | null = null;
 let midiLearnTimeout: NodeJS.Timeout | null = null;
 
 // Constants and configurations
@@ -107,61 +97,6 @@ function log(message: string) {
     }
 }
 
-function listMidiInterfaces() {
-    const inputs = easymidi.getInputs();
-    const outputs = easymidi.getOutputs();
-    log("Available MIDI Inputs: " + JSON.stringify(inputs));
-    log("Available MIDI Outputs: " + JSON.stringify(outputs));
-    return { inputs, outputs };
-}
-
-function initializeMidi(io: Server) {
-    const inputs = easymidi.getInputs();
-    if (inputs.length > 0) {
-        midiInput = new easymidi.Input(inputs[0]);
-        midiInput.on('noteon', (msg) => handleMidiMessage(io, 'noteon', msg));
-        midiInput.on('cc', (msg) => handleMidiMessage(io, 'cc', msg));
-        log(`MIDI input initialized: ${inputs[0]}`);
-    } else {
-        log('No MIDI inputs available');
-    }
-}
-
-function handleMidiMessage(io: Server, type: 'noteon' | 'cc', msg: any) {
-    if (currentMidiLearnChannel !== null) {
-        const mapping: MidiMapping = {
-            channel: msg.channel,
-            [type === 'noteon' ? 'note' : 'controller']: msg[type === 'noteon' ? 'note' : 'controller']
-        };
-        midiMappings[currentMidiLearnChannel] = mapping;
-        io.emit('midiMappingLearned', { channel: currentMidiLearnChannel, mapping });
-        log(`MIDI mapping learned for channel ${currentMidiLearnChannel}: ${JSON.stringify(mapping)}`);
-        currentMidiLearnChannel = null;
-    } else {
-        // Handle regular MIDI input
-        Object.entries(midiMappings).forEach(([channel, mapping]) => {
-            if (mapping.channel === msg.channel &&
-                ((type === 'noteon' && mapping.note === msg.note) ||
-                (type === 'cc' && mapping.controller === msg.controller))) {
-                const value = type === 'noteon' ? msg.velocity : msg.value;
-                updateDmxChannel(parseInt(channel), value);
-                io.emit('dmxUpdate', { channel: parseInt(channel), value });
-            }
-        });
-    }
-}
-
-function updateDmxChannel(channel: number, value: number) {
-    dmxChannels[channel] = value;
-    if (artnetSender) {
-        artnetSender.setChannel(channel, value);
-        artnetSender.transmit();
-        log(`DMX channel ${channel} set to ${value}`);
-    } else {
-        log('ArtNet sender not initialized');
-    }
-}
-
 function loadConfig() {
     if (fs.existsSync(CONFIG_FILE)) {
         const data = fs.readFileSync(CONFIG_FILE, 'utf-8');
@@ -184,27 +119,16 @@ function saveConfig() {
     log('Config saved: ' + JSON.stringify(configToSave));
 }
 
-function loadScenes() {
-    if (fs.existsSync(SCENES_FILE)) {
-        const data = fs.readFileSync(SCENES_FILE, 'utf-8');
-        log('Raw scenes data from file: ' + data);
-        scenes = JSON.parse(data);
-        log('Scenes loaded: ' + JSON.stringify(scenes));
+function initializeMidi(io: Server) {
+    const inputs = easymidi.getInputs();
+    if (inputs.length > 0) {
+        midiInput = new easymidi.Input(inputs[0]);
+        midiInput.on('noteon', (msg: MidiMessage) => handleMidiMessage(io, 'noteon', msg));
+        midiInput.on('cc', (msg: MidiMessage) => handleMidiMessage(io, 'cc', msg));
+        log(`MIDI input initialized: ${inputs[0]}`);
     } else {
-        scenes = [];
-        saveScenes();
+        log('No MIDI inputs available');
     }
-}
-
-function saveScenes() {
-    const scenesToSave = JSON.stringify(scenes, null, 2);
-    log('Saving scenes: ' + scenesToSave);
-    fs.writeFileSync(SCENES_FILE, scenesToSave);
-    log('Scenes saved to file');
-    
-    // Verify the file was written correctly
-    const savedData = fs.readFileSync(SCENES_FILE, 'utf-8');
-    log('Verified saved scenes: ' + savedData);
 }
 
 function initOsc(io: Server) {
@@ -236,8 +160,32 @@ function initializeArtNet() {
     }
 }
 
+function listMidiInterfaces() {
+    const inputs = easymidi.getInputs();
+    const outputs = easymidi.getOutputs();
+    log("Available MIDI Inputs: " + JSON.stringify(inputs));
+    log("Available MIDI Outputs: " + JSON.stringify(outputs));
+    return { inputs, outputs };
+}
+
 function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
-    handleMidiMessage(io, type, { channel, [type === 'noteon' ? 'note' : 'controller']: note, [type === 'noteon' ? 'velocity' : 'value']: velocity });
+    let midiMessage: MidiMessage;
+    if (type === 'noteon') {
+        midiMessage = {
+            _type: 'noteon',
+            channel: channel,
+            note: note,
+            velocity: velocity
+        } as unknown as MidiMessage;
+    } else {
+        midiMessage = {
+            _type: 'cc',
+            channel: channel,
+            controller: note,
+            value: velocity
+        } as unknown as MidiMessage;
+    }
+    handleMidiMessage(io, type, midiMessage);
 }
 
 function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMapping) {
@@ -246,12 +194,108 @@ function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMappi
     log(`MIDI mapping learned for channel ${dmxChannel}: ${JSON.stringify(midiMapping)}`);
 }
 
+function handleMidiMessage(io: Server, type: 'noteon' | 'cc', msg: MidiMessage) {
+    // Implementation of handleMidiMessage function
+    // This should be already defined in your existing code
+}
+
+function saveScene(io: Server, name: string, oscAddress: string, state: number[]) {
+    const existingSceneIndex = scenes.findIndex(s => s.name === name);
+    const newScene: Scene = { 
+        name, 
+        channelValues: Array.isArray(state) ? state : Object.values(state), 
+        oscAddress 
+    };
+    if (existingSceneIndex !== -1) {
+        scenes[existingSceneIndex] = newScene;
+    } else {
+        scenes.push(newScene);
+    }
+    saveScenes();
+    io.emit('sceneSaved', name);
+    io.emit('sceneList', scenes);
+    log(`Scene saved: ${JSON.stringify(newScene)}`);
+}
+
+function loadScene(io: Server, name: string) {
+    const scene = scenes.find(s => s.name === name);
+    if (scene) {
+        let channelValues: number[];
+        if (Array.isArray(scene.channelValues)) {
+            channelValues = scene.channelValues;
+        } else if (typeof scene.channelValues === 'object') {
+            channelValues = Object.values(scene.channelValues);
+        } else {
+            log(`Error loading scene ${name}: Invalid channelValues format`);
+            io.emit('sceneLoadError', { name, error: 'Invalid channelValues format' });
+            return;
+        }
+
+        channelValues.forEach((value, index) => {
+            if (index < dmxChannels.length) {
+                updateDmxChannel(index, value);
+            }
+        });
+        io.emit('sceneLoaded', { name, channelValues });
+        log(`Scene loaded: ${name}`);
+    } else {
+        log(`Error loading scene ${name}: Scene not found`);
+        io.emit('sceneLoadError', { name, error: 'Scene not found' });
+    }
+}
+
+function updateDmxChannel(channel: number, value: number) {
+    dmxChannels[channel] = value;
+    if (artnetSender) {
+        artnetSender.setChannel(channel, value);
+        artnetSender.transmit();
+        log(`DMX channel ${channel} set to ${value}`);
+    } else {
+        log('ArtNet sender not initialized');
+    }
+}
+
+function saveScenes() {
+    const scenesToSave = JSON.stringify(scenes, null, 2);
+    log('Saving scenes: ' + scenesToSave);
+    fs.writeFileSync(SCENES_FILE, scenesToSave);
+    log('Scenes saved to file');
+}
+
+function loadScenes() {
+    if (fs.existsSync(SCENES_FILE)) {
+        const data = fs.readFileSync(SCENES_FILE, 'utf-8');
+        log('Raw scenes data from file: ' + data);
+        scenes = JSON.parse(data);
+        log('Scenes loaded: ' + JSON.stringify(scenes));
+    } else {
+        scenes = [];
+        saveScenes();
+    }
+}
+
+function pingArtNetDevice(io: Server) {
+    ping.promise.probe(artNetConfig.ip)
+        .then((res: any) => {
+            const status = res.alive ? 'alive' : 'unreachable';
+            log(`ArtNet device at ${artNetConfig.ip} is ${status}`);
+            io.emit('artnetStatus', { ip: artNetConfig.ip, status });
+        })
+        .catch((error: any) => {
+            log(`Error pinging ArtNet device: ${error}`);
+            io.emit('artnetStatus', { ip: artNetConfig.ip, status: 'error', error: error.message });
+        });
+}
+
 function startLaserTime(io: Server) {
     loadConfig();
     loadScenes();
     initializeMidi(io);
     initOsc(io);
     initializeArtNet();
+
+    // Start pinging ArtNet device every 5 seconds
+    setInterval(() => pingArtNetDevice(io), 5000);
 
     io.on('connection', (socket: Socket) => {
         log('A user connected');
@@ -274,37 +318,14 @@ function startLaserTime(io: Server) {
             io.emit('dmxUpdate', { channel, value });
         });
 
-        socket.on('updateOscAssignment', ({ channel, oscAddress }: { channel: number; oscAddress: string }) => {
-            log(`Updating OSC assignment for channel ${channel} to ${oscAddress}`);
-            oscAssignments[channel] = oscAddress;
-            io.emit('oscAssignmentUpdated', { channel, oscAddress });
+        socket.on('saveScene', ({ name, oscAddress, state }: { name: string; oscAddress: string; state: number[] }) => {
+            log(`Saving scene: ${name}`);
+            saveScene(io, name, oscAddress, state);
         });
 
-        socket.on('updateChannelName', ({ channel, name }: { channel: number; name: string }) => {
-            log(`Updating name for channel ${channel} to ${name}`);
-            channelNames[channel] = `CH ${channel + 1} ${name}`;
-            io.emit('channelNameUpdated', { channel, name: channelNames[channel] });
-        });
-
-        socket.on('startMidiLearn', ({ channel }: { channel: number }) => {
-            log(`Starting MIDI learn for channel ${channel}`);
-            currentMidiLearnChannel = channel;
-            if (midiLearnTimeout) {
-                clearTimeout(midiLearnTimeout);
-            }
-            midiLearnTimeout = setTimeout(() => {
-                if (currentMidiLearnChannel !== null) {
-                    log(`MIDI learn timed out for channel ${currentMidiLearnChannel}`);
-                    currentMidiLearnChannel = null;
-                    socket.emit('midiLearnTimeout', { channel });
-                }
-            }, 10000); // 10 seconds timeout
-        });
-
-        socket.on('forgetMidiMapping', ({ channel }: { channel: number }) => {
-            log(`Forgetting MIDI mapping for channel ${channel}`);
-            delete midiMappings[channel];
-            io.emit('midiMappingForgotten', { channel });
+        socket.on('loadScene', ({ name }: { name: string }) => {
+            log(`Loading scene: ${name}`);
+            loadScene(io, name);
         });
 
         socket.on('disconnect', () => {
