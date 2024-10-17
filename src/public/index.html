@@ -17,27 +17,51 @@
             <button id="navFixture">Fixture Setup</button>
             <button id="navOscDebug">OSC Debug</button>
             <button id="navMisc">Misc</button>
-            <button id="openScenesWindow">Open Scenes</button>
         </nav>
         <div class="content-area">
             <div id="mainControl">
+                <h2>Scenes</h2>
+                <div id="sceneManagement">
+                    <div>
+                        <input type="text" id="sceneName" placeholder="Enter scene name">
+                        <input type="text" id="sceneOscAddress" placeholder="Enter OSC address">
+                        <button id="saveScene">Save Scene</button>
+                        <button id="clearAllScenes">Clear All Scenes</button>
+                    </div>
+                    <div id="loadSceneSection">
+                        <h3>Load Scene</h3>
+                        <select id="loadSceneSelect"></select>
+                        <button id="loadSceneButton">Load Scene</button>
+                    </div>
+                    <div id="savedScenesList"></div>
+                </div>
                 <h2>Transition</h2>
                 <div>
                     <label for="transitionDuration">Transition Duration (ms):</label>
                     <input type="range" id="transitionDuration" min="0" max="10000" step="100" value="1000">
                     <span id="transitionDurationValue">1000 ms</span>
                 </div>
+                <h2>Scene Transition</h2>
+                <div>
+                    <select id="sceneTransitionFrom"></select>
+                    <select id="sceneTransitionTo"></select>
+                    <input type="range" id="transitionSlider" min="0" max="100" value="0">
+                    <span id="transitionSliderValue">0%</span>
+                </div>
+                <h2>Auto Pilot</h2>
+                <div>
+                    <select id="autoPilotSceneFrom"></select>
+                    <select id="autoPilotSceneTo"></select>
+                    <label for="autoPilotToggle">
+                        <input type="checkbox" id="autoPilotToggle">
+                        Enable Auto Pilot
+                    </label>
+                    <span id="autoPilotDurationDisplay"></span>
+                </div>
                 <h2>DMX Channels</h2>
                 <div id="dmxChannels"></div>
                 <h2>Group Controls</h2>
                 <div id="groupControls"></div>
-                <h2>Scene Management</h2>
-                <div>
-                    <input type="text" id="sceneName" placeholder="Enter scene name">
-                    <button id="saveScene">Save Scene</button>
-                    <button id="clearAllScenes">Clear All Scenes</button>
-                </div>
-                <div id="sceneButtons"></div>
             </div>
             <div id="midiOscSetup" style="display: none;">
                 <h2>MIDI/OSC Setup</h2>
