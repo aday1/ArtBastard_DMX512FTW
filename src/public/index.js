@@ -21,10 +21,14 @@ try {
     const autoPilotToggle = document.getElementById('autoPilotToggle');
     const autoPilotSceneFrom = document.getElementById('autoPilotSceneFrom');
     const autoPilotSceneTo = document.getElementById('autoPilotSceneTo');
+    const autoPilotSlider = document.getElementById('autoPilotSlider');
+    const autoPilotSliderValue = document.getElementById('autoPilotSliderValue');
     const loadSceneSelect = document.getElementById('loadSceneSelect');
     const loadSceneButton = document.getElementById('loadSceneButton');
     const savedScenesList = document.getElementById('savedScenesList');
     const autoPilotDurationDisplay = document.getElementById('autoPilotDurationDisplay');
+    const tapButton = document.getElementById('tapButton');
+    const bpmDisplay = document.getElementById('bpmDisplay');
 
     // Navigation buttons
     const navMain = document.getElementById('navMain');
@@ -47,6 +51,9 @@ try {
     let scenes = [];
     let autoPilotInterval = null;
     let currentSceneState = {};
+    let lastTapTime = 0;
+    let tapCount = 0;
+    let bpm = 0;
 
     function log(message) {
         console.log(message);
@@ -154,12 +161,12 @@ try {
     }
 
     // Auto Pilot functionality
-    if (autoPilotToggle && transitionDuration) {
+    if (autoPilotToggle && transitionDuration && autoPilotSlider) {
         autoPilotToggle.addEventListener('change', () => {
             if (autoPilotToggle.checked) {
                 const fromScene = autoPilotSceneFrom.value;
                 const toScene = autoPilotSceneTo.value;
-                const duration = parseInt(transitionDuration.value);
+                const duration = parseInt(transitionDuration.value) * 1000; // Convert to milliseconds
                 startAutoPilot(fromScene, toScene, duration);
             } else {
                 stopAutoPilot();
@@ -170,15 +177,23 @@ try {
             updateAutoPilotDurationDisplay();
         });
 
+        autoPilotSlider.addEventListener('input', () => {
+            const progress = autoPilotSlider.value / 100;
+            autoPilotSliderValue.textContent = `${autoPilotSlider.value}%`;
+            const fromScene = autoPilotSceneFrom.value;
+            const toScene = autoPilotSceneTo.value;
+            socket.emit('transitionScenes', { fromScene, toScene, progress });
+        });
+
         updateAutoPilotDurationDisplay();
     } else {
-        console.error("Auto Pilot toggle or transition duration not found");
+        console.error("Auto Pilot toggle, transition duration, or Auto Pilot slider not found");
     }
 
     function updateAutoPilotDurationDisplay() {
         if (autoPilotDurationDisplay && transitionDuration) {
             const duration = parseInt(transitionDuration.value);
-            autoPilotDurationDisplay.textContent = `Duration: ${duration} ms`;
+            autoPilotDurationDisplay.textContent = `Duration: ${duration} s`;
         }
     }
 
@@ -189,7 +204,8 @@ try {
         autoPilotInterval = setInterval(() => {
             progress = (progress + step) % 1;
             socket.emit('transitionScenes', { fromScene, toScene, progress });
-            if (transitionSlider) transitionSlider.value = progress * 100;
+            if (autoPilotSlider) autoPilotSlider.value = progress * 100;
+            if (autoPilotSliderValue) autoPilotSliderValue.textContent = `${Math.round(progress * 100)}%`;
             if (progress >= 0.99) {
                 // Swap scenes when reaching the end
                 [fromScene, toScene] = [toScene, fromScene];
@@ -204,6 +220,34 @@ try {
             clearInterval(autoPilotInterval);
             autoPilotInterval = null;
         }
+    }
+
+    // BPM Counter functionality
+    if (tapButton && bpmDisplay) {
+        tapButton.addEventListener('click', () => {
+            const currentTime = Date.now();
+            if (lastTapTime !== 0) {
+                const timeDiff = currentTime - lastTapTime;
+                bpm = Math.round(60000 / timeDiff);
+                tapCount++;
+                if (tapCount >= 4) {
+                    bpmDisplay.textContent = `BPM: ${bpm}`;
+                }
+            } else {
+                tapCount = 1;
+            }
+            lastTapTime = currentTime;
+
+            // Reset tap count after 2 seconds of inactivity
+            setTimeout(() => {
+                if (Date.now() - lastTapTime >= 2000) {
+                    tapCount = 0;
+                    lastTapTime = 0;
+                }
+            }, 2000);
+        });
+    } else {
+        console.error("TAP button or BPM display not found");
     }
 
     // Socket event handlers
