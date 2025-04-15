@@ -32,7 +32,9 @@
     --font: 'Inter', sans-serif;
 }
 
-[data-theme="light"].minimal {
+/* Light mode selector for minimal theme */
+[data-theme="light"] .minimal,
+.minimal[data-theme="light"] {
     --primary-color: #ffffff;
     --secondary-color: #f5f5f5;
     --text-color: #222222;

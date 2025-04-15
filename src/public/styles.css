@@ -77,6 +77,17 @@ h2 {
 h2 .art-subtitle {
     font-size: 1.1rem;
     margin-left: 12px;
+}
+
+/* Hide art subtitles in non-artsnob themes */
+body.standard .art-subtitle,
+body.minimal .art-subtitle {
+    display: none !important;
+}
+
+body.artsnob .art-subtitle {
+    display: inline !important;
+}
     color: var(--silver);
     font-style: italic;
     font-weight: normal;
@@ -1475,4 +1486,59 @@ input[type="range"]::-moz-range-thumb:hover {
     .card {
         padding: 15px;
     }
+}
+
+/* Theme Settings */
+#themeSettings {
+    padding: 10px 0;
+}
+
+#themeSettings .form-row {
+    margin-bottom: 20px;
+}
+
+.theme-select {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+}
+
+.description {
+    font-size: 0.9em;
+    font-style: italic;
+    margin-top: 5px;
+    padding: 8px;
+    border-left: 2px solid var(--accent-color);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0 4px 4px 0;
+}
+
+.artsnob-text, .standard-text, .minimal-text {
+    display: none;
+}
+
+body.artsnob .artsnob-text,
+body.standard .standard-text,
+body.minimal .minimal-text {
+    display: block;
+}
+
+.theme-button {
+    padding: 8px 15px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: var(--transition-all);
+}
+
+.theme-button:hover {
+    background-color: var(--accent-color);
+    color: white;
 }

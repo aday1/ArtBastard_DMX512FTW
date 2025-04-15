@@ -32,7 +32,9 @@
     --body-font: 'Open Sans', sans-serif;
 }
 
-[data-theme="light"].standard {
+/* Light mode selector for standard theme */
+[data-theme="light"] .standard,
+.standard[data-theme="light"] {
     --primary-color: #f8fafc;
     --secondary-color: #f1f5f9;
     --text-color: #1e293b;
