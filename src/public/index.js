@@ -2,18 +2,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Socket.io connection
     const socket = io();
 
-    // DOM Elements
-    const statusIndicator = document.getElementById('statusIndicator');
+    // DOM Elements - Status indicators
+    const artnetIndicator = document.getElementById('artnet-indicator');
+    const midiInIndicator = document.getElementById('midi-in-indicator');
+    const midiOutIndicator = document.getElementById('midi-out-indicator');
+    const oscInIndicator = document.getElementById('osc-in-indicator');
+    const oscOutIndicator = document.getElementById('osc-out-indicator');
+    
+    // DOM Elements - Main UI
     const statusMessage = document.getElementById('statusMessage');
     const themeToggle = document.getElementById('themeToggle');
+    
+    // DOM Elements - Navigation
+    const navButtons = document.querySelectorAll('nav button');
+    const navMain = document.getElementById('navMain');
+    const navMidiOsc = document.getElementById('navMidiOsc');
+    const navFixture = document.getElementById('navFixture');
+    const navScenes = document.getElementById('navScenes');
+    const navOscDebug = document.getElementById('navOscDebug');
+    const navMisc = document.getElementById('navMisc');
+    
+    // DOM Elements - Section containers
     const mainControl = document.getElementById('mainControl');
     const midiOscSetup = document.getElementById('midiOscSetup');
     const fixtureSetup = document.getElementById('fixtureSetup');
     const sceneGallery = document.getElementById('sceneGallery');
     const oscDebug = document.getElementById('oscDebug');
     const misc = document.getElementById('misc');
-    const dmxChannelsContainer = document.getElementById('dmxChannels');
-    const groupControlsContainer = document.getElementById('groupControls');
+    
+    // DOM Elements - Scene management
     const sceneName = document.getElementById('sceneName');
     const sceneOscAddress = document.getElementById('sceneOscAddress');
     const saveSceneBtn = document.getElementById('saveScene');
@@ -22,22 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadSceneButton = document.getElementById('loadSceneButton');
     const savedScenesList = document.getElementById('savedScenesList');
     const sceneGalleryList = document.getElementById('sceneGalleryList');
+    
+    // DOM Elements - Transition controls
     const transitionDuration = document.getElementById('transitionDuration');
     const transitionDurationValue = document.getElementById('transitionDurationValue');
     const sceneTransitionFrom = document.getElementById('sceneTransitionFrom');
     const sceneTransitionTo = document.getElementById('sceneTransitionTo');
     const transitionSlider = document.getElementById('transitionSlider');
     const transitionSliderValue = document.getElementById('transitionSliderValue');
+    
+    // DOM Elements - Auto Pilot
     const autoPilotSceneFrom = document.getElementById('autoPilotSceneFrom');
     const autoPilotSceneTo = document.getElementById('autoPilotSceneTo');
     const autoPilotToggle = document.getElementById('autoPilotToggle');
     const autoPilotSlider = document.getElementById('autoPilotSlider');
     const autoPilotSliderValue = document.getElementById('autoPilotSliderValue');
     const autoPilotDurationDisplay = document.getElementById('autoPilotDurationDisplay');
+    
+    // DOM Elements - BPM
     const tapButton = document.getElementById('tapButton');
     const bpmDisplay = document.getElementById('bpmDisplay');
     const syncLightsButton = document.getElementById('syncLightsButton');
-    const debugOutput = document.getElementById('debugOutput');
+    
+    // DOM Elements - Color Picker
     const colorPalette = document.getElementById('colorPalette');
     const colorPickerModal = document.getElementById('colorPickerModal');
     const closeModal = document.querySelector('.close-modal');
@@ -50,15 +74,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorPreview = document.getElementById('colorPreview');
     const saveCustomColor = document.getElementById('saveCustomColor');
     
-    // Navigation buttons
-    const navMain = document.getElementById('navMain');
-    const navMidiOsc = document.getElementById('navMidiOsc');
-    const navFixture = document.getElementById('navFixture');
-    const navScenes = document.getElementById('navScenes');
-    const navOscDebug = document.getElementById('navOscDebug');
-    const navMisc = document.getElementById('navMisc');
-
-    // Variables
+    // DOM Elements - Channel controls
+    const dmxChannelsContainer = document.getElementById('dmxChannels');
+    const groupControlsContainer = document.getElementById('groupControls');
+    
+    // DOM Elements - Collapse toggles
+    const collapseToggles = document.querySelectorAll('.collapse-toggle');
+    
+    // DOM Elements - Logging
+    const debugOutput = document.getElementById('debugOutput');
+    
+    // State variables
     let dmxChannels = new Array(512).fill(0);
     let oscAssignments = new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`);
     let channelNames = new Array(512).fill('').map((_, i) => `Channel ${i + 1}`);
@@ -68,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let midiMappings = {};
     let currentMidiLearnChannel = null;
     let currentMidiLearnScene = null;
+    let midiLearnTimeout = null;
     let sceneTransition = { fromScene: null, toScene: null, progress: 0 };
     let autoPilot = { fromScene: null, toScene: null, active: false, progress: 0, duration: 60000 };
     let autoPilotInterval = null;
@@ -89,14 +116,72 @@ document.addEventListener('DOMContentLoaded', () => {
         'Complete expression'
     ];
 
-    // Event Listeners
+    // Events on status indicators
+    let artnetStatus = false;
+    let midiInActivity = false;
+    let midiOutActivity = false;
+    let oscInActivity = false;
+    let oscOutActivity = false;
+    
+    // Activity timeout for MIDI/OSC indicators
+    const activityTimeout = 300; // 300ms
+    let midiInActivityTimeout;
+    let midiOutActivityTimeout;
+    let oscInActivityTimeout;
+    let oscOutActivityTimeout;
+
+    // Initialize draggable elements
+    const draggableContainers = document.querySelectorAll('.draggable');
+    draggableContainers.forEach(container => {
+        const cardHeader = container;
+        const card = container.closest('.card');
+        
+        cardHeader.addEventListener('mousedown', () => {
+            card.classList.add('dragging');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            card.classList.remove('dragging');
+        });
+        
+        cardHeader.addEventListener('mousemove', (e) => {
+            if (card.classList.contains('dragging')) {
+                const rect = card.getBoundingClientRect();
+                card.style.position = 'absolute';
+                card.style.zIndex = 1000;
+                card.style.top = e.clientY - rect.height / 2 + 'px';
+                card.style.left = e.clientX - rect.width / 2 + 'px';
+            }
+        });
+    });
+    
+    // Collapse/expand functionality
+    collapseToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const card = toggle.closest('.card');
+            const cardBody = card.querySelector('.card-body');
+            const cardFooter = card.querySelector('.card-footer');
+            
+            if (cardBody.style.display === 'none') {
+                cardBody.style.display = 'block';
+                if (cardFooter) cardFooter.style.display = 'flex';
+                toggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            } else {
+                cardBody.style.display = 'none';
+                if (cardFooter) cardFooter.style.display = 'none';
+                toggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            }
+        });
+    });
+
+    // Socket Event Listeners
     socket.on('connect', () => {
-        statusIndicator.classList.add('connected');
+        updateArtnetStatus(true);
         showMessage('Connected to the luminous server', 'success');
     });
 
     socket.on('disconnect', () => {
-        statusIndicator.classList.remove('connected');
+        updateArtnetStatus(false);
         showMessage('Connection to the server lost - the canvas grows dark', 'error');
     });
 
@@ -124,6 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('sceneSaved', (name) => {
         showMessage(`Scene "${name}" immortalized in the gallery`, 'success');
+        socket.emit('getSceneList');
+    });
+
+    socket.on('sceneList', (sceneList) => {
+        scenes = sceneList;
+        updateSceneSelects();
+        renderSceneGallery();
     });
 
     socket.on('sceneLoaded', ({ name, channelValues }) => {
@@ -149,6 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     socket.on('midiMessage', (message) => {
+        // Show MIDI In activity
+        triggerMidiInActivity();
+        
         const midiMessages = document.getElementById('midiMessages');
         if (midiMessages) {
             const messageElement = document.createElement('div');
@@ -160,6 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     socket.on('oscMessage', (message) => {
+        // Show OSC In activity
+        triggerOscInActivity();
+        
         const oscMessages = document.getElementById('oscMessages');
         if (oscMessages) {
             const messageElement = document.createElement('div');
@@ -187,9 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     socket.on('artnetStatus', ({ ip, status }) => {
+        updateArtnetStatus(status === 'alive');
+        
         const artnetStatus = document.getElementById('artnetStatus');
         if (artnetStatus) {
-            artnetStatus.innerHTML = `<p>ArtNet device at ${ip} is <span class="${status === 'alive' ? 'status-alive' : 'status-dead'}">${status}</span></p>`;
+            artnetStatus.innerHTML = `<p>ArtNet device at ${ip} is <span class="${status === 'alive' ? 'status-alive' : 'status-dead'}">${status === 'alive' ? 'connected' : 'unreachable'}</span></p>`;
         }
     });
 
@@ -197,22 +297,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const artnetDevices = document.getElementById('artnetDevices');
         if (artnetDevices) {
             artnetDevices.innerHTML = `
-                <h3>Discovered ArtNet Entities</h3>
                 <div class="device-list">
                     ${devices.length ? devices.map(device => `
-                        <div class="device-item">
-                            <h4>${device.name || 'Unnamed Device'}</h4>
-                            <p>IP: ${device.ip}</p>
-                            <p>MAC: ${device.mac}</p>
-                            <button class="connect-device" data-ip="${device.ip}">Connect to this entity</button>
+                        <div class="device-item card">
+                            <div class="card-header">
+                                <h4>${device.name || 'Unnamed Device'}</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>IP: ${device.ip}</p>
+                                <p>MAC: ${device.mac}</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="connect-device" data-ip="${device.ip}">Connect to this entity</button>
+                            </div>
                         </div>
                     `).join('') : '<p>No ArtNet devices were found in the ether</p>'}
                 </div>
             `;
+            
+            // Add event listeners to connect buttons
+            document.querySelectorAll('.connect-device').forEach(button => {
+                button.addEventListener('click', () => {
+                    const ip = button.dataset.ip;
+                    document.getElementById('artnetIp').value = ip;
+                    showMessage(`ArtNet IP set to ${ip}. Don't forget to save the configuration.`, 'success');
+                });
+            });
         }
     });
 
+    socket.on('oscSent', (data) => {
+        // Show OSC Out activity
+        triggerOscOutActivity();
+    });
+
+    socket.on('midiSent', (data) => {
+        // Show MIDI Out activity
+        triggerMidiOutActivity();
+    });
+
     // Navigation Event Listeners
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+    
     navMain.addEventListener('click', () => showSection(mainControl));
     navMidiOsc.addEventListener('click', () => showSection(midiOscSetup));
     navFixture.addEventListener('click', () => showSection(fixtureSetup));
@@ -220,8 +351,43 @@ document.addEventListener('DOMContentLoaded', () => {
     navOscDebug.addEventListener('click', () => showSection(oscDebug));
     navMisc.addEventListener('click', () => showSection(misc));
 
-    // Theme toggle
+    // Theme functionality
     themeToggle.addEventListener('click', toggleTheme);
+    
+    // UI Theme Selection
+    const uiThemeSelect = document.getElementById('uiThemeSelect');
+    if (uiThemeSelect) {
+        uiThemeSelect.addEventListener('change', (e) => {
+            changeUITheme(e.target.value);
+        });
+    }
+    
+    // Quick Group functionality
+    const createQuickGroupBtn = document.getElementById('createQuickGroup');
+    const selectAllChannelsBtn = document.getElementById('selectAllChannels');
+    const deselectAllChannelsBtn = document.getElementById('deselectAllChannels');
+    const invertChannelSelectionBtn = document.getElementById('invertChannelSelection');
+    const popoutChannelsBtn = document.getElementById('popoutChannels');
+    
+    if (createQuickGroupBtn) {
+        createQuickGroupBtn.addEventListener('click', createQuickGroup);
+    }
+    
+    if (selectAllChannelsBtn) {
+        selectAllChannelsBtn.addEventListener('click', selectAllChannels);
+    }
+    
+    if (deselectAllChannelsBtn) {
+        deselectAllChannelsBtn.addEventListener('click', deselectAllChannels);
+    }
+    
+    if (invertChannelSelectionBtn) {
+        invertChannelSelectionBtn.addEventListener('click', invertChannelSelection);
+    }
+    
+    if (popoutChannelsBtn) {
+        popoutChannelsBtn.addEventListener('click', popoutSelectedChannels);
+    }
 
     // Scene Management
     saveSceneBtn.addEventListener('click', saveScene);
@@ -270,7 +436,89 @@ document.addEventListener('DOMContentLoaded', () => {
     blueSlider.addEventListener('input', updateColorPreview);
     saveCustomColor.addEventListener('click', saveAndApplyCustomColor);
 
-    // Functions
+    // OSC Debug functions
+    if (document.getElementById('clearOscMessages')) {
+        document.getElementById('clearOscMessages').addEventListener('click', () => {
+            const oscMessages = document.getElementById('oscMessages');
+            if (oscMessages) {
+                oscMessages.innerHTML = '';
+            }
+        });
+    }
+
+    if (document.getElementById('sendOscTest')) {
+        document.getElementById('sendOscTest').addEventListener('click', () => {
+            const address = document.getElementById('oscTestAddress').value;
+            const value = document.getElementById('oscTestValue').value;
+            
+            if (address) {
+                socket.emit('sendOscMessage', { address, value });
+                triggerOscOutActivity();
+                showMessage(`OSC message sent: ${address} ${value}`, 'success');
+            } else {
+                showMessage('Please provide an OSC address', 'error');
+            }
+        });
+    }
+
+    // ArtNet configuration
+    if (document.getElementById('saveArtnetConfig')) {
+        document.getElementById('saveArtnetConfig').addEventListener('click', () => {
+            const ip = document.getElementById('artnetIp').value;
+            const subnet = parseInt(document.getElementById('artnetSubnet').value) || 0;
+            const universe = parseInt(document.getElementById('artnetUniverse').value) || 0;
+            const net = parseInt(document.getElementById('artnetNet').value) || 0;
+            
+            socket.emit('updateArtnetConfig', { ip, subnet, universe, net });
+            showMessage('ArtNet configuration committed to memory', 'success');
+        });
+    }
+
+    if (document.getElementById('searchArtnetDevices')) {
+        document.getElementById('searchArtnetDevices').addEventListener('click', () => {
+            socket.emit('searchArtnetDevices');
+            showMessage('Searching for ArtNet entities in the network...', 'info');
+        });
+    }
+
+    // Settings management
+    if (document.getElementById('saveAllSettings')) {
+        document.getElementById('saveAllSettings').addEventListener('click', () => {
+            socket.emit('saveAllSettings');
+            showMessage('All settings archived for posterity', 'success');
+        });
+    }
+
+    if (document.getElementById('loadAllSettings')) {
+        document.getElementById('loadAllSettings').addEventListener('click', () => {
+            socket.emit('loadAllSettings');
+            showMessage('Settings resurrected from the archives', 'success');
+        });
+    }
+
+    if (document.getElementById('nukeSettings')) {
+        document.getElementById('nukeSettings').addEventListener('click', () => {
+            if (confirm('Are you absolutely certain you wish to obliterate ALL settings? This act of artistic destruction cannot be undone.')) {
+                socket.emit('nukeSettings');
+                showMessage('All settings have been obliterated', 'success');
+            }
+        });
+    }
+
+    // Logging preferences
+    if (document.getElementById('enableLogging')) {
+        document.getElementById('enableLogging').addEventListener('change', (e) => {
+            socket.emit('setLoggingEnabled', { enabled: e.target.checked });
+        });
+    }
+
+    if (document.getElementById('enableConsoleLogging')) {
+        document.getElementById('enableConsoleLogging').addEventListener('change', (e) => {
+            socket.emit('setConsoleLoggingEnabled', { enabled: e.target.checked });
+        });
+    }
+
+    // Functions for UI management
     function showSection(section) {
         mainControl.style.display = 'none';
         midiOscSetup.style.display = 'none';
@@ -295,18 +543,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function toggleTheme() {
         darkMode = !darkMode;
-        if (darkMode) {
-            document.documentElement.style.setProperty('--primary-color', '#1a1a2e');
-            document.documentElement.style.setProperty('--secondary-color', '#16213e');
-            document.documentElement.style.setProperty('--text-color', '#eaeaea');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        } else {
-            document.documentElement.style.setProperty('--primary-color', '#f0f8ff');
-            document.documentElement.style.setProperty('--secondary-color', '#e6f2ff');
-            document.documentElement.style.setProperty('--text-color', '#333333');
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        const themeMode = darkMode ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', themeMode);
+        themeToggle.innerHTML = darkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        
+        // Get current theme style
+        const currentTheme = Array.from(document.body.classList).find(cls => 
+            ['artsnob', 'standard', 'minimal'].includes(cls)) || 'artsnob';
+        
+        // Save to local storage
+        localStorage.setItem('dmxThemeMode', themeMode);
+        
+        const themeDescriptions = {
+            'artsnob': {
+                'dark': 'darkened nocturnal palette',
+                'light': 'enlightened diurnal aesthetic'
+            },
+            'standard': {
+                'dark': 'dark mode',
+                'light': 'light mode'
+            },
+            'minimal': {
+                'dark': 'dark',
+                'light': 'light'
+            }
+        };
+        
+        // Force refresh the theme by reloading the stylesheet
+        const themeStylesheet = document.getElementById('themeStylesheet');
+        if (themeStylesheet) {
+            // Force a reload by adding a cache-busting parameter
+            const currentSrc = themeStylesheet.getAttribute('href').split('?')[0];
+            themeStylesheet.href = `${currentSrc}?t=${Date.now()}`;
         }
-        log(`Theme changed to ${darkMode ? 'dark' : 'light'} mode`);
+        
+        const description = themeDescriptions[currentTheme][themeMode] || `${themeMode} mode`;
+        showMessage(`Theme transformed to ${description}`, 'success');
+        log(`Theme changed to ${description} - the canvas shifts its tonal balance`);
     }
 
     function showMessage(message, type) {
@@ -332,6 +605,49 @@ document.addEventListener('DOMContentLoaded', () => {
         return `<span class="message-address">${message.address}</span> - Args: ${JSON.stringify(message.args)}`;
     }
 
+    // Status indicator functions
+    function updateArtnetStatus(isConnected) {
+        artnetStatus = isConnected;
+        if (isConnected) {
+            artnetIndicator.classList.add('connected');
+        } else {
+            artnetIndicator.classList.remove('connected');
+        }
+    }
+    
+    function triggerMidiInActivity() {
+        midiInIndicator.classList.add('active');
+        if (midiInActivityTimeout) clearTimeout(midiInActivityTimeout);
+        midiInActivityTimeout = setTimeout(() => {
+            midiInIndicator.classList.remove('active');
+        }, activityTimeout);
+    }
+    
+    function triggerMidiOutActivity() {
+        midiOutIndicator.classList.add('active');
+        if (midiOutActivityTimeout) clearTimeout(midiOutActivityTimeout);
+        midiOutActivityTimeout = setTimeout(() => {
+            midiOutIndicator.classList.remove('active');
+        }, activityTimeout);
+    }
+    
+    function triggerOscInActivity() {
+        oscInIndicator.classList.add('active');
+        if (oscInActivityTimeout) clearTimeout(oscInActivityTimeout);
+        oscInActivityTimeout = setTimeout(() => {
+            oscInIndicator.classList.remove('active');
+        }, activityTimeout);
+    }
+    
+    function triggerOscOutActivity() {
+        oscOutIndicator.classList.add('active');
+        if (oscOutActivityTimeout) clearTimeout(oscOutActivityTimeout);
+        oscOutActivityTimeout = setTimeout(() => {
+            oscOutIndicator.classList.remove('active');
+        }, activityTimeout);
+    }
+
+    // DMX Channel Management
     function renderDmxChannels() {
         dmxChannelsContainer.innerHTML = '';
         
@@ -342,18 +658,42 @@ document.addEventListener('DOMContentLoaded', () => {
             
             for (let j = i; j < i + 4 && j < dmxChannels.length; j++) {
                 const channelDiv = document.createElement('div');
-                channelDiv.className = 'dmx-channel';
+                channelDiv.className = 'dmx-channel card';
+                channelDiv.dataset.channel = j;
                 
                 // Check if this channel is mapped to a color
                 if (channelColors[j]) {
                     channelDiv.style.borderLeft = `3px solid rgb(${channelColors[j]})`;
                 }
                 
-                // Add checkbox for channel selection (used for color application)
+                const cardHeader = document.createElement('div');
+                cardHeader.className = 'card-header';
+                
+                const cardBody = document.createElement('div');
+                cardBody.className = 'card-body';
+                
+                // Create the channel title with the checkbox
+                const titleContainer = document.createElement('div');
+                titleContainer.className = 'channel-title-container';
+                
+                // Add checkbox for channel selection
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.className = 'channel-select';
                 checkbox.dataset.channel = j;
+                checkbox.id = `channel-select-${j}`;
+                
+                const channelTitle = document.createElement('h3');
+                
+                // Create a label for the checkbox that wraps the title
+                const checkboxLabel = document.createElement('label');
+                checkboxLabel.className = 'channel-title-label';
+                checkboxLabel.htmlFor = `channel-select-${j}`;
+                checkboxLabel.innerHTML = `${j + 1}: <small class="art-subtitle">${channelNames[j]}</small>`;
+                
+                // Prepend checkbox to title
+                titleContainer.appendChild(checkbox);
+                titleContainer.appendChild(checkboxLabel);
                 
                 const nameInput = document.createElement('input');
                 nameInput.type = 'text';
@@ -363,13 +703,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 nameInput.addEventListener('change', (e) => {
                     channelNames[j] = e.target.value;
                     socket.emit('updateChannelName', { channel: j, name: e.target.value });
+                    // Update the title display
+                    checkboxLabel.innerHTML = `${j + 1}: <small class="art-subtitle">${e.target.value}</small>`;
                 });
                 
-                const label = document.createElement('label');
-                label.textContent = `${j + 1}: `;
-                label.prepend(checkbox);
-                label.appendChild(nameInput);
+                const collapseToggle = document.createElement('button');
+                collapseToggle.className = 'collapse-toggle';
+                collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                collapseToggle.addEventListener('click', () => {
+                    if (cardBody.style.display === 'none') {
+                        cardBody.style.display = 'block';
+                        collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                    } else {
+                        cardBody.style.display = 'none';
+                        collapseToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                    }
+                });
                 
+                const channelControls = document.createElement('div');
+                channelControls.className = 'channel-controls';
+                
+                // Add mini buttons for individual channel actions
+                const channelActionsDiv = document.createElement('div');
+                channelActionsDiv.className = 'channel-actions';
+                
+                const popoutButton = document.createElement('button');
+                popoutButton.className = 'channel-action-button';
+                popoutButton.innerHTML = '<i class="fas fa-external-link-alt"></i>';
+                popoutButton.title = 'Pop out this channel';
+                popoutButton.addEventListener('click', () => {
+                    popoutGroup(`channel-${j}`, `Channel ${j+1}: ${channelNames[j]}`, [j]);
+                });
+                
+                const quickGroupButton = document.createElement('button');
+                quickGroupButton.className = 'channel-action-button';
+                quickGroupButton.innerHTML = '<i class="fas fa-plus-circle"></i>';
+                quickGroupButton.title = 'Add to a quick group';
+                quickGroupButton.addEventListener('click', () => {
+                    // Select this channel
+                    checkbox.checked = true;
+                    createQuickGroup();
+                });
+                
+                channelActionsDiv.appendChild(popoutButton);
+                channelActionsDiv.appendChild(quickGroupButton);
+                
+                // Add channel edit name label and button
+                const editNameButton = document.createElement('button');
+                editNameButton.className = 'channel-action-button';
+                editNameButton.innerHTML = '<i class="fas fa-edit"></i>';
+                editNameButton.title = 'Edit channel name';
+                editNameButton.addEventListener('click', () => {
+                    // Toggle name input visibility
+                    if (nameInput.style.display === 'none' || !nameInput.style.display) {
+                        nameInput.style.display = 'block';
+                        nameInput.focus();
+                    } else {
+                        nameInput.style.display = 'none';
+                    }
+                });
+                
+                channelActionsDiv.appendChild(editNameButton);
+                
+                // Hide name input by default
+                nameInput.style.display = 'none';
+                
+                // Channel slider control
                 const slider = document.createElement('input');
                 slider.type = 'range';
                 slider.min = 0;
@@ -383,6 +782,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 valueDisplay.className = 'channel-value';
                 valueDisplay.textContent = dmxChannels[j];
                 
+                // OSC Assignment
+                const oscDiv = document.createElement('div');
+                oscDiv.className = 'osc-assignment';
+                
+                const oscLabel = document.createElement('label');
+                oscLabel.textContent = 'OSC Address:';
+                
                 const oscInput = document.createElement('input');
                 oscInput.type = 'text';
                 oscInput.value = oscAssignments[j];
@@ -393,22 +799,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     socket.emit('updateOscAssignment', { channel: j, address: e.target.value });
                 });
                 
+                oscDiv.appendChild(oscLabel);
+                oscDiv.appendChild(oscInput);
+                
+                // MIDI Learn button
                 const midiLearnBtn = document.createElement('button');
                 midiLearnBtn.className = 'midi-learn';
-                midiLearnBtn.textContent = midiMappings[j] ? 'Mapped' : 'MIDI Learn';
+                midiLearnBtn.innerHTML = midiMappings[j] ? '<i class="fas fa-music"></i> Mapped' : '<i class="fas fa-music"></i> MIDI Learn';
                 midiLearnBtn.dataset.channel = j;
                 if (midiMappings[j]) {
                     midiLearnBtn.classList.add('mapped');
                 }
                 midiLearnBtn.addEventListener('click', () => startMidiLearn(j));
                 
-                channelDiv.appendChild(label);
-                channelDiv.appendChild(slider);
-                channelDiv.appendChild(valueDisplay);
-                channelDiv.appendChild(document.createElement('br'));
-                channelDiv.appendChild(document.createElement('label')).textContent = 'OSC:';
-                channelDiv.appendChild(oscInput);
-                channelDiv.appendChild(midiLearnBtn);
+                // Assemble the card header with the new title container
+                cardHeader.appendChild(titleContainer);
+                cardHeader.appendChild(collapseToggle);
+                
+                // Assemble the card body
+                cardBody.appendChild(channelActionsDiv);
+                cardBody.appendChild(nameInput);
+                cardBody.appendChild(slider);
+                cardBody.appendChild(valueDisplay);
+                cardBody.appendChild(document.createElement('hr'));
+                cardBody.appendChild(oscDiv);
+                cardBody.appendChild(midiLearnBtn);
+                
+                channelDiv.appendChild(cardHeader);
+                channelDiv.appendChild(cardBody);
                 
                 groupDiv.appendChild(channelDiv);
             }
@@ -423,21 +841,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const fixturesList = document.getElementById('fixturesList');
         if (!fixturesList) return;
         
-        fixturesList.innerHTML = '<h3>Existing Fixtures - The Gallery of Light Instruments</h3>';
+        fixturesList.innerHTML = '';
         
         fixtures.forEach((fixture, index) => {
             const fixtureDiv = document.createElement('div');
-            fixtureDiv.className = 'fixture-item';
+            fixtureDiv.className = 'fixture-item card';
             
-            const fixtureHeader = document.createElement('h4');
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+            
+            const fixtureHeader = document.createElement('h3');
             fixtureHeader.textContent = fixture.name;
+            
+            const collapseToggle = document.createElement('button');
+            collapseToggle.className = 'collapse-toggle';
+            collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            collapseToggle.addEventListener('click', () => {
+                const cardBody = fixtureDiv.querySelector('.card-body');
+                const cardFooter = fixtureDiv.querySelector('.card-footer');
+                
+                if (cardBody.style.display === 'none') {
+                    cardBody.style.display = 'block';
+                    if (cardFooter) cardFooter.style.display = 'flex';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                } else {
+                    cardBody.style.display = 'none';
+                    if (cardFooter) cardFooter.style.display = 'none';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                }
+            });
+            
+            cardHeader.appendChild(fixtureHeader);
+            cardHeader.appendChild(collapseToggle);
+            
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
             
             const fixtureAddress = document.createElement('p');
             fixtureAddress.textContent = `Starting Address: ${fixture.startAddress}`;
+            cardBody.appendChild(fixtureAddress);
             
             const fixtureChannels = document.createElement('div');
             fixtureChannels.className = 'fixture-channels';
-            fixtureChannels.innerHTML = '<h5>Channels:</h5>';
+            fixtureChannels.innerHTML = '<h4>Channels:</h4>';
             
             fixture.channels.forEach((channel, channelIndex) => {
                 const channelDiv = document.createElement('div');
@@ -467,27 +913,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 fixtureChannels.appendChild(channelDiv);
             });
             
-            const fixtureControls = document.createElement('div');
-            fixtureControls.className = 'fixture-controls';
+            cardBody.appendChild(fixtureChannels);
+            
+            const cardFooter = document.createElement('div');
+            cardFooter.className = 'card-footer';
             
             const editButton = document.createElement('button');
-            editButton.textContent = 'Edit';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
             editButton.addEventListener('click', () => editFixture(index));
             
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'danger-button';
+            deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
             deleteButton.addEventListener('click', () => deleteFixture(index));
             
-            fixtureControls.appendChild(editButton);
-            fixtureControls.appendChild(deleteButton);
+            cardFooter.appendChild(editButton);
+            cardFooter.appendChild(deleteButton);
             
-            fixtureDiv.appendChild(fixtureHeader);
-            fixtureDiv.appendChild(fixtureAddress);
-            fixtureDiv.appendChild(fixtureChannels);
-            fixtureDiv.appendChild(fixtureControls);
+            fixtureDiv.appendChild(cardHeader);
+            fixtureDiv.appendChild(cardBody);
+            fixtureDiv.appendChild(cardFooter);
             
             fixturesList.appendChild(fixtureDiv);
         });
+        
+        // Update available fixtures for group creation
+        const availableFixtures = document.getElementById('availableFixtures');
+        if (availableFixtures) {
+            availableFixtures.innerHTML = '';
+            
+            fixtures.forEach((fixture, index) => {
+                const fixtureCheckbox = document.createElement('div');
+                fixtureCheckbox.className = 'fixture-checkbox';
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `fixture-${index}`;
+                checkbox.value = index;
+                
+                const label = document.createElement('label');
+                label.htmlFor = `fixture-${index}`;
+                label.textContent = fixture.name;
+                
+                fixtureCheckbox.appendChild(checkbox);
+                fixtureCheckbox.appendChild(label);
+                
+                availableFixtures.appendChild(fixtureCheckbox);
+            });
+        }
         
         log('Fixtures rendered in the composition panel');
     }
@@ -496,35 +969,64 @@ document.addEventListener('DOMContentLoaded', () => {
         const groupsList = document.getElementById('groupsList');
         if (!groupsList) return;
         
-        groupsList.innerHTML = '<h3>Existing Groups - The Constellations of Light</h3>';
+        groupsList.innerHTML = '';
         
         groups.forEach((group, index) => {
             const groupDiv = document.createElement('div');
-            groupDiv.className = 'group-item';
+            groupDiv.className = 'group-item card';
             
-            const groupHeader = document.createElement('h4');
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+            
+            const groupHeader = document.createElement('h3');
             groupHeader.textContent = group.name;
+            
+            const collapseToggle = document.createElement('button');
+            collapseToggle.className = 'collapse-toggle';
+            collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            collapseToggle.addEventListener('click', () => {
+                const cardBody = groupDiv.querySelector('.card-body');
+                const cardFooter = groupDiv.querySelector('.card-footer');
+                
+                if (cardBody.style.display === 'none') {
+                    cardBody.style.display = 'block';
+                    if (cardFooter) cardFooter.style.display = 'flex';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                } else {
+                    cardBody.style.display = 'none';
+                    if (cardFooter) cardFooter.style.display = 'none';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                }
+            });
+            
+            cardHeader.appendChild(groupHeader);
+            cardHeader.appendChild(collapseToggle);
+            
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
             
             const fixturesList = document.createElement('p');
             fixturesList.textContent = `Fixtures: ${group.fixtureIndices.map(idx => fixtures[idx]?.name || 'Unknown').join(', ')}`;
+            cardBody.appendChild(fixturesList);
             
-            const groupControls = document.createElement('div');
-            groupControls.className = 'group-controls';
+            const cardFooter = document.createElement('div');
+            cardFooter.className = 'card-footer';
             
             const editButton = document.createElement('button');
-            editButton.textContent = 'Edit';
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Edit';
             editButton.addEventListener('click', () => editGroup(index));
             
             const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
+            deleteButton.className = 'danger-button';
+            deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i> Delete';
             deleteButton.addEventListener('click', () => deleteGroup(index));
             
-            groupControls.appendChild(editButton);
-            groupControls.appendChild(deleteButton);
+            cardFooter.appendChild(editButton);
+            cardFooter.appendChild(deleteButton);
             
-            groupDiv.appendChild(groupHeader);
-            groupDiv.appendChild(fixturesList);
-            groupDiv.appendChild(groupControls);
+            groupDiv.appendChild(cardHeader);
+            groupDiv.appendChild(cardBody);
+            groupDiv.appendChild(cardFooter);
             
             groupsList.appendChild(groupDiv);
         });
@@ -554,11 +1056,34 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             const groupDiv = document.createElement('div');
-            groupDiv.className = 'group-control';
+            groupDiv.className = 'group-control card';
+            
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
             
             const groupHeader = document.createElement('h3');
             groupHeader.textContent = group.name;
-            groupDiv.appendChild(groupHeader);
+            
+            const collapseToggle = document.createElement('button');
+            collapseToggle.className = 'collapse-toggle';
+            collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            collapseToggle.addEventListener('click', () => {
+                const cardBody = groupDiv.querySelector('.card-body');
+                
+                if (cardBody.style.display === 'none') {
+                    cardBody.style.display = 'block';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                } else {
+                    cardBody.style.display = 'none';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                }
+            });
+            
+            cardHeader.appendChild(groupHeader);
+            cardHeader.appendChild(collapseToggle);
+            
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
             
             // Create sliders for each channel type
             Object.entries(channelsByType).forEach(([type, channels]) => {
@@ -588,8 +1113,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 typeDiv.appendChild(slider);
                 typeDiv.appendChild(valueDisplay);
                 
-                groupDiv.appendChild(typeDiv);
+                cardBody.appendChild(typeDiv);
             });
+            
+            groupDiv.appendChild(cardHeader);
+            groupDiv.appendChild(cardBody);
             
             groupControlsContainer.appendChild(groupDiv);
         });
@@ -640,13 +1168,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
         scenes.forEach(scene => {
             const sceneDiv = document.createElement('div');
-            sceneDiv.className = 'scene-item';
-
+            sceneDiv.className = 'scene-item card';
+            
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+            
             const sceneHeader = document.createElement('h3');
             sceneHeader.textContent = scene.name;
+            
+            const collapseToggle = document.createElement('button');
+            collapseToggle.className = 'collapse-toggle';
+            collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            collapseToggle.addEventListener('click', () => {
+                const cardBody = sceneDiv.querySelector('.card-body');
+                const cardFooter = sceneDiv.querySelector('.card-footer');
+                
+                if (cardBody.style.display === 'none') {
+                    cardBody.style.display = 'block';
+                    if (cardFooter) cardFooter.style.display = 'flex';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                } else {
+                    cardBody.style.display = 'none';
+                    if (cardFooter) cardFooter.style.display = 'none';
+                    collapseToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                }
+            });
+            
+            cardHeader.appendChild(sceneHeader);
+            cardHeader.appendChild(collapseToggle);
+            
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
 
             const sceneAddress = document.createElement('p');
             sceneAddress.textContent = `OSC: ${scene.oscAddress}`;
+            cardBody.appendChild(sceneAddress);
+            
+            const cardFooter = document.createElement('div');
+            cardFooter.className = 'card-footer';
 
             const loadButton = document.createElement('button');
             loadButton.innerHTML = '<i class="fas fa-magic"></i> Manifest';
@@ -657,6 +1216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             editButton.addEventListener('click', () => editScene(scene));
 
             const deleteButton = document.createElement('button');
+            deleteButton.className = 'danger-button';
             deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i> Erase';
             deleteButton.addEventListener('click', () => deleteScene(scene.name));
 
@@ -669,12 +1229,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             midiLearnBtn.addEventListener('click', () => startSceneMidiLearn(scene.name));
 
-            sceneDiv.appendChild(sceneHeader);
-            sceneDiv.appendChild(sceneAddress);
-            sceneDiv.appendChild(loadButton);
-            sceneDiv.appendChild(editButton);
-            sceneDiv.appendChild(deleteButton);
-            sceneDiv.appendChild(midiLearnBtn);
+            cardFooter.appendChild(loadButton);
+            cardFooter.appendChild(editButton);
+            cardFooter.appendChild(deleteButton);
+            cardFooter.appendChild(midiLearnBtn);
+            
+            sceneDiv.appendChild(cardHeader);
+            sceneDiv.appendChild(cardBody);
+            sceneDiv.appendChild(cardFooter);
 
             savedScenesList.appendChild(sceneDiv);
         });
@@ -780,13 +1342,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const fixtureSlider = document.querySelector(`.fixture-slider[data-channel="${channel}"]`);
         const valueDisplay = slider ? slider.nextElementSibling : null;
         const fixtureValueDisplay = fixtureSlider ? fixtureSlider.nextElementSibling : null;
-
+        
+        // Update the channelDiv to show visual feedback for high values
+        const channelDiv = document.querySelector(`.dmx-channel[data-channel="${channel}"]`);
+        
         if (slider) {
             slider.value = value;
+            
+            // Add a visual animation for significant changes
+            slider.classList.remove('value-change');
+            void slider.offsetWidth; // Trigger reflow
+            slider.classList.add('value-change');
         }
 
         if (valueDisplay) {
+            // Add previous value as data attribute for animation
+            const prevValue = valueDisplay.textContent;
+            valueDisplay.dataset.prevValue = prevValue;
             valueDisplay.textContent = value;
+            
+            // Visual effect for value change
+            valueDisplay.classList.remove('value-change');
+            void valueDisplay.offsetWidth; // Trigger reflow
+            valueDisplay.classList.add('value-change');
+            
+            // Change background color based on value intensity
+            const intensity = value / 255;
+            const bgColor = calculateBgColorFromValue(value);
+            valueDisplay.style.backgroundColor = bgColor;
+            
+            // For high values, add text shadow for glow effect
+            if (value > 200) {
+                valueDisplay.style.textShadow = '0 0 5px rgba(255, 255, 255, 0.7)';
+            } else {
+                valueDisplay.style.textShadow = 'none';
+            }
         }
 
         if (fixtureSlider) {
@@ -795,6 +1385,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (fixtureValueDisplay) {
             fixtureValueDisplay.textContent = value;
+            
+            // Same visual effect for fixture value displays
+            const bgColor = calculateBgColorFromValue(value);
+            fixtureValueDisplay.style.backgroundColor = bgColor;
+        }
+        
+        // Add visual indicator to the channel card for high values
+        if (channelDiv) {
+            if (value > 200) {
+                channelDiv.classList.add('high-value');
+            } else if (value > 100) {
+                channelDiv.classList.add('medium-value');
+                channelDiv.classList.remove('high-value');
+            } else {
+                channelDiv.classList.remove('medium-value', 'high-value');
+            }
+        }
+    }
+    
+    // Helper function to calculate background color based on value
+    function calculateBgColorFromValue(value) {
+        const intensity = value / 255;
+        
+        if (value > 200) {
+            // Bright value - create a gradient
+            return `rgba(${Math.min(value, 255)}, ${Math.min(value * 0.8, 255)}, 0, 0.6)`;
+        } else if (value > 100) {
+            // Medium value
+            return `rgba(100, 100, 100, ${intensity * 0.7})`;
+        } else {
+            // Low value
+            return `rgba(50, 50, 50, ${intensity * 0.5})`;
         }
     }
 
@@ -831,12 +1453,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     timeoutButton.classList.remove('learning');
                     timeoutButton.textContent = midiMappings[currentMidiLearnChannel] ? 'Mapped' : 'MIDI Learn';
                 }
-                showMessage('MIDI learning timed out. Try again.', 'error');
+                showMessage('MIDI learning timed out. Patience, mon ami, and try again.', 'error');
                 currentMidiLearnChannel = null;
             }
         }, 10000);
 
-        log(`MIDI learn started for channel ${channel}`);
+        log(`MIDI learn initiated for channel ${channel} - awaiting digital incantation`);
     }
 
     function startSceneMidiLearn(sceneName) {
@@ -874,12 +1496,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     timeoutButton.innerHTML = scenes.find(s => s.name === currentMidiLearnScene)?.midiMapping ? 
                         '<i class="fas fa-music"></i> Remapped' : '<i class="fas fa-music"></i> MIDI Map';
                 }
-                showMessage('MIDI learning timed out. Try again.', 'error');
+                showMessage('MIDI learning timed out. The digital muse remained silent.', 'error');
                 currentMidiLearnScene = null;
             }
         }, 10000);
 
-        log(`MIDI learn started for scene "${sceneName}"`);
+        log(`MIDI learn initiated for scene "${sceneName}" - awaiting your MIDI gesture`);
     }
 
     function saveScene() {
@@ -887,22 +1509,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const oscAddress = sceneOscAddress.value.trim();
 
         if (!name) {
-            showMessage('Please bestow a title upon your masterpiece', 'error');
+            showMessage('Please bestow a title upon your masterpiece, mon cher', 'error');
             return;
         }
 
         if (!oscAddress) {
-            showMessage('Please assign an OSC address to your creation', 'error');
+            showMessage('A proper OSC address is required for this luminous creation', 'error');
             return;
         }
 
         socket.emit('saveScene', { name, oscAddress, state: dmxChannels });
-        log(`Scene "${name}" saved with OSC address "${oscAddress}"`);
+        log(`Scene "${name}" captured with OSC address "${oscAddress}" - a moment of brilliance preserved`);
     }
 
     function loadScene(name) {
         socket.emit('loadScene', { name });
-        log(`Loading scene "${name}" onto the canvas`);
+        log(`Summoning scene "${name}" onto the canvas - let there be light!`);
     }
 
     function loadSelectedScene() {
@@ -910,42 +1532,42 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedScene) {
             loadScene(selectedScene);
         } else {
-            showMessage('Please select a scene to materialize', 'error');
+            showMessage('One must select a scene before manifesting it, naturellement', 'error');
         }
     }
 
     function editScene(scene) {
         sceneName.value = scene.name;
         sceneOscAddress.value = scene.oscAddress;
-        showMessage(`Scene "${scene.name}" ready for revision`, 'success');
+        showMessage(`Scene "${scene.name}" is now available for your artistic revision`, 'success');
     }
 
     function deleteScene(name) {
-        if (confirm(`Are you certain you wish to erase "${name}" from existence?`)) {
+        if (confirm(`Are you certain you wish to erase "${name}" from existence? This act of artistic destruction cannot be undone.`)) {
             socket.emit('deleteScene', { name });
             scenes = scenes.filter(scene => scene.name !== name);
             updateSceneSelects();
             renderSceneGallery();
-            showMessage(`Scene "${name}" has been expunged from the gallery`, 'success');
-            log(`Scene "${name}" deleted`);
+            showMessage(`Scene "${name}" has been expunged from the gallery with artistic prejudice`, 'success');
+            log(`Scene "${name}" deleted from the artistic record`);
         }
     }
 
     function clearAllScenes() {
-        if (confirm('Are you absolutely certain you wish to purge the entire gallery? This action cannot be undone.')) {
+        if (confirm('Are you absolutely certain you wish to purge the entire gallery? This most dramatic act of artistic destruction cannot be undone, and will erase all evidence of your previous creative endeavors.')) {
             socket.emit('clearAllScenes');
             scenes = [];
             updateSceneSelects();
             renderSceneGallery();
-            showMessage('The gallery has been purged of all scenes', 'success');
-            log('All scenes cleared from the gallery');
+            showMessage('The gallery has been purged - a blank canvas awaits your genius', 'success');
+            log('All scenes cleared from the gallery - tabula rasa achieved');
         }
     }
 
     function updateTransitionDuration() {
         const duration = transitionDuration.value;
         transitionDurationValue.textContent = `${duration} s`;
-        log(`Transition duration set to ${duration} seconds`);
+        log(`Temporal flow adjusted to ${duration} seconds - the pace of your artistic expression`);
     }
 
     function updateTransitionScenes() {
@@ -982,7 +1604,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateChannel(idx, value);
                 });
                 
-                log(`Transition at ${progress}% between "${sceneTransition.fromScene}" and "${sceneTransition.toScene}"`);
+                log(`Transition at ${progress}% between "${sceneTransition.fromScene}" and "${sceneTransition.toScene}" - the metamorphosis unfolds`);
             }
         }
     }
@@ -1001,7 +1623,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (autoPilot.active) {
             if (!autoPilot.fromScene || !autoPilot.toScene) {
-                showMessage('Please select both origin and destination scenes', 'error');
+                showMessage('One must select both origin and destination scenes for the journey, mon ami', 'error');
                 autoPilotToggle.checked = false;
                 autoPilot.active = false;
                 return;
@@ -1038,8 +1660,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateAutoPilotTransition();
             }, updateInterval);
             
-            log(`Auto pilot engaged between "${autoPilot.fromScene}" and "${autoPilot.toScene}" with ${duration/1000}s duration`);
-            showMessage('Autonomous expression engaged', 'success');
+            log(`Auto pilot engaged between "${autoPilot.fromScene}" and "${autoPilot.toScene}" with ${duration/1000}s temporal flow - the autonomous journey begins`);
+            showMessage('Autonomous expression engaged - the lights now dance to their own rhythm', 'success');
         } else {
             // Stop auto pilot
             if (autoPilotInterval) {
@@ -1047,8 +1669,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 autoPilotInterval = null;
             }
             
-            log('Auto pilot disengaged');
-            showMessage('Autonomous expression halted', 'success');
+            log('Auto pilot disengaged - control returns to the maestro');
+            showMessage('Autonomous expression halted - you have reclaimed the artistic reins', 'success');
         }
     }
 
@@ -1073,6 +1695,11 @@ document.addEventListener('DOMContentLoaded', () => {
             transitionValues.forEach((value, idx) => {
                 updateChannel(idx, value);
             });
+            
+            // Show OSC Out activity when values change significantly
+            if (Math.round(progress) % 10 === 0) {
+                triggerOscOutActivity();
+            }
         }
         
         updateAutoPilotDisplay();
@@ -1107,7 +1734,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Update BPM display
             bpmDisplay.textContent = `BPM: ${currentBPM} - The pulse of your creation`;
-            log(`BPM set to ${currentBPM}`);
+            log(`Rhythmic pulse established at ${currentBPM} BPM - the heartbeat of your luminous composition`);
         }
         
         // Visual feedback
@@ -1119,12 +1746,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function syncLightsToBPM() {
         if (currentBPM === 0) {
-            showMessage('Please establish a rhythmic pulse first', 'error');
+            showMessage('One must first establish a rhythmic pulse with the TAP button, mon cher', 'error');
             return;
         }
         
-        showMessage(`Synchronizing luminescence to ${currentBPM} BPM`, 'success');
-        log(`Synchronizing lights to ${currentBPM} BPM`);
+        showMessage(`Synchronizing luminescence to ${currentBPM} BPM - the light now dances to your tempo`, 'success');
+        log(`Synchronizing lights to ${currentBPM} BPM - rhythm and light become one`);
         
         // Calculate interval in milliseconds
         const interval = 60000 / currentBPM;
@@ -1143,7 +1770,7 @@ document.addEventListener('DOMContentLoaded', () => {
         blueValue.textContent = '255';
         colorPreview.style.backgroundColor = 'rgb(255,255,255)';
         
-        colorPickerModal.style.display = 'block';
+        colorPickerModal.style.display = 'flex';
     }
 
     function updateColorPreview() {
@@ -1181,14 +1808,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Close the modal
         colorPickerModal.style.display = 'none';
         
-        log(`Custom color rgb(${r},${g},${b}) created and applied`);
+        log(`Custom color rgb(${r},${g},${b}) created and applied - a unique chromatic expression`);
     }
 
     function applyColorToSelectedChannels(colorString) {
         const selectedChannels = document.querySelectorAll('.channel-select:checked');
         
         if (selectedChannels.length === 0) {
-            showMessage('Please select channels to apply color to', 'error');
+            showMessage('One must select channels before applying color, mon ami', 'error');
             return;
         }
         
@@ -1196,7 +1823,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const [r, g, b] = colorString.split(',').map(Number);
         
         if (selectedChannels.length < 3 && r !== undefined && g !== undefined && b !== undefined) {
-            showMessage('Please select at least 3 channels for RGB color', 'error');
+            showMessage('For a proper RGB expression, one requires at least three channels', 'error');
             return;
         }
         
@@ -1240,38 +1867,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        log(`Applied color rgb(${r},${g},${b}) to ${selectedChannels.length} channels`);
-        showMessage(`Color applied to ${selectedChannels.length} channels`, 'success');
+        // Trigger OSC Out activity
+        triggerOscOutActivity();
+        
+        log(`Applied color rgb(${r},${g},${b}) to ${selectedChannels.length} channels - a splash of chromatic brilliance`);
+        showMessage(`Color applied to ${selectedChannels.length} channels with artistic flourish`, 'success');
     }
 
     function editFixture(index) {
-        // This would open a form to edit the fixture
-        log(`Editing fixture with index ${index}`);
+        // We'd implement the fixture editing UI here
+        log(`Preparing to revise fixture ${fixtures[index].name} - the canvas of creation opens`);
     }
 
     function deleteFixture(index) {
-        if (confirm(`Are you certain you wish to remove this fixture from your composition?`)) {
+        if (confirm(`Are you certain you wish to remove "${fixtures[index].name}" from your composition? This act of curatorial discretion cannot be undone.`)) {
             socket.emit('deleteFixture', { index });
             fixtures = fixtures.filter((_, i) => i !== index);
             renderFixtures();
             renderGroups(); // Re-render groups as they might reference this fixture
-            showMessage('Fixture removed from the composition', 'success');
-            log(`Fixture with index ${index} deleted`);
+            showMessage(`Fixture "${fixtures[index].name}" has been removed from the composition`, 'success');
+            log(`Fixture with index ${index} removed from the artistic palette`);
         }
     }
 
     function editGroup(index) {
-        // This would open a form to edit the group
-        log(`Editing group with index ${index}`);
+        // We'd implement the group editing UI here
+        log(`Preparing to revise group ${groups[index].name} - reconfiguring the collective expression`);
     }
 
     function deleteGroup(index) {
-        if (confirm(`Are you certain you wish to dissolve this collective?`)) {
+        if (confirm(`Are you certain you wish to dissolve the "${groups[index].name}" collective? This curatorial act cannot be undone.`)) {
             socket.emit('deleteGroup', { index });
             groups = groups.filter((_, i) => i !== index);
             renderGroups();
-            showMessage('Group dissolved from the collective', 'success');
-            log(`Group with index ${index} deleted`);
+            showMessage(`Group "${groups[index].name}" has been dissolved from the collective`, 'success');
+            log(`Group with index ${index} dissolved from the artistic taxonomy`);
         }
     }
 
@@ -1284,8 +1914,648 @@ document.addEventListener('DOMContentLoaded', () => {
             debugOutput.textContent = debugOutput.textContent.substring(0, 5000) + "...";
         }
     }
+    
+    // UI Theme functionality
+    function changeUITheme(themeName) {
+        console.log(`Changing theme to: ${themeName}`);
+        
+        // Remove all theme classes from body
+        document.body.classList.remove('artsnob', 'standard', 'minimal');
+        
+        // Add selected theme class
+        document.body.classList.add(themeName);
+        
+        // Create a completely new stylesheet element to ensure it's refreshed
+        const oldStylesheet = document.getElementById('themeStylesheet');
+        if (oldStylesheet) {
+            oldStylesheet.remove();
+        }
+        
+        // Create and add the new stylesheet with a cache-busting parameter
+        const newStylesheet = document.createElement('link');
+        newStylesheet.rel = 'stylesheet';
+        newStylesheet.id = 'themeStylesheet';
+        newStylesheet.href = `theme-${themeName}.css?v=${Date.now()}`;
+        document.head.appendChild(newStylesheet);
+        
+        // Save theme preference to local storage
+        localStorage.setItem('dmxTheme', themeName);
+        
+        // Get current theme mode
+        const themeMode = document.documentElement.getAttribute('data-theme') || 'dark';
+        
+        // Update text content based on theme
+        updateThemeTextContent(themeName);
+        
+        const themeNames = {
+            'artsnob': 'Art Critic Extraordinaire',
+            'standard': 'Standard DMX Controller',
+            'minimal': 'Minimalist'
+        };
+        
+        const messagesByTheme = {
+            'artsnob': 'Aesthetic sensibility transformed to the heightened artistic expression - the interface transcends mundane functionality',
+            'standard': 'Interface changed to Standard DMX Controller mode - clean, professional, and functional',
+            'minimal': 'Interface simplified to Minimalist mode - pure functionality without distraction'
+        };
+        
+        // Make sure UI updates immediately
+        setTimeout(() => {
+            showMessage(messagesByTheme[themeName] || `Theme changed to ${themeNames[themeName]}`, 'success');
+            log(`UI theme changed to ${themeNames[themeName]}`);
+        }, 100);
+        
+        // Force redraw of everything
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // Force reflow
+        document.body.style.display = '';
+    }
+    
+    // Update text content based on selected theme
+    function updateThemeTextContent(themeName) {
+        // Theme-specific text replacements
+        const textReplacements = {
+            'artsnob': {
+                'appTitle': 'ArtBastard DMX512FTW: The Luminary Palette',
+                'dmxChannelsTitle': 'DMX Channels <span class="art-subtitle">The Elemental Brushstrokes</span>',
+                'scenesTitle': 'Scenes <span class="art-subtitle">Choreographies of Light</span>',
+                'colorPaletteTitle': 'Color Palette <span class="art-subtitle">Chromatic Expressions</span>',
+                'groupControlsTitle': 'Group Controls <span class="art-subtitle">Collective Light Sculptures</span>',
+                'createGroupBtn': '<i class="fas fa-object-group"></i> Form Selected Channel Ensemble',
+                'selectAllBtn': '<i class="fas fa-check-double"></i> Select All Channels',
+                'deselectAllBtn': '<i class="fas fa-times"></i> Deselect All',
+                'invertSelectionBtn': '<i class="fas fa-exchange-alt"></i> Invert Selection',
+                'popoutBtn': '<i class="fas fa-external-link-alt"></i> Liberate to Separate Canvas',
+                'themeLabel': 'Aesthetic Mode:'
+            },
+            'standard': {
+                'appTitle': 'DMX512 Controller',
+                'dmxChannelsTitle': 'DMX Channels',
+                'scenesTitle': 'Scenes',
+                'colorPaletteTitle': 'Color Tools',
+                'groupControlsTitle': 'Group Controls',
+                'createGroupBtn': '<i class="fas fa-object-group"></i> Create Group',
+                'selectAllBtn': '<i class="fas fa-check-double"></i> Select All',
+                'deselectAllBtn': '<i class="fas fa-times"></i> Clear Selection',
+                'invertSelectionBtn': '<i class="fas fa-exchange-alt"></i> Invert Selection',
+                'popoutBtn': '<i class="fas fa-external-link-alt"></i> Pop Out Selected',
+                'themeLabel': 'Theme:'
+            },
+            'minimal': {
+                'appTitle': 'DMX Controller',
+                'dmxChannelsTitle': 'Channels',
+                'scenesTitle': 'Scenes',
+                'colorPaletteTitle': 'Colors',
+                'groupControlsTitle': 'Groups',
+                'createGroupBtn': '<i class="fas fa-object-group"></i> Group',
+                'selectAllBtn': '<i class="fas fa-check-double"></i> All',
+                'deselectAllBtn': '<i class="fas fa-times"></i> None',
+                'invertSelectionBtn': '<i class="fas fa-exchange-alt"></i> Invert',
+                'popoutBtn': '<i class="fas fa-external-link-alt"></i> Pop Out',
+                'themeLabel': 'Theme:'
+            }
+        };
+        
+        // Get text objects for current theme
+        const texts = textReplacements[themeName] || textReplacements['standard'];
+        
+        // Update page header
+        const pageHeader = document.querySelector('h1');
+        if (pageHeader) pageHeader.innerHTML = texts.appTitle;
+        
+        // Update section titles
+        const dmxChannelsTitle = document.querySelector('h2:nth-of-type(1)');
+        if (dmxChannelsTitle) dmxChannelsTitle.innerHTML = texts.dmxChannelsTitle;
+        
+        const scenesTitle = document.querySelector('h2:nth-of-type(2)');
+        if (scenesTitle) scenesTitle.innerHTML = texts.scenesTitle;
+        
+        const colorPaletteTitle = document.querySelector('h2:nth-of-type(3)');
+        if (colorPaletteTitle) colorPaletteTitle.innerHTML = texts.colorPaletteTitle;
+        
+        const groupControlsTitle = document.querySelector('h2:nth-of-type(4)');
+        if (groupControlsTitle) groupControlsTitle.innerHTML = texts.groupControlsTitle;
+        
+        // Update buttons
+        const createGroupBtn = document.getElementById('createQuickGroup');
+        if (createGroupBtn) createGroupBtn.innerHTML = texts.createGroupBtn;
+        
+        const selectAllBtn = document.getElementById('selectAllChannels');
+        if (selectAllBtn) selectAllBtn.innerHTML = texts.selectAllBtn;
+        
+        const deselectAllBtn = document.getElementById('deselectAllChannels');
+        if (deselectAllBtn) deselectAllBtn.innerHTML = texts.deselectAllBtn;
+        
+        const invertSelectionBtn = document.getElementById('invertChannelSelection');
+        if (invertSelectionBtn) invertSelectionBtn.innerHTML = texts.invertSelectionBtn;
+        
+        const popoutBtn = document.getElementById('popoutChannels');
+        if (popoutBtn) popoutBtn.innerHTML = texts.popoutBtn;
+        
+        // Update theme selection label
+        const themeLabel = document.querySelector('.theme-selection label');
+        if (themeLabel) themeLabel.textContent = texts.themeLabel;
+        
+        // Hide/show art quotes based on theme
+        const artQuotes = document.querySelectorAll('.art-quote');
+        artQuotes.forEach(quote => {
+            quote.style.display = themeName === 'artsnob' ? 'block' : 'none';
+        });
+    }
+    
+    // Quick Group functionality
+    function createQuickGroup() {
+        const selectedChannels = document.querySelectorAll('.channel-select:checked');
+        
+        if (selectedChannels.length === 0) {
+            showMessage('One must select channels before forming an ensemble, mon cher', 'error');
+            return;
+        }
+        
+        // Create a unique group ID
+        const groupId = 'qg-' + Date.now();
+        
+        // Get the channel numbers of selected channels
+        const channelNumbers = Array.from(selectedChannels).map(checkbox => parseInt(checkbox.dataset.channel));
+        
+        // Create a name for the quick group based on channels
+        let groupName = 'Ensemble';
+        if (channelNumbers.length <= 5) {
+            groupName += ': Ch ' + channelNumbers.join(', ');
+        } else {
+            groupName += `: Ch ${channelNumbers[0]}-${channelNumbers[channelNumbers.length-1]} (${channelNumbers.length})`;
+        }
+        
+        // Get quick groups container
+        const quickGroupsContainer = document.getElementById('quickGroupsContainer');
+        
+        // Create a new quick group element
+        const quickGroup = document.createElement('div');
+        quickGroup.className = 'quick-group';
+        quickGroup.id = groupId;
+        quickGroup.dataset.channels = JSON.stringify(channelNumbers);
+        
+        const quickGroupHeader = document.createElement('div');
+        quickGroupHeader.className = 'quick-group-header';
+        
+        const groupTitle = document.createElement('h4');
+        groupTitle.className = 'quick-group-title';
+        groupTitle.textContent = groupName;
+        
+        const controlsDiv = document.createElement('div');
+        controlsDiv.className = 'quick-group-controls';
+        
+        const removeButton = document.createElement('button');
+        removeButton.innerHTML = '<i class="fas fa-times"></i>';
+        removeButton.title = 'Remove group';
+        removeButton.className = 'danger-button';
+        removeButton.addEventListener('click', () => {
+            quickGroup.remove();
+            log(`Quick group "${groupName}" dissolved from the canvas`);
+        });
+        
+        const popoutButton = document.createElement('button');
+        popoutButton.innerHTML = '<i class="fas fa-external-link-alt"></i>';
+        popoutButton.title = 'Open in new window';
+        popoutButton.className = 'info-button';
+        popoutButton.addEventListener('click', () => {
+            popoutGroup(groupId, groupName, channelNumbers);
+        });
+        
+        controlsDiv.appendChild(popoutButton);
+        controlsDiv.appendChild(removeButton);
+        
+        quickGroupHeader.appendChild(groupTitle);
+        quickGroupHeader.appendChild(controlsDiv);
+        
+        // Create a slider for the group
+        const slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = 0;
+        slider.max = 255;
+        slider.value = 0;
+        slider.className = 'quick-group-slider';
+        
+        const valueDisplay = document.createElement('div');
+        valueDisplay.className = 'channel-value';
+        valueDisplay.textContent = '0';
+        
+        // Add event listener for the slider
+        slider.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            valueDisplay.textContent = value;
+            
+            // Update all channels in the group
+            channelNumbers.forEach(channel => updateChannel(channel, value));
+            log(`Set all channels in "${groupName}" to value ${value}`);
+        });
+        
+        quickGroup.appendChild(quickGroupHeader);
+        quickGroup.appendChild(slider);
+        quickGroup.appendChild(valueDisplay);
+        
+        quickGroupsContainer.appendChild(quickGroup);
+        
+        showMessage(`Quick group "${groupName}" formed with ${channelNumbers.length} channels`, 'success');
+        log(`Created quick group with ${channelNumbers.length} channels`);
+        
+        // Deselect the channels
+        deselectAllChannels();
+    }
+    
+    function selectAllChannels() {
+        const checkboxes = document.querySelectorAll('.channel-select');
+        checkboxes.forEach(checkbox => { 
+            checkbox.checked = true;
+        });
+        log('All DMX channels selected in the canvas');
+    }
+    
+    function deselectAllChannels() {
+        const checkboxes = document.querySelectorAll('.channel-select');
+        checkboxes.forEach(checkbox => { 
+            checkbox.checked = false;
+        });
+        log('All DMX channel selections cleared');
+    }
+    
+    function invertChannelSelection() {
+        const checkboxes = document.querySelectorAll('.channel-select');
+        checkboxes.forEach(checkbox => { 
+            checkbox.checked = !checkbox.checked;
+        });
+        log('DMX channel selection inverted');
+    }
+    
+    function popoutSelectedChannels() {
+        const selectedChannels = document.querySelectorAll('.channel-select:checked');
+        
+        if (selectedChannels.length === 0) {
+            showMessage('One must select channels before liberating them to a separate canvas, mon cher', 'error');
+            return;
+        }
+        
+        // Get the channel numbers of selected channels
+        const channelNumbers = Array.from(selectedChannels).map(checkbox => parseInt(checkbox.dataset.channel));
+        
+        // Generate a unique ID for this popout
+        const popoutId = 'popout-' + Date.now();
+        const popoutName = `Channels ${channelNumbers.length <= 5 ? channelNumbers.join(', ') : channelNumbers.length}`;
+        
+        popoutGroup(popoutId, popoutName, channelNumbers);
+    }
+    
+    function popoutGroup(id, name, channelNumbers) {
+        // Open a new window
+        const popoutWindow = window.open('', id, 'width=800,height=600,resizable=yes,scrollbars=yes');
+        
+        // Get current theme class
+        const currentTheme = Array.from(document.body.classList).find(cls => 
+            ['artsnob', 'standard', 'minimal'].includes(cls)) || 'artsnob';
+        
+        // Get theme mode (light/dark)
+        const themeMode = document.documentElement.getAttribute('data-theme') || 'dark';
+            
+        // Create the HTML content for the popout window
+        const popoutContent = `
+        <!DOCTYPE html>
+        <html lang="en" data-theme="${themeMode}">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>ArtBastard DMX - ${name}</title>
+            <link rel="stylesheet" href="styles.css">
+            <link rel="stylesheet" href="theme-${currentTheme}.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+            <style>
+                body { padding: 20px; }
+                .header-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+                .all-channels-control { 
+                    display: flex; 
+                    flex-direction: column; 
+                    padding: 15px; 
+                    margin-bottom: 20px; 
+                    background-color: var(--card-bg);
+                    border-left: var(--card-border);
+                }
+                .dmx-slider.master { height: 15px; }
+            </style>
+        </head>
+        <body class="${currentTheme} pop-out">
+            <div class="header-controls">
+                <h1>${name}</h1>
+                <button id="closePopout" class="danger-button"><i class="fas fa-times"></i> Close</button>
+            </div>
+            
+            <div class="all-channels-control">
+                <h3>Master Control</h3>
+                <input type="range" id="masterSlider" class="dmx-slider master" min="0" max="255" value="0">
+                <div class="channel-value" id="masterValue">0</div>
+            </div>
+            
+            <div id="popoutChannels"></div>
+            
+            <script>
+                // Function to communicate with parent window
+                function updateChannel(channel, value) {
+                    window.opener.postMessage({
+                        action: 'updateChannel',
+                        channel: channel,
+                        value: value
+                    }, '*');
+                    
+                    // Update local display
+                    const slider = document.querySelector(\`.dmx-slider[data-channel="\${channel}"]\`);
+                    const valueDisplay = slider ? slider.nextElementSibling : null;
+                    
+                    if (slider) {
+                        slider.value = value;
+                    }
+                    
+                    if (valueDisplay) {
+                        valueDisplay.textContent = value;
+                    }
+                }
+                
+                // Close button functionality
+                document.getElementById('closePopout').addEventListener('click', () => {
+                    window.close();
+                });
+                
+                // Master slider functionality
+                const masterSlider = document.getElementById('masterSlider');
+                const masterValue = document.getElementById('masterValue');
+                
+                masterSlider.addEventListener('input', (e) => {
+                    const value = parseInt(e.target.value);
+                    masterValue.textContent = value;
+                    
+                    // Update all channels
+                    const channels = ${JSON.stringify(channelNumbers)};
+                    channels.forEach(channel => updateChannel(channel, value));
+                });
+                
+                // Listen for messages from the parent window
+                window.addEventListener('message', (event) => {
+                    if (event.data.action === 'updateSlider') {
+                        const slider = document.querySelector(\`.dmx-slider[data-channel="\${event.data.channel}"]\`);
+                        const valueDisplay = slider ? slider.nextElementSibling : null;
+                        
+                        if (slider) {
+                            slider.value = event.data.value;
+                        }
+                        
+                        if (valueDisplay) {
+                            valueDisplay.textContent = event.data.value;
+                        }
+                    }
+                });
+            </script>
+        </body>
+        </html>
+        `;
+        
+        // Write the content to the popout window
+        popoutWindow.document.open();
+        popoutWindow.document.write(popoutContent);
+        popoutWindow.document.close();
+        
+        // Function to create channel controls in the popout window
+        const createChannelControls = () => {
+            const popoutChannelsContainer = popoutWindow.document.getElementById('popoutChannels');
+            if (!popoutChannelsContainer) return; // Window may be closed
+            
+            channelNumbers.forEach(channel => {
+                const channelDiv = document.createElement('div');
+                channelDiv.className = 'dmx-channel';
+                
+                const channelTitle = document.createElement('h3');
+                channelTitle.innerHTML = `${channel + 1}: <small>${channelNames[channel]}</small>`;
+                
+                const slider = document.createElement('input');
+                slider.type = 'range';
+                slider.min = 0;
+                slider.max = 255;
+                slider.value = dmxChannels[channel];
+                slider.className = 'dmx-slider';
+                slider.dataset.channel = channel;
+                slider.addEventListener('input', (e) => {
+                    const value = parseInt(e.target.value);
+                    updateChannel(channel, value);
+                });
+                
+                const valueDisplay = document.createElement('div');
+                valueDisplay.className = 'channel-value';
+                valueDisplay.textContent = dmxChannels[channel];
+                
+                channelDiv.appendChild(channelTitle);
+                channelDiv.appendChild(slider);
+                channelDiv.appendChild(valueDisplay);
+                
+                popoutChannelsContainer.appendChild(channelDiv);
+            });
+        };
+        
+        // Wait for window to load
+        popoutWindow.onload = createChannelControls;
+        
+        // Listen for messages from popout windows
+        window.addEventListener('message', (event) => {
+            if (event.data.action === 'updateChannel') {
+                updateChannel(event.data.channel, event.data.value);
+            }
+        });
+        
+        log(`Liberated ${channelNumbers.length} channels to a separate canvas`);
+    }
+    
+    // Override updateDmxSlider to also update popout windows
+    const originalUpdateDmxSlider = updateDmxSlider;
+    updateDmxSlider = function(channel, value) {
+        // Call the original function
+        originalUpdateDmxSlider(channel, value);
+        
+        // Update any open popout windows
+        const message = {
+            action: 'updateSlider',
+            channel: channel,
+            value: value
+        };
+        
+        // Broadcast to all open windows that might contain this channel
+        const openWindows = window.opener ? [window.opener] : [];
+        for (const win of window.frames) {
+            if (!win.closed) {
+                openWindows.push(win);
+            }
+        }
+        
+        openWindows.forEach(win => {
+            try {
+                win.postMessage(message, '*');
+            } catch(e) {
+                // Ignore errors for closed windows
+            }
+        });
+    };
+
+    // Initialize floating controls
+    function initFloatingControls() {
+        // Floating buttons
+        const floatingTopBtn = document.getElementById('floatingTopBtn');
+        const floatingCreateGroupBtn = document.getElementById('floatingCreateGroupBtn');
+        const floatingColorBtn = document.getElementById('floatingColorBtn');
+        
+        // Floating toolbar buttons
+        const floatingSelectAllBtn = document.getElementById('floatingSelectAllBtn');
+        const floatingDeselectAllBtn = document.getElementById('floatingDeselectAllBtn');
+        const floatingInvertSelectionBtn = document.getElementById('floatingInvertSelectionBtn');
+        const selectionCountDisplay = document.querySelector('.selection-count');
+        
+        // Floating color picker
+        const floatingColorPicker = document.getElementById('floatingColorPicker');
+        const closeFloatingPicker = document.querySelector('.close-floating-picker');
+        const floatingPaletteColors = document.querySelectorAll('.floating-palette .color-preset');
+        
+        // Top button functionality
+        if (floatingTopBtn) {
+            floatingTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+        
+        // Create group button
+        if (floatingCreateGroupBtn) {
+            floatingCreateGroupBtn.addEventListener('click', createQuickGroup);
+        }
+        
+        // Color button and picker
+        if (floatingColorBtn && floatingColorPicker) {
+            floatingColorBtn.addEventListener('click', () => {
+                floatingColorPicker.classList.toggle('active');
+            });
+        }
+        
+        if (closeFloatingPicker) {
+            closeFloatingPicker.addEventListener('click', () => {
+                floatingColorPicker.classList.remove('active');
+            });
+        }
+        
+        if (floatingPaletteColors) {
+            floatingPaletteColors.forEach(color => {
+                color.addEventListener('click', () => {
+                    const colorValue = color.dataset.color;
+                    applyColorToSelectedChannels(colorValue);
+                    floatingColorPicker.classList.remove('active');
+                });
+            });
+        }
+        
+        // Floating toolbar functions
+        if (floatingSelectAllBtn) {
+            floatingSelectAllBtn.addEventListener('click', selectAllChannels);
+        }
+        
+        if (floatingDeselectAllBtn) {
+            floatingDeselectAllBtn.addEventListener('click', deselectAllChannels);
+        }
+        
+        if (floatingInvertSelectionBtn) {
+            floatingInvertSelectionBtn.addEventListener('click', invertChannelSelection);
+        }
+        
+        // Update selection count and visibility of floating tools
+        function updateSelectionCount() {
+            const selectedCount = document.querySelectorAll('.channel-select:checked').length;
+            
+            if (selectionCountDisplay) {
+                selectionCountDisplay.textContent = `${selectedCount} selected`;
+            }
+            
+            // Show/hide based on selection
+            const floatingTools = document.getElementById('floatingTools');
+            if (floatingTools) {
+                floatingTools.style.opacity = selectedCount > 0 ? '1' : '0.5';
+            }
+        }
+        
+        // Watch for checkbox changes to update selection count
+        document.addEventListener('change', (event) => {
+            if (event.target.classList.contains('channel-select')) {
+                updateSelectionCount();
+            }
+        });
+        
+        // Initial count update
+        updateSelectionCount();
+        
+        // Hide tools when scrolling (after a brief delay)
+        let scrollTimer;
+        window.addEventListener('scroll', () => {
+            const floatingTools = document.getElementById('floatingTools');
+            if (floatingTools) {
+                floatingTools.style.opacity = '0.2';
+                
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    floatingTools.style.opacity = document.querySelectorAll('.channel-select:checked').length > 0 ? '1' : '0.5';
+                }, 500);
+            }
+        });
+    }
+    
+    // Override selectAllChannels to update floating UI
+    const originalSelectAllChannels = selectAllChannels;
+    selectAllChannels = function() {
+        originalSelectAllChannels();
+        updateSelectionCount();
+    };
+    
+    // Override deselectAllChannels to update floating UI
+    const originalDeselectAllChannels = deselectAllChannels;
+    deselectAllChannels = function() {
+        originalDeselectAllChannels();
+        updateSelectionCount();
+    };
+    
+    // Override invertChannelSelection to update floating UI
+    const originalInvertChannelSelection = invertChannelSelection;
+    invertChannelSelection = function() {
+        originalInvertChannelSelection();
+        updateSelectionCount();
+    };
+    
+    // Function to update selection count display
+    function updateSelectionCount() {
+        const selectedCount = document.querySelectorAll('.channel-select:checked').length;
+        const selectionCountDisplay = document.querySelector('.selection-count');
+        
+        if (selectionCountDisplay) {
+            selectionCountDisplay.textContent = `${selectedCount} selected`;
+        }
+        
+        // Show/hide based on selection
+        const floatingTools = document.getElementById('floatingTools');
+        if (floatingTools) {
+            floatingTools.style.opacity = selectedCount > 0 ? '1' : '0.5';
+        }
+    }
 
     // Initialize the main view
     showSection(mainControl);
-    log('ArtBastard DMX512FTW initialized - the canvas awaits your vision');
+    log('ArtBastard DMX512FTW initialized - the luminous canvas awaits your artistic vision');
+    
+    // Initialize the status indicators
+    updateArtnetStatus(true);
+    
+    // Load the saved theme if any
+    const savedTheme = localStorage.getItem('dmxTheme') || 'artsnob';
+    if (uiThemeSelect) {
+        uiThemeSelect.value = savedTheme;
+    }
+    changeUITheme(savedTheme);
+    
+    // Initialize floating controls
+    initFloatingControls();
 });

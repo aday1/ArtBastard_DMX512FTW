@@ -74,6 +74,13 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Components assembled successfully." -ForegroundColor Green
 
+# Clean build directory
+Write-Host "Purging previous manifestations..." -ForegroundColor Cyan
+if (Test-Path -Path "build") {
+    Remove-Item -Path "build" -Recurse -Force
+}
+New-Item -ItemType Directory -Path "build" | Out-Null
+
 # Build the application
 Write-Host "Manifesting the luminous interface..." -ForegroundColor Cyan
 npm run build
@@ -91,8 +98,8 @@ Write-Host "Breathing life into your creation..." -ForegroundColor Cyan
 Write-Host "The ArtBastard DMX512FTW is now ready to assist your artistic expression." -ForegroundColor Magenta
 Write-Host "Opening the application in your browser..." -ForegroundColor Magenta
 
-# Start the server in a new command window
-Start-Process cmd -ArgumentList "/c npm start"
+# Start the server in a new window (using the most reliable method)
+Start-Process npm -ArgumentList "start"
 
 # Wait a moment for the server to start
 Start-Sleep -Seconds 3

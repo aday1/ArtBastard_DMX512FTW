@@ -1,0 +1,340 @@
+/* 
+ * ArtBastard DMX512FTW
+ * Theme: Standard DMX Controller - A clean, professional interface for DMX lighting control
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    /* Professional color palette */
+    --primary-color: #1e293b;
+    --secondary-color: #263449;
+    --accent-color: #3498db;
+    --text-color: #e2e8f0;
+    --highlight: #f59e0b;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #0ea5e9;
+    
+    /* Clean UI elements */
+    --bg-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --panel-bg: rgba(30, 41, 59, 0.8);
+    --card-bg: rgba(38, 52, 73, 0.8);
+    --card-border: 2px solid var(--accent-color);
+    --card-hover-border: 2px solid var(--highlight);
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --card-hover-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    --transition-all: all 0.2s ease;
+    
+    /* Font settings for readability */
+    --title-font: 'Roboto', sans-serif;
+    --body-font: 'Open Sans', sans-serif;
+}
+
+[data-theme="light"].standard {
+    --primary-color: #f8fafc;
+    --secondary-color: #f1f5f9;
+    --text-color: #1e293b;
+    --panel-bg: rgba(248, 250, 252, 0.8);
+    --card-bg: rgba(241, 245, 249, 0.8);
+    --bg-gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+/* Applied when theme class is active */
+.standard {
+    font-family: var(--body-font);
+}
+
+/* Professional headings */
+.standard h1 {
+    font-family: var(--title-font);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.standard h2 {
+    font-family: var(--title-font);
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 8px;
+    margin-top: 25px;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+}
+
+.standard h2 .art-subtitle {
+    display: none; /* Hide pretentious subtitles */
+}
+
+.standard h3 {
+    font-family: var(--title-font);
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--highlight);
+    font-weight: 600;
+}
+
+.standard h4 {
+    font-family: var(--title-font);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Clean card styling */
+.standard .card {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: var(--card-shadow);
+    border-left: var(--card-border);
+    transition: var(--transition-all);
+    height: 100%;
+    position: relative;
+}
+
+.standard .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-hover-shadow);
+    border-left: var(--card-hover-border);
+}
+
+/* Professional button styling */
+.standard button {
+    font-family: var(--body-font);
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition-all);
+}
+
+.standard button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.standard .danger-button {
+    background-color: var(--danger);
+}
+
+.standard .danger-button:hover {
+    background-color: #dc2626;
+}
+
+.standard .success-button {
+    background-color: var(--success);
+}
+
+.standard .success-button:hover {
+    background-color: #059669;
+}
+
+.standard .info-button {
+    background-color: var(--info);
+}
+
+.standard .info-button:hover {
+    background-color: #0284c7;
+}
+
+/* Form controls */
+.standard input, .standard select {
+    font-family: var(--body-font);
+    padding: 8px 12px;
+    border: 1px solid #4b5563;
+    border-radius: 4px;
+    background-color: rgba(30, 41, 59, 0.6);
+    color: var(--text-color);
+}
+
+.standard input:focus, .standard select:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+/* Slider styling */
+.standard input[type="range"] {
+    -webkit-appearance: none;
+    height: 8px;
+    background: #4b5563;
+    border-radius: 4px;
+    outline: none;
+    margin: 10px 0;
+}
+
+.standard input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--accent-color);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.standard input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--accent-color);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.standard input[type="range"]::-webkit-slider-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.2);
+}
+
+.standard input[type="range"]::-moz-range-thumb:hover {
+    background: #2980b9;
+    transform: scale(1.2);
+}
+
+/* Art quote styling - minimized */
+.standard .art-quote {
+    display: none; /* Hide pretentious quotes */
+}
+
+/* Status indicators */
+.standard .status-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-bottom: 4px;
+    background-color: var(--danger);
+    transition: all 0.3s ease;
+}
+
+.standard .status-dot.connected {
+    background-color: var(--success);
+    box-shadow: 0 0 5px var(--success);
+}
+
+.standard .status-dot.active {
+    background-color: var(--warning);
+    box-shadow: 0 0 5px var(--warning);
+}
+
+/* DMX Channel styling */
+.standard .dmx-channel {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: var(--card-shadow);
+    border-left: var(--card-border);
+    transition: var(--transition-all);
+}
+
+.standard .dmx-channel:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-hover-shadow);
+    border-left: var(--card-hover-border);
+}
+
+.standard .channel-group {
+    display: contents;
+}
+
+.standard .dmx-controls-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: var(--card-bg);
+    border-radius: 6px;
+}
+
+.standard .quick-group-tools, 
+.standard .popout-tools,
+.standard .theme-selection {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.standard .quick-groups-area {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.standard .quick-group {
+    background-color: var(--card-bg);
+    border-left: 2px solid var(--accent-color);
+    padding: 12px;
+    border-radius: 6px;
+    transition: var(--transition-all);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 220px;
+}
+
+.standard .quick-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.standard .quick-group-title {
+    font-family: var(--title-font);
+    font-size: 1.1rem;
+    color: var(--highlight);
+    margin: 0;
+    font-weight: 600;
+}
+
+.standard .quick-group-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.standard .quick-group-slider {
+    margin: 8px 0;
+}
+
+.standard .channel-select {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.standard .selection-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+/* Pop-out window specific styling */
+.standard.pop-out {
+    padding: 15px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.standard.pop-out h1 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+}
+
+.standard.pop-out .dmx-channel {
+    margin-bottom: 10px;
+}

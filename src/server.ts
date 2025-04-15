@@ -10,8 +10,15 @@ const io = new Server(server);
 
 const port = 3001;
 
-// Serve static files from the 'public' directory in the build folder
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the 'public' directory with no caching
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path) => {
+    // Disable caching for all static files
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+}));
 
 // Routes for the pages
 app.get('/', (req, res) => {

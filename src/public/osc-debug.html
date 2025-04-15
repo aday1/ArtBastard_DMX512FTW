@@ -1,33 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaserTime - OSC Debug</title>
+    <title>ArtBastard DMX512FTW - OSC Critique</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html">Main Control</a></li>
-            <li><a href="midi-osc-setup.html">MIDI/OSC Setup</a></li>
-            <li><a href="fixture-setup.html">Fixture Setup</a></li>
-            <li><a href="osc-debug.html">OSC Debug</a></li>
-        </ul>
-    </nav>
-    <div class="container">
-        <h1>OSC Debug</h1>
-        <div>
-            <h2>Incoming OSC Messages</h2>
-            <div id="oscMessages" class="debug-messages"></div>
+    <div class="status-panel">
+        <div class="status-indicator" title="ArtNet Connection">
+            <div id="artnet-indicator" class="status-dot"></div>
+            <span>ArtNet</span>
         </div>
-        <div>
-            <h2>Send Test OSC Message</h2>
-            <input type="text" id="oscTestAddress" placeholder="OSC Address">
-            <input type="text" id="oscTestValue" placeholder="Value">
-            <button id="sendOscTest">Send Test Message</button>
+        <div class="status-indicator" title="OSC Input">
+            <div id="osc-in-indicator" class="status-dot"></div>
+            <span>OSC In</span>
+        </div>
+        <div class="status-indicator" title="OSC Output">
+            <div id="osc-out-indicator" class="status-dot"></div>
+            <span>OSC Out</span>
         </div>
     </div>
+    
+    <div class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+    <div class="main-content">
+        <h1>ArtBastard DMX512FTW: The OSC Critique</h1>
+        
+        <div class="art-quote">
+            "The OSC protocol transcends mere digital communication—it is the ethereal medium through which networked consciousness expresses its most profound intentions, an invisible web of meaning woven through the digital aether."
+            <div class="art-signature">— Madame Networka, Digital Telepathy Theorist</div>
+        </div>
+        
+        <div id="statusMessage"></div>
+        
+        <nav>
+            <button id="navMain" onclick="window.location.href='index.html'"><i class="fas fa-lightbulb"></i> Luminous Canvas</button>
+            <button id="navMidiOsc" onclick="window.location.href='midi-osc-setup.html'"><i class="fas fa-sliders-h"></i> MIDI/OSC Atelier</button>
+            <button id="navFixture" onclick="window.location.href='fixture-setup.html'"><i class="fas fa-object-group"></i> Fixture Composition</button>
+            <button id="navOscDebug" class="active"><i class="fas fa-bug"></i> OSC Critique</button>
+        </nav>
+        
+        <div class="content-area">
+            <h2>Network Dialogues <span class="art-subtitle">The Digital Whispers</span></h2>
+            
+            <div class="grid-container-2col">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Dispatch an Ephemeral Missive <span class="art-subtitle">Test the Boundaries</span></h3>
+                        <button class="collapse-toggle" title="Collapse/Expand"><i class="fas fa-chevron-up"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <label for="oscTestAddress">Ethereal Address:</label>
+                            <input type="text" id="oscTestAddress" placeholder="/your/artistic/path">
+                        </div>
+                        <div class="form-row">
+                            <label for="oscTestValue">Metaphysical Value:</label>
+                            <input type="text" id="oscTestValue" placeholder="A numerical essence or textual manifestation">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button id="sendOscTest" class="success-button"><i class="fas fa-paper-plane"></i> Launch into the Void</button>
+                    </div>
+                </div>
+                
+                <div class="card grid-span-2">
+                    <div class="card-header">
+                        <h3>Incoming Ethereal Communications <span class="art-subtitle">Listen to the Network</span></h3>
+                        <button class="collapse-toggle" title="Collapse/Expand"><i class="fas fa-chevron-up"></i></button>
+                    </div>
+                    <div class="card-body">
+                        <div id="oscMessages" class="message-log"></div>
+                    </div>
+                    <div class="card-footer">
+                        <button id="clearOscMessages" class="info-button"><i class="fas fa-broom"></i> Clear Ethereal Messages</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="debugInfo">
+            <h3>Technical Whispers <span class="art-subtitle">The Behind-the-Scenes Narrative</span></h3>
+            <pre id="debugOutput"></pre>
+        </div>
+    </div>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script src="osc-debug.js"></script>
 </body>

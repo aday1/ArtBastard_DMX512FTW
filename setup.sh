@@ -11,7 +11,10 @@ fi
 echo "Creating data directory..."
 mkdir -p data
 
-echo "Building the application..."
+echo "Cleaning build directory..."
+rm -rf build/*
+
+echo "Building the application with clean cache..."
 npm run build
 
 if [ $? -ne 0 ]; then
@@ -23,6 +26,7 @@ echo "Starting the application..."
 npm start &
 
 echo "Application is running. Please open your web browser and navigate to http://localhost:3001"
+echo "For a clean start, try clearing your browser cache or opening in private/incognito mode"
 echo "Press Ctrl+C to stop the application."
 
 wait
