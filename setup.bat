@@ -66,6 +66,13 @@ if %errorlevel% neq 0 (
 
 echo Components assembled successfully.
 
+REM Clean build directory
+echo Purging previous manifestations...
+if exist build (
+    rmdir /s /q build
+)
+mkdir build
+
 REM Build the application
 echo Manifesting the luminous interface...
 call npm run build
