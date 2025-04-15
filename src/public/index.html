@@ -3,98 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaserTime Web Interface</title>
+    <title>ArtBastard DMX512FTW - The Illuminated Canvas</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div id="statusIndicator"></div>
+    <div id="statusIndicator" title="Connection Status"></div>
+    <div class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">
+        <i class="fas fa-moon"></i>
+    </div>
+    
     <div class="main-content">
-        <h1>Syntax Scene Dream Machine Panel - Official</h1>
+        <h1>ArtBastard DMX512FTW: The Luminary Palette</h1>
+        
+        <div class="art-quote">
+            "Light is not merely illumination—it is the very essence of sublime expression, where the ephemeral dance of photons transcends the mundane into the realm of provocative chromatic discourse."
+            <div class="art-signature">— Monsieur Lumineux, Curator of Light</div>
+        </div>
+        
         <div id="statusMessage"></div>
+        
         <nav>
-            <button id="navMain">Main Control</button>
-            <button id="navMidiOsc">MIDI/OSC Setup</button>
-            <button id="navFixture">Fixture Setup</button>
-            <button id="navOscDebug">OSC Debug</button>
-            <button id="navMisc">Misc</button>
+            <button id="navMain"><i class="fas fa-lightbulb"></i> Luminous Canvas</button>
+            <button id="navMidiOsc"><i class="fas fa-sliders-h"></i> MIDI/OSC Atelier</button>
+            <button id="navFixture"><i class="fas fa-object-group"></i> Fixture Composition</button>
+            <button id="navScenes"><i class="fas fa-theater-masks"></i> Scene Gallery</button>
+            <button id="navOscDebug"><i class="fas fa-bug"></i> OSC Critique</button>
+            <button id="navMisc"><i class="fas fa-cog"></i> Avant-Garde Settings</button>
         </nav>
+        
         <div class="content-area">
             <div id="mainControl">
-                <h2>Scenes</h2>
+                <h2>Scenes - <span class="art-subtitle">Choreographies of Light</span></h2>
                 <div id="sceneManagement">
                     <div>
-                        <input type="text" id="sceneName" placeholder="Enter scene name">
-                        <input type="text" id="sceneOscAddress" placeholder="Enter OSC address">
-                        <button id="saveScene">Save Scene</button>
-                        <button id="clearAllScenes">Clear All Scenes</button>
+                        <input type="text" id="sceneName" placeholder="Bestow a title upon your luminous creation...">
+                        <input type="text" id="sceneOscAddress" placeholder="Assign an OSC address to your masterpiece...">
+                        <button id="saveScene"><i class="fas fa-save"></i> Immortalize Scene</button>
+                        <button id="clearAllScenes"><i class="fas fa-trash-alt"></i> Purge Gallery</button>
                     </div>
                     <div id="loadSceneSection">
-                        <h3>Load Scene</h3>
-                        <select id="loadSceneSelect"></select>
-                        <button id="loadSceneButton">Load Scene</button>
+                        <h3>Invoke a Scene</h3>
+                        <select id="loadSceneSelect">
+                            <option value="">Select a masterpiece to materialize...</option>
+                        </select>
+                        <button id="loadSceneButton"><i class="fas fa-magic"></i> Manifest</button>
                     </div>
                     <div id="savedScenesList"></div>
                 </div>
-                <h2>Transition</h2>
+                
+                <h2>Transition - <span class="art-subtitle">The Temporal Canvas</span></h2>
                 <div>
-                    <label for="transitionDuration">Transition Duration (seconds):</label>
+                    <label for="transitionDuration">Temporal Flow (seconds):</label>
                     <input type="range" id="transitionDuration" min="0" max="60" step="1" value="1">
                     <span id="transitionDurationValue">1 s</span>
                 </div>
-                <h2>Scene Transition</h2>
+                
+                <h2>Scene Metamorphosis - <span class="art-subtitle">Transformative Light Journey</span></h2>
                 <div>
-                    <select id="sceneTransitionFrom"></select>
-                    <select id="sceneTransitionTo"></select>
+                    <select id="sceneTransitionFrom">
+                        <option value="">Origin state...</option>
+                    </select>
+                    <select id="sceneTransitionTo">
+                        <option value="">Destination state...</option>
+                    </select>
                     <input type="range" id="transitionSlider" min="0" max="100" value="0">
-                    <span id="transitionSliderValue">0%</span>
+                    <span id="transitionSliderValue">0% - Embryonic state</span>
                 </div>
-                <h2>Auto Pilot</h2>
+                
+                <h2>Auto Pilot - <span class="art-subtitle">Autonomous Light Poetry</span></h2>
                 <div>
-                    <select id="autoPilotSceneFrom"></select>
-                    <select id="autoPilotSceneTo"></select>
-                    <label for="autoPilotToggle">
+                    <select id="autoPilotSceneFrom">
+                        <option value="">First movement...</option>
+                    </select>
+                    <select id="autoPilotSceneTo">
+                        <option value="">Final crescendo...</option>
+                    </select>
+                    <label for="autoPilotToggle" class="toggle-label">
                         <input type="checkbox" id="autoPilotToggle">
-                        Enable Auto Pilot
+                        <span class="toggle-text">Engage Autonomous Expression</span>
                     </label>
                     <input type="range" id="autoPilotSlider" min="0" max="100" value="0">
-                    <span id="autoPilotSliderValue">0%</span>
+                    <span id="autoPilotSliderValue">0% - Dawn of creation</span>
                     <span id="autoPilotDurationDisplay"></span>
                 </div>
-                <h2>BPM Counter</h2>
+                
+                <h2>Rhythmic Pulse - <span class="art-subtitle">The Heartbeat of Light</span></h2>
                 <div>
-                    <button id="tapButton">TAP</button>
-                    <span id="bpmDisplay">BPM: 0</span>
+                    <button id="tapButton"><i class="fas fa-drum"></i> TAP</button>
+                    <span id="bpmDisplay">BPM: 0 - Await the pulse</span>
+                    <button id="syncLightsButton"><i class="fas fa-sync"></i> Synchronize Luminescence</button>
                 </div>
-                <h2>DMX Channels</h2>
+                
+                <h2>Color Palette - <span class="art-subtitle">Chromatic Expressions</span></h2>
+                <div id="colorPalette">
+                    <div class="color-preset" style="background-color: #FF0000;" data-color="255,0,0"></div>
+                    <div class="color-preset" style="background-color: #00FF00;" data-color="0,255,0"></div>
+                    <div class="color-preset" style="background-color: #0000FF;" data-color="0,0,255"></div>
+                    <div class="color-preset" style="background-color: #FFFF00;" data-color="255,255,0"></div>
+                    <div class="color-preset" style="background-color: #FF00FF;" data-color="255,0,255"></div>
+                    <div class="color-preset" style="background-color: #00FFFF;" data-color="0,255,255"></div>
+                    <div class="color-preset" style="background-color: #FFFFFF;" data-color="255,255,255"></div>
+                    <div class="color-preset custom-color">+</div>
+                </div>
+                
+                <h2>DMX Channels - <span class="art-subtitle">The Elemental Brushstrokes</span></h2>
                 <div id="dmxChannels"></div>
-                <h2>Group Controls</h2>
+                
+                <h2>Group Controls - <span class="art-subtitle">Collective Light Sculptures</span></h2>
                 <div id="groupControls"></div>
             </div>
+            
             <div id="midiOscSetup" style="display: none;">
-                <h2>MIDI/OSC Setup</h2>
-                <div id="midiSetup"></div>
-                <div id="oscSetup"></div>
+                <h2>MIDI/OSC Atelier - <span class="art-subtitle">The Digital Orchestration</span></h2>
+                <div id="midiSetup">
+                    <h3>MIDI Interface - The Universal Language of Expression</h3>
+                    <div id="midiInterfaceSelect"></div>
+                    <div id="midiMessageViewer">
+                        <h4>Incoming Messages - The Whispers of Digital Muses</h4>
+                        <div id="midiMessages"></div>
+                    </div>
+                </div>
+                
+                <div id="oscSetup">
+                    <h3>OSC Configuration - The Network of Artistic Dialogue</h3>
+                    <div id="oscConfig">
+                        <div class="form-row">
+                            <label for="oscHost">Host Address:</label>
+                            <input type="text" id="oscHost" placeholder="127.0.0.1">
+                        </div>
+                        <div class="form-row">
+                            <label for="oscPort">Port:</label>
+                            <input type="number" id="oscPort" placeholder="12345">
+                        </div>
+                        <button id="saveOscConfig"><i class="fas fa-save"></i> Commit to Memory</button>
+                    </div>
+                </div>
             </div>
+            
             <div id="fixtureSetup" style="display: none;">
-                <h2>Fixture Setup</h2>
-                <!-- Add fixture setup content here -->
+                <h2>Fixture Composition - <span class="art-subtitle">The Architecture of Light</span></h2>
+                
+                <div id="fixtureForm">
+                    <h3>Create New Fixture - Birth of a Light Vessel</h3>
+                    <div class="form-row">
+                        <label for="fixtureName">Title:</label>
+                        <input type="text" id="fixtureName" placeholder="Bestow a name upon your fixture...">
+                    </div>
+                    <div class="form-row">
+                        <label for="fixtureAddress">DMX Starting Address:</label>
+                        <input type="number" id="fixtureAddress" min="1" max="512" placeholder="1">
+                    </div>
+                    <div id="fixtureChannels">
+                        <h4>Channels - The Dimension of Control</h4>
+                        <button id="addChannelButton"><i class="fas fa-plus"></i> Add Channel</button>
+                        <div id="channelsList"></div>
+                    </div>
+                    <button id="saveFixtureButton"><i class="fas fa-save"></i> Immortalize Fixture</button>
+                </div>
+                
+                <div id="groupForm">
+                    <h3>Create Fixture Group - The Collective Expression</h3>
+                    <div class="form-row">
+                        <label for="groupName">Title:</label>
+                        <input type="text" id="groupName" placeholder="Name this collective...">
+                    </div>
+                    <div id="fixtureSelection">
+                        <h4>Select Fixtures - Choose Your Instruments</h4>
+                        <div id="availableFixtures"></div>
+                    </div>
+                    <button id="saveGroupButton"><i class="fas fa-object-group"></i> Establish Collective</button>
+                </div>
+                
+                <div id="fixturesList">
+                    <h3>Existing Fixtures - The Gallery of Light Instruments</h3>
+                    <!-- Fixtures will be listed here -->
+                </div>
+                
+                <div id="groupsList">
+                    <h3>Existing Groups - The Constellations of Light</h3>
+                    <!-- Groups will be listed here -->
+                </div>
             </div>
+            
+            <div id="sceneGallery" style="display: none;">
+                <h2>Scene Gallery - <span class="art-subtitle">The Exhibition of Light</span></h2>
+                <div id="sceneGalleryList"></div>
+            </div>
+            
             <div id="oscDebug" style="display: none;">
-                <h2>OSC Debug</h2>
+                <h2>OSC Critique - <span class="art-subtitle">The Digital Dialogue</span></h2>
                 <div id="oscMessages"></div>
+                <div class="form-row">
+                    <label for="oscTestAddress">Test Address:</label>
+                    <input type="text" id="oscTestAddress" placeholder="/test/address">
+                    <label for="oscTestValue">Value:</label>
+                    <input type="text" id="oscTestValue" placeholder="1.0">
+                    <button id="sendOscTest"><i class="fas fa-paper-plane"></i> Dispatch</button>
+                </div>
             </div>
+            
             <div id="misc" style="display: none;">
-                <h2>Misc</h2>
-                <div id="artnetDiagnostics"></div>
-                <button id="searchArtnetDevices">Search ArtNet Devices</button>
+                <h2>Avant-Garde Settings - <span class="art-subtitle">The Technical Underpinnings</span></h2>
+                
+                <div id="artnetSettings">
+                    <h3>ArtNet Configuration - The Network of Light</h3>
+                    <div class="form-row">
+                        <label for="artnetIp">IP Address:</label>
+                        <input type="text" id="artnetIp" placeholder="192.168.1.199">
+                    </div>
+                    <div class="form-row">
+                        <label for="artnetSubnet">Subnet:</label>
+                        <input type="number" id="artnetSubnet" min="0" max="15" placeholder="0">
+                    </div>
+                    <div class="form-row">
+                        <label for="artnetUniverse">Universe:</label>
+                        <input type="number" id="artnetUniverse" min="0" max="15" placeholder="0">
+                    </div>
+                    <div class="form-row">
+                        <label for="artnetNet">Net:</label>
+                        <input type="number" id="artnetNet" min="0" max="127" placeholder="0">
+                    </div>
+                    <button id="saveArtnetConfig"><i class="fas fa-save"></i> Commit Configuration</button>
+                </div>
+                
+                <div id="artnetDiagnostics">
+                    <h3>Connection Diagnostics - The Technical Pulse</h3>
+                    <div id="artnetStatus"></div>
+                </div>
+                
+                <button id="searchArtnetDevices"><i class="fas fa-search"></i> Discover ArtNet Entities</button>
                 <div id="artnetDevices"></div>
+                
+                <div id="settingsBackup">
+                    <h3>Configuration Management - The Preservation of Brilliance</h3>
+                    <button id="saveAllSettings"><i class="fas fa-download"></i> Archive All Settings</button>
+                    <button id="loadAllSettings"><i class="fas fa-upload"></i> Resurrect Settings</button>
+                    <button id="nukeSettings" class="danger-button"><i class="fas fa-bomb"></i> Obliterate All Settings</button>
+                </div>
+                
+                <div id="logSettings">
+                    <h3>Logging Preferences - The Chronicles of Light</h3>
+                    <div class="form-row">
+                        <label for="enableLogging">
+                            <input type="checkbox" id="enableLogging" checked>
+                            <span>Inscribe to Log</span>
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <label for="enableConsoleLogging">
+                            <input type="checkbox" id="enableConsoleLogging" checked>
+                            <span>Display in Console</span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+        
         <div id="debugInfo">
-            <h3>Debug Information</h3>
+            <h3>Technical Whispers - <span class="art-subtitle">The Behind-the-Scenes Narrative</span></h3>
             <pre id="debugOutput"></pre>
         </div>
     </div>
+    
+    <!-- Modal for custom color picker -->
+    <div id="colorPickerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Custom Color Composition</h3>
+            <div class="color-sliders">
+                <div class="slider-container">
+                    <label for="redSlider">Red Essence:</label>
+                    <input type="range" id="redSlider" min="0" max="255" value="255">
+                    <span id="redValue">255</span>
+                </div>
+                <div class="slider-container">
+                    <label for="greenSlider">Green Vitality:</label>
+                    <input type="range" id="greenSlider" min="0" max="255" value="255">
+                    <span id="greenValue">255</span>
+                </div>
+                <div class="slider-container">
+                    <label for="blueSlider">Blue Serenity:</label>
+                    <input type="range" id="blueSlider" min="0" max="255" value="255">
+                    <span id="blueValue">255</span>
+                </div>
+            </div>
+            <div id="colorPreview"></div>
+            <button id="saveCustomColor">Add to Palette</button>
+        </div>
+    </div>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script src="index.js"></script>
 </body>
