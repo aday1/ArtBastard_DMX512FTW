@@ -45,7 +45,9 @@
     --ornate-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
-[data-theme="light"].artsnob {
+/* Light mode selector for artsnob theme */
+[data-theme="light"] .artsnob,
+.artsnob[data-theme="light"] {
     --primary-color: #f5f2e9;
     --secondary-color: #eae5d9;
     --accent-color: #b3281d;

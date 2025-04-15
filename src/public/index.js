@@ -517,6 +517,72 @@ document.addEventListener('DOMContentLoaded', () => {
             socket.emit('setConsoleLoggingEnabled', { enabled: e.target.checked });
         });
     }
+    
+    // Theme Settings in the Settings Page
+    if (document.getElementById('settingsThemeSelect')) {
+        const settingsThemeSelect = document.getElementById('settingsThemeSelect');
+        
+        // Update the settings theme dropdown to match the currently active theme
+        function updateSettingsThemeDropdown() {
+            const currentTheme = Array.from(document.body.classList).find(cls => 
+                ['artsnob', 'standard', 'minimal'].includes(cls)) || 'artsnob';
+            
+            settingsThemeSelect.value = currentTheme;
+        }
+        
+        // Initialize the dropdown with the current theme
+        updateSettingsThemeDropdown();
+        
+        // Handle theme changes from settings page
+        settingsThemeSelect.addEventListener('change', (e) => {
+            changeUITheme(e.target.value);
+            
+            // Also update the main theme selector in the toolbar to stay in sync
+            const mainThemeSelector = document.getElementById('uiThemeSelect');
+            if (mainThemeSelector) {
+                mainThemeSelector.value = e.target.value;
+            }
+        });
+    }
+    
+    // Theme mode toggle in settings
+    if (document.getElementById('settingsThemeToggle')) {
+        const settingsThemeToggle = document.getElementById('settingsThemeToggle');
+        const settingsThemeMode = document.getElementById('settingsThemeMode');
+        
+        // Initialize theme mode checkbox
+        const themeMode = document.documentElement.getAttribute('data-theme') || 'dark';
+        settingsThemeMode.checked = themeMode === 'light';
+        
+        // Update icon
+        settingsThemeToggle.innerHTML = settingsThemeMode.checked ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        
+        // Handle theme mode toggle click
+        settingsThemeToggle.addEventListener('click', () => {
+            toggleTheme();
+            
+            // Update the checkbox state after toggle
+            const newThemeMode = document.documentElement.getAttribute('data-theme') || 'dark';
+            settingsThemeMode.checked = newThemeMode === 'light';
+            
+            // Update icon
+            settingsThemeToggle.innerHTML = settingsThemeMode.checked ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+        
+        // Handle checkbox change
+        settingsThemeMode.addEventListener('change', () => {
+            // Only toggle if the current state doesn't match the checkbox
+            const currentThemeMode = document.documentElement.getAttribute('data-theme') || 'dark';
+            const desiredMode = settingsThemeMode.checked ? 'light' : 'dark';
+            
+            if (currentThemeMode !== desiredMode) {
+                toggleTheme();
+            }
+            
+            // Update icon
+            settingsThemeToggle.innerHTML = settingsThemeMode.checked ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+    }
 
     // Functions for UI management
     function showSection(section) {
@@ -544,8 +610,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleTheme() {
         darkMode = !darkMode;
         const themeMode = darkMode ? 'dark' : 'light';
+        
+        // Set the data-theme attribute on both html and body (for CSS selectors)
         document.documentElement.setAttribute('data-theme', themeMode);
-        themeToggle.innerHTML = darkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        document.body.setAttribute('data-theme', themeMode);
+        
+        // Update the main theme toggle button
+        if (themeToggle) {
+            themeToggle.innerHTML = darkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        }
+        
+        // Update the settings theme toggle if it exists
+        const settingsThemeToggle = document.getElementById('settingsThemeToggle');
+        if (settingsThemeToggle) {
+            settingsThemeToggle.innerHTML = darkMode ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        }
+        
+        // Update the settings theme checkbox if it exists
+        const settingsThemeMode = document.getElementById('settingsThemeMode');
+        if (settingsThemeMode) {
+            settingsThemeMode.checked = !darkMode; // Light mode = checked
+        }
         
         // Get current theme style
         const currentTheme = Array.from(document.body.classList).find(cls => 
@@ -569,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         
-        // Force refresh the theme by reloading the stylesheet
+        // Force refresh each theme stylesheet to ensure it applies the new theme mode
         const themeStylesheet = document.getElementById('themeStylesheet');
         if (themeStylesheet) {
             // Force a reload by adding a cache-busting parameter
@@ -577,9 +662,16 @@ document.addEventListener('DOMContentLoaded', () => {
             themeStylesheet.href = `${currentSrc}?t=${Date.now()}`;
         }
         
-        const description = themeDescriptions[currentTheme][themeMode] || `${themeMode} mode`;
-        showMessage(`Theme transformed to ${description}`, 'success');
-        log(`Theme changed to ${description} - the canvas shifts its tonal balance`);
+        // Apply the current theme again to ensure proper application of theme + mode
+        changeUITheme(currentTheme, true);
+        
+        // Allow for CSS transitions to complete
+        setTimeout(() => {
+            // Get theme-specific descriptions
+            const description = themeDescriptions[currentTheme][themeMode] || `${themeMode} mode`;
+            showMessage(`Theme transformed to ${description}`, 'success');
+            log(`Theme changed to ${description} - the canvas shifts its tonal balance`);
+        }, 50);
     }
 
     function showMessage(message, type) {
@@ -1916,7 +2008,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // UI Theme functionality
-    function changeUITheme(themeName) {
+    function changeUITheme(themeName, skipMessage = false) {
         console.log(`Changing theme to: ${themeName}`);
         
         // Remove all theme classes from body
@@ -1941,11 +2033,35 @@ document.addEventListener('DOMContentLoaded', () => {
         // Save theme preference to local storage
         localStorage.setItem('dmxTheme', themeName);
         
-        // Get current theme mode
+        // Get current theme mode and ensure it's applied to body too
         const themeMode = document.documentElement.getAttribute('data-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', themeMode);
+        document.body.setAttribute('data-theme', themeMode);
         
-        // Update text content based on theme
+        // Update text content based on theme (nav buttons, headers, etc.)
         updateThemeTextContent(themeName);
+        
+        // Sync theme selector dropdowns
+        const uiThemeSelect = document.getElementById('uiThemeSelect');
+        if (uiThemeSelect) {
+            uiThemeSelect.value = themeName;
+        }
+        
+        const settingsThemeSelect = document.getElementById('settingsThemeSelect');
+        if (settingsThemeSelect) {
+            settingsThemeSelect.value = themeName;
+        }
+        
+        // Update theme mode toggle in settings if it exists
+        const settingsThemeMode = document.getElementById('settingsThemeMode');
+        if (settingsThemeMode) {
+            settingsThemeMode.checked = themeMode === 'light';
+            
+            const settingsThemeToggle = document.getElementById('settingsThemeToggle');
+            if (settingsThemeToggle) {
+                settingsThemeToggle.innerHTML = themeMode === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            }
+        }
         
         const themeNames = {
             'artsnob': 'Art Critic Extraordinaire',
@@ -1961,8 +2077,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Make sure UI updates immediately
         setTimeout(() => {
-            showMessage(messagesByTheme[themeName] || `Theme changed to ${themeNames[themeName]}`, 'success');
-            log(`UI theme changed to ${themeNames[themeName]}`);
+            // Only show message if not skipped (used during theme+mode changes)
+            if (!skipMessage) {
+                showMessage(messagesByTheme[themeName] || `Theme changed to ${themeNames[themeName]}`, 'success');
+                log(`UI theme changed to ${themeNames[themeName]}`);
+            }
+            
+            // Force another theme content update after a brief delay
+            // This ensures all dynamic content is properly updated
+            setTimeout(() => {
+                updateThemeTextContent(themeName);
+            }, 100);
         }, 100);
         
         // Force redraw of everything
@@ -1986,7 +2111,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 'deselectAllBtn': '<i class="fas fa-times"></i> Deselect All',
                 'invertSelectionBtn': '<i class="fas fa-exchange-alt"></i> Invert Selection',
                 'popoutBtn': '<i class="fas fa-external-link-alt"></i> Liberate to Separate Canvas',
-                'themeLabel': 'Aesthetic Mode:'
+                'themeLabel': 'Aesthetic Mode:',
+                // Nav buttons
+                'navMain': '<i class="fas fa-lightbulb"></i> Luminous Canvas',
+                'navMidiOsc': '<i class="fas fa-sliders-h"></i> MIDI/OSC Atelier',
+                'navFixture': '<i class="fas fa-object-group"></i> Fixture Composition',
+                'navScenes': '<i class="fas fa-theater-masks"></i> Scene Gallery',
+                'navOscDebug': '<i class="fas fa-bug"></i> OSC Critique',
+                'navMisc': '<i class="fas fa-cog"></i> Avant-Garde Settings',
+                // Scene management
+                'saveScene': '<i class="fas fa-save"></i> Immortalize Scene',
+                'clearAllScenes': '<i class="fas fa-trash-alt"></i> Purge Gallery',
+                'loadSceneButton': '<i class="fas fa-magic"></i> Manifest',
+                'sceneName_placeholder': 'Bestow a title upon your luminous creation...',
+                'sceneOscAddress_placeholder': 'Assign an OSC address to your masterpiece...',
+                'loadSceneSelect_placeholder': 'Select a masterpiece to materialize...'
             },
             'standard': {
                 'appTitle': 'DMX512 Controller',
@@ -1999,7 +2138,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 'deselectAllBtn': '<i class="fas fa-times"></i> Clear Selection',
                 'invertSelectionBtn': '<i class="fas fa-exchange-alt"></i> Invert Selection',
                 'popoutBtn': '<i class="fas fa-external-link-alt"></i> Pop Out Selected',
-                'themeLabel': 'Theme:'
+                'themeLabel': 'Theme:',
+                // Nav buttons
+                'navMain': '<i class="fas fa-lightbulb"></i> Control Panel',
+                'navMidiOsc': '<i class="fas fa-sliders-h"></i> MIDI/OSC Setup',
+                'navFixture': '<i class="fas fa-object-group"></i> Fixture Setup',
+                'navScenes': '<i class="fas fa-theater-masks"></i> Scene Management',
+                'navOscDebug': '<i class="fas fa-bug"></i> OSC Debug',
+                'navMisc': '<i class="fas fa-cog"></i> Settings',
+                // Scene management
+                'saveScene': '<i class="fas fa-save"></i> Save Scene',
+                'clearAllScenes': '<i class="fas fa-trash-alt"></i> Clear All Scenes',
+                'loadSceneButton': '<i class="fas fa-magic"></i> Load Scene',
+                'sceneName_placeholder': 'Enter scene name...',
+                'sceneOscAddress_placeholder': 'Enter OSC address...',
+                'loadSceneSelect_placeholder': 'Select a scene to load...'
             },
             'minimal': {
                 'appTitle': 'DMX Controller',
@@ -2012,54 +2165,119 @@ document.addEventListener('DOMContentLoaded', () => {
                 'deselectAllBtn': '<i class="fas fa-times"></i> None',
                 'invertSelectionBtn': '<i class="fas fa-exchange-alt"></i> Invert',
                 'popoutBtn': '<i class="fas fa-external-link-alt"></i> Pop Out',
-                'themeLabel': 'Theme:'
+                'themeLabel': 'Theme:',
+                // Nav buttons
+                'navMain': '<i class="fas fa-lightbulb"></i> Main',
+                'navMidiOsc': '<i class="fas fa-sliders-h"></i> MIDI/OSC',
+                'navFixture': '<i class="fas fa-object-group"></i> Fixtures',
+                'navScenes': '<i class="fas fa-theater-masks"></i> Scenes',
+                'navOscDebug': '<i class="fas fa-bug"></i> Debug',
+                'navMisc': '<i class="fas fa-cog"></i> Settings',
+                // Scene management
+                'saveScene': '<i class="fas fa-save"></i> Save',
+                'clearAllScenes': '<i class="fas fa-trash-alt"></i> Clear',
+                'loadSceneButton': '<i class="fas fa-magic"></i> Load',
+                'sceneName_placeholder': 'Scene name',
+                'sceneOscAddress_placeholder': 'OSC address',
+                'loadSceneSelect_placeholder': 'Select scene'
             }
         };
         
         // Get text objects for current theme
         const texts = textReplacements[themeName] || textReplacements['standard'];
         
-        // Update page header
-        const pageHeader = document.querySelector('h1');
-        if (pageHeader) pageHeader.innerHTML = texts.appTitle;
+        // Helper function to update content by selector
+        function updateContent(selector, contentKey) {
+            const elements = document.querySelectorAll(selector);
+            if (elements && elements.length > 0) {
+                elements.forEach(element => {
+                    if (texts[contentKey]) {
+                        element.innerHTML = texts[contentKey];
+                    }
+                });
+            }
+        }
         
-        // Update section titles
-        const dmxChannelsTitle = document.querySelector('h2:nth-of-type(1)');
-        if (dmxChannelsTitle) dmxChannelsTitle.innerHTML = texts.dmxChannelsTitle;
+        // Helper function to update placeholder by selector
+        function updatePlaceholder(selector, contentKey) {
+            const elements = document.querySelectorAll(selector);
+            if (elements && elements.length > 0) {
+                elements.forEach(element => {
+                    if (texts[contentKey]) {
+                        element.placeholder = texts[contentKey];
+                    }
+                });
+            }
+        }
         
-        const scenesTitle = document.querySelector('h2:nth-of-type(2)');
-        if (scenesTitle) scenesTitle.innerHTML = texts.scenesTitle;
+        // Helper function to find h2 elements containing text
+        function updateH2ByContent(contentPattern, contentKey) {
+            const h2Elements = document.querySelectorAll('h2');
+            h2Elements.forEach(element => {
+                const text = element.textContent.toLowerCase();
+                if (contentPattern.some(pattern => text.includes(pattern.toLowerCase()))) {
+                    element.innerHTML = texts[contentKey];
+                }
+            });
+        }
         
-        const colorPaletteTitle = document.querySelector('h2:nth-of-type(3)');
-        if (colorPaletteTitle) colorPaletteTitle.innerHTML = texts.colorPaletteTitle;
+        // Update main title
+        updateContent('h1', 'appTitle');
         
-        const groupControlsTitle = document.querySelector('h2:nth-of-type(4)');
-        if (groupControlsTitle) groupControlsTitle.innerHTML = texts.groupControlsTitle;
+        // Update section titles by content
+        updateH2ByContent(['DMX Channel', 'Channel'], 'dmxChannelsTitle');
+        updateH2ByContent(['Scene', 'Scenes'], 'scenesTitle');
+        updateH2ByContent(['Color', 'Colors'], 'colorPaletteTitle');
+        updateH2ByContent(['Group Control', 'Groups'], 'groupControlsTitle');
         
-        // Update buttons
-        const createGroupBtn = document.getElementById('createQuickGroup');
-        if (createGroupBtn) createGroupBtn.innerHTML = texts.createGroupBtn;
+        // Update buttons by ID
+        updateContent('#createQuickGroup', 'createGroupBtn');
+        updateContent('#selectAllChannels', 'selectAllBtn');
+        updateContent('#deselectAllChannels', 'deselectAllBtn');
+        updateContent('#invertChannelSelection', 'invertSelectionBtn');
+        updateContent('#popoutChannels', 'popoutBtn');
         
-        const selectAllBtn = document.getElementById('selectAllChannels');
-        if (selectAllBtn) selectAllBtn.innerHTML = texts.selectAllBtn;
+        // Update navigation buttons
+        updateContent('#navMain', 'navMain');
+        updateContent('#navMidiOsc', 'navMidiOsc');
+        updateContent('#navFixture', 'navFixture');
+        updateContent('#navScenes', 'navScenes'); 
+        updateContent('#navOscDebug', 'navOscDebug');
+        updateContent('#navMisc', 'navMisc');
         
-        const deselectAllBtn = document.getElementById('deselectAllChannels');
-        if (deselectAllBtn) deselectAllBtn.innerHTML = texts.deselectAllBtn;
+        // Update scene management buttons
+        updateContent('#saveScene', 'saveScene');
+        updateContent('#clearAllScenes', 'clearAllScenes');
+        updateContent('#loadSceneButton', 'loadSceneButton');
         
-        const invertSelectionBtn = document.getElementById('invertChannelSelection');
-        if (invertSelectionBtn) invertSelectionBtn.innerHTML = texts.invertSelectionBtn;
+        // Update placeholders
+        updatePlaceholder('#sceneName', 'sceneName_placeholder');
+        updatePlaceholder('#sceneOscAddress', 'sceneOscAddress_placeholder');
         
-        const popoutBtn = document.getElementById('popoutChannels');
-        if (popoutBtn) popoutBtn.innerHTML = texts.popoutBtn;
+        // Update select placeholders (first option)
+        const loadSceneSelect = document.querySelector('#loadSceneSelect option:first-child');
+        if (loadSceneSelect) {
+            loadSceneSelect.textContent = texts.loadSceneSelect_placeholder;
+        }
         
-        // Update theme selection label
-        const themeLabel = document.querySelector('.theme-selection label');
-        if (themeLabel) themeLabel.textContent = texts.themeLabel;
+        // Update theme selection labels
+        const themeLabels = document.querySelectorAll('.theme-selection label');
+        if (themeLabels && themeLabels.length > 0) {
+            themeLabels.forEach(label => {
+                label.textContent = texts.themeLabel;
+            });
+        }
         
         // Hide/show art quotes based on theme
         const artQuotes = document.querySelectorAll('.art-quote');
         artQuotes.forEach(quote => {
             quote.style.display = themeName === 'artsnob' ? 'block' : 'none';
+        });
+        
+        // Update all art-subtitle elements visibility
+        const artSubtitles = document.querySelectorAll('.art-subtitle');
+        artSubtitles.forEach(subtitle => {
+            subtitle.style.display = themeName === 'artsnob' ? 'inline' : 'none';
         });
     }
     
@@ -2549,11 +2767,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize the status indicators
     updateArtnetStatus(true);
     
-    // Load the saved theme if any
+    // Load the saved theme and mode
     const savedTheme = localStorage.getItem('dmxTheme') || 'artsnob';
-    if (uiThemeSelect) {
-        uiThemeSelect.value = savedTheme;
+    const savedThemeMode = localStorage.getItem('dmxThemeMode') || 'dark';
+    
+    // Ensure both HTML and BODY have the data-theme attribute
+    document.documentElement.setAttribute('data-theme', savedThemeMode);
+    document.body.setAttribute('data-theme', savedThemeMode);
+    
+    // Global dark mode state should match
+    darkMode = savedThemeMode === 'dark';
+    
+    // Set the theme selectors to match saved theme
+    const uiThemeSelectElements = document.querySelectorAll('#uiThemeSelect, #settingsThemeSelect');
+    uiThemeSelectElements.forEach(select => {
+        if (select) select.value = savedTheme;
+    });
+    
+    // Initialize settings theme toggle if it exists
+    const settingsThemeMode = document.getElementById('settingsThemeMode');
+    const settingsThemeToggle = document.getElementById('settingsThemeToggle');
+    if (settingsThemeMode && settingsThemeToggle) {
+        settingsThemeMode.checked = savedThemeMode === 'light';
+        settingsThemeToggle.innerHTML = savedThemeMode === 'light' ? 
+            '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     }
+    
+    // Apply the theme
     changeUITheme(savedTheme);
     
     // Initialize floating controls
