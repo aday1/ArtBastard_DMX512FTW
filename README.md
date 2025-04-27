@@ -1,160 +1,75 @@
-# ArtBastard DMX512FTW: The Luminary Palette
+# ArtBastard DMX512FTW
 
-*"Where technicians become artists, and artists become luminescent technicians."*
+An artistic DMX512 controller with MIDI and OSC integration.
 
-ArtBastard DMX512FTW is not merely a DMX lighting controller—it is a canvas for the ephemeral art of light, a portal through which the discerning illumination connoisseur may orchestrate symphonies of photonic expression. This web-based atelier empowers both the technically inclined and the aesthetically driven to sculpt with light, creating immersive environments that transcend the mundane boundaries of conventional illumination.
+## ** QUICK START **
 
-## Artistic Capabilities
+1. Double-click `Launch-ArtBastard-Master.bat` to start the application
+2. Click "Check Environment" to verify your system
+3. Click "Complete Installation" to install dependencies and build the app
+4. Click "Start Server" to launch the application
+5. Open the web interface with "Open Web Interface"
+6. Use the integrated MIDI Monitor tab to see your MIDI devices
 
-- **Luminous Orchestration**: Curate your DMX channels with horizontal sliders, each a brushstroke in your light composition
-- **Fixture Architecture**: Define and arrange lighting fixtures with meticulous precision, as a sculptor arranges elements in space
-- **Collective Expressions**: Group fixtures into ensembles for harmonious control and unified artistic statements
-- **Scene Composition**: Capture, preserve, and recall moments of brilliance with scene management
-- **MIDI Dialogues**: Establish conversations between physical controllers and virtual parameters
-- **OSC Communications**: Extend your artistic reach across networks with Open Sound Control protocols
-- **ArtNET Manifestation**: Project your vision across ethernet, embracing the digital medium of light conveyance
-- **Chromatic Synchronicity**: Real-time updates ensure your vision remains coherent across all viewing platforms
-- **Configurational Preservation**: Archive your creative decisions for posterity or future revivals
+## Features
 
-## Technical Prerequisites
+- Control DMX fixtures using ArtNet protocol
+- Map MIDI controllers to DMX channels
+- Visualize MIDI data in multiple formats
+- Multiple simultaneous MIDI device support
+- OSC control and monitoring
+- Scene management
+- Integrated MIDI monitoring
+- Beautiful gradient interface
 
-- Raspberry Pi or any Linux/Windows system with proper sensibilities
-- Git (for acquiring this repository of light)
-- Internet connectivity (for gathering the necessary digital components)
-- A soul prepared to witness the fusion of technology and artistic expression
+## About the Master Console
 
-## Installation on Raspberry Pi
+The ArtBastard Master Console provides an all-in-one interface for:
 
-1. **Prepare your canvas** by updating your Raspberry Pi:
-   ```
-   sudo apt-get update
-   sudo apt-get upgrade
-   ```
+- Environment setup and dependency installation
+- Application building and launching
+- MIDI device monitoring and debugging
+- Log file viewing
+- Easy access to the web interface
 
-2. **Acquire the necessary tools**:
-   ```
-   sudo apt-get install git
-   ```
+## Installation
 
-3. **Summon this repository into your local dimension**:
-   ```
-   git clone https://github.com/aday1/ArtBastard_DMX512FTW
-   cd ArtBastard_DMX512FTW
-   ```
+### Windows
 
-4. **Bestow executable permissions upon the installation script**:
-   ```
-   chmod +x install.sh
-   ```
+1. Run `Launch-ArtBastard-Master.bat` to open the Master Console
+2. Follow the Quick Start guide in the console
+3. The application will be accessible at http://localhost:3001
 
-5. **Initiate the transformative process**:
-   ```
-   ./install.sh
-   ```
+### Linux/macOS
 
-   This ritual will:
-   - Update your system's knowledge base
-   - Install Node.js and npm, the foundational elements
-   - Establish build essentials for proper construction
-   - Incorporate dependencies specific to the art of DMX
-   - Install project-specific components
-   - Create the necessary spatial arrangements
-   - Compile the application into its executable form
+1. Run `./setup.sh` to install dependencies and build the application
+2. The application will automatically start in your default browser
 
-6. **Breathe life into your creation**:
-   ```
-   npm start
-   ```
+## Usage
 
-7. **Witness the manifestation** by navigating to `http://<YOUR_RASPBERRY_PI>:3001` in your preferred browser of truth.
+1. Open the application in your browser at http://localhost:3001
+2. Configure your ArtNet devices in the Fixture Composition page
+3. Set up MIDI mappings in the MIDI Atelier page
+4. Create and recall scenes from the Luminous Canvas page
 
-## Windows Installation
+## MIDI Device Setup
 
-For those embracing the Windows aesthetic, a streamlined path to illumination awaits:
+1. Connect your MIDI devices to your computer
+2. Use the MIDI Monitor tab in the Master Console to verify connections
+3. Navigate to the MIDI Atelier page in the web interface
+4. Click "Refresh Available Interfaces" to see connected devices
+5. Click "Connect" for each device you want to use
+6. Use the MIDI Learn feature to map controllers to DMX channels
 
-1. Ensure Git is installed on your system (acquire from [git-scm.com](https://git-scm.com/))
+## Troubleshooting
 
-2. Clone the repository using Git Bash or Command Prompt:
-   ```
-   git clone https://github.com/aday1/ArtBastard_DMX512FTW
-   cd ArtBastard_DMX512FTW
-   ```
+If you encounter issues:
 
-3. Simply execute the provided batch script to initiate the installation process:
-   ```
-   setup.bat
-   ```
+1. Check the Console Output tab in the Master Console
+2. Look for error messages in the application logs (View Log Files button)
+3. Use the MIDI Monitor tab to verify MIDI signals
+4. Check the debug console in your browser
 
-4. The application will automatically launch upon completion. Your browser will be invited to visit `http://localhost:3001`
+## License
 
-## Manual Installation (for the Individualist)
-
-For those who prefer to curate their installation experience:
-
-1. Ensure Node.js (v14 or later) and npm have been properly introduced to your system.
-
-2. Gather the necessary components:
-   ```
-   npm install
-   ```
-
-3. Establish the data sanctuary:
-   ```
-   mkdir -p data
-   ```
-
-4. Manifest the application:
-   ```
-   npm run build
-   ```
-
-5. Animate your creation:
-   ```
-   npm start
-   ```
-
-## The Artistic Process
-
-1. After initiating the application, direct your consciousness to `http://localhost:3001` (or the address of your host device).
-2. Utilize the interface to compose with light, arrange fixtures, form collectives, and preserve expressions.
-3. Establish dialogues with MIDI devices, OSC protocols, and ArtNET vessels as your composition requires.
-
-### Creative Features
-
-- **Luminous Canvas**: The main control interface with sliders that respond to your artistic intentions.
-- **Fixture Composition**: Define the nature and behavior of each light source in your installation.
-- **Collective Arrangements**: Group fixtures for unified control and expression.
-- **Scene Gallery**: Preserve and recall moments of brilliance, each with its own OSC communication pathway.
-- **MIDI Dialogues**: Map physical controls to virtual parameters for tactile artistic expression.
-- **OSC Critique**: Monitor incoming OSC messages to understand external influences.
-- **ArtNET Discovery**: Identify and connect with ArtNET devices across your network.
-- **MIDI Observation**: Witness incoming MIDI communications in real-time.
-- **Settings Management**: Archive, resurrect, or obliterate configurations as your artistic vision evolves.
-
-## Configuration
-
-- The default ArtNET parameters may be adjusted in the `src/index.ts` file for those inclined toward code as a medium.
-- OSC configurations can be tailored in the same location.
-- The web interface provides comprehensive controls for those who prefer visual composition.
-
-## Troubleshooting the Artistic Process
-
-- Permission barriers may be overcome by invoking `sudo` when executing commands.
-- Ensure your system is connected to the digital commons during installation.
-- If Node.js versions create temporal conflicts, consider employing `nvm` to align with the appropriate version.
-
-## Contributing to the Collective
-
-Artistic contributions are welcomed with open arms! Feel empowered to submit a Pull Request to enhance this communal expression.
-
-## Licensing
-
-This project embraces the open-source philosophy under the [MIT License](LICENSE), encouraging the free flow of creative potential.
-
-## Support and Dialogue
-
-Should you encounter obstacles or seek clarification, please open an issue in the GitHub repository to initiate a discourse.
-
-## Acknowledgements
-
-Profound appreciation is extended to Claude, the artificial intelligence that has contributed to the development and documentation of this artistic tool. We acknowledge the symbiotic relationship between human creativity and computational assistance in this era of collaborative expression.
+MIT

@@ -1,4 +1,14 @@
-import easymidi, { Input, MidiMessage } from 'easymidi';
+import easymidi, { Input } from 'easymidi';
+interface MidiMessage {
+    _type: string;
+    channel: number;
+    controller?: number;
+    value?: number;
+    note?: number;
+    velocity?: number;
+    number?: number;  // For program change messages
+    source?: string;
+}
 import { Server, Socket } from 'socket.io';
 import os from 'os';
 import { UDPPort, OscMessage } from 'osc';
@@ -119,15 +129,96 @@ function saveConfig() {
     log('Config saved: ' + JSON.stringify(configToSave));
 }
 
+// Store active MIDI inputs
+let activeMidiInputs: {[name: string]: Input} = {};
+
 function initializeMidi(io: Server) {
     const inputs = easymidi.getInputs();
     if (inputs.length > 0) {
-        midiInput = new easymidi.Input(inputs[0]);
-        midiInput.on('noteon', (msg: MidiMessage) => handleMidiMessage(io, 'noteon', msg));
-        midiInput.on('cc', (msg: MidiMessage) => handleMidiMessage(io, 'cc', msg));
-        log(`MIDI input initialized: ${inputs[0]}`);
+        // Auto-connect to the first input initially (for backward compatibility)
+        connectMidiInput(io, inputs[0]);
+        log(`Available MIDI inputs: ${inputs.join(', ')}`);
     } else {
         log('No MIDI inputs available');
+    }
+}
+
+function connectMidiInput(io: Server, inputName: string) {
+    try {
+        // Check if we're already connected to this input
+        if (activeMidiInputs[inputName]) {
+            log(`Already connected to MIDI input: ${inputName}`);
+            return;
+        }
+        
+        // Connect to the selected MIDI input
+        const newInput = new easymidi.Input(inputName);
+        log(`Successfully created MIDI input for ${inputName}`);
+        
+        // Set up event listeners for this input with improved error handling
+        newInput.on('noteon', (msg: MidiMessage) => {
+            try {
+                // Add source information to the message
+                const msgWithSource = { ...msg, source: inputName };
+                log(`Received noteon: ${JSON.stringify(msgWithSource)}`);
+                handleMidiMessage(io, 'noteon', msgWithSource as MidiMessage);
+            } catch (error) {
+                log(`Error handling noteon message: ${error}`);
+            }
+        });
+        
+        newInput.on('noteoff', (msg: MidiMessage) => {
+            try {
+                // Also forward noteoff events with source information
+                const msgWithSource = { ...msg, source: inputName };
+                log(`Received noteoff: ${JSON.stringify(msgWithSource)}`);
+                io.emit('midiMessage', msgWithSource);
+            } catch (error) {
+                log(`Error handling noteoff message: ${error}`);
+            }
+        });
+        
+        newInput.on('cc', (msg: MidiMessage) => {
+            try {
+                // Add source information to the message
+                const msgWithSource = { ...msg, source: inputName };
+                log(`Received cc: ${JSON.stringify(msgWithSource)}`);
+                handleMidiMessage(io, 'cc', msgWithSource as MidiMessage);
+            } catch (error) {
+                log(`Error handling cc message: ${error}`);
+            }
+        });
+        
+        // Store this input in our active inputs
+        activeMidiInputs[inputName] = newInput;
+        midiInput = newInput; // Keep the last one as default for backward compatibility
+        
+        log(`MIDI input connected: ${inputName}`);
+        io.emit('midiInterfaceSelected', inputName);
+        io.emit('midiInputsActive', Object.keys(activeMidiInputs));
+    } catch (error) {
+        log(`Error connecting to MIDI input ${inputName}: ${error}`);
+        io.emit('midiInterfaceError', `Failed to connect to ${inputName}: ${error}`);
+    }
+}
+
+function disconnectMidiInput(io: Server, inputName: string) {
+    if (activeMidiInputs[inputName]) {
+        activeMidiInputs[inputName].close();
+        delete activeMidiInputs[inputName];
+        log(`MIDI input disconnected: ${inputName}`);
+        io.emit('midiInputsActive', Object.keys(activeMidiInputs));
+        io.emit('midiInterfaceDisconnected', inputName);
+        
+        // If this was the default input, set a new default if available
+        if (midiInput === activeMidiInputs[inputName]) {
+            const activeInputNames = Object.keys(activeMidiInputs);
+            if (activeInputNames.length > 0) {
+                midiInput = activeMidiInputs[activeInputNames[0]];
+            } else {
+                midiInput = null;
+            }
+        }
     }
 }
 
@@ -161,11 +252,16 @@ function initializeArtNet() {
 }
 
 function listMidiInterfaces() {
-    const inputs = easymidi.getInputs();
-    const outputs = easymidi.getOutputs();
-    log("Available MIDI Inputs: " + JSON.stringify(inputs));
-    log("Available MIDI Outputs: " + JSON.stringify(outputs));
-    return { inputs, outputs };
+    try {
+        const inputs = easymidi.getInputs();
+        const outputs = easymidi.getOutputs();
+        log("Available MIDI Inputs: " + JSON.stringify(inputs));
+        log("Available MIDI Outputs: " + JSON.stringify(outputs));
+        return { inputs, outputs };
+    } catch (error) {
+        log(`Error listing MIDI interfaces: ${error}`);
+        return { inputs: [], outputs: [] };
+    }
 }
 
 function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, note: number, velocity: number) {
@@ -176,14 +272,14 @@ function simulateMidiInput(io: Server, type: 'noteon' | 'cc', channel: number, n
             channel: channel,
             note: note,
             velocity: velocity
-        } as unknown as MidiMessage;
+        };
     } else {
         midiMessage = {
             _type: 'cc',
             channel: channel,
             controller: note,
             value: velocity
-        } as unknown as MidiMessage;
+        };
     }
     handleMidiMessage(io, type, midiMessage);
 }
@@ -195,8 +291,131 @@ function learnMidiMapping(io: Server, dmxChannel: number, midiMapping: MidiMappi
 }
 
 function handleMidiMessage(io: Server, type: 'noteon' | 'cc', msg: MidiMessage) {
-    // Implementation of handleMidiMessage function
-    // This should be already defined in your existing code
+    // Send the raw MIDI message to all clients
+    io.emit('midiMessage', msg);
+    
+    // Debug MIDI message - add extra logging when in learn mode
+    if (currentMidiLearnChannel !== null) {
+        log(`MIDI message received during LEARN MODE: type=${type}, channel=${msg.channel}, controller=${msg.controller}, note=${msg.note}, velocity=${msg.velocity}`);
+    }
+    
+    // Handle MIDI learn mode
+    if (currentMidiLearnChannel !== null) {
+        // For MIDI Learn, we're interested in CC messages or Note On messages
+        let midiMapping: MidiMapping;
+        log(`Processing MIDI for learn mode: ${JSON.stringify(msg)}`);
+        
+        if (type === 'noteon') {
+            log(`Creating note mapping for channel ${currentMidiLearnChannel}`);
+            midiMapping = {
+                channel: msg.channel,
+                note: msg.note !== undefined ? msg.note : 0
+            };
+        } else if (type === 'cc') { // cc
+            log(`Creating CC mapping for channel ${currentMidiLearnChannel}`);
+            midiMapping = {
+                channel: msg.channel,
+                controller: msg.controller !== undefined ? msg.controller : 0
+            };
+        } else {
+            log(`Ignoring message type ${type} for MIDI learn`);
+            return; // Not a message type we care about for learning
+        }
+        
+        // Store the current channel before clearing it
+        const learnedChannel = currentMidiLearnChannel;
+        
+        // Learn the mapping
+        learnMidiMapping(io, learnedChannel, midiMapping);
+        currentMidiLearnChannel = null;
+        
+        // Clear the midi learn timeout if it's active
+        if (midiLearnTimeout) {
+            clearTimeout(midiLearnTimeout);
+            midiLearnTimeout = null;
+        }
+        
+        // Save the config and update clients
+        saveConfig();
+        io.emit('midiMappingUpdate', midiMappings);
+        
+        // Send a confirmation that MIDI learn completed successfully
+        log(`MIDI learn complete for channel ${learnedChannel}: ${JSON.stringify(midiMapping)}`);
+        io.emit('midiLearnComplete', { 
+            channel: learnedChannel,
+            mapping: midiMapping
+        });
+        
+        return;
+    }
+    
+    // Handle MIDI scene learn mode
+    if (currentMidiLearnScene !== null) {
+        const scene = scenes.find(s => s.name === currentMidiLearnScene);
+        if (scene) {
+            let midiMapping: MidiMapping;
+            
+            if (type === 'noteon') {
+                midiMapping = {
+                    channel: msg.channel,
+                    note: msg.note !== undefined ? msg.note : 0
+                };
+            } else { // cc
+                midiMapping = {
+                    channel: msg.channel,
+                    controller: msg.controller !== undefined ? msg.controller : 0
+                };
+            }
+            
+            scene.midiMapping = midiMapping;
+            io.emit('sceneMidiMappingLearned', { scene: currentMidiLearnScene, mapping: midiMapping });
+            currentMidiLearnScene = null;
+            
+            // Clear the midi learn timeout if it's active
+            if (midiLearnTimeout) {
+                clearTimeout(midiLearnTimeout);
+                midiLearnTimeout = null;
+            }
+            
+            saveScenes();
+            return;
+        }
+    }
+    
+    // Regular MIDI control handling
+    if (type === 'cc') {
+        // Ensure controller is defined before using it
+        if (msg.controller !== undefined) {
+            const controlKey = `${msg.channel}:${msg.controller}`;
+            for (const [dmxChannel, mapping] of Object.entries(midiMappings)) {
+                // Skip if mapping doesn't have controller property
+                if (mapping.controller === undefined) continue;
+                
+                const mappingKey = `${mapping.channel}:${mapping.controller}`;
+                if (mappingKey === controlKey) {
+                    const channelIdx = parseInt(dmxChannel);
+                    // Make sure value is defined before using it
+                    if (msg.value !== undefined) {
+                        const scaledValue = Math.floor((msg.value / 127) * 255);
+                        updateDmxChannel(channelIdx, scaledValue);
+                        io.emit('dmxUpdate', { channel: channelIdx, value: scaledValue });
+                    }
+                }
+            }
+        }
+    } else if (type === 'noteon') {
+        // Ensure note is defined before using it
+        if (msg.note !== undefined) {
+            // Check for scene triggers
+            scenes.forEach(scene => {
+                if (scene.midiMapping && 
+                    scene.midiMapping.channel === msg.channel && 
+                    scene.midiMapping.note === msg.note) {
+                    loadScene(io, scene.name);
+                }
+            });
+        }
+    }
 }
 
 function saveScene(io: Server, name: string, oscAddress: string, state: number[]) {
@@ -327,6 +546,65 @@ function startLaserTime(io: Server) {
             log(`Loading scene: ${name}`);
             loadScene(io, name);
         });
+        
+        // MIDI learn mode handler for the startMidiLearn event
+        socket.on('startMidiLearn', ({ channel }: { channel: number }) => {
+            log(`Starting MIDI learn for channel ${channel}`);
+            
+            // If already in learn mode, cancel it first
+            if (currentMidiLearnChannel !== null) {
+                log(`Cancelling previous MIDI learn for channel ${currentMidiLearnChannel}`);
+                io.emit('midiLearnCancelled', { channel: currentMidiLearnChannel });
+            }
+            
+            // Set the new channel for learning
+            currentMidiLearnChannel = channel;
+            
+            // Auto-cancel MIDI learn after 30 seconds if no MIDI input is received
+            if (midiLearnTimeout) {
+                clearTimeout(midiLearnTimeout);
+            }
+            
+            midiLearnTimeout = setTimeout(() => {
+                if (currentMidiLearnChannel !== null) {
+                    log(`MIDI learn for channel ${currentMidiLearnChannel} timed out`);
+                    currentMidiLearnChannel = null;
+                    io.emit('midiLearnTimeout', { channel });
+                }
+            }, 30000);
+            
+            io.emit('midiLearnStarted', { channel });
+        });
+        
+        // CRITICAL FIX: Add handler for learnMidiMapping event
+        socket.on('learnMidiMapping', ({ channel }: { channel: number }) => {
+            log(`Starting MIDI learn for channel ${channel} (via learnMidiMapping event)`);
+            
+            // If already in learn mode, cancel it first
+            if (currentMidiLearnChannel !== null) {
+                log(`Cancelling previous MIDI learn for channel ${currentMidiLearnChannel}`);
+                io.emit('midiLearnCancelled', { channel: currentMidiLearnChannel });
+            }
+            
+            // Set the new channel for learning
+            currentMidiLearnChannel = channel;
+            
+            // Auto-cancel MIDI learn after 30 seconds if no MIDI input is received
+            if (midiLearnTimeout) {
+                clearTimeout(midiLearnTimeout);
+            }
+            
+            midiLearnTimeout = setTimeout(() => {
+                if (currentMidiLearnChannel !== null) {
+                    log(`MIDI learn for channel ${currentMidiLearnChannel} timed out`);
+                    currentMidiLearnChannel = null;
+                    io.emit('midiLearnTimeout', { channel });
+                }
+            }, 30000);
+            
+            io.emit('midiLearnStarted', { channel });
+            log(`MIDI learn mode ACTIVE for channel ${channel} - awaiting MIDI input...`);
+        });
 
         socket.on('disconnect', () => {
             log('User disconnected');
@@ -335,6 +613,12 @@ function startLaserTime(io: Server) {
 }
 
 // Export all necessary functions
+// We don't need this separate function since we're integrating it directly into startLaserTime
+function addSocketHandlers(io: Server) {
+    // This is just a placeholder now - all handlers are set up in startLaserTime
+    log('Socket handlers being initialized (via addSocketHandlers)');
+}
+
 export {
     log,
     listMidiInterfaces,
@@ -343,5 +627,8 @@ export {
     loadConfig,
     saveConfig,
     initOsc,
-    startLaserTime
+    startLaserTime,
+    connectMidiInput,
+    disconnectMidiInput,
+    addSocketHandlers
 };

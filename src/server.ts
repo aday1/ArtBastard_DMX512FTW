@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import path from 'path';
-import { startLaserTime, listMidiInterfaces } from './index';
+import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput, addSocketHandlers } from './index';
 
 const app = express();
 const server = http.createServer(app);
@@ -42,12 +42,34 @@ io.on('connection', (socket) => {
 
   // Send available MIDI interfaces to the client
   const midiInterfaces = listMidiInterfaces();
+  console.log('MIDI interfaces found:', midiInterfaces.inputs);
   socket.emit('midiInterfaces', midiInterfaces.inputs);
+
+  // Handle MIDI interface selection
+  socket.on('selectMidiInterface', (interfaceName) => {
+    console.log(`Selecting MIDI interface: ${interfaceName}`);
+    connectMidiInput(io, interfaceName);
+  });
+
+  // Handle MIDI interface disconnection
+  socket.on('disconnectMidiInterface', (interfaceName) => {
+    console.log(`Disconnecting MIDI interface: ${interfaceName}`);
+    disconnectMidiInput(io, interfaceName);
+  });
+
+  // Handle request for refreshing MIDI interfaces
+  socket.on('getMidiInterfaces', () => {
+    const midiInterfaces = listMidiInterfaces();
+    socket.emit('midiInterfaces', midiInterfaces.inputs);
+  });
 
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
 });
+
+// Initialize additional socket handlers for MIDI learn
+addSocketHandlers(io);
 
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
