@@ -48,13 +48,15 @@
             
             <div class="card">
                 <div class="card-header">
-                    <h3>Available Instruments <span class="art-subtitle">Select Your Digital Collaborator</span></h3>
+                    <h3>Available Instruments <span class="art-subtitle">Select Your Digital Collaborators</span></h3>
                     <button class="collapse-toggle" title="Collapse/Expand"><i class="fas fa-chevron-up"></i></button>
                 </div>
                 <div class="card-body">
                     <div class="form-row">
-                        <label for="midiInterface">Select MIDI Interface:</label>
-                        <select id="midiInterface"></select>
+                        <button id="refreshMidiInterfaces" class="info-button"><i class="fas fa-sync"></i> Refresh Available Interfaces</button>
+                    </div>
+                    <div id="midiInterfacesList" class="midi-interfaces-list">
+                        <!-- MIDI interfaces will be listed here -->
                     </div>
                 </div>
             </div>
@@ -88,10 +90,25 @@
                     <button class="collapse-toggle" title="Collapse/Expand"><i class="fas fa-chevron-up"></i></button>
                 </div>
                 <div class="card-body">
+                    <div class="form-row">
+                        <label for="midiVisualizer">Visualize MIDI Data:</label>
+                        <select id="midiVisualizerMode">
+                            <option value="text">Text View</option>
+                            <option value="heatmap">Heat Map</option>
+                            <option value="piano">Piano Roll</option>
+                        </select>
+                    </div>
+                    <div id="midiVisualizer" class="midi-visualizer">
+                        <canvas id="midiVisualizerCanvas" width="600" height="200"></canvas>
+                    </div>
                     <div id="midiMessages" class="message-log"></div>
                 </div>
                 <div class="card-footer">
                     <button id="clearMidiMessages" class="info-button"><i class="fas fa-broom"></i> Clear Ethereal Messages</button>
+                    <div class="toggle-container">
+                        <label for="rawDataToggle">Show Raw Data</label>
+                        <input type="checkbox" id="rawDataToggle" checked>
+                    </div>
                 </div>
             </div>
         </div>

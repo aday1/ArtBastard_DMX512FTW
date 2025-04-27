@@ -283,6 +283,29 @@ document.addEventListener('DOMContentLoaded', () => {
             currentMidiLearnScene = null;
         }
     });
+    
+    // Handle midiLearnComplete event
+    socket.on('midiLearnComplete', ({ channel, mapping }) => {
+        if (channel !== -1) {
+            const learnButton = document.querySelector(`.midi-learn[data-channel="${channel}"]`);
+            if (learnButton) {
+                learnButton.classList.remove('learning');
+                learnButton.classList.add('mapped');
+                learnButton.innerHTML = '<i class="fas fa-music"></i> Mapped';
+            }
+            showMessage(`Success! Channel ${channel} is now controlled by MIDI ${mapping.channel}:${mapping.note || mapping.controller}`, 'success');
+        }
+    });
+    
+    // Handle midiLearnTimeout event
+    socket.on('midiLearnTimeout', ({ channel }) => {
+        const learnButton = document.querySelector(`.midi-learn[data-channel="${channel}"]`);
+        if (learnButton) {
+            learnButton.classList.remove('learning');
+            learnButton.innerHTML = midiMappings[channel] ? '<i class="fas fa-music"></i> Mapped' : '<i class="fas fa-music"></i> MIDI Learn';
+        }
+        showMessage('MIDI learning timed out. Try again or check your MIDI device connection.', 'error');
+    });
 
     socket.on('artnetStatus', ({ ip, status }) => {
         updateArtnetStatus(status === 'alive');
@@ -1532,6 +1555,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Tell the server to start listening for MIDI messages for this channel
         socket.emit('learnMidiMapping', { channel });
+        
+        showMessage(`MIDI Learn mode activated for channel ${channel}. Move a knob or slider on your MIDI controller.`, 'info');
 
         // Set a timeout to cancel the MIDI learn after 10 seconds
         if (midiLearnTimeout) {

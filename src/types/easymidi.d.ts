@@ -5,8 +5,12 @@ declare module 'easymidi' {
     export interface MidiMessage {
         _type: string;
         channel: number;
-        controller: number;
-        value: number;
+        controller?: number;
+        value?: number;
+        note?: number;
+        velocity?: number;
+        number?: number;  // Added for program change messages
+        source?: string;
     }
 
     export class Input {
