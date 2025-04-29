@@ -1,5 +1,8 @@
 import easymidi, { Input } from 'easymidi';
-interface MidiMessage {
+// Import our adapter types to make TypeScript happy
+import './types/midi-types';
+
+export interface MidiMessage {
     _type: string;
     channel: number;
     controller?: number;
@@ -115,8 +118,18 @@ function loadConfig() {
         midiMappings = parsedConfig.midiMappings || {};
         log('Config loaded: ' + JSON.stringify(artNetConfig));
         log('MIDI mappings loaded: ' + JSON.stringify(midiMappings));
+        
+        // Return the config for use in the API
+        return {
+            artNetConfig,
+            midiMappings
+        };
     } else {
         saveConfig();
+        return {
+            artNetConfig,
+            midiMappings
+        };
     }
 }
 
@@ -132,19 +145,55 @@ function saveConfig() {
 // Store active MIDI inputs
 let activeMidiInputs: {[name: string]: Input} = {};
 
+// Helper function to check if running in WSL
+function isRunningInWsl(): boolean {
+    return os.release().toLowerCase().includes('microsoft') || 
+           os.release().toLowerCase().includes('wsl');
+}
+
 function initializeMidi(io: Server) {
-    const inputs = easymidi.getInputs();
-    if (inputs.length > 0) {
-        // Auto-connect to the first input initially (for backward compatibility)
-        connectMidiInput(io, inputs[0]);
-        log(`Available MIDI inputs: ${inputs.join(', ')}`);
-    } else {
-        log('No MIDI inputs available');
+    try {
+        // Check if running in WSL environment
+        if (isRunningInWsl()) {
+            log('Running in WSL environment - MIDI device access is limited');
+            log('MIDI hardware input is disabled, but browser MIDI will still work');
+            io.emit('midiStatus', { 
+                status: 'wsl', 
+                message: 'Running in WSL - hardware MIDI devices not accessible. Browser MIDI is available.' 
+            });
+            return;
+        }
+        
+        const inputs = easymidi.getInputs();
+        if (inputs.length > 0) {
+            // Auto-connect to the first input initially (for backward compatibility)
+            connectMidiInput(io, inputs[0]);
+            log(`Available MIDI inputs: ${inputs.join(', ')}`);
+        } else {
+            log('No MIDI inputs available');
+        }
+    } catch (error) {
+        log(`MIDI initialization error: ${error}`);
+        log('Continuing without MIDI hardware support. Browser MIDI will still work if available.');
+        io.emit('midiStatus', { 
+            status: 'error', 
+            message: `MIDI initialization failed: ${error}. Browser MIDI is available.` 
+        });
     }
 }
 
 function connectMidiInput(io: Server, inputName: string) {
     try {
+        // Check if running in WSL
+        if (isRunningInWsl()) {
+            log(`Cannot connect to MIDI input in WSL environment: ${inputName}`);
+            io.emit('midiConnectionError', {
+                input: inputName,
+                error: 'Cannot connect to hardware MIDI devices in WSL environment'
+            });
+            return;
+        }
+        
         // Check if we're already connected to this input
         if (activeMidiInputs[inputName]) {
             log(`Already connected to MIDI input: ${inputName}`);
@@ -253,14 +302,28 @@ function initializeArtNet() {
 
 function listMidiInterfaces() {
     try {
+        // Check if running in WSL using our helper function
+        if (isRunningInWsl()) {
+            log('WSL environment detected - MIDI hardware interfaces not accessible');
+            return { 
+                inputs: [], 
+                outputs: [],
+                isWsl: true
+            };
+        }
+        
         const inputs = easymidi.getInputs();
         const outputs = easymidi.getOutputs();
         log("Available MIDI Inputs: " + JSON.stringify(inputs));
         log("Available MIDI Outputs: " + JSON.stringify(outputs));
-        return { inputs, outputs };
+        return { inputs, outputs, isWsl: false };
     } catch (error) {
         log(`Error listing MIDI interfaces: ${error}`);
-        return { inputs: [], outputs: [] };
+        return { 
+            inputs: [], 
+            outputs: [],
+            error: String(error)
+        };
     }
 }
 
@@ -474,10 +537,13 @@ function updateDmxChannel(channel: number, value: number) {
     }
 }
 
-function saveScenes() {
-    const scenesToSave = JSON.stringify(scenes, null, 2);
-    log('Saving scenes: ' + scenesToSave);
-    fs.writeFileSync(SCENES_FILE, scenesToSave);
+function saveScenes(scenesToSave?: Scene[]) {
+    if (scenesToSave) {
+        scenes = scenesToSave;
+    }
+    const scenesJson = JSON.stringify(scenes, null, 2);
+    log('Saving scenes: ' + scenesJson);
+    fs.writeFileSync(SCENES_FILE, scenesJson);
     log('Scenes saved to file');
 }
 
@@ -487,28 +553,39 @@ function loadScenes() {
         log('Raw scenes data from file: ' + data);
         scenes = JSON.parse(data);
         log('Scenes loaded: ' + JSON.stringify(scenes));
+        return scenes;
     } else {
         scenes = [];
         saveScenes();
+        return scenes;
     }
 }
 
-function pingArtNetDevice(io: Server) {
-    ping.promise.probe(artNetConfig.ip)
+function pingArtNetDevice(io: Server, ip?: string) {
+    // If ip is provided, use it instead of the config IP
+    const targetIp = ip || artNetConfig.ip;
+    ping.promise.probe(targetIp)
         .then((res: any) => {
             const status = res.alive ? 'alive' : 'unreachable';
-            log(`ArtNet device at ${artNetConfig.ip} is ${status}`);
-            io.emit('artnetStatus', { ip: artNetConfig.ip, status });
+            log(`ArtNet device at ${targetIp} is ${status}`);
+            io.emit('artnetStatus', { ip: targetIp, status });
         })
         .catch((error: any) => {
             log(`Error pinging ArtNet device: ${error}`);
-            io.emit('artnetStatus', { ip: artNetConfig.ip, status: 'error', error: error.message });
+            io.emit('artnetStatus', { ip: targetIp, status: 'error', error: error.message });
         });
 }
 
 function startLaserTime(io: Server) {
     loadConfig();
     loadScenes();
+    
+    // Check if we're in WSL and log special message about browser MIDI
+    if (isRunningInWsl()) {
+        log('Starting in WSL environment - hardware MIDI devices unavailable');
+        log('Users can still use Web MIDI API from browsers');
+    }
+    
     initializeMidi(io);
     initOsc(io);
     initializeArtNet();
@@ -606,6 +683,18 @@ function startLaserTime(io: Server) {
             log(`MIDI learn mode ACTIVE for channel ${channel} - awaiting MIDI input...`);
         });
 
+        // Handle browser MIDI messages
+        socket.on('browserMidiMessage', (msg: MidiMessage) => {
+            log(`Received browser MIDI message: ${JSON.stringify(msg)}`);
+            // Forward the message to all clients to maintain MIDI visualization
+            io.emit('midiMessage', msg);
+            
+            // Process the message the same way we would for hardware MIDI
+            if (msg._type === 'noteon' || msg._type === 'cc') {
+                handleMidiMessage(io, msg._type as 'noteon' | 'cc', msg);
+            }
+        });
+
         socket.on('disconnect', () => {
             log('User disconnected');
         });
@@ -619,6 +708,37 @@ function addSocketHandlers(io: Server) {
     log('Socket handlers being initialized (via addSocketHandlers)');
 }
 
+// Create a clearMidiMappings function
+function clearMidiMappings(channelToRemove?: number) {
+    if (channelToRemove !== undefined) {
+        // Remove a specific channel mapping
+        if (channelToRemove in midiMappings) {
+            delete midiMappings[channelToRemove];
+        }
+    } else {
+        // Clear all mappings
+        midiMappings = {};
+    }
+}
+
+// Create an updateArtNetConfig function
+function updateArtNetConfig(config: Partial<ArtNetConfig>) {
+    artNetConfig = { ...artNetConfig, ...config };
+    // Re-initialize ArtNet with new config if needed
+    if (artnetSender) {
+        try {
+            // Close the existing sender if possible
+            if (typeof artnetSender.close === 'function') {
+                artnetSender.close();
+            }
+            // Re-initialize with new config
+            initializeArtNet();
+        } catch (error) {
+            log(`Error reinitializing ArtNet with new config: ${error}`);
+        }
+    }
+}
+
 export {
     log,
     listMidiInterfaces,
@@ -630,5 +750,15 @@ export {
     startLaserTime,
     connectMidiInput,
     disconnectMidiInput,
-    addSocketHandlers
+    addSocketHandlers,
+    // Export additional functions needed by the API
+    updateDmxChannel as setDmxChannel,
+    loadScene,
+    saveScene,
+    loadScenes,
+    saveScenes,
+    pingArtNetDevice,
+    // New exports
+    clearMidiMappings,
+    updateArtNetConfig
 };

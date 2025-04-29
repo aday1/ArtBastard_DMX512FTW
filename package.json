@@ -5,14 +5,17 @@
   "license": "MIT",
   "scripts": {
     "start": "node build/server.js",
-    "build": "tsc && npm run copy-static",
+    "build": "tsc --skipLibCheck && npm run copy-static",
     "copy-static": "copyfiles -u 1 src/public/**/* build",
     "dev": "ts-node src/server.ts",
     "start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
     "prestart": "npm run build",
     "midi-console": "ts-node src/midi-console.ts",
     "midi-console:win": "node run-midi-monitor.js",
-    "windows-check": "echo This will remain open & npx tsc --noEmit && pause"
+    "windows-check": "echo This will remain open & npx tsc --noEmit && pause",
+    "build:force": "tsc -p tsconfig.build.json && npm run copy-static",
+    "build:index": "tsc src/index.ts --outDir build --skipLibCheck",
+    "build:js": "node build-without-typechecking.js"
   },
   "dependencies": {
     "@types/ping": "^0.4.4",

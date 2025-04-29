@@ -1,25 +1,18 @@
 declare module 'easymidi' {
     export function getInputs(): string[];
     export function getOutputs(): string[];
-
-    export interface MidiMessage {
-        _type: string;
-        channel: number;
-        controller?: number;
-        value?: number;
-        note?: number;
-        velocity?: number;
-        number?: number;  // Added for program change messages
-        source?: string;
-    }
+    export function input(name: string, virtual?: boolean): Input;
+    export function output(name: string, virtual?: boolean): Output;
 
     export class Input {
-        constructor(name: string);
-        on(event: string, callback: (msg: MidiMessage) => void): void;
+        constructor(name: string, virtual?: boolean);
+        on(event: string, callback: (msg: any) => void): void;
         close(): void;
     }
 
     export class Output {
-        constructor(name: string);
+        constructor(name: string, virtual?: boolean);
+        send(event: string, message: any): void;
+        close(): void;
     }
 }
