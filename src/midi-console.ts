@@ -1,4 +1,15 @@
-import { Input as MidiInput, MidiMessage } from 'easymidi';
+import { Input as MidiInput } from 'easymidi';
+
+// Define our own MidiMessage interface since it's not exported from easymidi
+interface MidiMessage {
+    _type?: string;
+    channel?: number;
+    note?: number;
+    velocity?: number;
+    controller?: number;
+    value?: number;
+    number?: number;
+}
 import easymidi from 'easymidi';
 import { UDPPort, OscMessage, OscBundle, OscArgument, TimeTag, MessageInfo } from 'osc';
 // Using chalk v4 would be better for CJS compatibility

@@ -2,7 +2,14 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import path from 'path';
-import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput, addSocketHandlers } from './index';
+import fs from 'fs';
+import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput } from './index';
+import { apiRouter, setupSocketHandlers } from './api';
+
+// Declare global io instance for use in API routes
+declare global {
+  var io: Server;
+}
 
 const app = express();
 const server = http.createServer(app);
@@ -10,8 +17,11 @@ const io = new Server(server);
 
 const port = 3001;
 
-// Serve static files from the 'public' directory with no caching
-app.use(express.static(path.join(__dirname, 'public'), {
+// Set up API routes
+app.use('/api', apiRouter);
+
+// Serve static files from the React app with no caching
+app.use(express.static(path.join(__dirname, '..', 'react-app', 'dist'), {
   setHeaders: (res, path) => {
     // Disable caching for all static files
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
@@ -20,23 +30,30 @@ app.use(express.static(path.join(__dirname, 'public'), {
   }
 }));
 
-// Routes for the pages
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// For backward compatibility, also serve the original public directory
+app.use('/public', express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+}));
+
+// For any routes not handled by specific endpoints, serve the React app
+app.get('*', (req, res) => {
+  const reactAppPath = path.join(__dirname, '..', 'react-app', 'dist', 'index.html');
+  
+  // Check if the React app is built
+  if (fs.existsSync(reactAppPath)) {
+    res.sendFile(reactAppPath);
+  } else {
+    // If React app is not built, redirect to the original interface
+    console.log('React app not built. Redirecting to original interface.');
+    res.redirect('/public');
+  }
 });
 
-app.get('/midi-osc-setup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'midi-osc-setup.html'));
-});
-
-app.get('/fixture-setup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'fixture-setup.html'));
-});
-
-app.get('/osc-debug', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'osc-debug.html'));
-});
-
+// Socket.IO connection handler
 io.on('connection', (socket) => {
   console.log('A user connected');
 
@@ -68,10 +85,13 @@ io.on('connection', (socket) => {
   });
 });
 
-// Initialize additional socket handlers for MIDI learn
-addSocketHandlers(io);
+// Set up additional Socket.IO handlers from API
+setupSocketHandlers(io);
 
+// Start the server
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  console.log(`React app available at http://localhost:${port}`);
+  console.log(`Original interface available at http://localhost:${port}/public`);
   startLaserTime(io);
 });

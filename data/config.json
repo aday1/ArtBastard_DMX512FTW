@@ -7,5 +7,10 @@
     "port": 6454,
     "base_refresh_interval": 1000
   },
-  "midiMappings": {}
+  "midiMappings": {
+    "154": {
+      "channel": 0,
+      "controller": 71
+    }
+  }
 }

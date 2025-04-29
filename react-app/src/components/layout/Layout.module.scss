@@ -1,0 +1,96 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  &.dark {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+  
+  &.light {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+}
+
+.mainContent {
+  flex: 1;
+  padding: 1rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  text-align: center;
+  
+  .artsnob & {
+    font-style: italic;
+    font-weight: normal;
+  }
+  
+  .standard & {
+    font-weight: 600;
+  }
+  
+  .minimal & {
+    font-weight: 300;
+    font-size: 1.5rem;
+  }
+}
+
+.artQuote {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--font-heading);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  background-color: rgba(0, 0, 0, 0.05);
+  
+  .dark & {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.artSignature {
+  margin-top: 0.5rem;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.contentArea {
+  margin-top: 1rem;
+}
+
+.themeToggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-card-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: all var(--transition-speed) ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  i {
+    font-size: 1.2rem;
+    color: var(--color-text);
+  }
+}
