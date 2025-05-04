@@ -1,0 +1,110 @@
+2025-05-04T10:51:10.953Z - Config saved: {"artNetConfig":{"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000},"midiMappings":{}}
+2025-05-04T10:51:10.954Z - Saving scenes: []
+2025-05-04T10:51:10.954Z - Scenes saved to file
+2025-05-04T10:51:10.960Z - MIDI initialization error: Error: Failed to initialise RtMidi
+2025-05-04T10:51:10.961Z - Continuing without MIDI hardware support. Browser MIDI will still work if available.
+2025-05-04T10:51:10.978Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T10:51:16.012Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:20.895Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T10:51:20.896Z - A user connected
+2025-05-04T10:51:20.984Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:25.820Z - DMX channel 0 set to 15
+2025-05-04T10:51:25.889Z - DMX channel 0 set to 18
+2025-05-04T10:51:25.961Z - DMX channel 0 set to 45
+2025-05-04T10:51:25.985Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:26.011Z - DMX channel 0 set to 255
+2025-05-04T10:51:26.013Z - DMX channel 0 set to 105
+2025-05-04T10:51:26.019Z - DMX channel 0 set to 212
+2025-05-04T10:51:26.028Z - DMX channel 0 set to 72
+2025-05-04T10:51:26.030Z - DMX channel 0 set to 24
+2025-05-04T10:51:26.034Z - DMX channel 0 set to 167
+2025-05-04T10:51:26.156Z - DMX channel 0 set to 220
+2025-05-04T10:51:26.174Z - DMX channel 0 set to 146
+2025-05-04T10:51:26.195Z - DMX channel 0 set to 64
+2025-05-04T10:51:26.209Z - DMX channel 0 set to 0
+2025-05-04T10:51:27.530Z - DMX channel 0 set to 244
+2025-05-04T10:51:27.541Z - DMX channel 0 set to 242
+2025-05-04T10:51:27.555Z - DMX channel 0 set to 238
+2025-05-04T10:51:27.574Z - DMX channel 0 set to 236
+2025-05-04T10:51:27.592Z - DMX channel 0 set to 235
+2025-05-04T10:51:27.626Z - DMX channel 0 set to 234
+2025-05-04T10:51:27.631Z - DMX channel 0 set to 231
+2025-05-04T10:51:27.656Z - DMX channel 0 set to 229
+2025-05-04T10:51:27.659Z - DMX channel 0 set to 225
+2025-05-04T10:51:27.673Z - DMX channel 0 set to 222
+2025-05-04T10:51:27.722Z - DMX channel 0 set to 226
+2025-05-04T10:51:27.739Z - DMX channel 0 set to 238
+2025-05-04T10:51:27.756Z - DMX channel 0 set to 253
+2025-05-04T10:51:27.770Z - DMX channel 0 set to 255
+2025-05-04T10:51:27.982Z - DMX channel 0 set to 215
+2025-05-04T10:51:27.994Z - DMX channel 0 set to 174
+2025-05-04T10:51:28.010Z - DMX channel 0 set to 123
+2025-05-04T10:51:28.026Z - DMX channel 0 set to 104
+2025-05-04T10:51:28.040Z - DMX channel 0 set to 92
+2025-05-04T10:51:28.055Z - DMX channel 0 set to 81
+2025-05-04T10:51:28.072Z - DMX channel 0 set to 75
+2025-05-04T10:51:28.089Z - DMX channel 0 set to 69
+2025-05-04T10:51:28.104Z - DMX channel 0 set to 57
+2025-05-04T10:51:28.123Z - DMX channel 0 set to 48
+2025-05-04T10:51:28.137Z - DMX channel 0 set to 30
+2025-05-04T10:51:28.186Z - DMX channel 0 set to 16
+2025-05-04T10:51:28.188Z - DMX channel 0 set to 0
+2025-05-04T10:51:28.757Z - DMX channel 0 set to 12
+2025-05-04T10:51:28.770Z - DMX channel 0 set to 91
+2025-05-04T10:51:28.786Z - DMX channel 0 set to 157
+2025-05-04T10:51:28.803Z - DMX channel 0 set to 211
+2025-05-04T10:51:28.823Z - DMX channel 0 set to 255
+2025-05-04T10:51:29.022Z - DMX channel 0 set to 198
+2025-05-04T10:51:29.035Z - DMX channel 0 set to 119
+2025-05-04T10:51:29.052Z - DMX channel 0 set to 50
+2025-05-04T10:51:29.071Z - DMX channel 0 set to 18
+2025-05-04T10:51:29.087Z - DMX channel 0 set to 0
+2025-05-04T10:51:30.984Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:34.159Z - DMX channel 0 set to 110
+2025-05-04T10:51:34.274Z - DMX channel 0 set to 111
+2025-05-04T10:51:34.290Z - DMX channel 0 set to 122
+2025-05-04T10:51:35.985Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:40.986Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:42.482Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T10:51:45.987Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:50.988Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:51:55.989Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:00.992Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:05.991Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:10.992Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:15.994Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:20.995Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:25.997Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:30.997Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:35.998Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:52:40.999Z - Error pinging ArtNet device: Error: ping.probe: there was an error while executing the ping program. . Check the path or permissions...
+2025-05-04T10:57:22.647Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T10:57:22.647Z - MIDI mappings loaded: {}
+2025-05-04T10:57:22.648Z - Raw scenes data from file: []
+2025-05-04T10:57:22.648Z - Scenes loaded: []
+2025-05-04T10:57:22.648Z - ALSA sequencer device not available - MIDI hardware access will be limited
+2025-05-04T10:57:22.675Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T10:57:28.683Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:57:33.681Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:57:33.908Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T10:57:33.909Z - A user connected
+2025-05-04T10:57:38.683Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:57:43.685Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:57:48.687Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:57:53.688Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:57:58.689Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:03.688Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:08.690Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:13.691Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:18.692Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:23.698Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:28.693Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:32.623Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:33.693Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:38.696Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:43.696Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:48.697Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:53.697Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T10:58:55.827Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T10:58:55.828Z - A user connected
+2025-05-04T10:58:58.697Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out

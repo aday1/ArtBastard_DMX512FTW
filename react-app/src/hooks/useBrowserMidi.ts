@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useStore } from '../store'
 import { useSocket } from '../context/SocketContext'
-// Import the WebMidi types added to the global scope
-import '../types/webmidi'
+import type { MidiMapping } from '../store'
+
+// The WebMIDI types are already available globally via webmidi.d.ts
 
 export interface BrowserMidiInput {
   id: string
@@ -170,7 +171,7 @@ export const useBrowserMidi = () => {
       // Handle MIDI learn if in learn mode
       if (midiLearnChannel !== null) {
         if (midiMessage._type === 'noteon' || midiMessage._type === 'cc') {
-          let mapping: any
+          let mapping: MidiMapping
           
           if (midiMessage._type === 'noteon') {
             mapping = {

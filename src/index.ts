@@ -155,13 +155,35 @@ function initializeMidi(io: Server) {
     try {
         // Check if running in WSL environment
         if (isRunningInWsl()) {
-            log('Running in WSL environment - MIDI device access is limited');
-            log('MIDI hardware input is disabled, but browser MIDI will still work');
+            log('Running in WSL environment - MIDI hardware device access is limited');
+            log('Browser MIDI API will still work for MIDI functionality');
             io.emit('midiStatus', { 
                 status: 'wsl', 
                 message: 'Running in WSL - hardware MIDI devices not accessible. Browser MIDI is available.' 
             });
             return;
+        }
+
+        // Check if ALSA is available (on Linux)
+        if (process.platform === 'linux') {
+            try {
+                const fs = require('fs');
+                if (!fs.existsSync('/dev/snd/seq')) {
+                    log('ALSA sequencer device not available - MIDI hardware access will be limited');
+                    io.emit('midiStatus', {
+                        status: 'limited',
+                        message: 'ALSA sequencer not available. Browser MIDI will still work.'
+                    });
+                    return;
+                }
+            } catch (error) {
+                log(`ALSA check failed: ${error}`);
+                io.emit('midiStatus', {
+                    status: 'limited',
+                    message: 'ALSA check failed. Browser MIDI will still work.'
+                });
+                return;
+            }
         }
         
         const inputs = easymidi.getInputs();
@@ -171,13 +193,17 @@ function initializeMidi(io: Server) {
             log(`Available MIDI inputs: ${inputs.join(', ')}`);
         } else {
             log('No MIDI inputs available');
+            io.emit('midiStatus', {
+                status: 'noDevices',
+                message: 'No MIDI hardware devices found. Browser MIDI will still work.'
+            });
         }
     } catch (error) {
         log(`MIDI initialization error: ${error}`);
         log('Continuing without MIDI hardware support. Browser MIDI will still work if available.');
         io.emit('midiStatus', { 
             status: 'error', 
-            message: `MIDI initialization failed: ${error}. Browser MIDI is available.` 
+            message: `MIDI hardware initialization failed: ${error}. Browser MIDI is available.` 
         });
     }
 }
@@ -564,15 +590,45 @@ function loadScenes() {
 function pingArtNetDevice(io: Server, ip?: string) {
     // If ip is provided, use it instead of the config IP
     const targetIp = ip || artNetConfig.ip;
-    ping.promise.probe(targetIp)
-        .then((res: any) => {
-            const status = res.alive ? 'alive' : 'unreachable';
-            log(`ArtNet device at ${targetIp} is ${status}`);
-            io.emit('artnetStatus', { ip: targetIp, status });
+    
+    // First try TCP connection to ArtNet port
+    const net = require('net');
+    const socket = new net.Socket();
+    const timeout = 1000; // 1 second timeout
+    
+    socket.setTimeout(timeout);
+    
+    // Create a promise that rejects on timeout
+    const connectionPromise = new Promise((resolve, reject) => {
+        socket.connect(artNetConfig.port, targetIp, () => {
+            socket.end();
+            resolve(true);
+        });
+        
+        socket.on('error', (err) => {
+            socket.destroy();
+            reject(err);
+        });
+        
+        socket.on('timeout', () => {
+            socket.destroy();
+            reject(new Error('Connection timed out'));
+        });
+    });
+    
+    connectionPromise
+        .then(() => {
+            log(`ArtNet device at ${targetIp} is alive`);
+            io.emit('artnetStatus', { ip: targetIp, status: 'alive' });
         })
-        .catch((error: any) => {
-            log(`Error pinging ArtNet device: ${error}`);
-            io.emit('artnetStatus', { ip: targetIp, status: 'error', error: error.message });
+        .catch((error) => {
+            // Don't treat connection failures as errors, just report device as unreachable
+            log(`ArtNet device at ${targetIp} is unreachable: ${error.message}`);
+            io.emit('artnetStatus', { 
+                ip: targetIp, 
+                status: 'unreachable',
+                message: 'Device is not responding on ArtNet port'
+            });
         });
 }
 
