@@ -1,9 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Grid, PerspectiveCamera, useHelper } from '@react-three/drei'
-import { SpotLightHelper, Vector3, SpotLight as ThreeSpotLight } from 'three'
+import { SpotLightHelper, Vector3, SpotLight as ThreeSpotLight, Color, Euler } from 'three'
 import { useStore } from '../../store'
 import styles from './FixtureVisualizer3D.module.scss'
+
+interface ChannelType {
+  name: string;
+  // Add other channel properties as needed
+}
 
 export const FixtureVisualizer3D: React.FC = () => {
   return (
@@ -24,128 +29,86 @@ const Scene: React.FC = () => {
       <PerspectiveCamera makeDefault position={[0, 5, 10]} />
       <OrbitControls />
       <ambientLight intensity={0.1} />
-      <directionalLight position={[0, 10, 0]} intensity={0.5} castShadow />
       
-      {/* Floor grid */}
-      <Grid infiniteGrid fadeDistance={30} fadeStrength={5} />
+      <Grid infiniteGrid position={[0, -0.01, 0]} />
       
-      {/* Stage platform */}
-      <mesh position={[0, -0.05, 0]} receiveShadow>
-        <boxGeometry args={[10, 0.1, 6]} />
-        <meshStandardMaterial color="#333" />
-      </mesh>
-      
-      {/* Render each fixture */}
       {fixtures.map((fixture, index) => (
-        <FixtureObject 
-          key={index}
-          fixture={fixture}
-          position={new Vector3(
-            (index % 5) * 2 - 4, 
-            3, 
-            Math.floor(index / 5) * 2 - 2
-          )}
-          dmxValues={dmxChannels.slice(
-            fixture.startAddress - 1, 
-            fixture.startAddress - 1 + fixture.channels.length
-          )}
-        />
+        <Fixture key={index} fixture={fixture} dmxChannels={dmxChannels} />
       ))}
     </>
   )
 }
 
-interface FixtureObjectProps {
-  fixture: any // Use your Fixture type here
-  position: Vector3
-  dmxValues: number[]
-}
-
-const FixtureObject: React.FC<FixtureObjectProps> = ({ fixture, position, dmxValues }) => {
+const Fixture: React.FC<{ fixture: any; dmxChannels: number[] }> = ({ fixture, dmxChannels }) => {
   const spotlightRef = useRef<ThreeSpotLight>(null)
   const [hovered, setHovered] = useState(false)
   
-  // Use spotlight helper when debugging/hovered
-  useHelper(hovered ? spotlightRef : null, SpotLightHelper, 'red')
+  // Only show helper when hovered and spotlight exists
+  useHelper(hovered ? (spotlightRef as any) : null, SpotLightHelper)
   
-  // Extract relevant DMX channel values
-  const intensity = dmxValues[0] ? dmxValues[0] / 255 : 0.5
+  // Calculate color values from DMX channels
+  const redChannel = fixture.channels.findIndex((c: ChannelType) => c.name.toLowerCase().includes('red'))
+  const greenChannel = fixture.channels.findIndex((c: ChannelType) => c.name.toLowerCase().includes('green'))
+  const blueChannel = fixture.channels.findIndex((c: ChannelType) => c.name.toLowerCase().includes('blue'))
   
-  // Find color channels if they exist
-  const redChannel = fixture.channels.findIndex(c => c.name.toLowerCase().includes('red'))
-  const greenChannel = fixture.channels.findIndex(c => c.name.toLowerCase().includes('green'))
-  const blueChannel = fixture.channels.findIndex(c => c.name.toLowerCase().includes('blue'))
+  const red = redChannel >= 0 ? dmxChannels[fixture.startChannel + redChannel] / 255 : 0
+  const green = greenChannel >= 0 ? dmxChannels[fixture.startChannel + greenChannel] / 255 : 0
+  const blue = blueChannel >= 0 ? dmxChannels[fixture.startChannel + blueChannel] / 255 : 0
   
-  const red = redChannel !== -1 ? dmxValues[redChannel] / 255 : 1
-  const green = greenChannel !== -1 ? dmxValues[greenChannel] / 255 : 1
-  const blue = blueChannel !== -1 ? dmxValues[blueChannel] / 255 : 1
+  // Calculate position from pan/tilt
+  const panChannel = fixture.channels.findIndex((c: ChannelType) => c.name.toLowerCase().includes('pan'))
+  const tiltChannel = fixture.channels.findIndex((c: ChannelType) => c.name.toLowerCase().includes('tilt'))
   
-  // Find pan/tilt channels if they exist
-  const panChannel = fixture.channels.findIndex(c => c.name.toLowerCase().includes('pan'))
-  const tiltChannel = fixture.channels.findIndex(c => c.name.toLowerCase().includes('tilt'))
+  const pan = panChannel >= 0 ? (dmxChannels[fixture.startChannel + panChannel] / 255) * Math.PI * 2 : 0
+  const tilt = tiltChannel >= 0 ? (dmxChannels[fixture.startChannel + tiltChannel] / 255) * Math.PI : 0
   
-  const pan = panChannel !== -1 ? (dmxValues[panChannel] / 255) * Math.PI * 2 : 0
-  const tilt = tiltChannel !== -1 ? (dmxValues[tiltChannel] / 255) * Math.PI : 0
+  const position = fixture.position || [0, 3, 0]
+  const rotation = new Euler(tilt, pan, 0)
   
-  // Animate the fixture based on DMX values
-  useFrame(() => {
-    if (spotlightRef.current) {
-      // Update spotlight intensity
-      spotlightRef.current.intensity = intensity * 10
-      
-      // Update spotlight color
-      spotlightRef.current.color.setRGB(red, green, blue)
-      
-      // Update spotlight position
-      spotlightRef.current.position.copy(position)
-      
-      // Update spotlight direction based on pan/tilt
-      const target = new Vector3(
-        position.x + Math.sin(pan) * Math.cos(tilt) * 10,
-        position.y - Math.sin(tilt) * 10,
-        position.z + Math.cos(pan) * Math.cos(tilt) * 10
-      )
-      spotlightRef.current.target.position.copy(target)
-      spotlightRef.current.target.updateMatrixWorld()
-    }
-  })
+  // Calculate intensity
+  const intensity = Math.max(red, green, blue)
   
   return (
-    <group position={position}>
-      {/* Fixture body */}
-      <mesh 
-        castShadow 
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      >
-        <boxGeometry args={[0.5, 0.8, 0.5]} />
-        <meshStandardMaterial 
-          color={hovered ? "#666" : "#444"} 
-          emissive={new Vector3(red, green, blue).multiplyScalar(intensity * 0.3)}
-        />
-      </mesh>
-      
-      {/* Fixture front lens */}
-      <mesh position={[0, -0.4, 0]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.2, 0.2, 0.1, 16]} />
-        <meshStandardMaterial 
-          color="#888" 
-          emissive={new Vector3(red, green, blue)}
-          emissiveIntensity={intensity}
-        />
-      </mesh>
-      
+    <group
+      position={position}
+      rotation={rotation}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+    >
       {/* Light beam */}
       <spotLight
         ref={spotlightRef}
         position={[0, 0, 0]}
-        angle={0.3}
-        penumbra={0.2}
-        intensity={intensity * 10}
-        color={`rgb(${Math.floor(red * 255)}, ${Math.floor(green * 255)}, ${Math.floor(blue * 255)})`}
-        distance={20}
+        angle={0.5}
+        penumbra={0.5}
+        intensity={intensity * 2}
+        color={new Color(red, green, blue)}
         castShadow
       />
+      
+      {/* Fixture body */}
+      <mesh castShadow>
+        <boxGeometry args={[0.3, 0.3, 0.3]} />
+        <meshStandardMaterial
+          color="black"
+          emissive={new Color(red * intensity * 0.3, green * intensity * 0.3, blue * intensity * 0.3)}
+          roughness={0.5}
+          metalness={0.8}
+        />
+      </mesh>
+      
+      {/* Light lens */}
+      <mesh position={[0, 0, 0.2]}>
+        <cylinderGeometry args={[0.1, 0.1, 0.1, 32]} />
+        <meshStandardMaterial
+          color="white"
+          emissive={new Color(red, green, blue)}
+          roughness={0.2}
+          metalness={0.5}
+          transparent
+          opacity={0.9}
+        />
+      </mesh>
       
       {/* Fixture name label */}
       <Html position={[0, 0.5, 0]}>
