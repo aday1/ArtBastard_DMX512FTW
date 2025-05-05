@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import axios from 'axios'
+import { Socket } from 'socket.io-client'
 
 export interface MidiMapping {
   channel: number
@@ -59,12 +60,16 @@ interface State {
   
   // ArtNet
   artNetConfig: ArtNetConfig
-  artNetStatus: 'connected' | 'disconnected' | 'error'
+  artNetStatus: 'connected' | 'disconnected' | 'error' | 'timeout'
   
   // UI State
   theme: 'artsnob' | 'standard' | 'minimal'
   darkMode: boolean
   statusMessage: { text: string; type: 'success' | 'error' | 'info' } | null
+  
+  // Socket state
+  socket: Socket | null
+  setSocket: (socket: Socket | null) => void
   
   // Actions
   fetchInitialState: () => Promise<void>
@@ -90,6 +95,7 @@ interface State {
   
   // Config Actions
   updateArtNetConfig: (config: Partial<ArtNetConfig>) => void
+  testArtNetConnection: () => void
   
   // UI Actions
   setTheme: (theme: 'artsnob' | 'standard' | 'minimal') => void
@@ -133,25 +139,56 @@ export const useStore = create<State>()(
       darkMode: true,
       statusMessage: null,
       
+      socket: null,
+      setSocket: (socket) => set({ socket }),
+      
       // Actions
       fetchInitialState: async () => {
         try {
-          const response = await axios.get('/api/state')
-          const state = response.data
-          
-          set({
-            dmxChannels: state.dmxChannels || new Array(512).fill(0),
-            oscAssignments: state.oscAssignments || new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`),
-            channelNames: state.channelNames || new Array(512).fill('').map((_, i) => `CH ${i + 1}`),
-            fixtures: state.fixtures || [],
-            groups: state.groups || [],
-            midiMappings: state.midiMappings || {},
-            artNetConfig: state.artNetConfig || get().artNetConfig,
-            scenes: state.scenes || []
+          const response = await axios.get('/api/state', {
+            timeout: 5000,
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            }
           })
-        } catch (error) {
+          
+          if (response.status === 200 && response.data) {
+            const state = response.data
+            
+            set({
+              dmxChannels: state.dmxChannels || new Array(512).fill(0),
+              oscAssignments: state.oscAssignments || new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`),
+              channelNames: state.channelNames || new Array(512).fill('').map((_, i) => `CH ${i + 1}`),
+              fixtures: state.fixtures || [],
+              groups: state.groups || [],
+              midiMappings: state.midiMappings || {},
+              artNetConfig: state.artNetConfig || get().artNetConfig,
+              scenes: state.scenes || []
+            })
+
+            return // Successfully fetched state
+          }
+          throw new Error('Invalid response from server')
+        } catch (error: any) {
           console.error('Failed to fetch initial state:', error)
-          get().showStatusMessage('Failed to fetch initial state', 'error')
+          get().showStatusMessage(
+            error.code === 'ECONNABORTED' 
+              ? 'Connection timeout - please check server status'
+              : 'Failed to fetch initial state - using default values',
+            'error'
+          )
+          
+          // Set default state if fetch fails
+          set({
+            dmxChannels: new Array(512).fill(0),
+            oscAssignments: new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`),
+            channelNames: new Array(512).fill('').map((_, i) => `CH ${i + 1}`),
+            fixtures: [],
+            groups: [],
+            midiMappings: {},
+            scenes: []
+          })
         }
       },
       
@@ -334,15 +371,23 @@ export const useStore = create<State>()(
       
       // Config Actions
       updateArtNetConfig: (config) => {
-        const artNetConfig = { ...get().artNetConfig, ...config }
-        set({ artNetConfig })
-        
-        // Emit to server
-        axios.post('/api/config/artnet', artNetConfig)
-          .catch(error => {
-            console.error('Failed to update ArtNet config:', error)
-            get().showStatusMessage('Failed to update ArtNet config', 'error')
-          })
+        const socket = get().socket
+        if (socket?.connected) {
+          socket.emit('updateArtNetConfig', config)
+          set({ artNetConfig: { ...get().artNetConfig, ...config } })
+        } else {
+          get().showStatusMessage('Cannot update ArtNet config: not connected to server', 'error')
+        }
+      },
+
+      testArtNetConnection: () => {
+        const socket = get().socket
+        if (socket?.connected) {
+          socket.emit('testArtNetConnection')
+          get().showStatusMessage('Testing ArtNet connection...', 'info')
+        } else {
+          get().showStatusMessage('Cannot test connection: not connected to server', 'error')
+        }
       },
       
       // UI Actions

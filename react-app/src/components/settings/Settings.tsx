@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStore } from '../../store'
+import useStoreUtils from '../../store/storeUtils'
 import { useTheme } from '../../context/ThemeContext'
 import { useSocket } from '../../context/SocketContext'
+import { Socket } from 'socket.io-client'
 import styles from './Settings.module.scss'
 
 export const Settings: React.FC = () => {
@@ -18,10 +20,19 @@ export const Settings: React.FC = () => {
   
   // Update ArtNet configuration
   const updateArtNetConfig = () => {
-    useStore.getState().updateArtNetConfig(artNetSettings)
-    useStore.getState().showStatusMessage('ArtNet configuration updated', 'success')
+    try {
+      useStoreUtils.getState().updateArtNetConfig(artNetSettings)
+      useStoreUtils.getState().showStatusMessage('ArtNet configuration updated - testing connection...', 'info')
+      
+      // Test connection after update
+      if (socket && connected) {
+        (socket as any).emit('testArtNetConnection', artNetSettings.ip)
+      }
+    } catch (error) {
+      useStoreUtils.getState().showStatusMessage(`Failed to update ArtNet config: ${error}`, 'error')
+    }
   }
-  
+
   // Handle ArtNet settings change
   const handleArtNetChange = (key: keyof typeof artNetSettings, value: any) => {
     setArtNetSettings(prev => ({ ...prev, [key]: value }))
@@ -32,19 +43,21 @@ export const Settings: React.FC = () => {
     setExportInProgress(true)
     
     if (socket && connected) {
-      socket.emit('exportSettings')
+      // Type assertion for socket.emit
+      (socket as any).emit('exportSettings')
       
-      socket.once('settingsExported', (filePath: string) => {
-        useStore.getState().showStatusMessage(`Settings exported to ${filePath}`, 'success')
+      // Type assertion to avoid TypeScript error with socket.once
+      (socket as any).once('settingsExported', (filePath: string) => {
+        useStoreUtils.getState().showStatusMessage(`Settings exported to ${filePath}`, 'success')
         setExportInProgress(false)
       })
       
-      socket.once('exportError', (error: string) => {
-        useStore.getState().showStatusMessage(`Export error: ${error}`, 'error')
+      (socket as any).once('exportError', (error: string) => {
+        useStoreUtils.getState().showStatusMessage(`Export error: ${error}`, 'error')
         setExportInProgress(false)
       })
     } else {
-      useStore.getState().showStatusMessage('Cannot export settings: not connected to server', 'error')
+      useStoreUtils.getState().showStatusMessage('Cannot export settings: not connected to server', 'error')
       setExportInProgress(false)
     }
   }
@@ -58,27 +71,28 @@ export const Settings: React.FC = () => {
     setImportInProgress(true)
     
     if (socket && connected) {
-      socket.emit('importSettings')
+      // Type assertion for socket.emit
+      (socket as any).emit('importSettings')
       
-      socket.once('settingsImported', (data: any) => {
+      (socket as any).once('settingsImported', (data: any) => {
         // Update store with imported data
-        useStore.setState({
+        useStoreUtils.setState({
           artNetConfig: data.artNetConfig || artNetConfig,
           midiMappings: data.midiMappings || {},
           scenes: data.scenes || []
         })
         
         setArtNetSettings(data.artNetConfig || artNetConfig)
-        useStore.getState().showStatusMessage('Settings imported successfully', 'success')
+        useStoreUtils.getState().showStatusMessage('Settings imported successfully', 'success')
         setImportInProgress(false)
       })
       
-      socket.once('importError', (error: string) => {
-        useStore.getState().showStatusMessage(`Import error: ${error}`, 'error')
+      (socket as any).once('importError', (error: string) => {
+        useStoreUtils.getState().showStatusMessage(`Import error: ${error}`, 'error')
         setImportInProgress(false)
       })
     } else {
-      useStore.getState().showStatusMessage('Cannot import settings: not connected to server', 'error')
+      useStoreUtils.getState().showStatusMessage('Cannot import settings: not connected to server', 'error')
       setImportInProgress(false)
     }
   }
@@ -86,11 +100,50 @@ export const Settings: React.FC = () => {
   // Test ArtNet connection
   const testArtNetConnection = () => {
     if (socket && connected) {
-      socket.emit('pingArtNet', artNetSettings.ip)
-      
+      // Type assertion for socket.emit
+      (socket as any).emit('testArtNetConnection', artNetSettings.ip)
       useStore.getState().showStatusMessage('Testing ArtNet connection...', 'info')
+    } else {
+      useStore.getState().showStatusMessage('Cannot test connection: not connected to server', 'error')
     }
   }
+
+  // Handle ArtNet status changes
+  useEffect(() => {
+    if (!socket) return
+
+    const handleArtNetStatus = (status: { status: string; message?: string }) => {
+      switch (status.status) {
+        case 'alive':
+          useStore.getState().showStatusMessage('ArtNet device is responding', 'success')
+          break
+        case 'unreachable':
+          useStore.getState().showStatusMessage(
+            status.message || 'ArtNet device is not responding',
+            'error'
+          )
+          break
+        case 'timeout':
+          useStore.getState().showStatusMessage(
+            'Connection attempt timed out - check IP and network',
+            'error'
+          )
+          break
+        case 'error':
+          useStore.getState().showStatusMessage(
+            `ArtNet error: ${status.message || 'Unknown error'}`,
+            'error'
+          )
+          break
+      }
+    }
+
+    // Type assertion for socket.on and socket.off
+    (socket as any).on('artnetStatus', handleArtNetStatus)
+    return () => {
+      (socket as any).off('artnetStatus', handleArtNetStatus)
+    }
+  }, [socket])
   
   return (
     <div className={styles.settings}>

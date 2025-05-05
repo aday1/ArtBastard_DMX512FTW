@@ -20,11 +20,47 @@ import {
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const EXPORT_FILE = path.join(DATA_DIR, 'all_settings.json');
 
+// Add type definitions for global variables
+declare global {
+  namespace NodeJS {
+    interface Global {
+      io: Server
+      activeMidiInputs: { [key: string]: any }
+      artnetSender: any
+    }
+  }
+}
+
 // Create API router
 const apiRouter = express.Router();
 
 // Middleware to parse JSON
 apiRouter.use(express.json());
+
+// Health check endpoint
+apiRouter.get('/health', (req, res) => {
+  const io = global.io;
+  
+  // Get socket connection stats
+  const stats = {
+    serverStatus: 'healthy',
+    socketConnections: io.engine.clientsCount || 0,
+    socketStatus: io.sockets.sockets.size > 0 ? 'listening' : 'not listening',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    memoryUsage: process.memoryUsage(),
+    midiDevicesConnected: Object.keys(global.activeMidiInputs || {}).length,
+    artnetStatus: global.artnetSender ? 'initialized' : 'not initialized'
+  };
+  
+  // Determine overall health
+  const isHealthy = stats.serverStatus === 'healthy' && stats.socketStatus === 'listening';
+  
+  res.status(isHealthy ? 200 : 503).json({
+    status: isHealthy ? 'ok' : 'degraded',
+    ...stats
+  });
+});
 
 // Get initial state
 apiRouter.get('/state', (req, res) => {

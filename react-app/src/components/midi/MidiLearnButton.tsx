@@ -1,6 +1,7 @@
 import React from 'react'
 import { useMidiLearn } from '../../hooks/useMidiLearn'
 import { useStore } from '../../store'
+import useStoreUtils from '../../store/storeUtils'
 import styles from './MidiLearnButton.module.scss'
 
 interface MidiLearnButtonProps {
@@ -76,7 +77,7 @@ export const MidiLearnButton: React.FC<MidiLearnButtonProps> = ({ channelIndex, 
         e.preventDefault()
         if (hasMapping) {
           // Remove mapping on right-click
-          useStore.getState().removeMidiMapping(channelIndex)
+          useStoreUtils.getState().removeMidiMapping(channelIndex)
         }
       }}
     >

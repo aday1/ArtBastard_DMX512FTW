@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useStore } from '../../store'
+import useStoreUtils from '../../store/storeUtils'
 import { useTheme } from '../../context/ThemeContext'
 import { FixtureVisualizer3D } from './FixtureVisualizer3D'
 import styles from './FixtureSetup.module.scss'
@@ -79,7 +80,7 @@ export const FixtureSetup: React.FC = () => {
       channels: fixtureForm.channels
     }
     
-    useStore.setState(state => ({
+    useStoreUtils.setState(state => ({
       fixtures: [...state.fixtures, newFixture]
     }))
     
@@ -94,7 +95,7 @@ export const FixtureSetup: React.FC = () => {
     setShowCreateFixture(false)
     
     // Show success message
-    useStore.getState().showStatusMessage(`Fixture "${newFixture.name}" created`, 'success')
+    useStoreUtils.getState().showStatusMessage(`Fixture "${newFixture.name}" created`, 'success')
   }
   
   // Toggle fixture selection for group
@@ -117,7 +118,7 @@ export const FixtureSetup: React.FC = () => {
       fixtureIndices: [...groupForm.fixtureIndices]
     }
     
-    useStore.setState(state => ({
+    useStoreUtils.setState(state => ({
       groups: [...state.groups, newGroup]
     }))
     
@@ -129,7 +130,7 @@ export const FixtureSetup: React.FC = () => {
     setShowCreateGroup(false)
     
     // Show success message
-    useStore.getState().showStatusMessage(`Group "${newGroup.name}" created`, 'success')
+    useStoreUtils.getState().showStatusMessage(`Group "${newGroup.name}" created`, 'success')
   }
   
   return (

@@ -155,69 +155,61 @@ function initializeMidi(io: Server) {
     try {
         // Check if running in WSL environment
         if (isRunningInWsl()) {
-            log('Running in WSL environment - MIDI hardware device access is limited');
-            log('Browser MIDI API will still work for MIDI functionality');
+            log('WSL environment detected - using browser MIDI API only');
             io.emit('midiStatus', { 
                 status: 'wsl', 
-                message: 'Running in WSL - hardware MIDI devices not accessible. Browser MIDI is available.' 
+                message: 'Running in WSL - using browser MIDI API only',
+                browserMidiOnly: true
             });
             return;
         }
 
-        // Check if ALSA is available (on Linux)
+        // Linux-specific ALSA checks
         if (process.platform === 'linux') {
-            try {
-                const fs = require('fs');
-                if (!fs.existsSync('/dev/snd/seq')) {
-                    log('ALSA sequencer device not available - MIDI hardware access will be limited');
-                    io.emit('midiStatus', {
-                        status: 'limited',
-                        message: 'ALSA sequencer not available. Browser MIDI will still work.'
-                    });
-                    return;
-                }
-            } catch (error) {
-                log(`ALSA check failed: ${error}`);
+            const hasSeqDevice = fs.existsSync('/dev/snd/seq');
+            
+            if (!hasSeqDevice) {
+                log('ALSA sequencer device not available');
                 io.emit('midiStatus', {
                     status: 'limited',
-                    message: 'ALSA check failed. Browser MIDI will still work.'
+                    message: 'ALSA not available - using browser MIDI API',
+                    browserMidiOnly: true
                 });
                 return;
             }
         }
         
+        // Continue with MIDI initialization
         const inputs = easymidi.getInputs();
-        if (inputs.length > 0) {
-            // Auto-connect to the first input initially (for backward compatibility)
-            connectMidiInput(io, inputs[0]);
-            log(`Available MIDI inputs: ${inputs.join(', ')}`);
-        } else {
-            log('No MIDI inputs available');
-            io.emit('midiStatus', {
-                status: 'noDevices',
-                message: 'No MIDI hardware devices found. Browser MIDI will still work.'
-            });
-        }
+        log(`Found ${inputs.length} MIDI inputs: ${inputs.join(', ')}`);
+        
+        io.emit('midiStatus', {
+            status: 'ready',
+            message: inputs.length > 0 ? 'Hardware MIDI initialized' : 'No hardware MIDI devices found',
+            inputs,
+            browserMidiOnly: false
+        });
+        
     } catch (error) {
         log(`MIDI initialization error: ${error}`);
-        log('Continuing without MIDI hardware support. Browser MIDI will still work if available.');
         io.emit('midiStatus', { 
             status: 'error', 
-            message: `MIDI hardware initialization failed: ${error}. Browser MIDI is available.` 
+            message: 'MIDI hardware initialization failed - using browser MIDI API',
+            browserMidiOnly: true
         });
     }
 }
 
-function connectMidiInput(io: Server, inputName: string) {
+function connectMidiInput(io: Server, inputName: string, isBrowserMidi = false) {
     try {
-        // Check if running in WSL
-        if (isRunningInWsl()) {
-            log(`Cannot connect to MIDI input in WSL environment: ${inputName}`);
-            io.emit('midiConnectionError', {
-                input: inputName,
-                error: 'Cannot connect to hardware MIDI devices in WSL environment'
-            });
+        // Skip hardware MIDI connection if using browser MIDI
+        if (isBrowserMidi) {
+            log(`Using browser MIDI for input: ${inputName}`);
             return;
+        }
+
+        if (isRunningInWsl()) {
+            throw new Error('Hardware MIDI not available in WSL');
         }
         
         // Check if we're already connected to this input
@@ -298,8 +290,42 @@ function disconnectMidiInput(io: Server, inputName: string) {
 }
 
 function initOsc(io: Server) {
-    // Implementation of initOsc function
-    // This should be already defined in your existing code
+    try {
+        const oscPort = new UDPPort({
+            localAddress: "0.0.0.0",
+            localPort: 57121,
+            metadata: true
+        });
+
+        oscPort.on("ready", () => {
+            log("OSC Port is ready");
+            io.emit('oscStatus', { status: 'connected' });
+            sender = oscPort;
+        });
+
+        oscPort.on("error", (error: Error) => {
+            log(`OSC error: ${error.message}`);
+            io.emit('oscStatus', { status: 'error', message: error.message });
+        });
+
+        oscPort.on("message", (oscMsg: OscMessage) => {
+            log(`Received OSC message: ${JSON.stringify(oscMsg)}`);
+            io.emit('oscMessage', {
+                address: oscMsg.address,
+                args: oscMsg.args,
+                timestamp: Date.now()
+            });
+        });
+
+        oscPort.open();
+        log("Opening OSC port...");
+    } catch (error) {
+        log(`Error initializing OSC: ${error}`);
+        io.emit('oscStatus', { 
+            status: 'error', 
+            message: `Failed to initialize OSC: ${error}` 
+        });
+    }
 }
 
 function initializeArtNet() {
@@ -308,7 +334,13 @@ function initializeArtNet() {
             oem: 0,
             sName: "LaserTime",
             lName: "LaserTime DMX Controller",
+            log: { level: 'none' } // Use proper log configuration instead of verbose
         });
+
+        // Clean up existing sender if it exists
+        if (artnetSender && typeof artnetSender.close === 'function') {
+            artnetSender.close();
+        }
 
         artnetSender = dmxnetInstance.newSender({
             ip: artNetConfig.ip,
@@ -319,10 +351,40 @@ function initializeArtNet() {
             base_refresh_interval: artNetConfig.base_refresh_interval
         });
 
+        // Setup error handlers for the sender
+        if (artnetSender.on) {
+            artnetSender.on('error', (err: Error) => {
+                log(`ArtNet sender error: ${err.message}`);
+                global.io?.emit('artnetStatus', { 
+                    status: 'error', 
+                    message: err.message 
+                });
+            });
+
+            artnetSender.on('timeout', () => {
+                log('ArtNet sender timeout - will retry');
+                global.io?.emit('artnetStatus', { 
+                    status: 'timeout',
+                    message: 'Connection timed out - retrying' 
+                });
+            });
+        }
+
         log(`ArtNet sender initialized with config: ${JSON.stringify(artNetConfig)}`);
+        
+        // Initial ping to check connectivity
+        if (global.io) {
+            pingArtNetDevice(global.io, artNetConfig.ip);
+        }
+
+        return true;
     } catch (error) {
         log(`Error initializing ArtNet: ${error}`);
-        throw new Error(`Failed to initialize ArtNet: ${error}`);
+        global.io?.emit('artnetStatus', { 
+            status: 'error',
+            message: `Failed to initialize: ${error}` 
+        });
+        return false;
     }
 }
 
@@ -605,7 +667,7 @@ function pingArtNetDevice(io: Server, ip?: string) {
             resolve(true);
         });
         
-        socket.on('error', (err) => {
+        socket.on('error', (err: Error) => {
             socket.destroy();
             reject(err);
         });
@@ -749,6 +811,10 @@ function startLaserTime(io: Server) {
             if (msg._type === 'noteon' || msg._type === 'cc') {
                 handleMidiMessage(io, msg._type as 'noteon' | 'cc', msg);
             }
+        });
+
+        socket.on('error', (err: Error) => {
+            log(`Socket error: ${err.message}`);
         });
 
         socket.on('disconnect', () => {

@@ -13,13 +13,13 @@ function App() {
   }, [fetchInitialState])
 
   return (
-    <ThemeProvider>
-      <SocketProvider>
-        <Layout>
+    <ThemeProvider children={
+      <SocketProvider children={
+        <Layout children={
           <MainPage />
-        </Layout>
-      </SocketProvider>
-    </ThemeProvider>
+        } />
+      } />
+    } />
   )
 }
 
