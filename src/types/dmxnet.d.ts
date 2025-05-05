@@ -8,6 +8,7 @@ declare module 'dmxnet' {
         sName?: string;
         lName?: string;
         hosts?: string[];
+        verbose?: boolean;
     }
 
     interface SenderOptions {
@@ -17,6 +18,8 @@ declare module 'dmxnet' {
         net: number;
         port: number;
         base_refresh_interval: number;
+        minRefreshRate?: number;
+        autoPause?: boolean;
     }
 
     interface ReceiverOptions {

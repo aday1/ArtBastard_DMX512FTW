@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useEffect } from 'react'
 import { useStore } from '../store'
 
-type Theme = 'artsnob' | 'standard' | 'minimal'
+export type Theme = 'artsnob' | 'standard' | 'minimal'
 
-interface ThemeContextType {
+export interface ThemeContextType {
   theme: Theme
   darkMode: boolean
   setTheme: (theme: Theme) => void
@@ -17,7 +17,7 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleDarkMode: () => {}
 })
 
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = (): ThemeContextType => useContext(ThemeContext)
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { theme, darkMode, setTheme, toggleDarkMode } = useStore(state => ({

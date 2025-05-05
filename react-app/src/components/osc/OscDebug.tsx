@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSocket } from '../../context/SocketContext'
 import { useTheme } from '../../context/ThemeContext'
+import { OscWebGLVisualizer } from './OscWebGLVisualizer'
 import styles from './OscDebug.module.scss'
 
 interface OscMessage {
@@ -79,6 +80,9 @@ export const OscDebug: React.FC = () => {
         {theme === 'standard' && 'OSC Debug Console'}
         {theme === 'minimal' && 'OSC Debug'}
       </h2>
+      
+      {/* OSC Activity Visualization */}
+      <OscWebGLVisualizer />
       
       <div className={styles.controls}>
         <div className={styles.messageTypes}>

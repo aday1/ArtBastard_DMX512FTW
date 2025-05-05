@@ -108,3 +108,1596 @@
 2025-05-04T10:58:55.827Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
 2025-05-04T10:58:55.828Z - A user connected
 2025-05-04T10:58:58.697Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:16.192Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T11:27:16.193Z - MIDI mappings loaded: {}
+2025-05-04T11:27:16.193Z - Raw scenes data from file: []
+2025-05-04T11:27:16.194Z - Scenes loaded: []
+2025-05-04T11:27:16.194Z - ALSA sequencer device not available - MIDI hardware access will be limited
+2025-05-04T11:27:16.216Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T11:27:22.221Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:27.222Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:32.222Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:37.222Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:42.223Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:47.224Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:52.226Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:27:57.227Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:28:02.228Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T11:28:07.230Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:00:34.538Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T13:38:12.659Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T13:38:12.660Z - MIDI mappings loaded: {}
+2025-05-04T13:38:12.662Z - Raw scenes data from file: []
+2025-05-04T13:38:12.662Z - Scenes loaded: []
+2025-05-04T13:38:12.663Z - ALSA sequencer device not available - MIDI hardware access will be limited
+2025-05-04T13:38:12.672Z - Opening OSC port...
+2025-05-04T13:38:12.724Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T13:38:12.725Z - OSC Port is ready
+2025-05-04T13:38:18.727Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:23.729Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:28.728Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:31.845Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T13:38:31.846Z - A user connected
+2025-05-04T13:38:32.062Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T13:38:33.730Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:38.730Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:43.731Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:48.733Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:53.734Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:38:58.735Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:39:03.736Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:39:08.737Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:39:13.737Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:39:18.740Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:39:23.742Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T13:39:28.742Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:31:42.598Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T23:31:42.602Z - MIDI mappings loaded: {}
+2025-05-04T23:31:42.603Z - Raw scenes data from file: []
+2025-05-04T23:31:42.603Z - Scenes loaded: []
+2025-05-04T23:31:42.604Z - ALSA sequencer device not available - MIDI hardware access will be limited
+2025-05-04T23:31:42.609Z - Opening OSC port...
+2025-05-04T23:31:42.634Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-04T23:31:42.635Z - OSC Port is ready
+2025-05-04T23:31:48.638Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:31:49.875Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T23:31:49.876Z - A user connected
+2025-05-04T23:31:50.096Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-04T23:31:53.636Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:31:58.638Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:31:59.839Z - DMX channel 0 set to 244
+2025-05-04T23:32:03.638Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:08.638Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:13.639Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:18.640Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:23.642Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:28.642Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:33.643Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:38.644Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:43.645Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:48.647Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:53.648Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:32:58.649Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:03.651Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:08.653Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:13.653Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:18.654Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:23.654Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:28.654Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:33.654Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:38.654Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:43.654Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:48.656Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:53.657Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:33:58.659Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:03.659Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:08.660Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:13.660Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:18.662Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:23.662Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:28.663Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:33.665Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:38.667Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:43.667Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:48.668Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:53.670Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:34:58.672Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:03.673Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:08.673Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:13.675Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:18.675Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:23.675Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:28.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:33.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:38.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:43.679Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:48.680Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:53.679Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:35:58.680Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:03.681Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:08.681Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:13.682Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:18.684Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:23.684Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:28.684Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:33.686Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:38.687Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:43.688Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:48.689Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:53.690Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:36:58.691Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:03.692Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:08.693Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:13.694Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:18.696Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:23.699Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:28.699Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:33.700Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:38.700Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:43.701Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:48.701Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:53.702Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:37:58.703Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:03.704Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:08.706Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:13.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:18.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:23.708Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:28.709Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:33.708Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:38.709Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:43.709Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:48.712Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:53.711Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:38:58.712Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:03.712Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:08.713Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:13.713Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:18.721Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:23.722Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:28.722Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:33.723Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:36.436Z - DMX channel 15 set to 206
+2025-05-04T23:39:38.724Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:43.723Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:48.725Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:53.725Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:39:55.007Z - DMX channel 2 set to 40
+2025-05-04T23:39:55.029Z - DMX channel 2 set to 44
+2025-05-04T23:39:55.050Z - DMX channel 2 set to 50
+2025-05-04T23:39:55.081Z - DMX channel 2 set to 67
+2025-05-04T23:39:55.090Z - DMX channel 2 set to 35
+2025-05-04T23:39:55.107Z - DMX channel 2 set to 42
+2025-05-04T23:39:55.114Z - DMX channel 2 set to 86
+2025-05-04T23:39:55.132Z - DMX channel 2 set to 155
+2025-05-04T23:39:55.137Z - DMX channel 2 set to 127
+2025-05-04T23:39:55.143Z - DMX channel 2 set to 52
+2025-05-04T23:39:55.165Z - DMX channel 2 set to 186
+2025-05-04T23:39:55.183Z - DMX channel 2 set to 255
+2025-05-04T23:39:55.185Z - DMX channel 2 set to 239
+2025-05-04T23:39:57.843Z - DMX channel 2 set to 216
+2025-05-04T23:39:57.853Z - DMX channel 2 set to 203
+2025-05-04T23:39:57.875Z - DMX channel 2 set to 186
+2025-05-04T23:39:57.894Z - DMX channel 2 set to 165
+2025-05-04T23:39:57.907Z - DMX channel 2 set to 146
+2025-05-04T23:39:57.932Z - DMX channel 2 set to 123
+2025-05-04T23:39:57.941Z - DMX channel 2 set to 107
+2025-05-04T23:39:57.959Z - DMX channel 2 set to 92
+2025-05-04T23:39:58.024Z - DMX channel 2 set to 87
+2025-05-04T23:39:58.036Z - DMX channel 2 set to 90
+2025-05-04T23:39:58.046Z - DMX channel 2 set to 83
+2025-05-04T23:39:58.054Z - DMX channel 2 set to 79
+2025-05-04T23:39:58.064Z - DMX channel 2 set to 73
+2025-05-04T23:39:58.101Z - DMX channel 2 set to 48
+2025-05-04T23:39:58.108Z - DMX channel 2 set to 62
+2025-05-04T23:39:58.127Z - DMX channel 2 set to 37
+2025-05-04T23:39:58.152Z - DMX channel 2 set to 32
+2025-05-04T23:39:58.155Z - DMX channel 2 set to 31
+2025-05-04T23:39:58.160Z - DMX channel 2 set to 33
+2025-05-04T23:39:58.243Z - DMX channel 2 set to 28
+2025-05-04T23:39:58.263Z - DMX channel 2 set to 23
+2025-05-04T23:39:58.269Z - DMX channel 2 set to 18
+2025-05-04T23:39:58.276Z - DMX channel 2 set to 3
+2025-05-04T23:39:58.305Z - DMX channel 2 set to 0
+2025-05-04T23:39:58.546Z - DMX channel 2 set to 28
+2025-05-04T23:39:58.577Z - DMX channel 2 set to 157
+2025-05-04T23:39:58.609Z - DMX channel 2 set to 255
+2025-05-04T23:39:58.725Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:40:00.191Z - DMX channel 1 set to 85
+2025-05-04T23:40:00.234Z - DMX channel 1 set to 86
+2025-05-04T23:40:00.301Z - DMX channel 1 set to 89
+2025-05-04T23:40:00.325Z - DMX channel 1 set to 119
+2025-05-04T23:40:00.425Z - DMX channel 1 set to 209
+2025-05-04T23:40:00.432Z - DMX channel 1 set to 255
+2025-05-04T23:40:02.216Z - DMX channel 21 set to 255
+2025-05-04T23:40:02.234Z - DMX channel 18 set to 255
+2025-05-04T23:40:02.236Z - DMX channel 15 set to 255
+2025-05-04T23:40:02.257Z - DMX channel 12 set to 255
+2025-05-04T23:40:02.276Z - DMX channel 0 set to 255
+2025-05-04T23:40:02.358Z - DMX channel 39 set to 255
+2025-05-04T23:40:02.361Z - DMX channel 24 set to 255
+2025-05-04T23:40:02.369Z - DMX channel 3 set to 255
+2025-05-04T23:40:02.372Z - DMX channel 27 set to 255
+2025-05-04T23:40:02.392Z - DMX channel 6 set to 255
+2025-05-04T23:40:02.446Z - DMX channel 54 set to 255
+2025-05-04T23:40:02.473Z - DMX channel 84 set to 255
+2025-05-04T23:40:02.480Z - DMX channel 9 set to 255
+2025-05-04T23:40:02.508Z - DMX channel 45 set to 255
+2025-05-04T23:40:02.510Z - DMX channel 48 set to 255
+2025-05-04T23:40:02.615Z - DMX channel 129 set to 255
+2025-05-04T23:40:02.616Z - DMX channel 63 set to 255
+2025-05-04T23:40:02.636Z - DMX channel 69 set to 255
+2025-05-04T23:40:02.659Z - DMX channel 87 set to 255
+2025-05-04T23:40:02.669Z - DMX channel 174 set to 255
+2025-05-04T23:40:02.804Z - DMX channel 51 set to 255
+2025-05-04T23:40:02.812Z - DMX channel 171 set to 255
+2025-05-04T23:40:02.814Z - DMX channel 108 set to 255
+2025-05-04T23:40:02.829Z - DMX channel 30 set to 255
+2025-05-04T23:40:02.837Z - DMX channel 132 set to 255
+2025-05-04T23:40:02.838Z - DMX channel 231 set to 255
+2025-05-04T23:40:02.876Z - DMX channel 216 set to 255
+2025-05-04T23:40:02.881Z - DMX channel 33 set to 255
+2025-05-04T23:40:02.926Z - DMX channel 162 set to 255
+2025-05-04T23:40:02.965Z - DMX channel 114 set to 255
+2025-05-04T23:40:02.980Z - DMX channel 36 set to 255
+2025-05-04T23:40:03.151Z - DMX channel 237 set to 255
+2025-05-04T23:40:03.153Z - DMX channel 348 set to 255
+2025-05-04T23:40:03.157Z - DMX channel 279 set to 255
+2025-05-04T23:40:03.183Z - DMX channel 78 set to 255
+2025-05-04T23:40:03.185Z - DMX channel 75 set to 255
+2025-05-04T23:40:03.186Z - DMX channel 90 set to 255
+2025-05-04T23:40:03.190Z - DMX channel 99 set to 255
+2025-05-04T23:40:03.204Z - DMX channel 60 set to 255
+2025-05-04T23:40:03.205Z - DMX channel 81 set to 255
+2025-05-04T23:40:03.207Z - DMX channel 93 set to 255
+2025-05-04T23:40:03.212Z - DMX channel 102 set to 255
+2025-05-04T23:40:03.215Z - DMX channel 387 set to 255
+2025-05-04T23:40:03.280Z - DMX channel 72 set to 255
+2025-05-04T23:40:03.300Z - DMX channel 240 set to 255
+2025-05-04T23:40:03.328Z - DMX channel 105 set to 255
+2025-05-04T23:40:03.330Z - DMX channel 57 set to 255
+2025-05-04T23:40:03.333Z - DMX channel 42 set to 255
+2025-05-04T23:40:03.363Z - DMX channel 321 set to 255
+2025-05-04T23:40:03.364Z - DMX channel 213 set to 255
+2025-05-04T23:40:03.367Z - DMX channel 156 set to 255
+2025-05-04T23:40:03.368Z - DMX channel 375 set to 255
+2025-05-04T23:40:03.370Z - DMX channel 339 set to 255
+2025-05-04T23:40:03.372Z - DMX channel 282 set to 255
+2025-05-04T23:40:03.379Z - DMX channel 222 set to 255
+2025-05-04T23:40:03.380Z - DMX channel 135 set to 255
+2025-05-04T23:40:03.381Z - DMX channel 147 set to 255
+2025-05-04T23:40:03.415Z - DMX channel 304 set to 165
+2025-05-04T23:40:03.419Z - DMX channel 390 set to 255
+2025-05-04T23:40:03.420Z - DMX channel 324 set to 255
+2025-05-04T23:40:03.423Z - DMX channel 345 set to 255
+2025-05-04T23:40:03.427Z - DMX channel 313 set to 165
+2025-05-04T23:40:03.464Z - DMX channel 273 set to 255
+2025-05-04T23:40:03.469Z - DMX channel 372 set to 255
+2025-05-04T23:40:03.472Z - DMX channel 270 set to 255
+2025-05-04T23:40:03.474Z - DMX channel 378 set to 255
+2025-05-04T23:40:03.479Z - DMX channel 319 set to 165
+2025-05-04T23:40:03.483Z - DMX channel 330 set to 255
+2025-05-04T23:40:03.485Z - DMX channel 363 set to 255
+2025-05-04T23:40:03.639Z - DMX channel 232 set to 165
+2025-05-04T23:40:03.640Z - DMX channel 425 set to 0
+2025-05-04T23:40:03.644Z - DMX channel 262 set to 165
+2025-05-04T23:40:03.651Z - DMX channel 265 set to 165
+2025-05-04T23:40:03.725Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:40:03.766Z - DMX channel 369 set to 255
+2025-05-04T23:40:03.768Z - DMX channel 261 set to 255
+2025-05-04T23:40:03.769Z - DMX channel 264 set to 255
+2025-05-04T23:40:03.792Z - DMX channel 66 set to 255
+2025-05-04T23:40:03.852Z - DMX channel 123 set to 255
+2025-05-04T23:40:03.900Z - DMX channel 406 set to 165
+2025-05-04T23:40:03.941Z - DMX channel 391 set to 165
+2025-05-04T23:40:03.943Z - DMX channel 358 set to 165
+2025-05-04T23:40:03.977Z - DMX channel 322 set to 165
+2025-05-04T23:40:03.983Z - DMX channel 409 set to 165
+2025-05-04T23:40:04.000Z - DMX channel 96 set to 255
+2025-05-04T23:40:04.002Z - DMX channel 111 set to 255
+2025-05-04T23:40:04.006Z - DMX channel 141 set to 255
+2025-05-04T23:40:04.008Z - DMX channel 126 set to 255
+2025-05-04T23:40:04.127Z - DMX channel 454 set to 165
+2025-05-04T23:40:04.131Z - DMX channel 117 set to 255
+2025-05-04T23:40:04.133Z - DMX channel 457 set to 165
+2025-05-04T23:40:04.138Z - DMX channel 144 set to 255
+2025-05-04T23:40:04.144Z - DMX channel 138 set to 255
+2025-05-04T23:40:04.146Z - DMX channel 120 set to 255
+2025-05-04T23:40:04.148Z - DMX channel 186 set to 255
+2025-05-04T23:40:04.151Z - DMX channel 198 set to 255
+2025-05-04T23:40:04.153Z - DMX channel 195 set to 255
+2025-05-04T23:40:04.154Z - DMX channel 207 set to 255
+2025-05-04T23:40:04.178Z - DMX channel 159 set to 255
+2025-05-04T23:40:04.180Z - DMX channel 189 set to 255
+2025-05-04T23:40:04.181Z - DMX channel 168 set to 255
+2025-05-04T23:40:04.200Z - DMX channel 192 set to 255
+2025-05-04T23:40:04.246Z - DMX channel 241 set to 165
+2025-05-04T23:40:04.264Z - DMX channel 508 set to 165
+2025-05-04T23:40:04.316Z - DMX channel 238 set to 165
+2025-05-04T23:40:04.317Z - DMX channel 250 set to 165
+2025-05-04T23:40:04.344Z - DMX channel 17 set to 0
+2025-05-04T23:40:04.351Z - DMX channel 165 set to 255
+2025-05-04T23:40:04.353Z - DMX channel 228 set to 255
+2025-05-04T23:40:04.354Z - DMX channel 315 set to 255
+2025-05-04T23:40:04.357Z - DMX channel 29 set to 0
+2025-05-04T23:40:04.379Z - DMX channel 210 set to 255
+2025-05-04T23:40:04.381Z - DMX channel 201 set to 255
+2025-05-04T23:40:04.383Z - DMX channel 234 set to 255
+2025-05-04T23:40:04.388Z - DMX channel 23 set to 0
+2025-05-04T23:40:04.416Z - DMX channel 355 set to 165
+2025-05-04T23:40:04.422Z - DMX channel 382 set to 165
+2025-05-04T23:40:04.425Z - DMX channel 439 set to 165
+2025-05-04T23:40:04.427Z - DMX channel 180 set to 255
+2025-05-04T23:40:04.432Z - DMX channel 153 set to 255
+2025-05-04T23:40:04.434Z - DMX channel 204 set to 255
+2025-05-04T23:40:04.438Z - DMX channel 219 set to 255
+2025-05-04T23:40:04.440Z - DMX channel 300 set to 255
+2025-05-04T23:40:04.445Z - DMX channel 327 set to 255
+2025-05-04T23:40:04.540Z - DMX channel 225 set to 255
+2025-05-04T23:40:04.542Z - DMX channel 177 set to 255
+2025-05-04T23:40:04.543Z - DMX channel 183 set to 255
+2025-05-04T23:40:04.545Z - DMX channel 150 set to 255
+2025-05-04T23:40:04.559Z - DMX channel 436 set to 165
+2025-05-04T23:40:04.560Z - DMX channel 427 set to 165
+2025-05-04T23:40:04.563Z - DMX channel 445 set to 165
+2025-05-04T23:40:04.580Z - DMX channel 333 set to 255
+2025-05-04T23:40:04.593Z - DMX channel 405 set to 255
+2025-05-04T23:40:04.595Z - DMX channel 402 set to 255
+2025-05-04T23:40:04.672Z - DMX channel 297 set to 255
+2025-05-04T23:40:04.690Z - DMX channel 44 set to 0
+2025-05-04T23:40:04.707Z - DMX channel 68 set to 0
+2025-05-04T23:40:04.709Z - DMX channel 8 set to 0
+2025-05-04T23:40:04.711Z - DMX channel 505 set to 165
+2025-05-04T23:40:04.712Z - DMX channel 71 set to 0
+2025-05-04T23:40:04.717Z - DMX channel 77 set to 0
+2025-05-04T23:40:04.746Z - DMX channel 336 set to 255
+2025-05-04T23:40:04.798Z - DMX channel 255 set to 255
+2025-05-04T23:40:04.834Z - DMX channel 267 set to 255
+2025-05-04T23:40:04.837Z - DMX channel 309 set to 255
+2025-05-04T23:40:04.838Z - DMX channel 318 set to 255
+2025-05-04T23:40:04.855Z - DMX channel 285 set to 255
+2025-05-04T23:40:04.893Z - DMX channel 393 set to 255
+2025-05-04T23:40:04.895Z - DMX channel 384 set to 255
+2025-05-04T23:40:04.897Z - DMX channel 342 set to 255
+2025-05-04T23:40:04.899Z - DMX channel 276 set to 255
+2025-05-04T23:40:04.913Z - DMX channel 86 set to 0
+2025-05-04T23:40:04.925Z - DMX channel 312 set to 255
+2025-05-04T23:40:04.927Z - DMX channel 243 set to 255
+2025-05-04T23:40:04.929Z - DMX channel 92 set to 0
+2025-05-04T23:40:04.944Z - DMX channel 432 set to 255
+2025-05-04T23:40:04.949Z - DMX channel 450 set to 255
+2025-05-04T23:40:04.957Z - DMX channel 152 set to 0
+2025-05-04T23:40:04.977Z - DMX channel 303 set to 255
+2025-05-04T23:40:04.979Z - DMX channel 294 set to 255
+2025-05-04T23:40:04.980Z - DMX channel 291 set to 255
+2025-05-04T23:40:04.981Z - DMX channel 306 set to 255
+2025-05-04T23:40:04.982Z - DMX channel 43 set to 165
+2025-05-04T23:40:04.985Z - DMX channel 46 set to 165
+2025-05-04T23:40:04.988Z - DMX channel 95 set to 0
+2025-05-04T23:40:05.026Z - DMX channel 288 set to 255
+2025-05-04T23:40:05.099Z - DMX channel 170 set to 0
+2025-05-04T23:40:05.105Z - DMX channel 249 set to 255
+2025-05-04T23:40:05.107Z - DMX channel 258 set to 255
+2025-05-04T23:40:05.109Z - DMX channel 354 set to 255
+2025-05-04T23:40:05.111Z - DMX channel 246 set to 255
+2025-05-04T23:40:05.114Z - DMX channel 61 set to 165
+2025-05-04T23:40:05.130Z - DMX channel 459 set to 255
+2025-05-04T23:40:05.131Z - DMX channel 143 set to 0
+2025-05-04T23:40:05.143Z - DMX channel 176 set to 0
+2025-05-04T23:40:05.167Z - DMX channel 155 set to 0
+2025-05-04T23:40:05.180Z - DMX channel 161 set to 0
+2025-05-04T23:40:05.221Z - DMX channel 252 set to 255
+2025-05-04T23:40:05.239Z - DMX channel 357 set to 255
+2025-05-04T23:40:05.240Z - DMX channel 396 set to 255
+2025-05-04T23:40:05.243Z - DMX channel 351 set to 255
+2025-05-04T23:40:05.266Z - DMX channel 52 set to 165
+2025-05-04T23:40:05.267Z - DMX channel 64 set to 165
+2025-05-04T23:40:05.284Z - DMX channel 239 set to 0
+2025-05-04T23:40:05.291Z - DMX channel 236 set to 0
+2025-05-04T23:40:05.344Z - DMX channel 257 set to 0
+2025-05-04T23:40:05.348Z - DMX channel 248 set to 0
+2025-05-04T23:40:05.356Z - DMX channel 58 set to 165
+2025-05-04T23:40:05.360Z - DMX channel 275 set to 0
+2025-05-04T23:40:05.402Z - DMX channel 272 set to 0
+2025-05-04T23:40:05.451Z - DMX channel 381 set to 255
+2025-05-04T23:40:05.456Z - DMX channel 375 set to 255
+2025-05-04T23:40:05.461Z - DMX channel 360 set to 255
+2025-05-04T23:40:05.462Z - DMX channel 366 set to 255
+2025-05-04T23:40:05.467Z - DMX channel 49 set to 165
+2025-05-04T23:40:05.517Z - DMX channel 323 set to 0
+2025-05-04T23:40:05.543Z - DMX channel 55 set to 165
+2025-05-04T23:40:05.545Z - DMX channel 67 set to 165
+2025-05-04T23:40:05.556Z - DMX channel 329 set to 0
+2025-05-04T23:40:05.594Z - DMX channel 338 set to 0
+2025-05-04T23:40:05.608Z - DMX channel 350 set to 0
+2025-05-04T23:40:05.610Z - DMX channel 332 set to 0
+2025-05-04T23:40:05.639Z - DMX channel 353 set to 0
+2025-05-04T23:40:05.647Z - DMX channel 70 set to 165
+2025-05-04T23:40:05.685Z - DMX channel 325 set to 165
+2025-05-04T23:40:05.693Z - DMX channel 316 set to 165
+2025-05-04T23:40:05.696Z - DMX channel 310 set to 165
+2025-05-04T23:40:05.737Z - DMX channel 301 set to 165
+2025-05-04T23:40:05.740Z - DMX channel 271 set to 165
+2025-05-04T23:40:05.771Z - DMX channel 280 set to 165
+2025-05-04T23:40:05.773Z - DMX channel 277 set to 165
+2025-05-04T23:40:05.775Z - DMX channel 295 set to 165
+2025-05-04T23:40:05.805Z - DMX channel 347 set to 0
+2025-05-04T23:40:05.824Z - DMX channel 244 set to 165
+2025-05-04T23:40:05.827Z - DMX channel 256 set to 165
+2025-05-04T23:40:05.828Z - DMX channel 286 set to 165
+2025-05-04T23:40:05.830Z - DMX channel 298 set to 165
+2025-05-04T23:40:05.831Z - DMX channel 352 set to 165
+2025-05-04T23:40:05.865Z - DMX channel 307 set to 165
+2025-05-04T23:40:05.867Z - DMX channel 235 set to 165
+2025-05-04T23:40:05.910Z - DMX channel 301 set to 165
+2025-05-04T23:40:06.044Z - DMX channel 253 set to 165
+2025-05-04T23:40:06.065Z - DMX channel 377 set to 0
+2025-05-04T23:40:06.069Z - DMX channel 464 set to 0
+2025-05-04T23:40:06.074Z - DMX channel 380 set to 0
+2025-05-04T23:40:06.110Z - DMX channel 268 set to 165
+2025-05-04T23:40:06.126Z - DMX channel 473 set to 0
+2025-05-04T23:40:06.129Z - DMX channel 24 set to 255
+2025-05-04T23:40:06.131Z - DMX channel 461 set to 0
+2025-05-04T23:40:06.137Z - DMX channel 6 set to 255
+2025-05-04T23:40:06.141Z - DMX channel 482 set to 0
+2025-05-04T23:40:06.149Z - DMX channel 3 set to 255
+2025-05-04T23:40:06.161Z - DMX channel 466 set to 165
+2025-05-04T23:40:06.162Z - DMX channel 388 set to 165
+2025-05-04T23:40:06.164Z - DMX channel 292 set to 165
+2025-05-04T23:40:06.165Z - DMX channel 349 set to 165
+2025-05-04T23:40:06.175Z - DMX channel 39 set to 255
+2025-05-04T23:40:06.180Z - DMX channel 42 set to 255
+2025-05-04T23:40:06.213Z - DMX channel 48 set to 255
+2025-05-04T23:40:06.228Z - DMX channel 412 set to 165
+2025-05-04T23:40:06.229Z - DMX channel 379 set to 165
+2025-05-04T23:40:06.230Z - DMX channel 289 set to 165
+2025-05-04T23:40:06.300Z - DMX channel 60 set to 255
+2025-05-04T23:40:06.313Z - DMX channel 63 set to 255
+2025-05-04T23:40:06.318Z - DMX channel 385 set to 165
+2025-05-04T23:40:06.339Z - DMX channel 403 set to 165
+2025-05-04T23:40:06.340Z - DMX channel 442 set to 165
+2025-05-04T23:40:06.349Z - DMX channel 117 set to 255
+2025-05-04T23:40:06.429Z - DMX channel 111 set to 255
+2025-05-04T23:40:06.442Z - DMX channel 135 set to 255
+2025-05-04T23:40:06.460Z - DMX channel 123 set to 255
+2025-05-04T23:40:06.477Z - DMX channel 141 set to 255
+2025-05-04T23:40:06.484Z - DMX channel 159 set to 255
+2025-05-04T23:40:06.502Z - DMX channel 415 set to 165
+2025-05-04T23:40:06.506Z - DMX channel 144 set to 255
+2025-05-04T23:40:06.559Z - DMX channel 421 set to 165
+2025-05-04T23:40:06.571Z - DMX channel 418 set to 165
+2025-05-04T23:40:06.577Z - DMX channel 165 set to 255
+2025-05-04T23:40:06.585Z - DMX channel 451 set to 165
+2025-05-04T23:40:06.636Z - DMX channel 168 set to 255
+2025-05-04T23:40:06.645Z - DMX channel 430 set to 165
+2025-05-04T23:40:06.673Z - DMX channel 414 set to 255
+2025-05-04T23:40:06.674Z - DMX channel 14 set to 0
+2025-05-04T23:40:06.677Z - DMX channel 499 set to 165
+2025-05-04T23:40:06.679Z - DMX channel 481 set to 165
+2025-05-04T23:40:06.683Z - DMX channel 478 set to 165
+2025-05-04T23:40:06.684Z - DMX channel 469 set to 165
+2025-05-04T23:40:06.686Z - DMX channel 177 set to 255
+2025-05-04T23:40:06.700Z - DMX channel 32 set to 0
+2025-05-04T23:40:06.701Z - DMX channel 38 set to 0
+2025-05-04T23:40:06.702Z - DMX channel 496 set to 165
+2025-05-04T23:40:06.705Z - DMX channel 475 set to 165
+2025-05-04T23:40:06.709Z - DMX channel 463 set to 165
+2025-05-04T23:40:06.710Z - DMX channel 5 set to 0
+2025-05-04T23:40:06.771Z - DMX channel 448 set to 165
+2025-05-04T23:40:06.783Z - DMX channel 189 set to 255
+2025-05-04T23:40:06.792Z - DMX channel 20 set to 0
+2025-05-04T23:40:06.794Z - DMX channel 502 set to 165
+2025-05-04T23:40:06.795Z - DMX channel 472 set to 165
+2025-05-04T23:40:06.796Z - DMX channel 493 set to 165
+2025-05-04T23:40:06.806Z - DMX channel 186 set to 255
+2025-05-04T23:40:06.906Z - DMX channel 252 set to 255
+2025-05-04T23:40:06.912Z - DMX channel 460 set to 165
+2025-05-04T23:40:06.968Z - DMX channel 11 set to 0
+2025-05-04T23:40:06.972Z - DMX channel 35 set to 0
+2025-05-04T23:40:06.979Z - DMX channel 258 set to 255
+2025-05-04T23:40:07.029Z - DMX channel 297 set to 255
+2025-05-04T23:40:07.035Z - DMX channel 264 set to 255
+2025-05-04T23:40:07.041Z - DMX channel 309 set to 255
+2025-05-04T23:40:07.065Z - DMX channel 291 set to 255
+2025-05-04T23:40:07.114Z - DMX channel 74 set to 0
+2025-05-04T23:40:07.121Z - DMX channel 324 set to 255
+2025-05-04T23:40:07.153Z - DMX channel 420 set to 255
+2025-05-04T23:40:07.155Z - DMX channel 399 set to 255
+2025-05-04T23:40:07.157Z - DMX channel 330 set to 255
+2025-05-04T23:40:07.183Z - DMX channel 411 set to 255
+2025-05-04T23:40:07.198Z - DMX channel 465 set to 255
+2025-05-04T23:40:07.200Z - DMX channel 429 set to 255
+2025-05-04T23:40:07.201Z - DMX channel 453 set to 255
+2025-05-04T23:40:07.203Z - DMX channel 417 set to 255
+2025-05-04T23:40:07.204Z - DMX channel 444 set to 255
+2025-05-04T23:40:07.208Z - DMX channel 333 set to 255
+2025-05-04T23:40:07.219Z - DMX channel 65 set to 0
+2025-05-04T23:40:07.221Z - DMX channel 41 set to 0
+2025-05-04T23:40:07.235Z - DMX channel 98 set to 0
+2025-05-04T23:40:07.236Z - DMX channel 456 set to 255
+2025-05-04T23:40:07.238Z - DMX channel 438 set to 255
+2025-05-04T23:40:07.239Z - DMX channel 423 set to 255
+2025-05-04T23:40:07.251Z - DMX channel 348 set to 255
+2025-05-04T23:40:07.255Z - DMX channel 339 set to 255
+2025-05-04T23:40:07.264Z - DMX channel 83 set to 0
+2025-05-04T23:40:07.326Z - DMX channel 435 set to 255
+2025-05-04T23:40:07.360Z - DMX channel 188 set to 0
+2025-05-04T23:40:07.397Z - DMX channel 351 set to 255
+2025-05-04T23:40:07.401Z - DMX channel 134 set to 0
+2025-05-04T23:40:07.406Z - DMX channel 408 set to 255
+2025-05-04T23:40:07.428Z - DMX channel 447 set to 255
+2025-05-04T23:40:07.431Z - DMX channel 89 set to 0
+2025-05-04T23:40:07.453Z - DMX channel 462 set to 255
+2025-05-04T23:40:07.495Z - DMX channel 185 set to 0
+2025-05-04T23:40:07.498Z - DMX channel 158 set to 0
+2025-05-04T23:40:07.505Z - DMX channel 131 set to 0
+2025-05-04T23:40:07.610Z - DMX channel 140 set to 0
+2025-05-04T23:40:07.641Z - DMX channel 194 set to 0
+2025-05-04T23:40:07.642Z - DMX channel 167 set to 0
+2025-05-04T23:40:07.662Z - DMX channel 163 set to 165
+2025-05-04T23:40:07.674Z - DMX channel 226 set to 165
+2025-05-04T23:40:07.675Z - DMX channel 172 set to 165
+2025-05-04T23:40:07.697Z - DMX channel 419 set to 0
+2025-05-04T23:40:07.699Z - DMX channel 254 set to 0
+2025-05-04T23:40:07.700Z - DMX channel 230 set to 0
+2025-05-04T23:40:07.702Z - DMX channel 221 set to 0
+2025-05-04T23:40:07.703Z - DMX channel 218 set to 0
+2025-05-04T23:40:07.704Z - DMX channel 191 set to 0
+2025-05-04T23:40:07.713Z - DMX channel 269 set to 0
+2025-05-04T23:40:07.714Z - DMX channel 233 set to 0
+2025-05-04T23:40:07.715Z - DMX channel 224 set to 0
+2025-05-04T23:40:07.718Z - DMX channel 393 set to 255
+2025-05-04T23:40:07.726Z - DMX channel 164 set to 0
+2025-05-04T23:40:07.730Z - DMX channel 146 set to 0
+2025-05-04T23:40:07.755Z - DMX channel 396 set to 255
+2025-05-04T23:40:07.760Z - DMX channel 223 set to 165
+2025-05-04T23:40:07.772Z - DMX channel 416 set to 0
+2025-05-04T23:40:07.774Z - DMX channel 314 set to 0
+2025-05-04T23:40:07.776Z - DMX channel 278 set to 0
+2025-05-04T23:40:07.779Z - DMX channel 245 set to 0
+2025-05-04T23:40:07.781Z - DMX channel 227 set to 0
+2025-05-04T23:40:07.783Z - DMX channel 197 set to 0
+2025-05-04T23:40:07.785Z - DMX channel 244 set to 165
+2025-05-04T23:40:07.814Z - DMX channel 256 set to 165
+2025-05-04T23:40:07.852Z - DMX channel 179 set to 0
+2025-05-04T23:40:07.873Z - DMX channel 335 set to 0
+2025-05-04T23:40:07.876Z - DMX channel 253 set to 165
+2025-05-04T23:40:07.891Z - DMX channel 280 set to 165
+2025-05-04T23:40:07.914Z - DMX channel 262 set to 165
+2025-05-04T23:40:07.986Z - DMX channel 283 set to 165
+2025-05-04T23:40:08.061Z - DMX channel 251 set to 0
+2025-05-04T23:40:08.066Z - DMX channel 281 set to 0
+2025-05-04T23:40:08.098Z - DMX channel 373 set to 165
+2025-05-04T23:40:08.134Z - DMX channel 374 set to 0
+2025-05-04T23:40:08.142Z - DMX channel 317 set to 0
+2025-05-04T23:40:08.150Z - DMX channel 370 set to 165
+2025-05-04T23:40:08.171Z - DMX channel 382 set to 165
+2025-05-04T23:40:08.187Z - DMX channel 406 set to 165
+2025-05-04T23:40:08.207Z - DMX channel 400 set to 165
+2025-05-04T23:40:08.231Z - DMX channel 427 set to 165
+2025-05-04T23:40:08.235Z - DMX channel 449 set to 0
+2025-05-04T23:40:08.266Z - DMX channel 442 set to 165
+2025-05-04T23:40:08.274Z - DMX channel 437 set to 0
+2025-05-04T23:40:08.293Z - DMX channel 326 set to 0
+2025-05-04T23:40:08.316Z - DMX channel 448 set to 165
+2025-05-04T23:40:08.333Z - DMX channel 455 set to 0
+2025-05-04T23:40:08.334Z - DMX channel 446 set to 0
+2025-05-04T23:40:08.336Z - DMX channel 431 set to 0
+2025-05-04T23:40:08.343Z - DMX channel 90 set to 255
+2025-05-04T23:40:08.344Z - DMX channel 81 set to 255
+2025-05-04T23:40:08.345Z - DMX channel 75 set to 255
+2025-05-04T23:40:08.348Z - DMX channel 479 set to 0
+2025-05-04T23:40:08.349Z - DMX channel 452 set to 0
+2025-05-04T23:40:08.352Z - DMX channel 428 set to 0
+2025-05-04T23:40:08.355Z - DMX channel 440 set to 0
+2025-05-04T23:40:08.376Z - DMX channel 472 set to 165
+2025-05-04T23:40:08.377Z - DMX channel 469 set to 165
+2025-05-04T23:40:08.392Z - DMX channel 485 set to 0
+2025-05-04T23:40:08.400Z - DMX channel 371 set to 0
+2025-05-04T23:40:08.404Z - DMX channel 451 set to 165
+2025-05-04T23:40:08.449Z - DMX channel 460 set to 165
+2025-05-04T23:40:08.492Z - DMX channel 102 set to 255
+2025-05-04T23:40:08.495Z - DMX channel 87 set to 255
+2025-05-04T23:40:08.498Z - DMX channel 72 set to 255
+2025-05-04T23:40:08.501Z - DMX channel 18 set to 255
+2025-05-04T23:40:08.505Z - DMX channel 12 set to 255
+2025-05-04T23:40:08.506Z - DMX channel 470 set to 0
+2025-05-04T23:40:08.509Z - DMX channel 434 set to 0
+2025-05-04T23:40:08.515Z - DMX channel 383 set to 0
+2025-05-04T23:40:08.600Z - DMX channel 45 set to 255
+2025-05-04T23:40:08.636Z - DMX channel 84 set to 255
+2025-05-04T23:40:08.640Z - DMX channel 57 set to 255
+2025-05-04T23:40:08.645Z - DMX channel 476 set to 0
+2025-05-04T23:40:08.648Z - DMX channel 15 set to 255
+2025-05-04T23:40:08.677Z - DMX channel 20 set to 0
+2025-05-04T23:40:08.700Z - DMX channel 96 set to 255
+2025-05-04T23:40:08.706Z - DMX channel 23 set to 0
+2025-05-04T23:40:08.726Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:40:08.742Z - DMX channel 29 set to 0
+2025-05-04T23:40:08.758Z - DMX channel 108 set to 255
+2025-05-04T23:40:08.767Z - DMX channel 21 set to 255
+2025-05-04T23:40:08.796Z - DMX channel 53 set to 0
+2025-05-04T23:40:08.800Z - DMX channel 38 set to 0
+2025-05-04T23:40:08.806Z - DMX channel 36 set to 255
+2025-05-04T23:40:08.809Z - DMX channel 51 set to 255
+2025-05-04T23:40:08.823Z - DMX channel 138 set to 255
+2025-05-04T23:40:08.845Z - DMX channel 69 set to 255
+2025-05-04T23:40:08.850Z - DMX channel 71 set to 0
+2025-05-04T23:40:08.856Z - DMX channel 56 set to 0
+2025-05-04T23:40:08.867Z - DMX channel 77 set to 0
+2025-05-04T23:40:08.874Z - DMX channel 129 set to 255
+2025-05-04T23:40:08.875Z - DMX channel 150 set to 255
+2025-05-04T23:40:08.881Z - DMX channel 125 set to 0
+2025-05-04T23:40:08.941Z - DMX channel 149 set to 0
+2025-05-04T23:40:08.947Z - DMX channel 143 set to 0
+2025-05-04T23:40:08.967Z - DMX channel 131 set to 0
+2025-05-04T23:40:09.026Z - DMX channel 93 set to 255
+2025-05-04T23:40:09.060Z - DMX channel 212 set to 0
+2025-05-04T23:40:09.069Z - DMX channel 215 set to 0
+2025-05-04T23:40:09.080Z - DMX channel 221 set to 0
+2025-05-04T23:40:09.120Z - DMX channel 233 set to 0
+2025-05-04T23:40:09.155Z - DMX channel 105 set to 255
+2025-05-04T23:40:09.157Z - DMX channel 201 set to 255
+2025-05-04T23:40:09.158Z - DMX channel 132 set to 255
+2025-05-04T23:40:09.169Z - DMX channel 120 set to 255
+2025-05-04T23:40:09.170Z - DMX channel 147 set to 255
+2025-05-04T23:40:09.172Z - DMX channel 153 set to 255
+2025-05-04T23:40:09.176Z - DMX channel 198 set to 255
+2025-05-04T23:40:09.194Z - DMX channel 242 set to 0
+2025-05-04T23:40:09.196Z - DMX channel 239 set to 0
+2025-05-04T23:40:09.233Z - DMX channel 171 set to 255
+2025-05-04T23:40:09.234Z - DMX channel 183 set to 255
+2025-05-04T23:40:09.294Z - DMX channel 156 set to 255
+2025-05-04T23:40:09.306Z - DMX channel 162 set to 255
+2025-05-04T23:40:09.328Z - DMX channel 225 set to 255
+2025-05-04T23:40:09.358Z - DMX channel 180 set to 255
+2025-05-04T23:40:09.412Z - DMX channel 204 set to 255
+2025-05-04T23:40:09.414Z - DMX channel 231 set to 255
+2025-05-04T23:40:09.416Z - DMX channel 246 set to 255
+2025-05-04T23:40:09.418Z - DMX channel 234 set to 255
+2025-05-04T23:40:09.420Z - DMX channel 270 set to 255
+2025-05-04T23:40:09.441Z - DMX channel 272 set to 0
+2025-05-04T23:40:09.466Z - DMX channel 228 set to 255
+2025-05-04T23:40:09.467Z - DMX channel 243 set to 255
+2025-05-04T23:40:09.468Z - DMX channel 261 set to 255
+2025-05-04T23:40:09.475Z - DMX channel 260 set to 0
+2025-05-04T23:40:09.484Z - DMX channel 237 set to 255
+2025-05-04T23:40:09.503Z - DMX channel 269 set to 0
+2025-05-04T23:40:09.565Z - DMX channel 249 set to 255
+2025-05-04T23:40:09.577Z - DMX channel 312 set to 255
+2025-05-04T23:40:09.586Z - DMX channel 195 set to 255
+2025-05-04T23:40:09.619Z - DMX channel 296 set to 0
+2025-05-04T23:40:09.627Z - DMX channel 294 set to 255
+2025-05-04T23:40:09.630Z - DMX channel 336 set to 255
+2025-05-04T23:40:09.650Z - DMX channel 267 set to 255
+2025-05-04T23:40:09.676Z - DMX channel 314 set to 0
+2025-05-04T23:40:09.694Z - DMX channel 318 set to 255
+2025-05-04T23:40:09.700Z - DMX channel 317 set to 0
+2025-05-04T23:40:09.707Z - DMX channel 378 set to 255
+2025-05-04T23:40:09.737Z - DMX channel 315 set to 255
+2025-05-04T23:40:09.799Z - DMX channel 321 set to 255
+2025-05-04T23:40:09.800Z - DMX channel 327 set to 255
+2025-05-04T23:40:09.802Z - DMX channel 342 set to 255
+2025-05-04T23:40:09.812Z - DMX channel 335 set to 0
+2025-05-04T23:40:09.814Z - DMX channel 338 set to 0
+2025-05-04T23:40:09.830Z - DMX channel 380 set to 0
+2025-05-04T23:40:09.836Z - DMX channel 395 set to 0
+2025-05-04T23:40:09.837Z - DMX channel 357 set to 255
+2025-05-04T23:40:09.845Z - DMX channel 344 set to 0
+2025-05-04T23:40:09.853Z - DMX channel 401 set to 0
+2025-05-04T23:40:09.863Z - DMX channel 345 set to 255
+2025-05-04T23:40:09.940Z - DMX channel 416 set to 0
+2025-05-04T23:40:09.951Z - DMX channel 363 set to 255
+2025-05-04T23:40:09.960Z - DMX channel 422 set to 0
+2025-05-04T23:40:09.992Z - DMX channel 369 set to 255
+2025-05-04T23:40:10.058Z - DMX channel 509 set to 0
+2025-05-04T23:40:10.062Z - DMX channel 500 set to 0
+2025-05-04T23:40:10.066Z - DMX channel 503 set to 0
+2025-05-04T23:40:10.071Z - DMX channel 455 set to 0
+2025-05-04T23:40:10.123Z - DMX channel 366 set to 255
+2025-05-04T23:40:10.184Z - DMX channel 372 set to 255
+2025-05-04T23:40:10.192Z - DMX channel 381 set to 255
+2025-05-04T23:40:10.199Z - DMX channel 390 set to 255
+2025-05-04T23:40:10.202Z - DMX channel 175 set to 165
+2025-05-04T23:40:10.208Z - DMX channel 360 set to 255
+2025-05-04T23:40:10.209Z - DMX channel 387 set to 255
+2025-05-04T23:40:10.212Z - DMX channel 169 set to 165
+2025-05-04T23:40:10.240Z - DMX channel 384 set to 255
+2025-05-04T23:40:10.243Z - DMX channel 160 set to 165
+2025-05-04T23:40:10.246Z - DMX channel 229 set to 165
+2025-05-04T23:40:10.247Z - DMX channel 259 set to 165
+2025-05-04T23:40:10.249Z - DMX channel 277 set to 165
+2025-05-04T23:40:10.277Z - DMX channel 334 set to 165
+2025-05-04T23:40:10.294Z - DMX channel 328 set to 165
+2025-05-04T23:40:10.297Z - DMX channel 331 set to 165
+2025-05-04T23:40:10.298Z - DMX channel 346 set to 165
+2025-05-04T23:40:10.301Z - DMX channel 343 set to 165
+2025-05-04T23:40:10.306Z - DMX channel 361 set to 165
+2025-05-04T23:40:10.307Z - DMX channel 397 set to 165
+2025-05-04T23:40:10.309Z - DMX channel 487 set to 165
+2025-05-04T23:40:10.311Z - DMX channel 354 set to 255
+2025-05-04T23:40:10.366Z - DMX channel 166 set to 165
+2025-05-04T23:40:10.367Z - DMX channel 232 set to 165
+2025-05-04T23:40:10.369Z - DMX channel 238 set to 165
+2025-05-04T23:40:10.372Z - DMX channel 247 set to 165
+2025-05-04T23:40:10.373Z - DMX channel 265 set to 165
+2025-05-04T23:40:10.462Z - DMX channel 370 set to 165
+2025-05-04T23:40:10.481Z - DMX channel 235 set to 165
+2025-05-04T23:40:10.482Z - DMX channel 289 set to 165
+2025-05-04T23:40:10.484Z - DMX channel 340 set to 165
+2025-05-04T23:40:10.486Z - DMX channel 355 set to 165
+2025-05-04T23:40:10.487Z - DMX channel 430 set to 165
+2025-05-04T23:40:10.488Z - DMX channel 436 set to 165
+2025-05-04T23:40:10.490Z - DMX channel 379 set to 165
+2025-05-04T23:40:10.491Z - DMX channel 352 set to 165
+2025-05-04T23:40:10.517Z - DMX channel 397 set to 165
+2025-05-04T23:40:10.526Z - DMX channel 364 set to 165
+2025-05-04T23:40:10.560Z - DMX channel 403 set to 165
+2025-05-04T23:40:10.561Z - DMX channel 373 set to 165
+2025-05-04T23:40:10.566Z - DMX channel 490 set to 165
+2025-05-04T23:40:10.587Z - DMX channel 47 set to 0
+2025-05-04T23:40:10.651Z - DMX channel 26 set to 0
+2025-05-04T23:40:10.654Z - DMX channel 504 set to 255
+2025-05-04T23:40:10.700Z - DMX channel 495 set to 255
+2025-05-04T23:40:10.702Z - DMX channel 501 set to 255
+2025-05-04T23:40:10.719Z - DMX channel 40 set to 165
+2025-05-04T23:40:10.736Z - DMX channel 104 set to 0
+2025-05-04T23:40:10.740Z - DMX channel 1 set to 165
+2025-05-04T23:40:10.794Z - DMX channel 344 set to 0
+2025-05-04T23:40:10.801Z - DMX channel 286 set to 165
+2025-05-04T23:40:10.831Z - DMX channel 454 set to 165
+2025-05-04T23:40:10.837Z - DMX channel 341 set to 0
+2025-05-04T23:40:10.864Z - DMX channel 350 set to 0
+2025-05-04T23:40:10.869Z - DMX channel 481 set to 165
+2025-05-04T23:40:10.897Z - DMX channel 385 set to 165
+2025-05-04T23:40:10.899Z - DMX channel 433 set to 165
+2025-05-04T23:40:10.900Z - DMX channel 439 set to 165
+2025-05-04T23:40:10.901Z - DMX channel 445 set to 165
+2025-05-04T23:40:10.918Z - DMX channel 466 set to 165
+2025-05-04T23:40:10.947Z - DMX channel 493 set to 165
+2025-05-04T23:40:10.955Z - DMX channel 463 set to 165
+2025-05-04T23:40:10.960Z - DMX channel 484 set to 165
+2025-05-04T23:40:10.964Z - DMX channel 505 set to 165
+2025-05-04T23:40:10.986Z - DMX channel 8 set to 0
+2025-05-04T23:40:10.990Z - DMX channel 50 set to 0
+2025-05-04T23:40:10.992Z - DMX channel 128 set to 0
+2025-05-04T23:40:11.001Z - DMX channel 35 set to 0
+2025-05-04T23:40:11.002Z - DMX channel 5 set to 0
+2025-05-04T23:40:11.003Z - DMX channel 499 set to 165
+2025-05-04T23:40:11.005Z - DMX channel 502 set to 165
+2025-05-04T23:40:11.094Z - DMX channel 496 set to 165
+2025-05-04T23:40:11.120Z - DMX channel 478 set to 165
+2025-05-04T23:40:11.121Z - DMX channel 32 set to 0
+2025-05-04T23:40:11.149Z - DMX channel 398 set to 0
+2025-05-04T23:40:11.178Z - DMX channel 392 set to 0
+2025-05-04T23:40:11.184Z - DMX channel 2 set to 0
+2025-05-04T23:40:11.200Z - DMX channel 405 set to 255
+2025-05-04T23:40:11.205Z - DMX channel 401 set to 0
+2025-05-04T23:40:11.217Z - DMX channel 407 set to 0
+2025-05-04T23:40:11.242Z - DMX channel 161 set to 0
+2025-05-04T23:40:11.244Z - DMX channel 447 set to 255
+2025-05-04T23:40:11.253Z - DMX channel 26 set to 0
+2025-05-04T23:40:11.255Z - DMX channel 59 set to 0
+2025-05-04T23:40:11.257Z - DMX channel 65 set to 0
+2025-05-04T23:40:11.263Z - DMX channel 200 set to 0
+2025-05-04T23:40:11.264Z - DMX channel 167 set to 0
+2025-05-04T23:40:11.266Z - DMX channel 140 set to 0
+2025-05-04T23:40:11.277Z - DMX channel 411 set to 255
+2025-05-04T23:40:11.285Z - DMX channel 450 set to 255
+2025-05-04T23:40:11.290Z - DMX channel 164 set to 0
+2025-05-04T23:40:11.300Z - DMX channel 438 set to 255
+2025-05-04T23:40:11.353Z - DMX channel 155 set to 0
+2025-05-04T23:40:11.405Z - DMX channel 209 set to 0
+2025-05-04T23:40:11.417Z - DMX channel 62 set to 0
+2025-05-04T23:40:11.419Z - DMX channel 74 set to 0
+2025-05-04T23:40:11.421Z - DMX channel 134 set to 0
+2025-05-04T23:40:11.423Z - DMX channel 152 set to 0
+2025-05-04T23:40:11.425Z - DMX channel 224 set to 0
+2025-05-04T23:40:11.428Z - DMX channel 68 set to 0
+2025-05-04T23:40:11.432Z - DMX channel 236 set to 0
+2025-05-04T23:40:11.483Z - DMX channel 170 set to 0
+2025-05-04T23:40:11.491Z - DMX channel 203 set to 0
+2025-05-04T23:40:11.532Z - DMX channel 227 set to 0
+2025-05-04T23:40:11.540Z - DMX channel 206 set to 0
+2025-05-04T23:40:11.541Z - DMX channel 194 set to 0
+2025-05-04T23:40:11.544Z - DMX channel 191 set to 0
+2025-05-04T23:40:11.583Z - DMX channel 218 set to 0
+2025-05-04T23:40:11.619Z - DMX channel 251 set to 0
+2025-05-04T23:40:11.648Z - DMX channel 275 set to 0
+2025-05-04T23:40:11.661Z - DMX channel 248 set to 0
+2025-05-04T23:40:11.727Z - DMX channel 326 set to 0
+2025-05-04T23:40:11.746Z - DMX channel 323 set to 0
+2025-05-04T23:40:11.747Z - DMX channel 254 set to 0
+2025-05-04T23:40:11.783Z - DMX channel 302 set to 0
+2025-05-04T23:40:11.785Z - DMX channel 79 set to 165
+2025-05-04T23:40:11.786Z - DMX channel 175 set to 165
+2025-05-04T23:40:11.789Z - DMX channel 184 set to 165
+2025-05-04T23:40:11.791Z - DMX channel 392 set to 0
+2025-05-04T23:40:11.813Z - DMX channel 257 set to 0
+2025-05-04T23:40:11.814Z - DMX channel 266 set to 0
+2025-05-04T23:40:11.835Z - DMX channel 299 set to 0
+2025-05-04T23:40:11.837Z - DMX channel 320 set to 0
+2025-05-04T23:40:11.849Z - DMX channel 329 set to 0
+2025-05-04T23:40:11.854Z - DMX channel 169 set to 165
+2025-05-04T23:40:11.856Z - DMX channel 172 set to 165
+2025-05-04T23:40:11.858Z - DMX channel 181 set to 165
+2025-05-04T23:40:11.860Z - DMX channel 377 set to 0
+2025-05-04T23:40:11.876Z - DMX channel 374 set to 0
+2025-05-04T23:40:11.914Z - DMX channel 82 set to 165
+2025-05-04T23:40:11.918Z - DMX channel 458 set to 0
+2025-05-04T23:40:11.920Z - DMX channel 178 set to 165
+2025-05-04T23:40:12.137Z - DMX channel 341 set to 0
+2025-05-04T23:40:12.219Z - DMX channel 470 set to 0
+2025-05-04T23:40:12.226Z - DMX channel 358 set to 165
+2025-05-04T23:40:12.228Z - DMX channel 388 set to 165
+2025-05-04T23:40:12.262Z - DMX channel 474 set to 255
+2025-05-04T23:40:12.264Z - DMX channel 130 set to 165
+2025-05-04T23:40:12.265Z - DMX channel 79 set to 165
+2025-05-04T23:40:12.272Z - DMX channel 125 set to 0
+2025-05-04T23:40:12.273Z - DMX channel 292 set to 165
+2025-05-04T23:40:12.275Z - DMX channel 376 set to 165
+2025-05-04T23:40:12.372Z - DMX channel 404 set to 0
+2025-05-04T23:40:12.375Z - DMX channel 410 set to 0
+2025-05-04T23:40:12.376Z - DMX channel 461 set to 0
+2025-05-04T23:40:12.383Z - DMX channel 316 set to 165
+2025-05-04T23:40:12.394Z - DMX channel 331 set to 165
+2025-05-04T23:40:12.395Z - DMX channel 376 set to 165
+2025-05-04T23:40:12.397Z - DMX channel 50 set to 0
+2025-05-04T23:40:12.399Z - DMX channel 480 set to 255
+2025-05-04T23:40:12.404Z - DMX channel 110 set to 0
+2025-05-04T23:40:12.405Z - DMX channel 182 set to 0
+2025-05-04T23:40:12.412Z - DMX channel 209 set to 0
+2025-05-04T23:40:12.416Z - DMX channel 347 set to 0
+2025-05-04T23:40:12.421Z - DMX channel 214 set to 165
+2025-05-04T23:40:12.424Z - DMX channel 307 set to 165
+2025-05-04T23:40:12.430Z - DMX channel 325 set to 165
+2025-05-04T23:40:12.433Z - DMX channel 319 set to 165
+2025-05-04T23:40:12.436Z - DMX channel 334 set to 165
+2025-05-04T23:40:12.438Z - DMX channel 424 set to 165
+2025-05-04T23:40:12.440Z - DMX channel 113 set to 0
+2025-05-04T23:40:12.441Z - DMX channel 116 set to 0
+2025-05-04T23:40:12.442Z - DMX channel 200 set to 0
+2025-05-04T23:40:12.444Z - DMX channel 203 set to 0
+2025-05-04T23:40:12.446Z - DMX channel 212 set to 0
+2025-05-04T23:40:12.450Z - DMX channel 467 set to 0
+2025-05-04T23:40:12.451Z - DMX channel 310 set to 165
+2025-05-04T23:40:12.453Z - DMX channel 328 set to 165
+2025-05-04T23:40:12.455Z - DMX channel 337 set to 165
+2025-05-04T23:40:12.458Z - DMX channel 2 set to 0
+2025-05-04T23:40:12.460Z - DMX channel 507 set to 255
+2025-05-04T23:40:12.462Z - DMX channel 37 set to 165
+2025-05-04T23:40:12.464Z - DMX channel 173 set to 0
+2025-05-04T23:40:12.465Z - DMX channel 206 set to 0
+2025-05-04T23:40:12.467Z - DMX channel 491 set to 0
+2025-05-04T23:40:12.469Z - DMX channel 215 set to 0
+2025-05-04T23:40:12.472Z - DMX channel 395 set to 0
+2025-05-04T23:40:12.475Z - DMX channel 482 set to 0
+2025-05-04T23:40:12.478Z - DMX channel 28 set to 165
+2025-05-04T23:40:12.480Z - DMX channel 274 set to 165
+2025-05-04T23:40:12.482Z - DMX channel 80 set to 0
+2025-05-04T23:40:12.506Z - DMX channel 61 set to 165
+2025-05-04T23:40:12.507Z - DMX channel 121 set to 165
+2025-05-04T23:40:12.511Z - DMX channel 491 set to 0
+2025-05-04T23:40:12.515Z - DMX channel 70 set to 165
+2025-05-04T23:40:12.521Z - DMX channel 368 set to 0
+2025-05-04T23:40:12.533Z - DMX channel 407 set to 0
+2025-05-04T23:40:12.541Z - DMX channel 419 set to 0
+2025-05-04T23:40:12.542Z - DMX channel 413 set to 0
+2025-05-04T23:40:12.544Z - DMX channel 464 set to 0
+2025-05-04T23:40:12.546Z - DMX channel 266 set to 0
+2025-05-04T23:40:12.548Z - DMX channel 506 set to 0
+2025-05-04T23:40:12.587Z - DMX channel 99 set to 255
+2025-05-04T23:40:12.595Z - DMX channel 137 set to 0
+2025-05-04T23:40:12.596Z - DMX channel 400 set to 165
+2025-05-04T23:40:12.601Z - DMX channel 422 set to 0
+2025-05-04T23:40:12.636Z - DMX channel 107 set to 0
+2025-05-04T23:40:12.637Z - DMX channel 4 set to 165
+2025-05-04T23:40:12.639Z - DMX channel 498 set to 255
+2025-05-04T23:40:12.641Z - DMX channel 477 set to 255
+2025-05-04T23:40:12.644Z - DMX channel 483 set to 255
+2025-05-04T23:40:12.665Z - DMX channel 458 set to 0
+2025-05-04T23:40:12.760Z - DMX channel 399 set to 255
+2025-05-04T23:40:12.952Z - DMX channel 306 set to 255
+2025-05-04T23:40:12.956Z - DMX channel 417 set to 255
+2025-05-04T23:40:13.052Z - DMX channel 483 set to 255
+2025-05-04T23:40:13.070Z - DMX channel 101 set to 0
+2025-05-04T23:40:13.078Z - DMX channel 474 set to 255
+2025-05-04T23:40:13.080Z - DMX channel 7 set to 165
+2025-05-04T23:40:13.104Z - DMX channel 480 set to 255
+2025-05-04T23:40:13.135Z - DMX channel 116 set to 0
+2025-05-04T23:40:13.187Z - DMX channel 119 set to 0
+2025-05-04T23:40:13.228Z - DMX channel 412 set to 165
+2025-05-04T23:40:13.245Z - DMX channel 383 set to 0
+2025-05-04T23:40:13.247Z - DMX channel 428 set to 0
+2025-05-04T23:40:13.264Z - DMX channel 1 set to 165
+2025-05-04T23:40:13.271Z - DMX channel 107 set to 0
+2025-05-04T23:40:13.274Z - DMX channel 371 set to 0
+2025-05-04T23:40:13.296Z - DMX channel 115 set to 165
+2025-05-04T23:40:13.306Z - DMX channel 386 set to 0
+2025-05-04T23:40:13.314Z - DMX channel 457 set to 165
+2025-05-04T23:40:13.349Z - DMX channel 97 set to 165
+2025-05-04T23:40:13.355Z - DMX channel 389 set to 0
+2025-05-04T23:40:13.385Z - DMX channel 118 set to 165
+2025-05-04T23:40:13.443Z - DMX channel 490 set to 165
+2025-05-04T23:40:13.444Z - DMX channel 508 set to 165
+2025-05-04T23:40:13.551Z - DMX channel 507 set to 255
+2025-05-04T23:40:13.555Z - DMX channel 504 set to 255
+2025-05-04T23:40:13.556Z - DMX channel 389 set to 0
+2025-05-04T23:40:13.614Z - DMX channel 435 set to 255
+2025-05-04T23:40:13.619Z - DMX channel 444 set to 255
+2025-05-04T23:40:13.620Z - DMX channel 19 set to 165
+2025-05-04T23:40:13.644Z - DMX channel 449 set to 0
+2025-05-04T23:40:13.662Z - DMX channel 404 set to 0
+2025-05-04T23:40:13.663Z - DMX channel 410 set to 0
+2025-05-04T23:40:13.665Z - DMX channel 501 set to 255
+2025-05-04T23:40:13.673Z - DMX channel 196 set to 165
+2025-05-04T23:40:13.687Z - DMX channel 386 set to 0
+2025-05-04T23:40:13.688Z - DMX channel 408 set to 255
+2025-05-04T23:40:13.696Z - DMX channel 33 set to 255
+2025-05-04T23:40:13.703Z - DMX channel 437 set to 0
+2025-05-04T23:40:13.726Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-04T23:40:13.751Z - DMX channel 78 set to 255
+2025-05-04T23:40:13.789Z - DMX channel 31 set to 165
+2025-05-04T23:40:13.806Z - DMX channel 66 set to 255
+2025-05-04T23:40:13.817Z - DMX channel 55 set to 165
+2025-05-04T23:40:13.825Z - DMX channel 498 set to 255
+2025-05-04T23:40:13.826Z - DMX channel 441 set to 255
+2025-05-04T23:40:13.828Z - DMX channel 414 set to 255
+2025-05-04T23:40:13.830Z - DMX channel 413 set to 0
+2025-05-04T23:40:13.845Z - DMX channel 282 set to 255
+2025-05-04T23:40:13.857Z - DMX channel 67 set to 165
+2025-05-04T23:40:13.872Z - DMX channel 273 set to 255
+2025-05-04T23:40:14.067Z - DMX channel 94 set to 165
+2025-05-04T23:40:14.097Z - DMX channel 288 set to 255
+2025-05-04T23:40:14.109Z - DMX channel 112 set to 165
+2025-05-04T23:40:14.113Z - DMX channel 115 set to 165
+2025-05-04T23:40:14.281Z - DMX channel 205 set to 165
+2025-05-04T23:40:14.295Z - DMX channel 202 set to 165
+2025-05-04T23:40:14.305Z - DMX channel 337 set to 165
+2025-05-04T23:40:14.307Z - DMX channel 214 set to 165
+2025-05-04T23:40:14.331Z - DMX channel 76 set to 165
+2025-05-04T23:40:14.332Z - DMX channel 25 set to 165
+2025-05-04T23:40:14.342Z - DMX channel 391 set to 165
+2025-05-04T23:40:14.420Z - DMX channel 250 set to 165
+2025-05-04T23:40:14.444Z - DMX channel 58 set to 165
+2025-05-04T23:40:14.456Z - DMX channel 73 set to 165
+2025-05-04T23:40:14.465Z - DMX channel 22 set to 165
+2025-05-04T23:40:14.466Z - DMX channel 295 set to 165
+2025-05-04T23:40:14.468Z - DMX channel 488 set to 0
+2025-05-04T23:40:14.469Z - DMX channel 52 set to 165
+2025-05-04T23:40:14.470Z - DMX channel 441 set to 255
+2025-05-04T23:40:14.477Z - DMX channel 44 set to 0
+2025-05-04T23:40:14.497Z - DMX channel 473 set to 0
+2025-05-04T23:40:14.498Z - DMX channel 367 set to 165
+2025-05-04T23:40:14.500Z - DMX channel 142 set to 165
+2025-05-04T23:40:14.501Z - DMX channel 452 set to 0
+2025-05-04T23:40:14.504Z - DMX channel 64 set to 165
+2025-05-04T23:40:14.527Z - DMX channel 485 set to 0
+2025-05-04T23:40:14.529Z - DMX channel 479 set to 0
+2025-05-04T23:40:14.532Z - DMX channel 133 set to 165
+2025-05-04T23:40:14.533Z - DMX channel 127 set to 165
+2025-05-04T23:40:14.541Z - DMX channel 47 set to 0
+2025-05-04T23:40:14.562Z - DMX channel 298 set to 165
+2025-05-04T23:40:14.564Z - DMX channel 124 set to 165
+2025-05-04T23:40:14.567Z - DMX channel 349 set to 165
+2025-05-04T23:40:14.569Z - DMX channel 242 set to 0
+2025-05-04T23:40:14.572Z - DMX channel 145 set to 165
+2025-05-04T23:40:14.595Z - DMX channel 136 set to 165
+2025-05-04T23:40:14.598Z - DMX channel 468 set to 255
+2025-05-04T23:40:14.609Z - DMX channel 365 set to 0
+2025-05-04T23:40:14.610Z - DMX channel 263 set to 0
+2025-05-04T23:40:14.613Z - DMX channel 467 set to 0
+2025-05-04T23:40:14.731Z - DMX channel 426 set to 255
+2025-05-04T23:40:14.732Z - DMX channel 149 set to 0
+2025-05-04T23:40:14.734Z - DMX channel 260 set to 0
+2025-05-04T23:40:14.735Z - DMX channel 139 set to 165
+2025-05-04T23:40:14.752Z - DMX channel 271 set to 165
+2025-05-04T23:40:14.754Z - DMX channel 122 set to 0
+2025-05-04T23:40:14.755Z - DMX channel 443 set to 0
+2025-05-04T23:40:14.774Z - DMX channel 95 set to 0
+2025-05-04T23:40:14.833Z - DMX channel 476 set to 0
+2025-05-04T23:40:14.834Z - DMX channel 471 set to 255
+2025-05-04T23:40:14.835Z - DMX channel 174 set to 255
+2025-05-04T23:40:14.837Z - DMX channel 207 set to 255
+2025-05-04T23:40:14.841Z - DMX channel 488 set to 0
+2025-05-04T23:40:14.843Z - DMX channel 114 set to 255
+2025-05-04T23:40:14.876Z - DMX channel 210 set to 255
+2025-05-04T23:40:14.909Z - DMX channel 126 set to 255
+2025-05-04T23:40:14.939Z - DMX channel 219 set to 255
+2025-05-04T23:40:14.971Z - DMX channel 213 set to 255
+2025-05-04T23:40:15.060Z - DMX channel 255 set to 255
+2025-05-04T23:40:15.061Z - DMX channel 402 set to 255
+2025-05-04T23:40:15.062Z - DMX channel 492 set to 255
+2025-05-04T23:40:15.064Z - DMX channel 486 set to 255
+2025-05-04T23:40:15.066Z - DMX channel 137 set to 0
+2025-05-04T23:40:15.070Z - DMX channel 240 set to 255
+2025-05-04T23:40:15.070Z - DMX channel 303 set to 255
+2025-05-04T23:40:15.165Z - DMX channel 468 set to 255
+2025-05-04T23:40:15.170Z - DMX channel 4 set to 165
+2025-05-04T23:40:15.172Z - DMX channel 489 set to 255
+2025-05-04T23:40:15.174Z - DMX channel 495 set to 255
+2025-05-04T23:40:15.175Z - DMX channel 122 set to 0
+2025-05-04T23:40:15.178Z - DMX channel 110 set to 0
+2025-05-04T23:40:15.180Z - DMX channel 398 set to 0
+2025-05-04T23:40:15.181Z - DMX channel 475 set to 165
+2025-05-04T23:40:15.188Z - DMX channel 477 set to 255
+2025-05-04T23:40:15.189Z - DMX channel 104 set to 0
+2025-05-04T23:40:15.191Z - DMX channel 113 set to 0
+2025-05-04T23:40:15.192Z - DMX channel 365 set to 0
+2025-05-04T23:40:15.194Z - DMX channel 368 set to 0
+2025-05-04T23:40:15.198Z - DMX channel 431 set to 0
+2025-05-04T23:40:15.200Z - DMX channel 359 set to 0
+2025-05-04T23:40:15.205Z - DMX channel 222 set to 255
+2025-05-04T23:40:15.207Z - DMX channel 300 set to 255
+2025-05-04T23:40:15.409Z - DMX channel 11 set to 0
+2025-05-04T23:40:15.472Z - DMX channel 471 set to 255
+2025-05-04T23:40:15.474Z - DMX channel 146 set to 0
+2025-05-04T23:40:15.475Z - DMX channel 356 set to 0
+2025-05-04T23:40:15.477Z - DMX channel 208 set to 165
+2025-05-04T23:40:15.478Z - DMX channel 425 set to 0
+2025-05-04T23:40:15.479Z - DMX channel 332 set to 0
+2025-05-04T23:40:15.480Z - DMX channel 205 set to 165
+2025-05-04T23:40:15.481Z - DMX channel 362 set to 0
+2025-05-04T23:40:15.502Z - DMX channel 211 set to 165
+2025-05-04T23:40:15.503Z - DMX channel 434 set to 0
+2025-05-04T23:40:15.513Z - DMX channel 109 set to 165
+2025-05-04T23:40:15.536Z - DMX channel 91 set to 165
+2025-05-04T23:40:15.546Z - DMX channel 415 set to 165
+2025-05-04T23:40:15.547Z - DMX channel 421 set to 165
+2025-05-04T23:40:15.567Z - DMX channel 230 set to 0
+2025-05-04T23:40:15.570Z - DMX channel 133 set to 165
+2025-05-04T23:40:15.641Z - DMX channel 130 set to 165
+2025-05-04T23:40:15.647Z - DMX channel 136 set to 165
+2025-05-04T23:40:15.667Z - DMX channel 424 set to 165
+2025-05-04T23:40:15.669Z - DMX channel 418 set to 165
+2025-05-04T23:40:15.671Z - DMX channel 100 set to 165
+2025-05-04T23:40:15.700Z - DMX channel 179 set to 0
+2025-05-04T23:40:15.707Z - DMX channel 308 set to 0
+2025-05-04T23:40:15.709Z - DMX channel 27 set to 255
+2025-05-04T23:40:15.710Z - DMX channel 500 set to 0
+2025-05-04T23:40:15.725Z - DMX channel 293 set to 0
+2025-05-04T23:40:15.730Z - DMX channel 106 set to 165
+2025-05-04T23:40:15.747Z - DMX channel 37 set to 165
+2025-05-04T23:40:15.748Z - DMX channel 94 set to 165
+2025-05-04T23:40:15.754Z - DMX channel 41 set to 0
+2025-05-04T23:40:15.757Z - DMX channel 263 set to 0
+2025-05-04T23:40:15.758Z - DMX channel 127 set to 165
+2025-05-04T23:40:15.759Z - DMX channel 0 set to 255
+2025-05-04T23:40:15.768Z - DMX channel 465 set to 255
+2025-05-04T23:40:15.784Z - DMX channel 119 set to 0
+2025-05-04T23:40:15.790Z - DMX channel 151 set to 165
+2025-05-04T23:40:15.793Z - DMX channel 103 set to 165
+2025-05-04T23:40:15.797Z - DMX channel 88 set to 165
+2025-05-04T23:40:15.808Z - DMX channel 43 set to 165
+2025-05-04T23:40:15.817Z - DMX channel 432 set to 255
+2025-05-04T23:40:15.826Z - DMX channel 163 set to 165
+2025-05-04T23:40:15.836Z - DMX channel 284 set to 0
+2025-05-04T23:40:15.851Z - DMX channel 356 set to 0
+2025-05-04T23:40:15.856Z - DMX channel 208 set to 165
+2025-05-04T23:40:15.861Z - DMX channel 28 set to 165
+2025-05-04T23:40:15.872Z - DMX channel 484 set to 165
+2025-05-04T23:40:15.881Z - DMX channel 157 set to 165
+2025-05-04T23:40:15.885Z - DMX channel 154 set to 165
+2025-05-04T23:40:15.891Z - DMX channel 283 set to 165
+2025-05-04T23:40:15.898Z - DMX channel 423 set to 255
+2025-05-04T23:40:15.901Z - DMX channel 82 set to 165
+2025-05-04T23:40:15.951Z - DMX channel 157 set to 165
+2025-05-04T23:40:15.952Z - DMX channel 160 set to 165
+2025-05-04T23:40:15.959Z - DMX channel 364 set to 165
+2025-05-04T23:40:15.966Z - DMX channel 426 set to 255
+2025-05-04T23:40:15.969Z - DMX channel 59 set to 0
+2025-05-04T23:40:16.003Z - DMX channel 202 set to 165
+2025-05-04T23:40:16.004Z - DMX channel 443 set to 0
+2025-05-04T23:40:16.023Z - DMX channel 31 set to 165
+2025-05-04T23:40:16.024Z - DMX channel 19 set to 165
+2025-05-04T23:40:16.067Z - DMX channel 433 set to 165
+2025-05-04T23:40:16.068Z - DMX channel 293 set to 0
+2025-05-04T23:40:16.101Z - DMX channel 54 set to 255
+2025-05-04T23:40:16.128Z - DMX channel 440 set to 0
+2025-05-04T23:40:16.155Z - DMX channel 367 set to 165
+2025-05-04T23:40:16.162Z - DMX channel 199 set to 165
+2025-05-04T23:40:16.178Z - DMX channel 148 set to 165
+2025-05-04T23:40:16.182Z - DMX channel 10 set to 165
+2025-05-04T23:40:16.191Z - DMX channel 446 set to 0
+2025-05-04T23:40:16.192Z - DMX channel 30 set to 255
+2025-05-04T23:40:16.197Z - DMX channel 193 set to 165
+2025-05-04T23:40:16.198Z - DMX channel 494 set to 0
+2025-05-04T23:40:16.199Z - DMX channel 497 set to 0
+2025-05-04T23:40:16.213Z - DMX channel 53 set to 0
+2025-05-04T23:40:16.225Z - DMX channel 139 set to 165
+2025-05-04T23:40:16.264Z - DMX channel 226 set to 165
+2025-05-04T23:40:16.283Z - DMX channel 13 set to 165
+2025-05-04T23:40:16.299Z - DMX channel 276 set to 255
+2025-05-04T23:40:16.300Z - DMX channel 216 set to 255
+2025-05-04T23:40:16.338Z - DMX channel 217 set to 165
+2025-05-04T23:40:16.388Z - DMX channel 279 set to 255
+2025-05-04T23:40:16.392Z - DMX channel 394 set to 165
+2025-05-04T23:40:16.405Z - DMX channel 100 set to 165
+2025-05-04T23:40:16.417Z - DMX channel 151 set to 165
+2025-05-04T23:40:16.430Z - DMX channel 188 set to 0
+2025-05-04T23:40:16.435Z - DMX channel 121 set to 165
+2025-05-05T00:12:53.236Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:12:57.485Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:18:18.908Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:20:05.562Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-05T00:20:05.563Z - MIDI mappings loaded: {}
+2025-05-05T00:20:05.564Z - Raw scenes data from file: []
+
+2025-05-05T00:20:05.564Z - Scenes loaded: []
+2025-05-05T00:20:05.578Z - Note: Could not load ALSA module (may need root): Error: Command failed: modprobe snd-seq-midi
+/bin/sh: 1: modprobe: not found
+
+2025-05-05T00:20:05.578Z - ALSA sequencer device not available - MIDI hardware access will be limited
+2025-05-05T00:20:05.586Z - Opening OSC port...
+2025-05-05T00:20:05.619Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-05T00:20:05.623Z - OSC Port is ready
+2025-05-05T00:20:11.623Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:13.568Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:20:13.572Z - A user connected
+2025-05-05T00:20:13.635Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:20:16.623Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:20.657Z - User disconnected
+2025-05-05T00:20:21.629Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:21.758Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:20:21.758Z - A user connected
+2025-05-05T00:20:21.824Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T00:20:26.625Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:28.946Z - DMX channel 3 set to 188
+2025-05-05T00:20:28.966Z - DMX channel 3 set to 189
+2025-05-05T00:20:28.983Z - DMX channel 3 set to 191
+2025-05-05T00:20:31.628Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:36.628Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:41.630Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:46.632Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:51.633Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:20:56.636Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:01.637Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:06.640Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:11.639Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:16.640Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:21.643Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:26.643Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:31.642Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:36.643Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:41.645Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:46.644Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:51.646Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:21:56.648Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:01.650Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:06.650Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:11.652Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:16.652Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:21.653Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:26.656Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:31.657Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:36.656Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:41.657Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:46.661Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:51.661Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:22:56.663Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:01.663Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:06.663Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:11.665Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:16.667Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:21.668Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:26.669Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:31.671Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:36.670Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:41.673Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:46.674Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:51.675Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:23:56.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:01.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:06.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:11.678Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:16.680Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:21.681Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:26.683Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:31.683Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:36.686Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:41.685Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:46.687Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:51.690Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:24:56.690Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:01.691Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:06.692Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:11.693Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:16.695Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:21.694Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:26.696Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:31.697Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:36.698Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:41.699Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:46.699Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:51.700Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:25:56.701Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:01.706Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:06.704Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:11.706Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:16.705Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:21.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:26.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:31.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:36.708Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:41.709Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:46.715Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:51.711Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:26:56.712Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:01.713Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:06.713Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:11.715Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:16.716Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:21.717Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:26.718Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:31.719Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:36.720Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:41.720Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:46.721Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:51.722Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:27:56.723Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:01.724Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:06.724Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:11.725Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:16.726Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:21.727Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:26.727Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:31.728Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:36.728Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:41.729Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:46.730Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:51.731Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:28:56.732Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:01.733Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:06.733Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:11.734Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:16.735Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:21.736Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:26.736Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:31.737Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:36.738Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:41.738Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:46.739Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:51.740Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:29:56.741Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:01.741Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:06.741Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:11.744Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:16.743Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:21.744Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:26.745Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:31.746Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:36.746Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:41.747Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:46.748Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:51.749Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:30:56.750Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:01.751Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:06.751Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:11.751Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:16.752Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:21.753Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:26.753Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:31.755Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:36.755Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:41.756Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:46.756Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:51.757Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:31:56.756Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:01.758Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:06.758Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:11.759Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:16.760Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:21.761Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:26.762Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:31.762Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:36.762Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:41.762Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:46.764Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:51.765Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:32:56.765Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:01.766Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:06.766Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:11.767Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:16.768Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:21.769Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:26.770Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:31.770Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:36.770Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:41.771Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:46.770Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:51.772Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:33:56.771Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:01.773Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:06.773Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:11.773Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:16.774Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:21.775Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:26.777Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:31.778Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:36.778Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:41.779Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:46.779Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:51.778Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:34:56.779Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:01.780Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:06.780Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:11.780Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:16.780Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:21.780Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:26.782Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:31.783Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:36.784Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:41.784Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:46.783Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:51.785Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:35:56.785Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:01.787Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:06.787Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:11.786Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:16.787Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:21.788Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:26.789Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:31.790Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:36.790Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:41.790Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:46.790Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:51.791Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:36:56.791Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:01.793Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:06.793Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:11.794Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:16.793Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:21.794Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:26.795Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:31.793Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:36.794Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:41.795Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:46.797Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:51.798Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:37:56.798Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:01.801Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:06.800Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:11.801Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:16.802Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:21.803Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:26.806Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:31.806Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:36.807Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:41.807Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:46.808Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:51.810Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:38:56.811Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:01.813Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:06.813Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:11.814Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:16.815Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:21.816Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:26.817Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:31.819Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:36.819Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:41.820Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:46.821Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:51.822Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:39:56.824Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:01.825Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:06.826Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:11.827Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:16.829Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:21.830Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:26.831Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:31.833Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:36.832Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:41.834Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:46.835Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:51.835Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:40:56.838Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:01.838Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:06.838Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:11.839Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:16.840Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:21.841Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:26.843Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:31.843Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:36.843Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:41.844Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:46.845Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:51.846Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:41:56.847Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:01.848Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:06.848Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:11.849Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:16.850Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:21.851Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:26.852Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:31.854Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:36.853Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:41.854Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:46.855Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:51.856Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:42:56.857Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:01.858Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:06.859Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:11.860Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:16.862Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:21.863Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:26.865Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:31.865Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:36.865Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:41.866Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:46.867Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:51.867Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:43:56.869Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:01.871Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:06.870Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:11.871Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:16.872Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:21.874Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:26.874Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:31.875Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:36.875Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:41.877Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:46.878Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:51.879Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:44:56.879Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:01.880Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:06.882Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:11.882Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:16.883Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:21.885Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:26.885Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:31.886Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:36.886Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:41.887Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:46.889Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T00:45:51.888Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:08.459Z - Server running at http://localhost:3000
+2025-05-05T01:41:08.461Z - React app available at http://localhost:3000
+2025-05-05T01:41:08.462Z - Original interface available at http://localhost:3000/public
+2025-05-05T01:41:08.462Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-05T01:41:08.463Z - MIDI mappings loaded: {}
+2025-05-05T01:41:08.463Z - Raw scenes data from file: []
+
+2025-05-05T01:41:08.464Z - Scenes loaded: []
+2025-05-05T01:41:08.464Z - ALSA sequencer device not available
+2025-05-05T01:41:08.469Z - Opening OSC port...
+2025-05-05T01:41:08.490Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-05T01:41:08.492Z - OSC Port is ready
+2025-05-05T01:41:09.492Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:14.493Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:19.492Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:21.480Z - A user connected
+2025-05-05T01:41:21.482Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T01:41:21.482Z - MIDI interfaces found: []
+2025-05-05T01:41:21.483Z - A user connected
+2025-05-05T01:41:21.632Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T01:41:22.711Z - A user connected
+2025-05-05T01:41:22.712Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T01:41:22.713Z - MIDI interfaces found: []
+2025-05-05T01:41:22.713Z - A user connected
+2025-05-05T01:41:23.601Z - A user connected
+2025-05-05T01:41:23.601Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T01:41:23.601Z - MIDI interfaces found: []
+2025-05-05T01:41:23.602Z - A user connected
+2025-05-05T01:41:24.494Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:27.432Z - DMX channel 0 set to 255
+2025-05-05T01:41:29.493Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:34.494Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:39.495Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:44.496Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:49.497Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:54.498Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:41:59.499Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:04.499Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:09.501Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:14.502Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:19.504Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:24.505Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:29.505Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:34.508Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:39.507Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:44.508Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:49.510Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:54.512Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:42:59.514Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:04.515Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:09.514Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:14.516Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:19.516Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:24.518Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:29.518Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:34.521Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:39.521Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:44.522Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:49.522Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:54.523Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:43:59.525Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:04.526Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:09.525Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:14.526Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:19.525Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:24.528Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:29.526Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:34.528Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:39.526Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:44.527Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:49.529Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:54.531Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:44:59.532Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:04.533Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:09.532Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:14.533Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:19.534Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:24.535Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:29.537Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:34.538Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:39.538Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:44.541Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:49.542Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:54.542Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:45:59.542Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:04.544Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:09.544Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:14.544Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:19.546Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:24.547Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:29.547Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:34.547Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:39.549Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:44.549Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:49.550Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:54.552Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:46:59.552Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:04.555Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:09.555Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:14.554Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:19.555Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:24.557Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:29.558Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:34.558Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:39.559Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:44.560Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:49.561Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:54.562Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:47:59.563Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:04.563Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:09.563Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:14.564Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:19.566Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:24.567Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:29.567Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:34.569Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:39.571Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:44.572Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:49.572Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:54.572Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:48:59.573Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:04.574Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:09.576Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:14.577Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:19.577Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:24.578Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:29.579Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:34.580Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:39.582Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:44.582Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:49.583Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:54.583Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:49:59.585Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:50:04.585Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:50:09.586Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:50:14.046Z - User disconnected (transport close)
+2025-05-05T01:50:14.047Z - User disconnected
+2025-05-05T01:50:14.062Z - User disconnected (transport close)
+2025-05-05T01:50:14.062Z - User disconnected
+2025-05-05T01:50:14.587Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:50:16.469Z - User disconnected (transport close)
+2025-05-05T01:50:16.469Z - User disconnected
+2025-05-05T01:50:18.114Z - A user connected
+2025-05-05T01:50:18.115Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T01:50:18.115Z - MIDI interfaces found: []
+2025-05-05T01:50:18.115Z - A user connected
+2025-05-05T01:50:18.431Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi
+2025-05-05T01:50:19.588Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:50:24.588Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T01:50:29.589Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-05T09:01:15.290Z - Error listing MIDI interfaces: Error: Failed to initialise RtMidi

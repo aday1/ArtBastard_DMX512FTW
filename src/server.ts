@@ -1,9 +1,11 @@
 import express from 'express';
-import http from 'http';
+import http, { createServer } from 'http';
 import { Server } from 'socket.io';
 import path from 'path';
 import fs from 'fs';
-import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput } from './index';
+import cors from 'cors';
+import { json } from 'body-parser';
+import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput, updateArtNetConfig, pingArtNetDevice, log } from './index';
 import { apiRouter, setupSocketHandlers } from './api';
 
 // Declare global io instance for use in API routes
@@ -12,10 +14,159 @@ declare global {
 }
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+const server = createServer(app);
 
-const port = 3001;
+// Configure CORS for all routes with more permissive settings
+app.use(cors({
+  origin: true, // Allow all origins in development
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(json());
+
+// Configure Socket.IO with improved error handling and connection management
+const io = new Server(server, {
+  cors: {
+    origin: true,
+    methods: ['GET', 'POST'],
+    credentials: true
+  },
+  pingTimeout: 60000,
+  pingInterval: 25000,
+  transports: ['websocket', 'polling'],
+  allowUpgrades: true,
+  connectTimeout: 45000,
+  maxHttpBufferSize: 1e8, // 100MB
+  path: '/socket.io',
+  
+  // Add more robust connection handling
+  connectionStateRecovery: {
+    maxDisconnectionDuration: 2 * 60 * 1000, // 2 minutes
+    skipMiddlewares: true,
+  }
+});
+
+// Make io available globally for use in other modules
+global.io = io;
+
+// Add specific middleware for rate limiting and validation
+io.use((socket, next) => {
+  // Track message rate
+  const messageCount = { count: 0, lastReset: Date.now() };
+  const rateLimitWindow = 1000; // 1 second
+  const maxMessagesPerWindow = 100;
+
+  socket.on('message', () => {
+    const now = Date.now();
+    if (now - messageCount.lastReset > rateLimitWindow) {
+      messageCount.count = 0;
+      messageCount.lastReset = now;
+    }
+    messageCount.count++;
+    
+    if (messageCount.count > maxMessagesPerWindow) {
+      socket.emit('error', 'Rate limit exceeded');
+      return;
+    }
+  });
+
+  // Validate connection
+  if (socket.handshake.auth && socket.handshake.auth.token) {
+    // Add your token validation logic here if needed
+    next();
+  } else {
+    next();
+  }
+});
+
+// Add global error handlers
+io.engine.on("connection_error", (err) => {
+  log(`Socket.IO connection error: ${err.message}`);
+});
+
+process.on('uncaughtException', (err) => {
+  log(`Uncaught Exception: ${err.message}\nStack: ${err.stack}`);
+});
+
+process.on('unhandledRejection', (reason) => {
+  log(`Unhandled Rejection: ${reason}`);
+});
+
+// Socket.IO connection handler
+io.on('connection', (socket) => {
+  log('A user connected');
+
+  // Send available MIDI interfaces to the client
+  const midiInterfaces = listMidiInterfaces();
+  log(`MIDI interfaces found: ${JSON.stringify(midiInterfaces.inputs)}`);
+  socket.emit('midiInterfaces', midiInterfaces.inputs);
+
+  // Handle MIDI interface selection
+  socket.on('selectMidiInterface', (interfaceName) => {
+    log(`Selecting MIDI interface: ${interfaceName}`);
+    connectMidiInput(io, interfaceName);
+  });
+
+  // Handle MIDI interface disconnection
+  socket.on('disconnectMidiInterface', (interfaceName) => {
+    log(`Disconnecting MIDI interface: ${interfaceName}`);
+    disconnectMidiInput(io, interfaceName);
+  });
+
+  // Handle request for refreshing MIDI interfaces
+  socket.on('getMidiInterfaces', () => {
+    const midiInterfaces = listMidiInterfaces();
+    socket.emit('midiInterfaces', midiInterfaces.inputs);
+  });
+
+  socket.on('updateArtNetConfig', (config) => {
+    try {
+      updateArtNetConfig(config);
+      socket.emit('artnetStatus', { status: 'configUpdated' });
+      // Test connection with new config
+      pingArtNetDevice(io, config.ip);
+    } catch (error) {
+      socket.emit('artnetStatus', { 
+        status: 'error',
+        message: `Config update failed: ${error instanceof Error ? error.message : String(error)}`
+      });
+    }
+  });
+
+  socket.on('testArtNetConnection', (ip) => {
+    try {
+      pingArtNetDevice(io, ip);
+    } catch (error) {
+      socket.emit('artnetStatus', {
+        status: 'error',
+        message: `Connection test failed: ${error instanceof Error ? error.message : String(error)}`
+      });
+    }
+  });
+
+  socket.on('disconnect', (reason) => {
+    log(`User disconnected (${reason})`);
+  });
+
+  // Handle reconnection attempts
+  socket.on('reconnect_attempt', (attemptNumber) => {
+    log(`Reconnection attempt ${attemptNumber} from ${socket.id}`);
+  });
+
+  socket.on('reconnect', (attemptNumber) => {
+    log(`Client ${socket.id} reconnected after ${attemptNumber} attempts`);
+  });
+
+  socket.on('reconnect_error', (error) => {
+    log(`Reconnection error from ${socket.id} - ${error}`);
+  });
+
+  socket.on('reconnect_failed', () => {
+    log(`Client ${socket.id} failed to reconnect after all attempts`);
+  });
+});
 
 // Set up API routes
 app.use('/api', apiRouter);
@@ -48,50 +199,19 @@ app.get('*', (req, res) => {
     res.sendFile(reactAppPath);
   } else {
     // If React app is not built, redirect to the original interface
-    console.log('React app not built. Redirecting to original interface.');
+    log('React app not built. Redirecting to original interface.');
     res.redirect('/public');
   }
-});
-
-// Socket.IO connection handler
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  // Send available MIDI interfaces to the client
-  const midiInterfaces = listMidiInterfaces();
-  console.log('MIDI interfaces found:', midiInterfaces.inputs);
-  socket.emit('midiInterfaces', midiInterfaces.inputs);
-
-  // Handle MIDI interface selection
-  socket.on('selectMidiInterface', (interfaceName) => {
-    console.log(`Selecting MIDI interface: ${interfaceName}`);
-    connectMidiInput(io, interfaceName);
-  });
-
-  // Handle MIDI interface disconnection
-  socket.on('disconnectMidiInterface', (interfaceName) => {
-    console.log(`Disconnecting MIDI interface: ${interfaceName}`);
-    disconnectMidiInput(io, interfaceName);
-  });
-
-  // Handle request for refreshing MIDI interfaces
-  socket.on('getMidiInterfaces', () => {
-    const midiInterfaces = listMidiInterfaces();
-    socket.emit('midiInterfaces', midiInterfaces.inputs);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
 });
 
 // Set up additional Socket.IO handlers from API
 setupSocketHandlers(io);
 
 // Start the server
+const port = 3000;  // Changed from 3001 to avoid conflict with frontend
 server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-  console.log(`React app available at http://localhost:${port}`);
-  console.log(`Original interface available at http://localhost:${port}/public`);
+  log(`Server running at http://localhost:${port}`);
+  log(`React app available at http://localhost:${port}`);
+  log(`Original interface available at http://localhost:${port}/public`);
   startLaserTime(io);
 });

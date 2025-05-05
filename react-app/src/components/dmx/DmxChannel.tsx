@@ -4,7 +4,8 @@ import { MidiLearnButton } from '../midi/MidiLearnButton'
 import styles from './DmxChannel.module.scss'
 
 interface DmxChannelProps {
-  index: number
+  index: number;
+  key?: number | string;
 }
 
 export const DmxChannel: React.FC<DmxChannelProps> = ({ index }) => {

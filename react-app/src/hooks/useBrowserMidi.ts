@@ -1,211 +1,171 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useStore } from '../store'
 import { useSocket } from '../context/SocketContext'
-import type { MidiMapping } from '../store'
-
-// The WebMIDI types are already available globally via webmidi.d.ts
-
-export interface BrowserMidiInput {
-  id: string
-  name: string
-  manufacturer: string
-  connection: string
-  state: string
-}
-
-interface BrowserMidiMessage {
-  _type: string
-  channel: number
-  controller?: number
-  value?: number
-  note?: number
-  velocity?: number
-  source: string
-}
+import { useStore } from '../store'
 
 export const useBrowserMidi = () => {
   const [midiAccess, setMidiAccess] = useState<WebMidi.MIDIAccess | null>(null)
-  const [browserInputs, setBrowserInputs] = useState<BrowserMidiInput[]>([])
-  const [activeBrowserInputs, setActiveBrowserInputs] = useState<Set<string>>(new Set())
-  const [isSupported, setIsSupported] = useState<boolean>(!!navigator.requestMIDIAccess)
+  const [browserMidiEnabled, setBrowserMidiEnabled] = useState(false)
+  const [inputs, setInputs] = useState<WebMidi.MIDIInput[]>([])
   const [error, setError] = useState<string | null>(null)
-  
-  const socket = useSocket().socket
-  const midiMessages = useStore(state => state.midiMessages)
-  const midiLearnChannel = useStore(state => state.midiLearnChannel)
-  const addMidiMapping = useStore(state => state.addMidiMapping)
-  
+  const [activeBrowserInputs, setActiveBrowserInputs] = useState<Set<string>>(new Set())
+  const { socket } = useSocket()
+  const showStatusMessage = useStore(state => state.showStatusMessage)
+
   // Initialize Web MIDI API
   useEffect(() => {
-    if (!navigator.requestMIDIAccess) {
-      setIsSupported(false)
-      setError('Web MIDI API is not supported in this browser')
-      return
+    const initMidi = async () => {
+      try {
+        if (navigator.requestMIDIAccess) {
+          const access = await navigator.requestMIDIAccess({ sysex: false })
+          setMidiAccess(access)
+          setBrowserMidiEnabled(true)
+          
+          // Update inputs list
+          const inputList = Array.from(access.inputs.values())
+          setInputs(inputList)
+          
+          showStatusMessage('Browser MIDI initialized successfully', 'success')
+        } else {
+          setError('Web MIDI API not supported in this browser')
+          showStatusMessage('Web MIDI API not supported in this browser', 'error')
+        }
+      } catch (err: unknown) {
+        console.error('Failed to initialize Web MIDI:', err)
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+        setError(errorMessage)
+        showStatusMessage(`MIDI initialization failed: ${errorMessage}`, 'error')
+      }
     }
 
-    const initWebMidi = async () => {
-      try {
-        const access = await navigator.requestMIDIAccess({ sysex: false })
-        setMidiAccess(access)
-        updateDeviceList(access)
-        
-        // Listen for device connection/disconnection
-        access.addEventListener('statechange', (event) => {
-          updateDeviceList(access)
+    initMidi()
+  }, [showStatusMessage])
+
+  // Handle state changes
+  const handleStateChange = useCallback((event: WebMidi.MIDIConnectionEvent) => {
+    if (midiAccess) {
+      const inputList = Array.from(midiAccess.inputs.values())
+      setInputs(inputList)
+      
+      const portName = event.port.name || 'Unknown device'
+      showStatusMessage(
+        `MIDI device ${portName} ${event.port.state}`, 
+        event.port.state === 'connected' ? 'success' : 'info'
+      )
+    }
+  }, [midiAccess, showStatusMessage])
+
+  // Set up MIDI message handlers
+  useEffect(() => {
+    if (!midiAccess || !socket) return
+
+    const handleMidiMessage = (event: WebMidi.MIDIMessageEvent) => {
+      const [status, data1, data2] = event.data
+
+      // Extract message type and channel
+      const messageType = status >> 4
+      const channel = status & 0xf
+
+      // Get source name safely
+      const source = (event.target as WebMidi.MIDIInput)?.name || 'Browser MIDI'
+
+      // Handle Note On messages (0x9)
+      if (messageType === 0x9) {
+        socket.emit('browserMidiMessage', {
+          _type: 'noteon',
+          channel,
+          note: data1,
+          velocity: data2,
+          source
         })
-      } catch (err) {
-        setError(`Error accessing MIDI devices: ${err instanceof Error ? err.message : String(err)}`)
-        console.error('MIDI Access Error:', err)
+      }
+      // Handle Note Off messages (0x8)
+      else if (messageType === 0x8) {
+        socket.emit('browserMidiMessage', {
+          _type: 'noteoff',
+          channel,
+          note: data1,
+          velocity: data2,
+          source
+        })
+      }
+      // Handle Control Change messages (0xB)
+      else if (messageType === 0xB) {
+        socket.emit('browserMidiMessage', {
+          _type: 'cc',
+          channel,
+          controller: data1,
+          value: data2,
+          source
+        })
       }
     }
-    
-    initWebMidi()
-  }, [])
-  
-  // Update device list when MIDI access changes
-  const updateDeviceList = useCallback((access: WebMidi.MIDIAccess) => {
-    const inputs: BrowserMidiInput[] = []
-    
-    access.inputs.forEach((input) => {
-      inputs.push({
-        id: input.id,
-        name: input.name || `Unknown Device (${input.id})`,
-        manufacturer: input.manufacturer || 'Unknown',
-        connection: input.connection,
-        state: input.state
-      })
+
+    // Add message handlers to all inputs
+    inputs.forEach(input => {
+      input.onmidimessage = handleMidiMessage
     })
-    
-    setBrowserInputs(inputs)
-  }, [])
-  
-  // Connect to a browser MIDI input
+
+    // Set up state change handler
+    midiAccess.onstatechange = handleStateChange
+
+    return () => {
+      // Clean up handlers
+      inputs.forEach(input => {
+        input.onmidimessage = null
+      })
+      if (midiAccess) {
+        midiAccess.onstatechange = null
+      }
+    }
+  }, [midiAccess, inputs, socket, handleStateChange])
+
+  // Connect to a MIDI input
   const connectBrowserInput = useCallback((inputId: string) => {
-    if (!midiAccess) return
+    if (!midiAccess) return;
     
-    const input = midiAccess.inputs.get(inputId)
-    if (!input) return
-    
-    // Only connect if not already connected
-    if (!activeBrowserInputs.has(inputId)) {
-      // Create a copy of the set to avoid direct mutation
-      const newActiveInputs = new Set(activeBrowserInputs)
-      newActiveInputs.add(inputId)
-      setActiveBrowserInputs(newActiveInputs)
-      
-      // Set up the message handler for this input
-      input.onmidimessage = handleMIDIMessage
-      
-      console.log(`Connected to browser MIDI input: ${input.name || inputId}`)
+    const input = midiAccess.inputs.get(inputId);
+    if (input) {
+      setActiveBrowserInputs(prev => {
+        const newSet = new Set(prev);
+        newSet.add(inputId);
+        return newSet;
+      });
+      showStatusMessage(`Connected to MIDI device: ${input.name}`, 'success');
     }
-  }, [midiAccess, activeBrowserInputs])
-  
-  // Disconnect from a browser MIDI input
+  }, [midiAccess, showStatusMessage]);
+
+  // Disconnect from a MIDI input
   const disconnectBrowserInput = useCallback((inputId: string) => {
-    if (!midiAccess) return
+    if (!midiAccess) return;
     
-    const input = midiAccess.inputs.get(inputId)
-    if (!input) return
-    
-    // Remove the message handler
-    input.onmidimessage = null
-    
-    // Update active inputs
-    const newActiveInputs = new Set(activeBrowserInputs)
-    newActiveInputs.delete(inputId)
-    setActiveBrowserInputs(newActiveInputs)
-    
-    console.log(`Disconnected from browser MIDI input: ${input.name || inputId}`)
-  }, [midiAccess, activeBrowserInputs])
-  
-  // Handle incoming MIDI messages from browser
-  const handleMIDIMessage = useCallback((event: WebMidi.MIDIMessageEvent) => {
-    const [statusByte, dataByte1, dataByte2] = event.data
-    
-    // Get the MIDI message type and channel
-    const messageType = statusByte >> 4
-    const channel = statusByte & 0xF
-    
-    let midiMessage: BrowserMidiMessage | null = null
-    
-    // Note On message (0x9)
-    if (messageType === 0x9) {
-      midiMessage = {
-        _type: 'noteon',
-        channel: channel,
-        note: dataByte1,
-        velocity: dataByte2,
-        source: 'browser'
-      }
+    const input = midiAccess.inputs.get(inputId);
+    if (input) {
+      setActiveBrowserInputs(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(inputId);
+        return newSet;
+      });
+      showStatusMessage(`Disconnected from MIDI device: ${input.name}`, 'info');
     }
-    // Note Off message (0x8)
-    else if (messageType === 0x8) {
-      midiMessage = {
-        _type: 'noteoff',
-        channel: channel,
-        note: dataByte1,
-        velocity: dataByte2,
-        source: 'browser'
-      }
-    }
-    // Control Change message (0xB)
-    else if (messageType === 0xB) {
-      midiMessage = {
-        _type: 'cc',
-        channel: channel,
-        controller: dataByte1,
-        value: dataByte2,
-        source: 'browser'
-      }
-    }
-    
-    if (midiMessage) {
-      // Add to the local state through the store
-      useStore.setState({ midiMessages: [...midiMessages, midiMessage] })
-      
-      // Forward to server if socket is connected
-      if (socket) {
-        socket.emit('browserMidiMessage', midiMessage)
-      }
-      
-      // Handle MIDI learn if in learn mode
-      if (midiLearnChannel !== null) {
-        if (midiMessage._type === 'noteon' || midiMessage._type === 'cc') {
-          let mapping: MidiMapping
-          
-          if (midiMessage._type === 'noteon') {
-            mapping = {
-              channel: midiMessage.channel,
-              note: midiMessage.note
-            }
-          } else { // cc
-            mapping = {
-              channel: midiMessage.channel,
-              controller: midiMessage.controller
-            }
-          }
-          
-          // Add the mapping
-          addMidiMapping(midiLearnChannel, mapping)
-        }
-      }
-    }
-  }, [socket, midiMessages, midiLearnChannel, addMidiMapping])
-  
-  // Refresh the list of available devices
+  }, [midiAccess, showStatusMessage]);
+
+  // Refresh MIDI devices list
   const refreshDevices = useCallback(() => {
     if (midiAccess) {
-      updateDeviceList(midiAccess)
+      const inputList = Array.from(midiAccess.inputs.values());
+      setInputs(inputList);
+      showStatusMessage('MIDI device list refreshed', 'info');
     }
-  }, [midiAccess, updateDeviceList])
-  
+  }, [midiAccess, showStatusMessage]);
+
   return {
-    isSupported,
+    isSupported: browserMidiEnabled,
     error,
-    browserInputs,
+    browserInputs: inputs,
     activeBrowserInputs,
     connectBrowserInput,
     disconnectBrowserInput,
-    refreshDevices
+    refreshDevices,
+    midiAccess
   }
 }

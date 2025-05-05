@@ -4,7 +4,7 @@ import { useSocket } from '../context/SocketContext'
 import { MidiMapping } from '../store'
 
 export const useMidiLearn = () => {
-  const socket = useSocket().socket
+  const { socket } = useSocket()
   const {
     midiLearnChannel,
     midiMessages,
