@@ -13,6 +13,26 @@ declare global {
   var io: Server;
 }
 
+// Ensure required directories exist
+function ensureDirectoriesExist() {
+  const directories = [
+    path.join(__dirname, '..', 'data'),
+    path.join(__dirname, '..', 'logs')
+  ];
+  
+  directories.forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      try {
+        fs.mkdirSync(dir, { recursive: true });
+        log(`Created directory: ${dir}`);
+      } catch (error) {
+        log(`Failed to create directory ${dir}: ${error}`);
+      }
+    }
+  });
+}
+
+// Create express app with improved error handling
 const app = express();
 const server = createServer(app);
 
@@ -26,192 +46,222 @@ app.use(cors({
 
 app.use(json());
 
+// Ensure all required directories exist before proceeding
+ensureDirectoriesExist();
+
 // Configure Socket.IO with improved error handling and connection management
-const io = new Server(server, {
-  cors: {
-    origin: true,
-    methods: ['GET', 'POST'],
-    credentials: true
-  },
-  pingTimeout: 60000,
-  pingInterval: 25000,
-  transports: ['websocket', 'polling'],
-  allowUpgrades: true,
-  connectTimeout: 45000,
-  maxHttpBufferSize: 1e8, // 100MB
-  path: '/socket.io',
-  
-  // Add more robust connection handling
-  connectionStateRecovery: {
-    maxDisconnectionDuration: 2 * 60 * 1000, // 2 minutes
-    skipMiddlewares: true,
-  }
-});
-
-// Make io available globally for use in other modules
-global.io = io;
-
-// Add specific middleware for rate limiting and validation
-io.use((socket, next) => {
-  // Track message rate
-  const messageCount = { count: 0, lastReset: Date.now() };
-  const rateLimitWindow = 1000; // 1 second
-  const maxMessagesPerWindow = 100;
-
-  socket.on('message', () => {
-    const now = Date.now();
-    if (now - messageCount.lastReset > rateLimitWindow) {
-      messageCount.count = 0;
-      messageCount.lastReset = now;
-    }
-    messageCount.count++;
+try {
+  const io = new Server(server, {
+    cors: {
+      origin: true,
+      methods: ['GET', 'POST'],
+      credentials: true
+    },
+    pingTimeout: 60000,
+    pingInterval: 25000,
+    transports: ['websocket', 'polling'],
+    allowUpgrades: true,
+    connectTimeout: 45000,
+    maxHttpBufferSize: 1e8, // 100MB
+    path: '/socket.io',
     
-    if (messageCount.count > maxMessagesPerWindow) {
-      socket.emit('error', 'Rate limit exceeded');
-      return;
+    // Add more robust connection handling
+    connectionStateRecovery: {
+      maxDisconnectionDuration: 2 * 60 * 1000, // 2 minutes
+      skipMiddlewares: true,
     }
   });
 
-  // Validate connection
-  if (socket.handshake.auth && socket.handshake.auth.token) {
-    // Add your token validation logic here if needed
-    next();
-  } else {
-    next();
-  }
-});
+  // Make io available globally for use in other modules
+  global.io = io;
 
-// Add global error handlers
-io.engine.on("connection_error", (err) => {
-  log(`Socket.IO connection error: ${err.message}`);
-});
+  // Add specific middleware for rate limiting and validation
+  io.use((socket, next) => {
+    // Track message rate
+    const messageCount = { count: 0, lastReset: Date.now() };
+    const rateLimitWindow = 1000; // 1 second
+    const maxMessagesPerWindow = 100;
 
-process.on('uncaughtException', (err) => {
-  log(`Uncaught Exception: ${err.message}\nStack: ${err.stack}`);
-});
+    socket.on('message', () => {
+      const now = Date.now();
+      
+      if (now - messageCount.lastReset > rateLimitWindow) {
+        messageCount.count = 0;
+        messageCount.lastReset = now;
+      }
+      messageCount.count++;
+      
+      if (messageCount.count > maxMessagesPerWindow) {
+        socket.emit('error', 'Rate limit exceeded');
+        return;
+      }
+    });
 
-process.on('unhandledRejection', (reason) => {
-  log(`Unhandled Rejection: ${reason}`);
-});
-
-// Socket.IO connection handler
-io.on('connection', (socket) => {
-  log('A user connected');
-
-  // Send available MIDI interfaces to the client
-  const midiInterfaces = listMidiInterfaces();
-  log(`MIDI interfaces found: ${JSON.stringify(midiInterfaces.inputs)}`);
-  socket.emit('midiInterfaces', midiInterfaces.inputs);
-
-  // Handle MIDI interface selection
-  socket.on('selectMidiInterface', (interfaceName) => {
-    log(`Selecting MIDI interface: ${interfaceName}`);
-    connectMidiInput(io, interfaceName);
+    // Validate connection
+    if (socket.handshake.auth && socket.handshake.auth.token) {
+      // Add your token validation logic here if needed
+      next();
+    } else {
+      next();
+    }
   });
 
-  // Handle MIDI interface disconnection
-  socket.on('disconnectMidiInterface', (interfaceName) => {
-    log(`Disconnecting MIDI interface: ${interfaceName}`);
-    disconnectMidiInput(io, interfaceName);
+  // Add global error handlers
+  io.engine.on("connection_error", (err) => {
+    log(`Socket.IO connection error: ${err.message}`);
   });
 
-  // Handle request for refreshing MIDI interfaces
-  socket.on('getMidiInterfaces', () => {
+  process.on('uncaughtException', (err) => {
+    log(`Uncaught Exception: ${err.message}\nStack: ${err.stack}`);
+  });
+
+  process.on('unhandledRejection', (reason) => {
+    log(`Unhandled Rejection: ${reason}`);
+  });
+
+  // Socket.IO connection handler
+  io.on('connection', (socket) => {
+    log('A user connected');
+
+    // Send available MIDI interfaces to the client
     const midiInterfaces = listMidiInterfaces();
+    log(`MIDI interfaces found: ${JSON.stringify(midiInterfaces.inputs)}`);
     socket.emit('midiInterfaces', midiInterfaces.inputs);
+
+    // Handle MIDI interface selection
+    socket.on('selectMidiInterface', (interfaceName) => {
+      log(`Selecting MIDI interface: ${interfaceName}`);
+      connectMidiInput(io, interfaceName);
+    });
+
+    // Handle MIDI interface disconnection
+    socket.on('disconnectMidiInterface', (interfaceName) => {
+      log(`Disconnecting MIDI interface: ${interfaceName}`);
+      disconnectMidiInput(io, interfaceName);
+    });
+
+    // Handle request for refreshing MIDI interfaces
+    socket.on('getMidiInterfaces', () => {
+      const midiInterfaces = listMidiInterfaces();
+      socket.emit('midiInterfaces', midiInterfaces.inputs);
+    });
+
+    socket.on('updateArtNetConfig', (config) => {
+      try {
+        updateArtNetConfig(config);
+        socket.emit('artnetStatus', { status: 'configUpdated' });
+        // Test connection with new config
+        pingArtNetDevice(io, config.ip);
+      } catch (error) {
+        socket.emit('artnetStatus', { 
+          status: 'error',
+          message: `Config update failed: ${error instanceof Error ? error.message : String(error)}`
+        });
+      }
+    });
+
+    socket.on('testArtNetConnection', (ip) => {
+      try {
+        pingArtNetDevice(io, ip);
+      } catch (error) {
+        socket.emit('artnetStatus', {
+          status: 'error',
+          message: `Connection test failed: ${error instanceof Error ? error.message : String(error)}`
+        });
+      }
+    });
+
+    socket.on('disconnect', (reason) => {
+      log(`User disconnected (${reason})`);
+    });
+
+    // Handle reconnection attempts
+    socket.on('reconnect_attempt', (attemptNumber) => {
+      log(`Reconnection attempt ${attemptNumber} from ${socket.id}`);
+    });
+
+    socket.on('reconnect', (attemptNumber) => {
+      log(`Client ${socket.id} reconnected after ${attemptNumber} attempts`);
+    });
+
+    socket.on('reconnect_error', (error) => {
+      log(`Reconnection error from ${socket.id} - ${error}`);
+    });
+
+    socket.on('reconnect_failed', () => {
+      log(`Client ${socket.id} failed to reconnect after all attempts`);
+    });
   });
 
-  socket.on('updateArtNetConfig', (config) => {
-    try {
-      updateArtNetConfig(config);
-      socket.emit('artnetStatus', { status: 'configUpdated' });
-      // Test connection with new config
-      pingArtNetDevice(io, config.ip);
-    } catch (error) {
-      socket.emit('artnetStatus', { 
-        status: 'error',
-        message: `Config update failed: ${error instanceof Error ? error.message : String(error)}`
-      });
+  // Set up API routes
+  app.use('/api', apiRouter);
+
+  // Serve static files from the React app with no caching
+  app.use(express.static(path.join(__dirname, '..', 'react-app', 'dist'), {
+    setHeaders: (res, path) => {
+      // Disable caching for all static files
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }));
+
+  // For backward compatibility, also serve the original public directory
+  app.use('/public', express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, path) => {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }));
+
+  // For any routes not handled by specific endpoints, serve the React app
+  app.get('*', (req, res) => {
+    const reactAppPath = path.join(__dirname, '..', 'react-app', 'dist', 'index.html');
+    
+    // Check if the React app is built
+    if (fs.existsSync(reactAppPath)) {
+      res.sendFile(reactAppPath);
+    } else {
+      // If React app is not built, redirect to the original interface
+      log('React app not built. Redirecting to original interface.');
+      res.redirect('/public');
     }
   });
 
-  socket.on('testArtNetConnection', (ip) => {
+  // Set up additional Socket.IO handlers from API
+  setupSocketHandlers(io);
+
+  // Start the server
+  const port = 3000;  // Changed from 3001 to avoid conflict with frontend
+  server.listen(port, () => {
+    log(`Server running at http://localhost:${port}`);
+    log(`React app available at http://localhost:${port}`);
+    log(`Original interface available at http://localhost:${port}/public`);
+    
+    // Initialize application with Socket.IO instance
     try {
-      pingArtNetDevice(io, ip);
+      startLaserTime(io);
     } catch (error) {
-      socket.emit('artnetStatus', {
-        status: 'error',
-        message: `Connection test failed: ${error instanceof Error ? error.message : String(error)}`
-      });
+      log(`ERROR initializing application: ${error instanceof Error ? error.message : String(error)}`);
+      if (error instanceof Error && error.stack) {
+        log(`Stack trace: ${error.stack}`);
+      }
     }
   });
-
-  socket.on('disconnect', (reason) => {
-    log(`User disconnected (${reason})`);
-  });
-
-  // Handle reconnection attempts
-  socket.on('reconnect_attempt', (attemptNumber) => {
-    log(`Reconnection attempt ${attemptNumber} from ${socket.id}`);
-  });
-
-  socket.on('reconnect', (attemptNumber) => {
-    log(`Client ${socket.id} reconnected after ${attemptNumber} attempts`);
-  });
-
-  socket.on('reconnect_error', (error) => {
-    log(`Reconnection error from ${socket.id} - ${error}`);
-  });
-
-  socket.on('reconnect_failed', () => {
-    log(`Client ${socket.id} failed to reconnect after all attempts`);
-  });
-});
-
-// Set up API routes
-app.use('/api', apiRouter);
-
-// Serve static files from the React app with no caching
-app.use(express.static(path.join(__dirname, '..', 'react-app', 'dist'), {
-  setHeaders: (res, path) => {
-    // Disable caching for all static files
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-  }
-}));
-
-// For backward compatibility, also serve the original public directory
-app.use('/public', express.static(path.join(__dirname, 'public'), {
-  setHeaders: (res, path) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-  }
-}));
-
-// For any routes not handled by specific endpoints, serve the React app
-app.get('*', (req, res) => {
-  const reactAppPath = path.join(__dirname, '..', 'react-app', 'dist', 'index.html');
   
-  // Check if the React app is built
-  if (fs.existsSync(reactAppPath)) {
-    res.sendFile(reactAppPath);
-  } else {
-    // If React app is not built, redirect to the original interface
-    log('React app not built. Redirecting to original interface.');
-    res.redirect('/public');
+  // Error handler for server
+  server.on('error', (error) => {
+    if ((error as any).code === 'EADDRINUSE') {
+      log(`ERROR: Port ${port} is already in use. Please close any applications using this port and try again.`);
+    } else {
+      log(`SERVER ERROR: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  });
+
+} catch (error) {
+  log(`FATAL ERROR initializing Socket.IO: ${error instanceof Error ? error.message : String(error)}`);
+  if (error instanceof Error && error.stack) {
+    log(`Stack trace: ${error.stack}`);
   }
-});
-
-// Set up additional Socket.IO handlers from API
-setupSocketHandlers(io);
-
-// Start the server
-const port = 3000;  // Changed from 3001 to avoid conflict with frontend
-server.listen(port, () => {
-  log(`Server running at http://localhost:${port}`);
-  log(`React app available at http://localhost:${port}`);
-  log(`Original interface available at http://localhost:${port}/public`);
-  startLaserTime(io);
-});
+}

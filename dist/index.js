@@ -50,7 +50,24 @@ function log(message) {
     const timestamp = new Date().toISOString();
     const logMessage = `${timestamp} - ${message}\n`;
     if (isLoggingEnabled) {
-        fs_1.default.appendFileSync(LOG_FILE, logMessage);
+        try {
+            // Ensure logs directory exists
+            if (!fs_1.default.existsSync(LOGS_DIR)) {
+                try {
+                    fs_1.default.mkdirSync(LOGS_DIR, { recursive: true });
+                }
+                catch (error) {
+                    console.error(`Failed to create logs directory: ${error}`);
+                }
+            }
+            // Check if log file is accessible/writeable
+            fs_1.default.appendFileSync(LOG_FILE, logMessage);
+        }
+        catch (error) {
+            console.error(`Error writing to log file: ${error}`);
+            // Write to console if file logging fails
+            console.log(logMessage);
+        }
     }
     if (isConsoleLoggingEnabled) {
         console.log(message);
