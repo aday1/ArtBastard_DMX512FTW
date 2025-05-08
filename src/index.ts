@@ -102,7 +102,23 @@ function log(message: string) {
     const logMessage = `${timestamp} - ${message}\n`;
 
     if (isLoggingEnabled) {
-        fs.appendFileSync(LOG_FILE, logMessage);
+        try {
+            // Ensure logs directory exists
+            if (!fs.existsSync(LOGS_DIR)) {
+                try {
+                    fs.mkdirSync(LOGS_DIR, { recursive: true });
+                } catch (error) {
+                    console.error(`Failed to create logs directory: ${error}`);
+                }
+            }
+            
+            // Check if log file is accessible/writeable
+            fs.appendFileSync(LOG_FILE, logMessage);
+        } catch (error) {
+            console.error(`Error writing to log file: ${error}`);
+            // Write to console if file logging fails
+            console.log(logMessage);
+        }
     }
 
     if (isConsoleLoggingEnabled) {
