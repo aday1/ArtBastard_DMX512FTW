@@ -327,11 +327,9 @@ const luxuryQuotes: Quote[] = [
     text: "Mes transitions DMX sont si parfaites qu'elles créent une distorsion temporelle où le public expérimente simultanément le passé et le futur lumineux.",
     author: "Théotime Distorsion-Chronologique, Maître du Continuum Spatio-Lumineux",
     color: "#ff3300"
-  },
-  {
+  },  {
     text: "I don't discuss my MIDI implementation with just anyone. It's like asking Picasso what brand of brush he used—irrelevant to the transcendent result.",
-    author: "Count Dismissive-Téchniq
-    ue",
+    author: "Count Dismissive-Téchnique",
     color: "#aaff00"
   },
   {
