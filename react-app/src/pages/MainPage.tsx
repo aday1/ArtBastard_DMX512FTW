@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useTheme } from '../context/ThemeContext'
-import { useSocket, SocketContextType } from '../context/SocketContext'
+import { useSocket } from '../context/SocketContext'
+import type { SocketContextType } from '../context/SocketContext' // Importing as type
 import { useStore } from '../store'
 import { DmxControlPanel } from '../components/dmx/DmxControlPanel'
 import { MidiOscSetup } from '../components/midi/MidiOscSetup'

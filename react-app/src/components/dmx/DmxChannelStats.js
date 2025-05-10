@@ -5,27 +5,30 @@ import styles from './DmxChannelStats.module.scss';
 export const DmxChannelStats = ({ compact = false }) => {
     const dmxChannels = useStore(state => state.dmxChannels);
     const selectedChannels = useStore(state => state.selectedChannels);
-    // Calculate active channels (non-zero values)
     const stats = useMemo(() => {
         let activeCount = 0;
         let maxValue = 0;
         let avgValue = 0;
         let sum = 0;
-        for (let i = 0; i < dmxChannels.length; i++) {
-            const value = dmxChannels[i];
-            if (value > 0) {
-                activeCount++;
-                sum += value;
-                maxValue = Math.max(maxValue, value);
+        // Ensure dmxChannels is an array before iterating
+        if (Array.isArray(dmxChannels)) {
+            for (let i = 0; i < dmxChannels.length; i++) {
+                const value = dmxChannels[i];
+                if (value > 0) {
+                    activeCount++;
+                    sum += value;
+                    maxValue = Math.max(maxValue, value);
+                }
             }
         }
         avgValue = activeCount > 0 ? Math.round(sum / activeCount) : 0;
+        const totalChannels = Array.isArray(dmxChannels) ? dmxChannels.length : 0;
         return {
             activeCount,
             maxValue,
             avgValue,
-            totalChannels: dmxChannels.length,
-            selectedCount: selectedChannels.length
+            totalChannels,
+            selectedCount: selectedChannels?.length || 0
         };
     }, [dmxChannels, selectedChannels]);
     if (compact) {

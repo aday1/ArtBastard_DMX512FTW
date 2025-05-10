@@ -18,7 +18,7 @@ export const SocketProvider = ({ children }) => {
             setError(null);
             // Initialize socket with error handling
             console.log('Initializing Socket.IO connection');
-            const socketInstance = io({
+            const socketInstance = io(undefined, {
                 reconnectionAttempts: 5,
                 reconnectionDelay: 1000,
                 reconnectionDelayMax: 5000,

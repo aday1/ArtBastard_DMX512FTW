@@ -1,56 +1,49 @@
-2025-05-10T10:27:08.514Z - 🚀 Starting ArtBastard DMX512FTW server...
-2025-05-10T10:27:09.175Z - ✅ Server modules loaded successfully
-2025-05-10T10:27:09.176Z - Server running at http://localhost:3001
-2025-05-10T10:27:09.177Z - React app available at http://localhost:3001
-2025-05-10T10:27:09.177Z - Starting laser time sequence from core module
-2025-05-10T10:27:09.179Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
-2025-05-10T10:27:09.179Z - MIDI mappings loaded: {}
-2025-05-10T10:27:09.180Z - Raw scenes data from file: []
+2025-05-10T11:10:47.689Z - 🚀 Starting ArtBastard DMX512FTW server from main entry point...
+2025-05-10T11:10:48.178Z - ✅ Server modules loaded successfully
+2025-05-10T11:10:48.178Z - Server running at http://localhost:3001
+2025-05-10T11:10:48.179Z - React app available at http://localhost:3001
+2025-05-10T11:10:48.179Z - Starting laser time sequence from core module
+2025-05-10T11:10:48.180Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T11:10:48.181Z - MIDI mappings loaded: {}
+2025-05-10T11:10:48.182Z - Raw scenes data from file: []
 
-2025-05-10T10:27:09.181Z - Scenes loaded: []
-2025-05-10T10:27:09.206Z - Found 0 MIDI inputs: 
-2025-05-10T10:27:09.218Z - Opening OSC port...
-2025-05-10T10:27:09.244Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
-2025-05-10T10:27:09.246Z - OSC Port is ready
-2025-05-10T10:27:09.340Z - A user connected
-2025-05-10T10:27:09.344Z - Available MIDI Inputs: []
-2025-05-10T10:27:09.345Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-2025-05-10T10:27:09.347Z - MIDI interfaces found: []
-2025-05-10T10:27:09.349Z - A user connected
-2025-05-10T10:27:09.395Z - A user connected
-2025-05-10T10:27:09.396Z - Available MIDI Inputs: []
-2025-05-10T10:27:09.397Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-2025-05-10T10:27:09.398Z - MIDI interfaces found: []
-2025-05-10T10:27:09.399Z - A user connected
-2025-05-10T10:27:10.253Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:15.253Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:20.268Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:25.271Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:30.302Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:35.298Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:40.318Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:45.316Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:50.315Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:55.330Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:00.330Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:05.331Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:10.331Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:13.178Z - A user connected
-2025-05-10T10:28:13.181Z - Available MIDI Inputs: []
-2025-05-10T10:28:13.182Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-2025-05-10T10:28:13.183Z - MIDI interfaces found: []
-2025-05-10T10:28:13.184Z - A user connected
-2025-05-10T10:28:15.192Z - User disconnected (transport close)
-2025-05-10T10:28:15.195Z - User disconnected
-2025-05-10T10:28:15.320Z - A user connected
-2025-05-10T10:28:15.321Z - Available MIDI Inputs: []
-2025-05-10T10:28:15.322Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-2025-05-10T10:28:15.323Z - MIDI interfaces found: []
-2025-05-10T10:28:15.324Z - A user connected
-2025-05-10T10:28:15.329Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:17.956Z - User disconnected (transport close)
-2025-05-10T10:28:17.958Z - User disconnected
-2025-05-10T10:28:20.340Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:25.342Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:30.342Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:35.352Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:48.183Z - Scenes loaded: []
+2025-05-10T11:10:48.204Z - Found 0 MIDI inputs: 
+2025-05-10T11:10:48.214Z - Opening OSC port...
+2025-05-10T11:10:48.238Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T11:10:48.240Z - OSC Port is ready
+2025-05-10T11:10:48.677Z - A user connected
+2025-05-10T11:10:48.678Z - Available MIDI Inputs: []
+2025-05-10T11:10:48.679Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:10:48.679Z - MIDI interfaces found: []
+2025-05-10T11:10:48.681Z - A user connected
+2025-05-10T11:10:48.889Z - A user connected
+2025-05-10T11:10:48.893Z - Available MIDI Inputs: []
+2025-05-10T11:10:48.895Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:10:48.896Z - MIDI interfaces found: []
+2025-05-10T11:10:48.899Z - A user connected
+2025-05-10T11:10:49.249Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:50.554Z - A user connected
+2025-05-10T11:10:50.558Z - Available MIDI Inputs: []
+2025-05-10T11:10:50.561Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:10:50.563Z - MIDI interfaces found: []
+2025-05-10T11:10:50.566Z - A user connected
+2025-05-10T11:10:54.259Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:59.253Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:59.943Z - User disconnected (transport close)
+2025-05-10T11:10:59.946Z - User disconnected
+2025-05-10T11:11:00.241Z - A user connected
+2025-05-10T11:11:00.243Z - Available MIDI Inputs: []
+2025-05-10T11:11:00.243Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:11:00.244Z - MIDI interfaces found: []
+2025-05-10T11:11:00.245Z - A user connected
+2025-05-10T11:11:01.385Z - User disconnected (transport close)
+2025-05-10T11:11:01.387Z - User disconnected
+2025-05-10T11:11:01.671Z - A user connected
+2025-05-10T11:11:01.672Z - Available MIDI Inputs: []
+2025-05-10T11:11:01.673Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:11:01.674Z - MIDI interfaces found: []
+2025-05-10T11:11:01.674Z - A user connected
+2025-05-10T11:11:04.277Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:09.281Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:14.277Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out

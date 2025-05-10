@@ -1,97 +1,96 @@
-2025-05-10T10:27:07.258Z - WATCHDOG: Starting watchdog service
-2025-05-10T10:27:07.434Z - WATCHDOG: Starting application...
-2025-05-10T10:27:07.510Z - WATCHDOG: App output: 🎛️  Starting ArtBastard DMX512FTW Server...
-2025-05-10T10:27:07.511Z - WATCHDOG: App output: 🚀 Launching server...
-2025-05-10T10:27:08.510Z - WATCHDOG: App output: Starting server from main entry point
-2025-05-10T10:27:08.517Z - WATCHDOG: App output: 🚀 Starting ArtBastard DMX512FTW server...
-2025-05-10T10:27:09.169Z - WATCHDOG: App error: 2025-05-10T10:27:09.169Z socket.io:server initializing namespace /
-2025-05-10T10:27:09.171Z - WATCHDOG: App error: 2025-05-10T10:27:09.170Z socket.io:server creating engine.io instance with opts {"cors":{"origin":true,"methods":["GET","POST"],"credentials":true},"pingTimeout":60000,"pingInterval":25000,"transports":["websocket","polling"],"allowUpgrades":true,"connectTimeout":45000,"maxHttpBufferSize":100000000,"path":"/socket.io","connectionStateRecovery":{"maxDisconnectionDuration":120000,"skipMiddlewares":true},"cleanupEmptyChildNamespaces":false}
-2025-05-10T10:27:09.172Z - WATCHDOG: App error: 2025-05-10T10:27:09.172Z socket.io:server attaching client serving req handler
-2025-05-10T10:27:09.175Z - WATCHDOG: App output: ✅ Server modules loaded successfully
-2025-05-10T10:27:09.177Z - WATCHDOG: App output: Server running at http://localhost:3001
-2025-05-10T10:27:09.178Z - WATCHDOG: App output: React app available at http://localhost:3001
-2025-05-10T10:27:09.179Z - WATCHDOG: App output: Starting laser time sequence from core module
-2025-05-10T10:27:09.179Z - WATCHDOG: App output: Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
-2025-05-10T10:27:09.180Z - WATCHDOG: App output: MIDI mappings loaded: {}
-2025-05-10T10:27:09.181Z - WATCHDOG: App output: Raw scenes data from file: []
-2025-05-10T10:27:09.182Z - WATCHDOG: App output: Scenes loaded: []
-2025-05-10T10:27:09.206Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
-2025-05-10T10:27:09.207Z - WATCHDOG: App output: Found 0 MIDI inputs:
-2025-05-10T10:27:09.219Z - WATCHDOG: App output: Opening OSC port...
-2025-05-10T10:27:09.245Z - WATCHDOG: App output: ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
-2025-05-10T10:27:09.247Z - WATCHDOG: App output: OSC Port is ready
-2025-05-10T10:27:09.291Z - WATCHDOG: App error: 2025-05-10T10:27:09.291Z socket.io:server incoming connection with id xjenlxxVCR5YyYaLAAAA
-2025-05-10T10:27:09.326Z - WATCHDOG: App error: 2025-05-10T10:27:09.326Z socket.io:server serve client source 304
-2025-05-10T10:27:09.333Z - WATCHDOG: App error: 2025-05-10T10:27:09.333Z socket.io:client connecting to namespace /
-2025-05-10T10:27:09.334Z - WATCHDOG: App error: 2025-05-10T10:27:09.333Z socket.io:namespace adding socket to nsp /
-2025-05-10T10:27:09.339Z - WATCHDOG: App error: 2025-05-10T10:27:09.337Z socket.io:socket socket connected - writing packet
-2025-05-10T10:27:09.337Z socket.io:socket join room OeX4ecAAmfSasfhMAAAB
-2025-05-10T10:27:09.342Z - WATCHDOG: App output: A user connected
-2025-05-10T10:27:09.343Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
-2025-05-10T10:27:09.346Z - WATCHDOG: App output: Available MIDI Inputs: []
-2025-05-10T10:27:09.348Z - WATCHDOG: App output: Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-MIDI interfaces found: []
-2025-05-10T10:27:09.350Z - WATCHDOG: App output: A user connected
-2025-05-10T10:27:09.378Z - WATCHDOG: App error: 2025-05-10T10:27:09.377Z socket.io:server incoming connection with id MMQPhSooNTb3T34fAAAD
-2025-05-10T10:27:09.394Z - WATCHDOG: App error: 2025-05-10T10:27:09.393Z socket.io:client connecting to namespace /
-2025-05-10T10:27:09.396Z - WATCHDOG: App error: 2025-05-10T10:27:09.393Z socket.io:namespace adding socket to nsp /
-2025-05-10T10:27:09.395Z socket.io:socket socket connected - writing packet
-2025-05-10T10:27:09.395Z socket.io:socket join room xcdeBKTF-DsfEywqAAAE
-2025-05-10T10:27:09.397Z - WATCHDOG: App output: A user connected
-2025-05-10T10:27:09.398Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
-2025-05-10T10:27:09.398Z - WATCHDOG: App output: Available MIDI Inputs: []
+2025-05-10T11:10:46.806Z - WATCHDOG: Starting watchdog service
+2025-05-10T11:10:46.934Z - WATCHDOG: Starting application...
+2025-05-10T11:10:46.991Z - WATCHDOG: App output: 🎛️  Starting ArtBastard DMX512FTW Server...
+2025-05-10T11:10:46.993Z - WATCHDOG: App output: 🚀 Launching server...
+2025-05-10T11:10:47.706Z - WATCHDOG: App output: 🚀 Starting ArtBastard DMX512FTW server from main entry point...
+2025-05-10T11:10:48.174Z - WATCHDOG: App error: 2025-05-10T11:10:48.173Z socket.io:server initializing namespace /
+2025-05-10T11:10:48.175Z - WATCHDOG: App error: 2025-05-10T11:10:48.174Z socket.io:server creating engine.io instance with opts {"cors":{"origin":true,"methods":["GET","POST"],"credentials":true},"pingTimeout":60000,"pingInterval":25000,"transports":["websocket","polling"],"allowUpgrades":true,"connectTimeout":45000,"maxHttpBufferSize":100000000,"path":"/socket.io","connectionStateRecovery":{"maxDisconnectionDuration":120000,"skipMiddlewares":true},"cleanupEmptyChildNamespaces":false}
+2025-05-10T11:10:48.176Z - WATCHDOG: App error: 2025-05-10T11:10:48.175Z socket.io:server attaching client serving req handler
+2025-05-10T11:10:48.178Z - WATCHDOG: App output: ✅ Server modules loaded successfully
+2025-05-10T11:10:48.179Z - WATCHDOG: App output: Server running at http://localhost:3001
+2025-05-10T11:10:48.181Z - WATCHDOG: App output: React app available at http://localhost:3001
+Starting laser time sequence from core module
+2025-05-10T11:10:48.182Z - WATCHDOG: App output: Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T11:10:48.183Z - WATCHDOG: App output: MIDI mappings loaded: {}
+2025-05-10T11:10:48.184Z - WATCHDOG: App output: Raw scenes data from file: []
+2025-05-10T11:10:48.185Z - WATCHDOG: App output: Scenes loaded: []
+2025-05-10T11:10:48.204Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
+2025-05-10T11:10:48.205Z - WATCHDOG: App output: Found 0 MIDI inputs:
+2025-05-10T11:10:48.215Z - WATCHDOG: App output: Opening OSC port...
+2025-05-10T11:10:48.238Z - WATCHDOG: App output: ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T11:10:48.240Z - WATCHDOG: App output: OSC Port is ready
+2025-05-10T11:10:48.343Z - WATCHDOG: App error: 2025-05-10T11:10:48.343Z socket.io:server incoming connection with id re_q6njQER63kMuvAAAA
+2025-05-10T11:10:48.346Z - WATCHDOG: App error: 2025-05-10T11:10:48.346Z socket.io:server incoming connection with id MTORh9YTLdSVIEZQAAAB
+2025-05-10T11:10:48.591Z - WATCHDOG: App error: 2025-05-10T11:10:48.591Z socket.io:server incoming connection with id r-sWU68oHgFelYyxAAAC
+2025-05-10T11:10:48.674Z - WATCHDOG: App error: 2025-05-10T11:10:48.674Z socket.io:client connecting to namespace /
+2025-05-10T11:10:48.675Z - WATCHDOG: App error: 2025-05-10T11:10:48.674Z socket.io:namespace adding socket to nsp /
+2025-05-10T11:10:48.676Z - WATCHDOG: App error: 2025-05-10T11:10:48.676Z socket.io:socket socket connected - writing packet
+2025-05-10T11:10:48.677Z - WATCHDOG: App error: 2025-05-10T11:10:48.676Z socket.io:socket join room mAbpT1YflsezbzQyAAAD
+2025-05-10T11:10:48.678Z - WATCHDOG: App output: A user connected
+2025-05-10T11:10:48.678Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
+2025-05-10T11:10:48.679Z - WATCHDOG: App output: Available MIDI Inputs: []
+2025-05-10T11:10:48.680Z - WATCHDOG: App output: Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:10:48.681Z - WATCHDOG: App output: MIDI interfaces found: []
+2025-05-10T11:10:48.682Z - WATCHDOG: App output: A user connected
+2025-05-10T11:10:48.875Z - WATCHDOG: App error: 2025-05-10T11:10:48.875Z socket.io:server incoming connection with id RugpjPuVE3Bei3_7AAAF
+2025-05-10T11:10:48.885Z - WATCHDOG: App error: 2025-05-10T11:10:48.885Z socket.io:client connecting to namespace /
+2025-05-10T11:10:48.885Z socket.io:namespace adding socket to nsp /
+2025-05-10T11:10:48.890Z - WATCHDOG: App error: 2025-05-10T11:10:48.889Z socket.io:socket socket connected - writing packet
+2025-05-10T11:10:48.889Z socket.io:socket join room 6q83BmCyBCLPt2V1AAAG
+2025-05-10T11:10:48.895Z - WATCHDOG: App output: A user connected
+2025-05-10T11:10:48.897Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
+2025-05-10T11:10:48.899Z - WATCHDOG: App output: Available MIDI Inputs: []
 Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-2025-05-10T10:27:09.399Z - WATCHDOG: App output: MIDI interfaces found: []
+MIDI interfaces found: []
+2025-05-10T11:10:48.902Z - WATCHDOG: App output: A user connected
+2025-05-10T11:10:49.251Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:49.954Z - WATCHDOG: Application started successfully
+2025-05-10T11:10:50.543Z - WATCHDOG: App error: 2025-05-10T11:10:50.543Z socket.io:server incoming connection with id 7JUvn7tNSWt75m0XAAAI
+2025-05-10T11:10:50.552Z - WATCHDOG: App error: 2025-05-10T11:10:50.552Z socket.io:client connecting to namespace /
+2025-05-10T11:10:50.557Z - WATCHDOG: App output: A user connected
+2025-05-10T11:10:50.560Z - WATCHDOG: App error: 2025-05-10T11:10:50.552Z socket.io:namespace adding socket to nsp /
+2025-05-10T11:10:50.554Z socket.io:socket socket connected - writing packet
+2025-05-10T11:10:50.554Z socket.io:socket join room u-l9fPqZkET01_tpAAAJ
+
+MidiInWinMM::initialize: no MIDI input devices currently available.
+2025-05-10T11:10:50.565Z - WATCHDOG: App output: Available MIDI Inputs: []
+Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:10:50.572Z - WATCHDOG: App output: MIDI interfaces found: []
 A user connected
-2025-05-10T10:27:10.254Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:10.445Z - WATCHDOG: Application started successfully
-2025-05-10T10:27:15.254Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:20.269Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:25.272Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:30.304Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:35.299Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:40.320Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:45.319Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:50.318Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:27:55.331Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:00.332Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:05.334Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:10.334Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:13.172Z - WATCHDOG: App error: 2025-05-10T10:28:13.171Z socket.io:server incoming connection with id yAfw0Hh3afGbQ1AcAAAG
-2025-05-10T10:28:13.177Z - WATCHDOG: App error: 2025-05-10T10:28:13.176Z socket.io:client connecting to namespace /
-2025-05-10T10:28:13.176Z socket.io:namespace adding socket to nsp /
-2025-05-10T10:28:13.179Z - WATCHDOG: App error: 2025-05-10T10:28:13.178Z socket.io:socket socket connected - writing packet
-2025-05-10T10:28:13.178Z socket.io:socket join room gWuF3XbmQhdKNgYCAAAH
-2025-05-10T10:28:13.181Z - WATCHDOG: App output: A user connected
-2025-05-10T10:28:13.182Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
-2025-05-10T10:28:13.183Z - WATCHDOG: App output: Available MIDI Inputs: []
+2025-05-10T11:10:54.261Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:59.255Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:10:59.941Z - WATCHDOG: App error: 2025-05-10T11:10:59.940Z socket.io:client client close with reason transport close
+2025-05-10T11:10:59.944Z - WATCHDOG: App error: 2025-05-10T11:10:59.941Z socket.io:socket closing socket - reason transport close
+2025-05-10T11:10:59.942Z socket.io:socket connection state recovery is enabled for sid mAbpT1YflsezbzQyAAAD
+2025-05-10T11:10:59.947Z - WATCHDOG: App output: User disconnected (transport close)
+2025-05-10T11:10:59.951Z - WATCHDOG: App output: User disconnected
+2025-05-10T11:11:00.203Z - WATCHDOG: App error: 2025-05-10T11:11:00.202Z socket.io:server incoming connection with id -VQbsct9AwUS3jSmAAAL
+2025-05-10T11:11:00.240Z - WATCHDOG: App error: 2025-05-10T11:11:00.240Z socket.io:client connecting to namespace /
+2025-05-10T11:11:00.241Z - WATCHDOG: App error: 2025-05-10T11:11:00.240Z socket.io:namespace adding socket to nsp /
+2025-05-10T11:11:00.241Z socket.io:socket socket connected - writing packet
+2025-05-10T11:11:00.241Z socket.io:socket join room GduHxFqTbijKRm8MAAAM
+2025-05-10T11:11:00.242Z - WATCHDOG: App output: A user connected
+2025-05-10T11:11:00.243Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
+2025-05-10T11:11:00.244Z - WATCHDOG: App output: Available MIDI Inputs: []
 Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
-2025-05-10T10:28:13.184Z - WATCHDOG: App output: MIDI interfaces found: []
-2025-05-10T10:28:13.185Z - WATCHDOG: App output: A user connected
-2025-05-10T10:28:15.189Z - WATCHDOG: App error: 2025-05-10T10:28:15.188Z socket.io:client client close with reason transport close
-2025-05-10T10:28:15.193Z - WATCHDOG: App error: 2025-05-10T10:28:15.190Z socket.io:socket closing socket - reason transport close
-2025-05-10T10:28:15.190Z socket.io:socket connection state recovery is enabled for sid gWuF3XbmQhdKNgYCAAAH
-2025-05-10T10:28:15.203Z - WATCHDOG: App output: User disconnected (transport close)
-User disconnected
-2025-05-10T10:28:15.295Z - WATCHDOG: App error: 2025-05-10T10:28:15.295Z socket.io:server serve client source 304
-2025-05-10T10:28:15.310Z - WATCHDOG: App error: 2025-05-10T10:28:15.310Z socket.io:server incoming connection with id GnlVR8ucVkuQMEP8AAAJ
-2025-05-10T10:28:15.319Z - WATCHDOG: App error: 2025-05-10T10:28:15.319Z socket.io:client connecting to namespace /
-2025-05-10T10:28:15.320Z - WATCHDOG: App error: 2025-05-10T10:28:15.319Z socket.io:namespace adding socket to nsp /
-2025-05-10T10:28:15.319Z socket.io:socket socket connected - writing packet
-2025-05-10T10:28:15.319Z socket.io:socket join room utTuXrdDk3DdoC9TAAAK
-2025-05-10T10:28:15.322Z - WATCHDOG: App output: A user connected
-2025-05-10T10:28:15.323Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
-2025-05-10T10:28:15.324Z - WATCHDOG: App output: Available MIDI Inputs: []
+2025-05-10T11:11:00.246Z - WATCHDOG: App output: MIDI interfaces found: []
+2025-05-10T11:11:00.247Z - WATCHDOG: App output: A user connected
+2025-05-10T11:11:01.385Z - WATCHDOG: App error: 2025-05-10T11:11:01.384Z socket.io:client client close with reason transport close
+2025-05-10T11:11:01.390Z - WATCHDOG: App output: User disconnected (transport close)
+2025-05-10T11:11:01.393Z - WATCHDOG: App error: 2025-05-10T11:11:01.384Z socket.io:socket closing socket - reason transport close
+2025-05-10T11:11:01.385Z socket.io:socket connection state recovery is enabled for sid GduHxFqTbijKRm8MAAAM
+2025-05-10T11:11:01.398Z - WATCHDOG: App output: User disconnected
+2025-05-10T11:11:01.643Z - WATCHDOG: App error: 2025-05-10T11:11:01.643Z socket.io:server incoming connection with id aLCMBY51pJqsFm8cAAAO
+2025-05-10T11:11:01.671Z - WATCHDOG: App error: 2025-05-10T11:11:01.671Z socket.io:client connecting to namespace /
+2025-05-10T11:11:01.672Z - WATCHDOG: App error: 2025-05-10T11:11:01.671Z socket.io:namespace adding socket to nsp /
+2025-05-10T11:11:01.671Z socket.io:socket socket connected - writing packet
+2025-05-10T11:11:01.671Z socket.io:socket join room 5sB41B1jnPCHse2TAAAP
+2025-05-10T11:11:01.673Z - WATCHDOG: App output: A user connected
+2025-05-10T11:11:01.674Z - WATCHDOG: App error: MidiInWinMM::initialize: no MIDI input devices currently available.
+2025-05-10T11:11:01.674Z - WATCHDOG: App output: Available MIDI Inputs: []
 Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
 MIDI interfaces found: []
-2025-05-10T10:28:15.325Z - WATCHDOG: App output: A user connected
-2025-05-10T10:28:15.330Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:17.956Z - WATCHDOG: App error: 2025-05-10T10:28:17.955Z socket.io:client client close with reason transport close
-2025-05-10T10:28:17.959Z - WATCHDOG: App output: User disconnected (transport close)
-2025-05-10T10:28:17.963Z - WATCHDOG: App error: 2025-05-10T10:28:17.956Z socket.io:socket closing socket - reason transport close
-2025-05-10T10:28:17.956Z socket.io:socket connection state recovery is enabled for sid OeX4ecAAmfSasfhMAAAB
-2025-05-10T10:28:17.969Z - WATCHDOG: App output: User disconnected
-2025-05-10T10:28:20.340Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:25.345Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:30.344Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
-2025-05-10T10:28:35.353Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:01.675Z - WATCHDOG: App output: A user connected
+2025-05-10T11:11:04.278Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:09.287Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:14.278Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out

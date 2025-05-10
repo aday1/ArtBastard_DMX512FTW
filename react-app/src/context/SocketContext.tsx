@@ -29,7 +29,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       // Initialize socket with error handling
       console.log('Initializing Socket.IO connection');
       
-      const socketInstance = io({
+      const socketInstance = io(undefined, { // Added undefined as the first argument for URL, and options as second
         reconnectionAttempts: 5,
         reconnectionDelay: 1000,
         reconnectionDelayMax: 5000,
@@ -106,5 +106,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 };
 
 export const useSocket = () => useContext(SocketContext);
+
+export type { SocketContextType }; // Exporting type separately
 
 export default SocketContext;

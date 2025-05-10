@@ -1,7 +1,7 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Grid, PerspectiveCamera, useHelper } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Grid, PerspectiveCamera, useHelper, Html } from '@react-three/drei'; // Added Html import
 import { SpotLightHelper, Vector3, Color, Euler } from 'three';
 import { useStore } from '../../store';
 import styles from './FixtureVisualizer3D.module.scss';
@@ -11,7 +11,7 @@ export const FixtureVisualizer3D = () => {
 const Scene = () => {
     const fixtures = useStore(state => state.fixtures);
     const dmxChannels = useStore(state => state.dmxChannels);
-    return (_jsxs(_Fragment, { children: [_jsx(PerspectiveCamera, { makeDefault: true, position: [0, 5, 10] }), _jsx(OrbitControls, {}), _jsx("ambientLight", { intensity: 0.1 }), _jsx(Grid, { infiniteGrid: true, "position-y": -0.01 }), fixtures.map((fixture, index) => (_jsx(Fixture, { fixture: fixture, dmxChannels: dmxChannels }, index)))] }));
+    return (_jsxs(_Fragment, { children: [_jsx(PerspectiveCamera, { makeDefault: true, position: [0, 5, 10] }), _jsx(OrbitControls, {}), _jsx("ambientLight", { intensity: 0.5 }), _jsx(Grid, { infiniteGrid: true, "position-y": -0.01 }), fixtures.map((fixture, index) => (_jsx(Fixture, { fixture: fixture, dmxChannels: dmxChannels }, index)))] }));
 };
 const Fixture = ({ fixture, dmxChannels }) => {
     const spotlightRef = useRef(null);
@@ -34,20 +34,7 @@ const Fixture = ({ fixture, dmxChannels }) => {
     const rotation = new Euler(tilt, pan, 0);
     // Calculate intensity
     const intensity = Math.max(red, green, blue);
-    return (_jsxs("group", { position: position, rotation: rotation, onPointerOver: () => setHovered(true), onPointerOut: () => setHovered(false), children: [_jsx("spotLight", { ref: spotlightRef, position: [0, 0, 0], angle: 0.5, penumbra: 0.5, intensity: intensity * 2, color: new Color(red, green, blue) }), _jsxs("mesh", { children: [_jsx("boxGeometry", { args: [0.3, 0.3, 0.3] }), _jsx("meshStandardMaterial", { color: "black", emissive: new Color(red * intensity * 0.3, green * intensity * 0.3, blue * intensity * 0.3), roughness: 0.5, metalness: 0.8 })] }), _jsxs("mesh", { position: [0, 0, 0.2], children: [_jsx("cylinderGeometry", { args: [0.1, 0.1, 0.1, 32] }), _jsx("meshStandardMaterial", { color: "white", emissive: new Color(red, green, blue), roughness: 0.2, metalness: 0.5, transparent: true, opacity: 0.9 })] }), _jsx(Html, { position: [0, 0.5, 0], children: _jsx("div", { className: styles.fixtureLabel, children: fixture.name }) })] }));
-};
-const Html = ({ position, children }) => {
-    const ref = useRef(null);
-    useFrame(({ camera }) => {
-        if (ref.current) {
-            const pos = new Vector3(position[0], position[1], position[2]);
-            pos.project(camera);
-            // Convert to screen coordinates
-            const x = (pos.x * 0.5 + 0.5) * window.innerWidth;
-            const y = (-pos.y * 0.5 + 0.5) * window.innerHeight;
-            // Update element position
-            ref.current.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-        }
-    });
-    return (_jsx("div", { ref: ref, className: styles.htmlContent, style: { position: 'absolute' }, children: children }));
+    return (_jsxs("group", { position: position, rotation: rotation, onPointerOver: () => setHovered(true), onPointerOut: () => setHovered(false), children: [_jsx("spotLight", { ref: spotlightRef, position: new Vector3(0, 0, 0), angle: 0.5, penumbra: 0.5, intensity: intensity * 2, color: new Color(red, green, blue) }), _jsxs("mesh", { children: [_jsx("boxGeometry", { args: [0.3, 0.3, 0.3] }), _jsx("meshStandardMaterial", { color: "red" // Simplified color assignment
+                        , roughness: 0.5, metalness: 0.8 })] }), _jsxs("mesh", { position: new Vector3(0, 0, 0.2), children: [_jsx("cylinderGeometry", { args: [0.1, 0.1, 0.1, 32] }), _jsx("meshStandardMaterial", { color: "blue" // Simplified color assignment
+                        , roughness: 0.2, metalness: 0.5, transparent: true, opacity: 0.9 })] }), _jsx(Html, { position: new Vector3(0, 0.5, 0), children: _jsx("div", { className: styles.fixtureLabel, children: fixture.name }) })] }));
 };

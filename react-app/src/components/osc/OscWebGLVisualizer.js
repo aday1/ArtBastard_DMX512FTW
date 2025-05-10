@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useEffect, useState } from 'react';
 import { useSocket } from '../../context/SocketContext';
+import styles from './OscWebGLVisualizer.module.scss';
 // Vertex shader for particles
 const vertexShaderSource = `
   attribute vec3 aPosition;
@@ -209,69 +210,71 @@ export const OscWebGLVisualizer = () => {
         }
         return shader;
     };
-    // Update and render particles  const render = () => {
-    try {
-        const canvas = canvasRef.current;
-        if (!canvas)
-            return;
-        const gl = canvas.getContext('webgl');
-        if (!gl || !programInfoRef.current)
-            return;
-        // Update canvas size if needed
-        if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
-            canvas.width = canvas.clientWidth;
-            canvas.height = canvas.clientHeight;
-            gl.viewport(0, 0, canvas.width, canvas.height);
-        }
-        gl.clearColor(0.0, 0.0, 0.0, 0.0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        const programInfo = programInfoRef.current;
-        gl.useProgram(programInfo.program);
-        // Set up matrices
-        const projectionMatrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
-        const modelViewMatrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
-        gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
-        gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
-        gl.uniform1f(programInfo.uniformLocations.time, (Date.now() - startTimeRef.current) / 1000);
-        // Create buffers for particle data
-        const positions = new Float32Array(particlesRef.current.flatMap(p => p.position));
-        const velocities = new Float32Array(particlesRef.current.flatMap(p => p.velocity));
-        const lives = new Float32Array(particlesRef.current.map(p => p.life));
-        const colors = new Float32Array(particlesRef.current.flatMap(p => p.color));
-        const sizes = new Float32Array(particlesRef.current.map(p => p.size));
-        // Update buffers
-        const updateBuffer = (data, attribLocation, size) => {
-            const buffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-            gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-            gl.vertexAttribPointer(attribLocation, size, gl.FLOAT, false, 0, 0);
-            gl.enableVertexAttribArray(attribLocation);
-        };
-        updateBuffer(positions, programInfo.attribLocations.position, 3);
-        updateBuffer(velocities, programInfo.attribLocations.velocity, 3);
-        updateBuffer(lives, programInfo.attribLocations.life, 1);
-        updateBuffer(colors, programInfo.attribLocations.color, 3);
-        updateBuffer(sizes, programInfo.attribLocations.size, 1);
-        // Draw particles
-        gl.drawArrays(gl.POINTS, 0, particlesRef.current.length);
-        // Update particle life and remove dead particles
-        particlesRef.current = particlesRef.current.filter(p => {
-            p.life = (p.life + 0.016) % 1; // Increment life, loop back to 0 at 1
-            return p.life > 0; // Keep particle if still alive
-        });
-        // Continue animation
-        animationRef.current = requestAnimationFrame(render);
-    }
-    catch (error) {
-        console.error('Error in WebGL render loop:', error);
-        // Don't call requestAnimationFrame if there was an error to prevent error cascade
-        setTimeout(() => {
-            // Try to restart rendering after a short delay
+    // Update and render particles
+    const render = () => {
+        try {
+            const canvas = canvasRef.current;
+            if (!canvas)
+                return;
+            const gl = canvas.getContext('webgl');
+            if (!gl || !programInfoRef.current)
+                return;
+            // Update canvas size if needed
+            if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+                gl.viewport(0, 0, canvas.width, canvas.height);
+            }
+            gl.clearColor(0.0, 0.0, 0.0, 0.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            const programInfo = programInfoRef.current;
+            gl.useProgram(programInfo.program);
+            // Set up matrices
+            const projectionMatrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+            const modelViewMatrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+            gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
+            gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix);
+            gl.uniform1f(programInfo.uniformLocations.time, (Date.now() - startTimeRef.current) / 1000);
+            // Create buffers for particle data
+            const positions = new Float32Array(particlesRef.current.flatMap(p => p.position));
+            const velocities = new Float32Array(particlesRef.current.flatMap(p => p.velocity));
+            const lives = new Float32Array(particlesRef.current.map(p => p.life));
+            const colors = new Float32Array(particlesRef.current.flatMap(p => p.color));
+            const sizes = new Float32Array(particlesRef.current.map(p => p.size));
+            // Update buffers
+            const updateBuffer = (data, attribLocation, size) => {
+                const buffer = gl.createBuffer();
+                gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+                gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+                gl.vertexAttribPointer(attribLocation, size, gl.FLOAT, false, 0, 0);
+                gl.enableVertexAttribArray(attribLocation);
+            };
+            updateBuffer(positions, programInfo.attribLocations.position, 3);
+            updateBuffer(velocities, programInfo.attribLocations.velocity, 3);
+            updateBuffer(lives, programInfo.attribLocations.life, 1);
+            updateBuffer(colors, programInfo.attribLocations.color, 3);
+            updateBuffer(sizes, programInfo.attribLocations.size, 1);
+            // Draw particles
+            gl.drawArrays(gl.POINTS, 0, particlesRef.current.length);
+            // Update particle life and remove dead particles
+            particlesRef.current = particlesRef.current.filter(p => {
+                p.life = (p.life + 0.016) % 1; // Increment life, loop back to 0 at 1
+                return p.life > 0; // Keep particle if still alive
+            });
+            // Continue animation
             animationRef.current = requestAnimationFrame(render);
-        }, 2000);
-    }
+        }
+        catch (error) {
+            console.error('Error in WebGL render loop:', error);
+            // Don't call requestAnimationFrame if there was an error to prevent error cascade
+            setTimeout(() => {
+                // Try to restart rendering after a short delay
+                animationRef.current = requestAnimationFrame(render);
+            }, 2000);
+        }
+    }; // This inserted brace closes the 'render' arrow function body
+    return (_jsxs("div", { className: styles.visualizerContainer, children: [_jsx("canvas", { ref: canvasRef, className: styles.visualizer }), _jsx("div", { className: styles.messageOverlay, children: messages.map(msg => (_jsx("div", { className: `${styles.messageText} ${styles[msg.direction]} ${msg.fadeOut ? styles.fadeOut : ''}`, style: {
+                        left: `${msg.x}%`,
+                        top: `${msg.y}%`,
+                    }, children: msg.text }, msg.id))) })] }));
 };
-return (_jsxs("div", { className: styles.visualizerContainer, children: [_jsx("canvas", { ref: canvasRef, className: styles.visualizer }), _jsx("div", { className: styles.messageOverlay, children: messages.map(msg => (_jsx("div", { className: `${styles.messageText} ${styles[msg.direction]} ${msg.fadeOut ? styles.fadeOut : ''}`, style: {
-                    left: `${msg.x}%`,
-                    top: `${msg.y}%`,
-                }, children: msg.text }, msg.id))) })] }));

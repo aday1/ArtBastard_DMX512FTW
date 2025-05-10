@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Grid, PerspectiveCamera, useHelper } from '@react-three/drei'
+import { OrbitControls, Grid, PerspectiveCamera, useHelper, Html } from '@react-three/drei' // Added Html import
 import { SpotLightHelper, Vector3, Color, Euler } from 'three'
 import { useStore } from '../../store'
 import styles from './FixtureVisualizer3D.module.scss'
@@ -28,7 +28,7 @@ const Scene: React.FC = () => {
     <>
       <PerspectiveCamera makeDefault position={[0, 5, 10]} />
       <OrbitControls />
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.5} />
       
       <Grid infiniteGrid position-y={-0.01} />
       
@@ -84,7 +84,7 @@ const Fixture: React.FC<FixtureProps> = ({ fixture, dmxChannels }) => {
       {/* Light beam */}
       <spotLight
         ref={spotlightRef}
-        position={[0, 0, 0]}
+        position={new Vector3(0, 0, 0)}
         angle={0.5}
         penumbra={0.5}
         intensity={intensity * 2}
@@ -95,19 +95,17 @@ const Fixture: React.FC<FixtureProps> = ({ fixture, dmxChannels }) => {
       <mesh>
         <boxGeometry args={[0.3, 0.3, 0.3]} />
         <meshStandardMaterial
-          color="black"
-          emissive={new Color(red * intensity * 0.3, green * intensity * 0.3, blue * intensity * 0.3)}
+          color="red" // Simplified color assignment
           roughness={0.5}
           metalness={0.8}
         />
       </mesh>
       
       {/* Light lens */}
-      <mesh position={[0, 0, 0.2] as any}>
+      <mesh position={new Vector3(0, 0, 0.2)}>
         <cylinderGeometry args={[0.1, 0.1, 0.1, 32]} />
         <meshStandardMaterial
-          color="white"
-          emissive={new Color(red, green, blue)}
+          color="blue" // Simplified color assignment
           roughness={0.2}
           metalness={0.5}
           transparent={true}
@@ -117,39 +115,9 @@ const Fixture: React.FC<FixtureProps> = ({ fixture, dmxChannels }) => {
       
       {/* Fixture name label */}
       <Html 
-        position={[0, 0.5, 0]} 
+        position={new Vector3(0, 0.5, 0)}
         children={<div className={styles.fixtureLabel}>{fixture.name}</div>}
       />
     </group>
-  )
-}
-
-// Html component to render HTML content in the 3D scene
-interface HtmlProps {
-  position: [number, number, number];
-  children: React.ReactNode;
-}
-
-const Html: React.FC<HtmlProps> = ({ position, children }) => {
-  const ref = useRef<HTMLDivElement>(null)
-  
-  useFrame(({ camera }) => {
-    if (ref.current) {
-      const pos = new Vector3(position[0], position[1], position[2])
-      pos.project(camera)
-      
-      // Convert to screen coordinates
-      const x = (pos.x * 0.5 + 0.5) * window.innerWidth
-      const y = (-pos.y * 0.5 + 0.5) * window.innerHeight
-      
-      // Update element position
-      ref.current.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`
-    }
-  })
-  
-  return (
-    <div ref={ref} className={styles.htmlContent} style={{ position: 'absolute' }}>
-      {children}
-    </div>
   )
 }
