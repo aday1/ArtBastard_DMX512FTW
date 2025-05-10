@@ -47,3 +47,78 @@
 2025-05-10T11:11:04.277Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 2025-05-10T11:11:09.281Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 2025-05-10T11:11:14.277Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:19.287Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:24.293Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:29.310Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:34.337Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:39.333Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:44.344Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:49.354Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:54.350Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:11:59.349Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:04.373Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:09.372Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:14.384Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:19.397Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:24.416Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:29.417Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:34.441Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:39.436Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:44.451Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:49.450Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:54.452Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:12:57.154Z - Available MIDI Inputs: []
+2025-05-10T11:12:57.156Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T11:12:59.464Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:13:04.473Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:13:09.468Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:13:14.474Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:13:19.475Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T11:13:24.501Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:50:30.351Z - ArtNet device at 192.168.1.199 is unreachable: connect ETIMEDOUT 192.168.1.199:6454
+2025-05-10T13:50:30.361Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:50:31.357Z - Uncaught Exception: send EHOSTUNREACH 192.168.1.199:6454
+Stack: Error: send EHOSTUNREACH 192.168.1.199:6454
+    at doSend (node:dgram:760:16)
+    at defaultTriggerAsyncIdScope (node:internal/async_hooks:464:18)
+    at afterDns (node:dgram:699:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+2025-05-10T13:50:32.361Z - Uncaught Exception: send EHOSTUNREACH 192.168.1.199:6454
+Stack: Error: send EHOSTUNREACH 192.168.1.199:6454
+    at doSend (node:dgram:760:16)
+    at defaultTriggerAsyncIdScope (node:internal/async_hooks:464:18)
+    at afterDns (node:dgram:699:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:91:21)
+2025-05-10T13:50:33.771Z - User disconnected (transport close)
+2025-05-10T13:50:33.773Z - User disconnected
+2025-05-10T13:50:34.376Z - User disconnected (transport close)
+2025-05-10T13:50:34.377Z - User disconnected
+2025-05-10T13:50:34.378Z - User disconnected (transport close)
+2025-05-10T13:50:34.379Z - User disconnected
+2025-05-10T13:50:34.492Z - A user connected
+2025-05-10T13:50:34.508Z - Available MIDI Inputs: []
+2025-05-10T13:50:34.509Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T13:50:34.509Z - MIDI interfaces found: []
+2025-05-10T13:50:34.510Z - A user connected
+2025-05-10T13:50:35.867Z - A user connected
+2025-05-10T13:50:35.868Z - Available MIDI Inputs: []
+2025-05-10T13:50:35.869Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T13:50:35.870Z - MIDI interfaces found: []
+2025-05-10T13:50:35.871Z - A user connected
+2025-05-10T13:50:35.934Z - A user connected
+2025-05-10T13:50:35.936Z - Available MIDI Inputs: []
+2025-05-10T13:50:35.937Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T13:50:35.938Z - MIDI interfaces found: []
+2025-05-10T13:50:35.939Z - A user connected
+2025-05-10T13:50:36.412Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:50:41.401Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:50:46.409Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:50:51.412Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:50:56.413Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:01.435Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:06.443Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:11.441Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:16.447Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:20.456Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:51:25.462Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:51:30.475Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
