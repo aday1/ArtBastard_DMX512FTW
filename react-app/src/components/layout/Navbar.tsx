@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useTheme } from '../../context/ThemeContext'
+import { NetworkStatus } from './NetworkStatus'
 import styles from './Navbar.module.scss'
 
 type ViewType = 'main' | 'midiOsc' | 'fixture' | 'scenes' | 'oscDebug' | 'misc'
@@ -79,20 +80,24 @@ export const Navbar: React.FC = () => {
       detail: { view }
     }))
   }
-
   return (
     <nav className={styles.navbar}>
-      {navItems.map((item) => (
-        <button
-          key={item.id}
-          className={`${styles.navButton} ${activeView === item.id ? styles.active : ''}`}
-          onClick={() => handleViewChange(item.id)}
-          title={item.title.standard}
-        >
-          <i className={`fas ${item.icon}`}></i>
-          <span>{item.title[theme]}</span>
-        </button>
-      ))}
+      <div className={styles.navButtons}>
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            className={`${styles.navButton} ${activeView === item.id ? styles.active : ''}`}
+            onClick={() => handleViewChange(item.id)}
+            title={item.title.standard}
+          >
+            <i className={`fas ${item.icon}`}></i>
+            <span>{item.title[theme]}</span>
+          </button>
+        ))}
+      </div>
+      <div className={styles.networkStatusContainer}>
+        <NetworkStatus compact={true} />
+      </div>
     </nav>
   )
 }
