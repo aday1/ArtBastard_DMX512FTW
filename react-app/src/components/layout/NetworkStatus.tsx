@@ -21,9 +21,10 @@ interface HealthStatus {
 interface Props {
   isModal?: boolean
   onClose?: () => void
+  compact?: boolean // Add compact prop for top bar display
 }
 
-export const NetworkStatus: React.FC<Props> = ({ isModal = false, onClose }) => {
+export const NetworkStatus: React.FC<Props> = ({ isModal = false, onClose, compact = false }) => {
   const { socket, connected } = useSocket()
   const { theme } = useTheme()
   const [health, setHealth] = useState<HealthStatus | null>(null)
@@ -144,6 +145,25 @@ export const NetworkStatus: React.FC<Props> = ({ isModal = false, onClose }) => 
       </div>
     </div>
   )
+
+  if (compact) {
+    return (
+      <div className={styles.compactView}>
+        <span className={styles.compactItem}>
+          <i className="fas fa-server"></i> {health?.serverStatus || 'Unknown'}
+        </span>
+        <span className={styles.compactItem}>
+          <i className="fas fa-plug"></i> {connected ? 'Connected' : 'Disconnected'}
+        </span>
+        <span className={styles.compactItem}>
+          <i className="fas fa-music"></i> {health?.midiDevicesConnected || 0} MIDI
+        </span>
+        <span className={styles.compactItem}>
+          <i className="fas fa-network-wired"></i> {health?.artnetStatus || 'Unknown'}
+        </span>
+      </div>
+    )
+  }
 
   if (isModal) {
     return showModal ? (
