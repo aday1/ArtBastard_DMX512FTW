@@ -210,3 +210,48 @@ MidiInWinMM::initialize: no MIDI input devices currently available.
 2025-05-10T13:51:20.459Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
 2025-05-10T13:51:25.463Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
 2025-05-10T13:51:30.476Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:51:35.493Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:51:41.509Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:46.510Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:51.533Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:56.528Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:01.533Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:06.539Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:11.557Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:16.556Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:21.571Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:26.589Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:31.601Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:36.590Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:41.603Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:43.781Z - WATCHDOG: App error: 2025-05-10T13:52:43.781Z socket.io:client client close with reason transport close
+2025-05-10T13:52:43.783Z - WATCHDOG: App output: User disconnected (transport close)
+User disconnected
+2025-05-10T13:52:43.785Z - WATCHDOG: App error: 2025-05-10T13:52:43.781Z socket.io:socket closing socket - reason transport close
+2025-05-10T13:52:43.781Z socket.io:socket connection state recovery is enabled for sid toUxRK7v2XIvZ-GMAAAU
+2025-05-10T13:52:44.292Z - WATCHDOG: App error: 2025-05-10T13:52:44.292Z socket.io:client client close with reason transport close
+2025-05-10T13:52:44.293Z - WATCHDOG: App error: 2025-05-10T13:52:44.293Z socket.io:socket closing socket - reason transport close
+2025-05-10T13:52:44.293Z socket.io:socket connection state recovery is enabled for sid 2Xu9PZY1O2Eg6OL1AAAW
+2025-05-10T13:52:44.295Z - WATCHDOG: App output: User disconnected (transport close)
+User disconnected
+2025-05-10T13:52:44.700Z - WATCHDOG: App error: 2025-05-10T13:52:44.700Z socket.io:client client close with reason transport close
+2025-05-10T13:52:44.705Z - WATCHDOG: App output: User disconnected (transport close)
+2025-05-10T13:52:44.708Z - WATCHDOG: App error: 2025-05-10T13:52:44.701Z socket.io:socket closing socket - reason transport close
+2025-05-10T13:52:44.701Z socket.io:socket connection state recovery is enabled for sid RAZaMwwOkFQl7HfnAAAY
+2025-05-10T13:52:44.713Z - WATCHDOG: App output: User disconnected
+2025-05-10T13:52:46.618Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:51.615Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:56.623Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:01.642Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:06.643Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:11.660Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:16.653Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:21.662Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:26.681Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:31.666Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:36.678Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:41.689Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:46.705Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:51.709Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:56.718Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:54:01.716Z - WATCHDOG: App output: ArtNet device at 192.168.1.199 is unreachable: Connection timed out

@@ -122,3 +122,39 @@ Stack: Error: send EHOSTUNREACH 192.168.1.199:6454
 2025-05-10T13:51:20.456Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
 2025-05-10T13:51:25.462Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
 2025-05-10T13:51:30.475Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:51:35.492Z - ArtNet device at 192.168.1.199 is unreachable: connect EHOSTUNREACH 192.168.1.199:6454
+2025-05-10T13:51:41.507Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:46.508Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:51.531Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:51:56.525Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:01.530Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:06.537Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:11.555Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:16.554Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:21.569Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:26.585Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:31.601Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:36.588Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:41.602Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:43.782Z - User disconnected (transport close)
+2025-05-10T13:52:43.782Z - User disconnected
+2025-05-10T13:52:44.293Z - User disconnected (transport close)
+2025-05-10T13:52:44.294Z - User disconnected
+2025-05-10T13:52:44.701Z - User disconnected (transport close)
+2025-05-10T13:52:44.704Z - User disconnected
+2025-05-10T13:52:46.616Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:51.614Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:52:56.622Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:01.641Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:06.641Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:11.658Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:16.652Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:21.661Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:26.681Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:31.665Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:36.677Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:41.688Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:46.703Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:51.708Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:53:56.716Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T13:54:01.715Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
