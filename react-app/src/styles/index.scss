@@ -1,3 +1,6 @@
+// Import font fallbacks for better loading performance
+@import './font-fallbacks.scss';
+
 // Base variables
 :root {
   // Light mode colors

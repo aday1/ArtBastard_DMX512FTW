@@ -397,17 +397,28 @@ export const FancyQuotes: React.FC<FancyQuotesProps> = ({
     const newIndex = Math.floor(Math.random() * luxuryQuotes.length);
     return newIndex !== currentQuoteIndex ? newIndex : (newIndex + 1) % luxuryQuotes.length;
   }, [currentQuoteIndex]);
-
   // Rotate quotes
   useEffect(() => {
     if (!animate) return;
     
+    console.log(`Setting up quote rotation with interval: ${intervalSeconds} seconds`);
+    
+    // Initial setup - ensure we have a valid starting quote
+    if (luxuryQuotes.length > 0) {
+      const initialIndex = Math.floor(Math.random() * luxuryQuotes.length);
+      setCurrentQuoteIndex(initialIndex);
+      setQuoteColor(luxuryQuotes[initialIndex]?.color || '#4ecdc4');
+      setIsVisible(true);
+    }
+    
     const intervalId = setInterval(() => {
+      console.log('Quote rotation triggered');
       setIsVisible(false);
       
       // After fade out, change the quote
       setTimeout(() => {
         const newIndex = getRandomQuoteIndex();
+        console.log(`New quote index: ${newIndex}`);
         setCurrentQuoteIndex(newIndex);
         setQuoteColor(luxuryQuotes[newIndex]?.color || '#4ecdc4');
         setIsVisible(true);
@@ -415,7 +426,10 @@ export const FancyQuotes: React.FC<FancyQuotesProps> = ({
       
     }, intervalSeconds * 1000);
     
-    return () => clearInterval(intervalId);
+    return () => {
+      console.log('Cleaning up quote rotation interval');
+      clearInterval(intervalId);
+    };
   }, [intervalSeconds, animate, getRandomQuoteIndex]);
 
   const currentQuote = luxuryQuotes[currentQuoteIndex];

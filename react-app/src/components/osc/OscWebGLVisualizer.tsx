@@ -280,13 +280,13 @@ export const OscWebGLVisualizer: React.FC = () => {
     return shader
   }
   
-  // Update and render particles
-  const render = () => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    
-    const gl = canvas.getContext('webgl')
-    if (!gl || !programInfoRef.current) return
+  // Update and render particles  const render = () => {
+    try {
+      const canvas = canvasRef.current
+      if (!canvas) return
+      
+      const gl = canvas.getContext('webgl')
+      if (!gl || !programInfoRef.current) return
     
     // Update canvas size if needed
     if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
@@ -339,9 +339,16 @@ export const OscWebGLVisualizer: React.FC = () => {
       p.life = (p.life + 0.016) % 1 // Increment life, loop back to 0 at 1
       return p.life > 0 // Keep particle if still alive
     })
-    
-    // Continue animation
+      // Continue animation
     animationRef.current = requestAnimationFrame(render)
+    } catch (error) {
+      console.error('Error in WebGL render loop:', error)
+      // Don't call requestAnimationFrame if there was an error to prevent error cascade
+      setTimeout(() => {
+        // Try to restart rendering after a short delay
+        animationRef.current = requestAnimationFrame(render)
+      }, 2000)
+    }
   }
   
   return (

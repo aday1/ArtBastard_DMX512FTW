@@ -9,6 +9,7 @@ const vertexShaderSource = `
   
   uniform mat4 uModelViewMatrix;
   uniform mat4 uProjectionMatrix;
+  uniform float uTime;
   
   varying highp vec2 vTextureCoord;
   
@@ -26,6 +27,7 @@ const fragmentShaderSource = `
   uniform sampler2D uDmxValues;
   uniform vec3 uColorStart;
   uniform vec3 uColorEnd;
+  uniform float uTime;
   
   void main() {
     float value = texture2D(uDmxValues, vTextureCoord).r;
@@ -51,6 +53,7 @@ interface WebGLProgramInfo {
     dmxValues: WebGLUniformLocation
     colorStart: WebGLUniformLocation
     colorEnd: WebGLUniformLocation
+    time: WebGLUniformLocation
   }
 }
 
@@ -104,8 +107,7 @@ export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
       console.error('Failed to initialize shader program')
       return
     }
-    
-    // Collect all the info needed to use the shader program
+      // Collect all the info needed to use the shader program
     programInfoRef.current = {
       program: shaderProgram,
       attribLocations: {
@@ -118,6 +120,7 @@ export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
         dmxValues: gl.getUniformLocation(shaderProgram, 'uDmxValues')!,
         colorStart: gl.getUniformLocation(shaderProgram, 'uColorStart')!,
         colorEnd: gl.getUniformLocation(shaderProgram, 'uColorEnd')!,
+        time: gl.getUniformLocation(shaderProgram, 'uTime')!,
       },
     }
     
@@ -301,56 +304,68 @@ export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
   
   // Render the scene
   const render = () => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    
-    const gl = canvas.getContext('webgl')
-    if (!gl || !programInfoRef.current || !textureRef.current) return
-    
-    gl.clearColor(0.0, 0.0, 0.0, 1.0)
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-    
-    const buffers = initBuffers(gl)
-    const programInfo = programInfoRef.current
-    
-    // Set up projection and model view matrices
-    const projectionMatrix = mat4Identity()
-    const modelViewMatrix = mat4Identity()
-    
-    // Bind position buffer
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position)
-    gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, 3, gl.FLOAT, false, 0, 0)
-    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition)
-    
-    // Bind texture coord buffer
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord)
-    gl.vertexAttribPointer(programInfo.attribLocations.textureCoord, 2, gl.FLOAT, false, 0, 0)
-    gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord)
-    
-    // Bind index buffer
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices)
-    
-    // Use shader program
-    gl.useProgram(programInfo.program)
-    
-    // Set uniforms
-    gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix)
-    gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix)
-    
-    // Set color gradient for visualization
-    gl.uniform3fv(programInfo.uniformLocations.colorStart, [0.0, 0.0, 0.2]) // Dark blue
-    gl.uniform3fv(programInfo.uniformLocations.colorEnd, [0.0, 1.0, 1.0])   // Cyan
-    
-    // Set up texture
-    gl.activeTexture(gl.TEXTURE0)
-    gl.bindTexture(gl.TEXTURE_2D, textureRef.current)
-    gl.uniform1i(programInfo.uniformLocations.dmxValues, 0)
-    
-    // Draw
-    gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0)
-    
-    // Continue animation
-    animationRef.current = requestAnimationFrame(render)
+    try {
+      const canvas = canvasRef.current
+      if (!canvas) return
+      
+      const gl = canvas.getContext('webgl')
+      if (!gl || !programInfoRef.current || !textureRef.current) return
+      
+      gl.clearColor(0.0, 0.0, 0.0, 1.0)
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+      
+      const buffers = initBuffers(gl)
+      const programInfo = programInfoRef.current
+      
+      // Set up projection and model view matrices
+      const projectionMatrix = mat4Identity()
+      const modelViewMatrix = mat4Identity()
+      
+      // Bind position buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position)
+      gl.vertexAttribPointer(programInfo.attribLocations.vertexPosition, 3, gl.FLOAT, false, 0, 0)
+      gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition)
+      
+      // Bind texture coord buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord)
+      gl.vertexAttribPointer(programInfo.attribLocations.textureCoord, 2, gl.FLOAT, false, 0, 0)
+      gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord)
+      
+      // Bind index buffer
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices)
+      
+      // Use shader program
+      gl.useProgram(programInfo.program)
+      
+      // Set uniforms
+      gl.uniformMatrix4fv(programInfo.uniformLocations.projectionMatrix, false, projectionMatrix)
+      gl.uniformMatrix4fv(programInfo.uniformLocations.modelViewMatrix, false, modelViewMatrix)
+      
+      // Set color gradient for visualization
+      gl.uniform3fv(programInfo.uniformLocations.colorStart, [0.0, 0.0, 0.2]) // Dark blue
+      gl.uniform3fv(programInfo.uniformLocations.colorEnd, [0.0, 1.0, 1.0])   // Cyan
+      
+      // Set uTime uniform
+      gl.uniform1f(programInfo.uniformLocations.time, Date.now() - startTimeRef.current)
+      
+      // Set up texture
+      gl.activeTexture(gl.TEXTURE0)
+      gl.bindTexture(gl.TEXTURE_2D, textureRef.current)
+      gl.uniform1i(programInfo.uniformLocations.dmxValues, 0)
+      
+      // Draw
+      gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0)
+      
+      // Continue animation
+      animationRef.current = requestAnimationFrame(render)
+    } catch (error) {
+      console.error('Error in WebGL render loop:', error)
+      // Don't call requestAnimationFrame if there was an error to prevent error cascade
+      setTimeout(() => {
+        // Try to restart rendering after a short delay
+        animationRef.current = requestAnimationFrame(render)
+      }, 2000)
+    }
   }
   
   // Create a 4x4 identity matrix
@@ -374,8 +389,7 @@ export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
         <i className={`fas ${isSticky ? 'fa-thumbtack' : 'fa-map-pin'}`}></i>
         {isSticky ? 'Unpin' : 'Pin to top'}
       </button>
-      
-      {/* Notification that appears briefly when toggling sticky mode */}
+        {/* Notification that appears briefly when toggling sticky mode */}
       {showNotification && (
         <div className={styles.stickyNotification}>
           <i className={`fas ${isSticky ? 'fa-thumbtack' : 'fa-map-pin'}`}></i>

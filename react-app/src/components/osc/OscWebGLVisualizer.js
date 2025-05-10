@@ -1,7 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef, useEffect, useState } from 'react';
 import { useSocket } from '../../context/SocketContext';
-import styles from './OscWebGLVisualizer.module.scss';
 // Vertex shader for particles
 const vertexShaderSource = `
   attribute vec3 aPosition;
@@ -210,8 +209,8 @@ export const OscWebGLVisualizer = () => {
         }
         return shader;
     };
-    // Update and render particles
-    const render = () => {
+    // Update and render particles  const render = () => {
+    try {
         const canvas = canvasRef.current;
         if (!canvas)
             return;
@@ -262,9 +261,17 @@ export const OscWebGLVisualizer = () => {
         });
         // Continue animation
         animationRef.current = requestAnimationFrame(render);
-    };
-    return (_jsxs("div", { className: styles.visualizerContainer, children: [_jsx("canvas", { ref: canvasRef, className: styles.visualizer }), _jsx("div", { className: styles.messageOverlay, children: messages.map(msg => (_jsx("div", { className: `${styles.messageText} ${styles[msg.direction]} ${msg.fadeOut ? styles.fadeOut : ''}`, style: {
-                        left: `${msg.x}%`,
-                        top: `${msg.y}%`,
-                    }, children: msg.text }, msg.id))) })] }));
+    }
+    catch (error) {
+        console.error('Error in WebGL render loop:', error);
+        // Don't call requestAnimationFrame if there was an error to prevent error cascade
+        setTimeout(() => {
+            // Try to restart rendering after a short delay
+            animationRef.current = requestAnimationFrame(render);
+        }, 2000);
+    }
 };
+return (_jsxs("div", { className: styles.visualizerContainer, children: [_jsx("canvas", { ref: canvasRef, className: styles.visualizer }), _jsx("div", { className: styles.messageOverlay, children: messages.map(msg => (_jsx("div", { className: `${styles.messageText} ${styles[msg.direction]} ${msg.fadeOut ? styles.fadeOut : ''}`, style: {
+                    left: `${msg.x}%`,
+                    top: `${msg.y}%`,
+                }, children: msg.text }, msg.id))) })] }));
