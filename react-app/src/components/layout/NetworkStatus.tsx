@@ -145,20 +145,48 @@ export const NetworkStatus: React.FC<Props> = ({ isModal = false, onClose, compa
       </div>
     </div>
   )
-
   if (compact) {
+    // Calculate uptime in a readable format
+    const formatUptime = (seconds?: number): string => {
+      if (!seconds) return 'Unknown';
+      const days = Math.floor(seconds / (24 * 3600));
+      const hours = Math.floor((seconds % (24 * 3600)) / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      
+      let result = '';
+      if (days > 0) result += `${days}d `;
+      if (hours > 0 || days > 0) result += `${hours}h `;
+      result += `${minutes}m`;
+      
+      return result;
+    };
+    
     return (
       <div className={styles.compactView}>
-        <span className={styles.compactItem}>
-          <i className="fas fa-server"></i> {health?.serverStatus || 'Unknown'}
+        <span 
+          className={`${styles.compactItem} ${styles.statusIndicator}`}
+          title={`Server Status: ${health?.serverStatus || 'Unknown'}\nUptime: ${formatUptime(health?.uptime)}\nLast Update: ${lastUpdate?.toLocaleTimeString() || 'Unknown'}`}
+        >
+          <i className={`fas fa-server ${health?.serverStatus === 'ok' ? styles.statusOk : styles.statusDegraded}`}></i> 
+          {health?.serverStatus === 'ok' ? 'Online' : 'Degraded'}
         </span>
-        <span className={styles.compactItem}>
-          <i className="fas fa-plug"></i> {connected ? 'Connected' : 'Disconnected'}
+        <span 
+          className={`${styles.compactItem} ${styles.connectionIndicator}`}
+          title={`Socket Status: ${connected ? 'Connected' : 'Disconnected'}\nConnections: ${health?.socketConnections || 0}`}
+        >
+          <i className={`fas fa-plug ${connected ? styles.statusOk : styles.statusDegraded}`}></i> 
+          {connected ? 'Connected' : 'Disconnected'}
         </span>
-        <span className={styles.compactItem}>
+        <span 
+          className={`${styles.compactItem} ${styles.midiIndicator}`}
+          title={`MIDI Devices Connected: ${health?.midiDevicesConnected || 0}`}
+        >
           <i className="fas fa-music"></i> {health?.midiDevicesConnected || 0} MIDI
         </span>
-        <span className={styles.compactItem}>
+        <span 
+          className={`${styles.compactItem} ${styles.artnetIndicator}`}
+          title={`ArtNet Status: ${health?.artnetStatus || 'Unknown'}`}
+        >
           <i className="fas fa-network-wired"></i> {health?.artnetStatus || 'Unknown'}
         </span>
       </div>

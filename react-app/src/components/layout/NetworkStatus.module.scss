@@ -134,35 +134,85 @@
     font-size: 0.85rem;
     color: var(--text-secondary);
     white-space: nowrap;
+    transition: all 0.2s ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: default;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
 
     i {
       color: var(--text-primary);
       opacity: 0.8;
-    }
-
-    &.ok {
-      i {
-        color: #4caf50;
-      }
-    }
-
-    &.degraded {
-      i {
-        color: #f44336;
-      }
-    }
-
-    &.unknown {
-      i {
-        color: #ff9800;
-      }
+      transition: color 0.3s ease;
     }
   }
-
-  @media (max-width: 768px) {
-    .compactItem span {
-      display: none;
+  
+  .statusOk {
+    color: #4caf50 !important;
+    animation: pulse 2s infinite;
+  }
+  
+  .statusDegraded {
+    color: #f44336 !important;
+    animation: flashWarning 1.5s infinite;
+  }
+  
+  .statusIndicator,
+  .connectionIndicator,
+  .midiIndicator,
+  .artnetIndicator {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      height: 2px;
+      background-color: var(--accent-color, #4ecdc4);
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
+    
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes flashWarning {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .compactItem span {
+    display: none;
   }
 }
 

@@ -607,3 +607,138 @@
 2025-05-10T08:32:11.093Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 2025-05-10T08:32:16.093Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 2025-05-10T08:32:21.108Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:32:26.107Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:50:56.313Z - Server running at http://localhost:3001
+2025-05-10T08:50:56.314Z - React app available at http://localhost:3001
+2025-05-10T08:50:56.315Z - Starting laser time sequence from core module
+2025-05-10T08:50:56.317Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:50:56.317Z - MIDI mappings loaded: {}
+2025-05-10T08:50:56.318Z - Raw scenes data from file: []
+
+2025-05-10T08:50:56.318Z - Scenes loaded: []
+2025-05-10T08:50:56.337Z - Found 0 MIDI inputs: 
+2025-05-10T08:50:56.345Z - Opening OSC port...
+2025-05-10T08:50:56.364Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:50:56.367Z - OSC Port is ready
+2025-05-10T08:50:57.383Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:02.392Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:07.398Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:12.394Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:17.395Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:22.412Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:27.414Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:32.428Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:37.436Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:42.448Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:47.453Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:51:52.473Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:56:56.454Z - Server running at http://localhost:3001
+2025-05-10T08:56:56.455Z - React app available at http://localhost:3001
+2025-05-10T08:56:56.455Z - Starting laser time sequence from core module
+2025-05-10T08:56:56.456Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:56:56.456Z - MIDI mappings loaded: {}
+2025-05-10T08:56:56.457Z - Raw scenes data from file: []
+
+2025-05-10T08:56:56.457Z - Scenes loaded: []
+2025-05-10T08:56:56.475Z - Found 0 MIDI inputs: 
+2025-05-10T08:56:56.484Z - Opening OSC port...
+2025-05-10T08:56:56.504Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:56:56.507Z - OSC Port is ready
+2025-05-10T08:56:57.520Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:02.517Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:07.530Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:12.544Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:17.551Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:22.561Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:27.571Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:32.597Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:37.608Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:42.616Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:47.627Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:57:52.657Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:00.541Z - Server running at http://localhost:3001
+2025-05-10T08:59:00.543Z - React app available at http://localhost:3001
+2025-05-10T08:59:00.543Z - Starting laser time sequence from core module
+2025-05-10T08:59:00.544Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:59:00.544Z - MIDI mappings loaded: {}
+2025-05-10T08:59:00.545Z - Raw scenes data from file: []
+
+2025-05-10T08:59:00.545Z - Scenes loaded: []
+2025-05-10T08:59:00.564Z - Found 0 MIDI inputs: 
+2025-05-10T08:59:00.572Z - Opening OSC port...
+2025-05-10T08:59:00.590Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:59:00.593Z - OSC Port is ready
+2025-05-10T08:59:01.597Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:06.600Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:11.613Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:16.616Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:21.634Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:26.648Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:31.673Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:36.673Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:41.691Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:46.691Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:51.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:59:56.706Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:02.896Z - Server running at http://localhost:3001
+2025-05-10T09:00:02.898Z - React app available at http://localhost:3001
+2025-05-10T09:00:02.898Z - Starting laser time sequence from core module
+2025-05-10T09:00:02.899Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T09:00:02.899Z - MIDI mappings loaded: {}
+2025-05-10T09:00:02.900Z - Raw scenes data from file: []
+
+2025-05-10T09:00:02.900Z - Scenes loaded: []
+2025-05-10T09:00:02.920Z - Found 0 MIDI inputs: 
+2025-05-10T09:00:02.929Z - Opening OSC port...
+2025-05-10T09:00:02.947Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T09:00:02.951Z - OSC Port is ready
+2025-05-10T09:00:03.960Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:08.961Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:13.977Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:18.959Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:23.985Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:28.992Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:34.008Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:39.007Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:44.021Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:49.019Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:54.014Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:00:59.026Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:05.160Z - Server running at http://localhost:3001
+2025-05-10T09:01:05.161Z - React app available at http://localhost:3001
+2025-05-10T09:01:05.161Z - Starting laser time sequence from core module
+2025-05-10T09:01:05.163Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T09:01:05.164Z - MIDI mappings loaded: {}
+2025-05-10T09:01:05.165Z - Raw scenes data from file: []
+
+2025-05-10T09:01:05.165Z - Scenes loaded: []
+2025-05-10T09:01:05.182Z - Found 0 MIDI inputs: 
+2025-05-10T09:01:05.191Z - Opening OSC port...
+2025-05-10T09:01:05.208Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T09:01:05.211Z - OSC Port is ready
+2025-05-10T09:01:06.216Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:11.230Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:16.246Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:21.243Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:26.261Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:31.260Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:36.277Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:41.269Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:46.286Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:51.289Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:01:56.291Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:02:01.307Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:02:07.355Z - Server running at http://localhost:3001
+2025-05-10T09:02:07.357Z - React app available at http://localhost:3001
+2025-05-10T09:02:07.357Z - Starting laser time sequence from core module
+2025-05-10T09:02:07.358Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T09:02:07.358Z - MIDI mappings loaded: {}
+2025-05-10T09:02:07.359Z - Raw scenes data from file: []
+
+2025-05-10T09:02:07.359Z - Scenes loaded: []
+2025-05-10T09:02:07.377Z - Found 0 MIDI inputs: 
+2025-05-10T09:02:07.388Z - Opening OSC port...
+2025-05-10T09:02:07.419Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T09:02:07.425Z - OSC Port is ready
+2025-05-10T09:02:08.432Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T09:02:13.437Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out

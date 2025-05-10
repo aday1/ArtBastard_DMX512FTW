@@ -5,6 +5,7 @@ import { StatusBar } from './StatusBar'
 import { Navbar } from './Navbar'
 import { StatusMessage } from './StatusMessage'
 import { NetworkStatus } from './NetworkStatus'
+import FancyQuotes from './FancyQuotes'
 import styles from './Layout.module.scss'
 
 interface LayoutProps {
@@ -34,10 +35,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </h1>
           
           {theme === 'artsnob' && (
-            <div className={styles.artQuote}>
-              "Light is not merely illumination—it is the very essence of sublime expression."
-              <div className={styles.artSignature}>— Curator of Light</div>
-            </div>
+            <FancyQuotes intervalSeconds={30} animate={true} />
           )}
           
           {statusMessage && (

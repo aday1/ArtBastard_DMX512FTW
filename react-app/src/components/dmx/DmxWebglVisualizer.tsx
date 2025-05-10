@@ -66,11 +66,25 @@ export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
   const programInfoRef = useRef<WebGLProgramInfo | null>(null)
   const textureRef = useRef<WebGLTexture | null>(null)
   const startTimeRef = useRef<number>(Date.now())
-  const [isSticky, setIsSticky] = useState(sticky)
   
-  // Toggle sticky mode
+  // Initialize isSticky state from localStorage or props
+  const [isSticky, setIsSticky] = useState(() => {
+    const savedSticky = localStorage.getItem('dmxVisualizerSticky')
+    return savedSticky !== null ? savedSticky === 'true' : sticky
+  })
+  
+  // Add indicator notification state
+  const [showNotification, setShowNotification] = useState(false)
+  
+  // Toggle sticky mode and save to localStorage
   const toggleStickyMode = () => {
-    setIsSticky(!isSticky)
+    const newStickyState = !isSticky
+    setIsSticky(newStickyState)
+    localStorage.setItem('dmxVisualizerSticky', String(newStickyState))
+    
+    // Show notification briefly
+    setShowNotification(true)
+    setTimeout(() => setShowNotification(false), 2000)
   }
   
   // Initialize WebGL
@@ -348,13 +362,28 @@ export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
       0, 0, 0, 1,
     ]
   }
-    return (
+  
+  return (
     <div className={`${styles.visualizerContainer} ${isSticky ? styles.sticky : ''}`}>
       <canvas ref={canvasRef} className={styles.visualizer} />
-      <button className={styles.stickyToggle} onClick={toggleStickyMode}>
+      <button 
+        className={styles.stickyToggle} 
+        onClick={toggleStickyMode}
+        title={isSticky ? "Unpin visualizer (will scroll with page)" : "Pin visualizer to top (stays visible while scrolling)"}
+      >
         <i className={`fas ${isSticky ? 'fa-thumbtack' : 'fa-map-pin'}`}></i>
         {isSticky ? 'Unpin' : 'Pin to top'}
       </button>
+      
+      {/* Notification that appears briefly when toggling sticky mode */}
+      {showNotification && (
+        <div className={styles.stickyNotification}>
+          <i className={`fas ${isSticky ? 'fa-thumbtack' : 'fa-map-pin'}`}></i>
+          {isSticky 
+            ? 'Visualizer pinned - will stay visible while scrolling' 
+            : 'Visualizer unpinned - will scroll with page content'}
+        </div>
+      )}
     </div>
   )
 }
