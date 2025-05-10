@@ -1,11 +1,26 @@
 .navbar {
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
   background: var(--bg-secondary);
   border-radius: 8px;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .navButtons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .networkStatusContainer {
+    display: flex;
+    align-items: center;
+  }
 
   .navButton {
     display: inline-flex;

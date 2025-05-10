@@ -18,11 +18,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={`${styles.layout} ${styles[theme]} ${darkMode ? styles.dark : styles.light}`}>
       <Navbar />
-      
-      <div className={styles.contentWrapper}>
-        <div className={styles.statusPanel}>
-          <NetworkStatus />
-        </div>
+        <div className={styles.contentWrapper}>
+        {/* Network status is now in navbar, so this panel is removed */}
         
         <div className={styles.themeToggle} onClick={toggleDarkMode} title="Toggle Light/Dark Mode">
           <i className={`fas ${darkMode ? 'fa-moon' : 'fa-sun'}`}></i>

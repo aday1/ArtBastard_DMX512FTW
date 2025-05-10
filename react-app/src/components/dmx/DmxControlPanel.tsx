@@ -45,9 +45,8 @@ export const DmxControlPanel: React.FC = () => {
         {theme === 'standard' && 'DMX Channel Control'}
         {theme === 'minimal' && 'DMX Channels'}
       </h2>
-      
-      {/* WebGL DMX Visualizer */}
-      <DmxWebglVisualizer />
+        {/* WebGL DMX Visualizer with sticky option */}
+      <DmxWebglVisualizer sticky={true} />
       
       {/* Status bar showing active channels */}
       <div className={styles.statusBar}>

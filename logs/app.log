@@ -494,3 +494,116 @@
 2025-05-10T08:15:57.735Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 2025-05-10T08:16:02.735Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 2025-05-10T08:16:07.751Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:16:12.751Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:16:17.751Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:16:22.766Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:13.351Z - Server running at http://localhost:3001
+2025-05-10T08:23:13.352Z - React app available at http://localhost:3001
+2025-05-10T08:23:13.353Z - Starting laser time sequence from core module
+2025-05-10T08:23:13.353Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:23:13.354Z - MIDI mappings loaded: {}
+2025-05-10T08:23:13.354Z - Raw scenes data from file: []
+
+2025-05-10T08:23:13.354Z - Scenes loaded: []
+2025-05-10T08:23:13.371Z - Found 0 MIDI inputs: 
+2025-05-10T08:23:13.380Z - Opening OSC port...
+2025-05-10T08:23:13.396Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:23:13.399Z - OSC Port is ready
+2025-05-10T08:23:14.414Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:18.888Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-10T08:23:19.254Z - ✅ Server modules loaded successfully
+2025-05-10T08:23:19.255Z - ERROR: Port 3001 is already in use. Please close any applications using this port and try again.
+2025-05-10T08:23:19.412Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:24.427Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:29.426Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:32.192Z - A user connected
+2025-05-10T08:23:32.195Z - Available MIDI Inputs: []
+2025-05-10T08:23:32.196Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T08:23:32.196Z - MIDI interfaces found: []
+2025-05-10T08:23:32.197Z - A user connected
+2025-05-10T08:23:34.435Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:39.448Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:44.450Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:49.456Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:54.468Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:23:57.395Z - DMX channel 6 set to 69
+2025-05-10T08:23:57.510Z - DMX channel 6 set to 70
+2025-05-10T08:23:57.524Z - DMX channel 6 set to 76
+2025-05-10T08:23:57.541Z - DMX channel 6 set to 87
+2025-05-10T08:23:57.558Z - DMX channel 6 set to 97
+2025-05-10T08:23:57.574Z - DMX channel 6 set to 113
+2025-05-10T08:23:57.591Z - DMX channel 6 set to 144
+2025-05-10T08:23:57.610Z - DMX channel 6 set to 167
+2025-05-10T08:23:57.625Z - DMX channel 6 set to 183
+2025-05-10T08:23:57.642Z - DMX channel 6 set to 199
+2025-05-10T08:23:57.658Z - DMX channel 6 set to 208
+2025-05-10T08:23:57.674Z - DMX channel 6 set to 213
+2025-05-10T08:23:57.691Z - DMX channel 6 set to 217
+2025-05-10T08:23:57.708Z - DMX channel 6 set to 220
+2025-05-10T08:23:57.724Z - DMX channel 6 set to 231
+2025-05-10T08:23:57.741Z - DMX channel 6 set to 240
+2025-05-10T08:23:57.757Z - DMX channel 6 set to 247
+2025-05-10T08:23:57.774Z - DMX channel 6 set to 254
+2025-05-10T08:23:57.842Z - DMX channel 6 set to 255
+2025-05-10T08:23:59.478Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:24:04.480Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:24:05.733Z - DMX channel 505 set to 210
+2025-05-10T08:24:05.756Z - DMX channel 505 set to 208
+2025-05-10T08:24:05.773Z - DMX channel 505 set to 206
+2025-05-10T08:24:05.840Z - DMX channel 505 set to 208
+2025-05-10T08:24:06.040Z - DMX channel 505 set to 213
+2025-05-10T08:24:06.057Z - DMX channel 505 set to 215
+2025-05-10T08:24:06.074Z - DMX channel 505 set to 217
+2025-05-10T08:24:06.091Z - DMX channel 505 set to 218
+2025-05-10T08:24:06.124Z - DMX channel 505 set to 222
+2025-05-10T08:24:06.140Z - DMX channel 505 set to 224
+2025-05-10T08:24:06.156Z - DMX channel 505 set to 231
+2025-05-10T08:24:06.173Z - DMX channel 505 set to 240
+2025-05-10T08:24:06.189Z - DMX channel 505 set to 252
+2025-05-10T08:24:06.207Z - DMX channel 505 set to 255
+2025-05-10T08:24:09.504Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:30:54.530Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-10T08:30:54.900Z - ✅ Server modules loaded successfully
+2025-05-10T08:30:54.901Z - Server running at http://localhost:3001
+2025-05-10T08:30:54.901Z - React app available at http://localhost:3001
+2025-05-10T08:30:54.902Z - Starting laser time sequence from core module
+2025-05-10T08:30:54.904Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:30:54.905Z - MIDI mappings loaded: {}
+2025-05-10T08:30:54.906Z - Raw scenes data from file: []
+
+2025-05-10T08:30:54.906Z - Scenes loaded: []
+2025-05-10T08:30:54.925Z - Found 0 MIDI inputs: 
+2025-05-10T08:30:54.933Z - Opening OSC port...
+2025-05-10T08:30:54.950Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T08:30:54.953Z - OSC Port is ready
+2025-05-10T08:30:55.957Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:00.955Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:05.861Z - A user connected
+2025-05-10T08:31:05.863Z - Available MIDI Inputs: []
+2025-05-10T08:31:05.864Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T08:31:05.865Z - MIDI interfaces found: []
+2025-05-10T08:31:05.866Z - A user connected
+2025-05-10T08:31:05.971Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:11.002Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:13.098Z - Available MIDI Inputs: []
+2025-05-10T08:31:13.098Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T08:31:15.763Z - A user connected
+2025-05-10T08:31:15.764Z - Available MIDI Inputs: []
+2025-05-10T08:31:15.765Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T08:31:15.765Z - MIDI interfaces found: []
+2025-05-10T08:31:15.767Z - A user connected
+2025-05-10T08:31:16.000Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:21.017Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:22.859Z - DMX channel 6 set to 255
+2025-05-10T08:31:26.018Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:31.022Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:36.036Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:41.048Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:46.064Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:51.065Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:31:56.063Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:32:01.105Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:32:06.079Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:32:11.093Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:32:16.093Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T08:32:21.108Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
