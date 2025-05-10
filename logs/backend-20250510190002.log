@@ -1,0 +1,28 @@
+🚀 Starting ArtBastard DMX512FTW server from launcher
+Server running at http://localhost:3001
+React app available at http://localhost:3001
+Starting laser time sequence from core module
+Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+MIDI mappings loaded: {}
+Raw scenes data from file: []
+
+Scenes loaded: []
+
+MidiInWinMM::initialize: no MIDI input devices currently available.
+
+Found 0 MIDI inputs: 
+Opening OSC port...
+ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+OSC Port is ready
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+ArtNet device at 192.168.1.199 is unreachable: Connection timed out

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useTheme } from '../../context/ThemeContext'
 import { NetworkStatus } from './NetworkStatus'
+import { DmxChannelStats } from '../dmx/DmxChannelStats'
 import styles from './Navbar.module.scss'
 
 type ViewType = 'main' | 'midiOsc' | 'fixture' | 'scenes' | 'oscDebug' | 'misc'
@@ -93,10 +94,14 @@ export const Navbar: React.FC = () => {
             <i className={`fas ${item.icon}`}></i>
             <span>{item.title[theme]}</span>
           </button>
-        ))}
-      </div>
-      <div className={styles.networkStatusContainer}>
-        <NetworkStatus compact={true} />
+        ))}      </div>
+      <div className={styles.rightSideContainer}>
+        <div className={styles.dmxStatsContainer}>
+          <DmxChannelStats compact={true} />
+        </div>
+        <div className={styles.networkStatusContainer}>
+          <NetworkStatus compact={true} />
+        </div>
       </div>
     </nav>
   )

@@ -44,9 +44,8 @@ export const DmxControlPanel: React.FC = () => {
         {theme === 'artsnob' && 'DMX Channels: The Elemental Brushstrokes'}
         {theme === 'standard' && 'DMX Channel Control'}
         {theme === 'minimal' && 'DMX Channels'}
-      </h2>
-        {/* WebGL DMX Visualizer with sticky option */}
-      <DmxWebglVisualizer sticky={true} />
+      </h2>      {/* WebGL DMX Visualizer - sticky state will be managed by component */}
+      <DmxWebglVisualizer sticky={localStorage.getItem('dmxVisualizerSticky') !== 'false'} />
       
       {/* Status bar showing active channels */}
       <div className={styles.statusBar}>
