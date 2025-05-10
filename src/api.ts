@@ -2,8 +2,8 @@ import express, { RequestHandler, Request, Response, NextFunction } from 'expres
 import { Server } from 'socket.io';
 import fs from 'fs';
 import path from 'path';
+import { log } from './logger'; // Import from logger instead of index
 import { 
-  log, 
   setDmxChannel, 
   learnMidiMapping, 
   loadScene, 
@@ -34,8 +34,43 @@ declare global {
 // Create API router
 const apiRouter = express.Router();
 
+// Add error handling middleware to ensure all responses are valid JSON
+apiRouter.use((req, res, next) => {
+  // Store the original res.json function
+  const originalJson = res.json;
+  
+  // Override res.json to ensure it always sends valid JSON
+  res.json = function(data) {
+    // Make sure response has proper content type
+    res.contentType('application/json');
+    
+    // Ensure data is an object that can be serialized
+    if (data === undefined || data === null) {
+      data = {};
+    }
+    
+    // Call original json method with our processed data
+    return originalJson.call(this, data);
+  };
+  
+  // Continue with request chain
+  next();
+});
+
 // Middleware to parse JSON
 apiRouter.use(express.json());
+
+// Add global error handler for API routes
+apiRouter.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  log(`API error: ${err.message}`);
+  if (!res.headersSent) {
+    res.status(500).json({ 
+      error: `Server error: ${err.message}`, 
+      success: false 
+    });
+  }
+  next(err);
+});
 
 // Health check endpoint
 apiRouter.get('/health', (req, res) => {

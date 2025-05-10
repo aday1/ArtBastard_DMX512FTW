@@ -20,6 +20,9 @@ import path from 'path';
 import EffectsEngine from './effects';
 import ping from 'ping';
 
+// Import our separate logger to avoid circular dependencies
+import { log } from './logger';
+
 // Import dmxnet using ES6 import syntax
 import dmxnet from 'dmxnet';
 
@@ -96,35 +99,6 @@ let artNetConfig: ArtNetConfig = {
 
 // ArtNet sender
 let artnetSender: any;
-
-function log(message: string) {
-    const timestamp = new Date().toISOString();
-    const logMessage = `${timestamp} - ${message}\n`;
-
-    if (isLoggingEnabled) {
-        try {
-            // Ensure logs directory exists
-            if (!fs.existsSync(LOGS_DIR)) {
-                try {
-                    fs.mkdirSync(LOGS_DIR, { recursive: true });
-                } catch (error) {
-                    console.error(`Failed to create logs directory: ${error}`);
-                }
-            }
-            
-            // Check if log file is accessible/writeable
-            fs.appendFileSync(LOG_FILE, logMessage);
-        } catch (error) {
-            console.error(`Error writing to log file: ${error}`);
-            // Write to console if file logging fails
-            console.log(logMessage);
-        }
-    }
-
-    if (isConsoleLoggingEnabled) {
-        console.log(message);
-    }
-}
 
 function loadConfig() {
     if (fs.existsSync(CONFIG_FILE)) {
@@ -839,11 +813,10 @@ function startLaserTime(io: Server) {
     });
 }
 
-// Export all necessary functions
-// We don't need this separate function since we're integrating it directly into startLaserTime
+// Add these missing function declarations
 function addSocketHandlers(io: Server) {
-    // This is just a placeholder now - all handlers are set up in startLaserTime
     log('Socket handlers being initialized (via addSocketHandlers)');
+    // This is just a placeholder - all handlers are set up in startLaserTime
 }
 
 // Create a clearMidiMappings function
@@ -877,6 +850,7 @@ function updateArtNetConfig(config: Partial<ArtNetConfig>) {
     }
 }
 
+// Use proper ES6 named exports
 export {
     log,
     listMidiInterfaces,
@@ -889,14 +863,12 @@ export {
     connectMidiInput,
     disconnectMidiInput,
     addSocketHandlers,
-    // Export additional functions needed by the API
-    updateDmxChannel as setDmxChannel,
+    updateDmxChannel as setDmxChannel, // Export with alias
     loadScene,
     saveScene,
     loadScenes,
     saveScenes,
     pingArtNetDevice,
-    // New exports
     clearMidiMappings,
     updateArtNetConfig
 };

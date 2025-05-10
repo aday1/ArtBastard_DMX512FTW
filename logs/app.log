@@ -1,0 +1,398 @@
+2025-05-09T09:10:30.823Z - Server running at http://localhost:3000
+2025-05-09T09:10:30.827Z - React app available at http://localhost:3000
+2025-05-09T09:10:30.828Z - Original interface available at http://localhost:3000/public
+2025-05-09T09:10:30.829Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-09T09:10:30.830Z - MIDI mappings loaded: {}
+2025-05-09T09:10:30.831Z - Raw scenes data from file: []
+
+2025-05-09T09:10:30.832Z - Scenes loaded: []
+2025-05-09T09:10:30.857Z - Found 0 MIDI inputs: 
+2025-05-09T09:10:30.874Z - Opening OSC port...
+2025-05-09T09:10:30.913Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-09T09:10:30.918Z - OSC Port is ready
+2025-05-09T09:10:31.926Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-09T09:10:32.128Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.717Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.856Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.895Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.939Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.949Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.980Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:33.992Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.012Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.040Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.100Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.150Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.178Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.193Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.207Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.219Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.230Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.376Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.427Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.468Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.475Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:34.481Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.933Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-09T09:10:36.949Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.964Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.970Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.973Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.979Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.982Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.985Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.987Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.989Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.994Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:36.998Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.000Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.003Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.005Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.015Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.021Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.027Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.031Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.033Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.035Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:37.038Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:41.941Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-09T09:10:44.403Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.425Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.437Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.445Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.450Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.455Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.461Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.466Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.471Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.477Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.483Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.488Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.494Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.499Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.506Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.513Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.519Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.525Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.532Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.539Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:44.547Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.449Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.460Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.463Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.466Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.469Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.472Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.477Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.480Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.483Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.485Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.488Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.491Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.494Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.497Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.500Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.503Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.508Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.511Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.514Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.517Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.519Z - React app not built. Redirecting to original interface.
+2025-05-09T09:10:46.963Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-09T09:11:49.954Z - Available MIDI Inputs: []
+2025-05-09T09:11:49.956Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-09T10:00:17.955Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-09T10:00:17.957Z - ✅ Server modules loaded successfully
+2025-05-09T10:00:17.966Z - Server running at http://localhost:3000
+2025-05-09T10:00:17.966Z - React app available at http://localhost:3000
+2025-05-09T10:00:17.967Z - ERROR initializing application: (0 , index_1.startLaserTime) is not a function
+2025-05-09T10:00:17.967Z - Stack trace: TypeError: (0 , index_1.startLaserTime) is not a function
+    at Server.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:237:40)
+    at Object.onceWrapper (node:events:632:28)
+    at Server.emit (node:events:530:35)
+    at emitListeningNT (node:net:1982:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2025-05-09T10:09:30.270Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-09T10:09:30.566Z - ✅ Server modules loaded successfully
+2025-05-09T10:09:30.567Z - Server running at http://localhost:3000
+2025-05-09T10:09:30.568Z - React app available at http://localhost:3000
+2025-05-09T10:09:30.568Z - ERROR initializing application: (0 , index_1.startLaserTime) is not a function
+2025-05-09T10:09:30.569Z - Stack trace: TypeError: (0 , index_1.startLaserTime) is not a function
+    at Server.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:237:40)
+    at Object.onceWrapper (node:events:632:28)
+    at Server.emit (node:events:530:35)
+    at emitListeningNT (node:net:1982:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2025-05-09T10:17:12.089Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-09T10:17:12.365Z - ✅ Server modules loaded successfully
+2025-05-09T10:17:12.367Z - ERROR: Port 3000 is already in use. Please close any applications using this port and try again.
+2025-05-09T10:20:05.635Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-09T10:20:06.107Z - ✅ Server modules loaded successfully
+2025-05-09T10:20:06.112Z - Server running at http://localhost:3001
+2025-05-09T10:20:06.114Z - React app available at http://localhost:3001
+2025-05-09T10:20:06.115Z - ERROR initializing application: (0 , index_1.startLaserTime) is not a function
+2025-05-09T10:20:06.116Z - Stack trace: TypeError: (0 , index_1.startLaserTime) is not a function
+    at Server.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:237:40)
+    at Object.onceWrapper (node:events:632:28)
+    at Server.emit (node:events:530:35)
+    at emitListeningNT (node:net:1982:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2025-05-10T06:53:50.981Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-10T06:53:50.983Z - ✅ Server modules loaded successfully
+2025-05-10T06:53:50.997Z - Server running at http://localhost:3001
+2025-05-10T06:53:50.998Z - React app available at http://localhost:3001
+2025-05-10T06:53:50.999Z - ERROR initializing application: (0 , index_1.startLaserTime) is not a function
+2025-05-10T06:53:50.999Z - Stack trace: TypeError: (0 , index_1.startLaserTime) is not a function
+    at Server.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:237:40)
+    at Object.onceWrapper (node:events:632:28)
+    at Server.emit (node:events:530:35)
+    at emitListeningNT (node:net:1982:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+2025-05-10T07:36:59.584Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-10T07:37:00.530Z - ✅ Server modules loaded successfully
+2025-05-10T07:37:00.531Z - Server running at http://localhost:3001
+2025-05-10T07:37:00.532Z - React app available at http://localhost:3001
+2025-05-10T07:37:00.532Z - Starting laser time sequence from core module
+2025-05-10T07:37:00.534Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T07:37:00.537Z - MIDI mappings loaded: {}
+2025-05-10T07:37:00.540Z - Raw scenes data from file: []
+
+2025-05-10T07:37:00.542Z - Scenes loaded: []
+2025-05-10T07:37:00.576Z - Found 0 MIDI inputs: 
+2025-05-10T07:37:00.592Z - Opening OSC port...
+2025-05-10T07:37:00.633Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T07:37:00.639Z - OSC Port is ready
+2025-05-10T07:37:01.646Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:06.651Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:11.667Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:16.668Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:21.683Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:26.686Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:31.692Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:36.713Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:41.715Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:46.744Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:51.744Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:37:56.745Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:01.745Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:06.747Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:11.764Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:16.775Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:21.776Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:26.775Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:31.789Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:36.790Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:41.805Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:46.808Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:51.807Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:38:56.823Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:01.823Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:06.836Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:11.840Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:16.851Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:21.853Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:26.884Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:31.884Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:36.899Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:41.886Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:46.898Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:51.900Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:39:56.900Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:01.913Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:06.920Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:11.926Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:16.929Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:21.944Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:26.960Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:31.978Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:36.961Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:41.977Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:46.990Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:52.006Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:40:57.022Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:02.023Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:07.037Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:12.054Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:17.070Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:22.069Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:27.077Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:32.086Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:37.095Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:42.114Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:47.119Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:52.132Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:41:57.162Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:02.161Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:07.161Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:12.162Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:17.178Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:22.177Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:22.595Z - A user connected
+2025-05-10T07:42:22.597Z - Available MIDI Inputs: []
+2025-05-10T07:42:22.598Z - Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+2025-05-10T07:42:22.599Z - MIDI interfaces found: []
+2025-05-10T07:42:22.600Z - A user connected
+2025-05-10T07:42:27.193Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:32.207Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:32.370Z - User disconnected (transport close)
+2025-05-10T07:42:32.371Z - User disconnected
+2025-05-10T07:42:37.208Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:42.211Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:47.233Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:52.238Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:42:57.236Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:02.256Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:07.254Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:12.271Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:17.270Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:22.286Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:27.286Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:32.302Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:37.317Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:42.334Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:47.319Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:52.333Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:43:57.334Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:02.348Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:07.363Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:12.378Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:17.380Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:22.395Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:27.410Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:32.411Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:37.444Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:42.460Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:47.461Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:52.458Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:44:57.475Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:02.471Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:07.473Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:12.489Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:17.503Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:22.520Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:27.520Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:32.536Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:37.552Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:42.552Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:47.553Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:52.584Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:45:57.583Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:02.601Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:07.616Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:12.631Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:17.645Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:22.648Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:27.685Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:32.679Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:37.679Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:42.679Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:47.678Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:52.691Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:46:57.692Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:02.707Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:07.702Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:12.706Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:17.725Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:22.737Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:27.735Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:32.738Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:37.753Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:42.754Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:47.769Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:52.770Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:47:57.785Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:02.801Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:07.800Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:12.807Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:17.815Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:22.826Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:27.830Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:32.830Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:37.847Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:42.849Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:47.852Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:52.860Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:48:57.877Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:02.891Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:07.892Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:12.925Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:17.925Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:22.937Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:27.926Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:32.954Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:37.955Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:42.955Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:47.973Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:52.972Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:49:57.984Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:02.986Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:08.035Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:13.035Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:18.049Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:23.036Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:28.052Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:33.058Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:38.065Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:43.066Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:48.078Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:53.095Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:50:58.112Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:03.144Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:08.159Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:13.143Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:18.159Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:23.176Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:28.190Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:33.191Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:38.204Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:43.222Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:48.224Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:53.229Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:51:58.254Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:52:03.252Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:52:08.251Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:52:13.268Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:52:18.260Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:52:23.266Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:52:28.267Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:12.061Z - 🚀 Starting ArtBastard DMX512FTW server...
+2025-05-10T07:56:12.426Z - ✅ Server modules loaded successfully
+2025-05-10T07:56:12.427Z - Server running at http://localhost:3001
+2025-05-10T07:56:12.427Z - React app available at http://localhost:3001
+2025-05-10T07:56:12.428Z - Starting laser time sequence from core module
+2025-05-10T07:56:12.428Z - Config loaded: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T07:56:12.429Z - MIDI mappings loaded: {}
+2025-05-10T07:56:12.429Z - Raw scenes data from file: []
+
+2025-05-10T07:56:12.430Z - Scenes loaded: []
+2025-05-10T07:56:12.447Z - Found 0 MIDI inputs: 
+2025-05-10T07:56:12.454Z - Opening OSC port...
+2025-05-10T07:56:12.469Z - ArtNet sender initialized with config: {"ip":"192.168.1.199","subnet":0,"universe":0,"net":0,"port":6454,"base_refresh_interval":1000}
+2025-05-10T07:56:12.472Z - OSC Port is ready
+2025-05-10T07:56:13.475Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:18.487Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:23.487Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:28.502Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:33.502Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:38.504Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:43.517Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:48.525Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:53.526Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:56:58.529Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:03.535Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:03.827Z - DMX channel 3 set to 251
+2025-05-10T07:57:03.829Z - DMX channel 3 set to 249
+2025-05-10T07:57:03.837Z - DMX channel 3 set to 247
+2025-05-10T07:57:03.969Z - DMX channel 3 set to 249
+2025-05-10T07:57:04.010Z - DMX channel 3 set to 255
+2025-05-10T07:57:08.552Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:13.571Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:18.577Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:23.578Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:28.594Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:33.593Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:38.607Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:43.608Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:48.608Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:53.608Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+2025-05-10T07:57:58.621Z - ArtNet device at 192.168.1.199 is unreachable: Connection timed out
