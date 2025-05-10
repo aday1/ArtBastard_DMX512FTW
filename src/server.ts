@@ -5,7 +5,8 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import { json } from 'body-parser';
-import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput, updateArtNetConfig, pingArtNetDevice, log } from './index';
+import { log } from './logger'; // Import from logger instead of index
+import { startLaserTime, listMidiInterfaces, connectMidiInput, disconnectMidiInput, updateArtNetConfig, pingArtNetDevice } from './core';
 import { apiRouter, setupSocketHandlers } from './api';
 
 // Declare global io instance for use in API routes
@@ -206,15 +207,6 @@ try {
     }
   }));
 
-  // For backward compatibility, also serve the original public directory
-  app.use('/public', express.static(path.join(__dirname, 'public'), {
-    setHeaders: (res, path) => {
-      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-      res.setHeader('Pragma', 'no-cache');
-      res.setHeader('Expires', '0');
-    }
-  }));
-
   // For any routes not handled by specific endpoints, serve the React app
   app.get('*', (req, res) => {
     const reactAppPath = path.join(__dirname, '..', 'react-app', 'dist', 'index.html');
@@ -223,9 +215,45 @@ try {
     if (fs.existsSync(reactAppPath)) {
       res.sendFile(reactAppPath);
     } else {
-      // If React app is not built, redirect to the original interface
-      log('React app not built. Redirecting to original interface.');
-      res.redirect('/public');
+      // If React app is not built, trigger a build first
+      log('React app not built. Building React app now...');
+      
+      try {
+        // Execute the build in a synchronous way
+        const buildResult = require('child_process').execSync(
+          'cd react-app && npm run build',
+          { stdio: 'inherit' }
+        );
+        
+        // After successful build, serve the React app
+        if (fs.existsSync(reactAppPath)) {
+          log('React app built successfully. Serving React app.');
+          res.sendFile(reactAppPath);
+        } else {
+          // Still not found, send an error
+          res.status(500).send(`
+            <html>
+              <body style="font-family: Arial, sans-serif; padding: 20px;">
+                <h1>React App Build Error</h1>
+                <p>Failed to build or find the React application.</p>
+                <p>Please run: <code>cd react-app && npm run build</code> manually.</p>
+              </body>
+            </html>
+          `);
+        }
+      } catch (error) {
+        // Build failed, send an error
+        log(`Error building React app: ${error}`);
+        res.status(500).send(`
+          <html>
+            <body style="font-family: Arial, sans-serif; padding: 20px;">
+              <h1>React App Build Error</h1>
+              <p>Failed to build React application: ${error}</p>
+              <p>Please check the console logs for more information.</p>
+            </body>
+          </html>
+        `);
+      }
     }
   });
 
@@ -233,11 +261,10 @@ try {
   setupSocketHandlers(io);
 
   // Start the server
-  const port = 3000;  // Changed from 3001 to avoid conflict with frontend
+  const port = 3001;  // Changed from 3000 to avoid port conflict
   server.listen(port, () => {
     log(`Server running at http://localhost:${port}`);
     log(`React app available at http://localhost:${port}`);
-    log(`Original interface available at http://localhost:${port}/public`);
     
     // Initialize application with Socket.IO instance
     try {

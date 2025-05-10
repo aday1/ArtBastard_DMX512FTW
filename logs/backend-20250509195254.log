@@ -1,0 +1,11 @@
+🚀 Starting ArtBastard DMX512FTW server from launcher
+C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:101
+        (0, index_1.log)(`Uncaught Exception: ${err.message}\nStack: ${err.stack}`);
+                        ^
+
+TypeError: (0 , index_1.log) is not a function
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:101:25)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+
+Node.js v22.15.0
