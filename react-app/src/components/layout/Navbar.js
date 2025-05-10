@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
+import { NetworkStatus } from './NetworkStatus';
 import styles from './Navbar.module.scss';
 const navItems = [
     {
@@ -67,5 +68,5 @@ export const Navbar = () => {
             detail: { view }
         }));
     };
-    return (_jsx("nav", { className: styles.navbar, children: navItems.map((item) => (_jsxs("button", { className: `${styles.navButton} ${activeView === item.id ? styles.active : ''}`, onClick: () => handleViewChange(item.id), title: item.title.standard, children: [_jsx("i", { className: `fas ${item.icon}` }), _jsx("span", { children: item.title[theme] })] }, item.id))) }));
+    return (_jsxs("nav", { className: styles.navbar, children: [_jsx("div", { className: styles.navButtons, children: navItems.map((item) => (_jsxs("button", { className: `${styles.navButton} ${activeView === item.id ? styles.active : ''}`, onClick: () => handleViewChange(item.id), title: item.title.standard, children: [_jsx("i", { className: `fas ${item.icon}` }), _jsx("span", { children: item.title[theme] })] }, item.id))) }), _jsx("div", { className: styles.networkStatusContainer, children: _jsx(NetworkStatus, { compact: true }) })] }));
 };

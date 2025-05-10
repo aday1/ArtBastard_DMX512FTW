@@ -120,6 +120,52 @@
   }
 }
 
+// New compact view for the top navbar
+.compactView {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: transparent;
+
+  .compactItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+
+    i {
+      color: var(--text-primary);
+      opacity: 0.8;
+    }
+
+    &.ok {
+      i {
+        color: #4caf50;
+      }
+    }
+
+    &.degraded {
+      i {
+        color: #f44336;
+      }
+    }
+
+    &.unknown {
+      i {
+        color: #ff9800;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .compactItem span {
+      display: none;
+    }
+  }
+}
+
 // Dark theme variations
 :global([data-theme="dark"]) {
   .networkStatus {

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useStore } from '../../store'
 import styles from './DmxWebglVisualizer.module.scss'
 
@@ -54,7 +54,11 @@ interface WebGLProgramInfo {
   }
 }
 
-export const DmxWebglVisualizer: React.FC = () => {
+interface Props {
+  sticky?: boolean;
+}
+
+export const DmxWebglVisualizer: React.FC<Props> = ({ sticky = false }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const dmxChannels = useStore(state => state.dmxChannels)
   const selectedChannels = useStore(state => state.selectedChannels)
@@ -62,6 +66,12 @@ export const DmxWebglVisualizer: React.FC = () => {
   const programInfoRef = useRef<WebGLProgramInfo | null>(null)
   const textureRef = useRef<WebGLTexture | null>(null)
   const startTimeRef = useRef<number>(Date.now())
+  const [isSticky, setIsSticky] = useState(sticky)
+  
+  // Toggle sticky mode
+  const toggleStickyMode = () => {
+    setIsSticky(!isSticky)
+  }
   
   // Initialize WebGL
   useEffect(() => {
@@ -338,10 +348,13 @@ export const DmxWebglVisualizer: React.FC = () => {
       0, 0, 0, 1,
     ]
   }
-  
-  return (
-    <div className={styles.visualizerContainer}>
+    return (
+    <div className={`${styles.visualizerContainer} ${isSticky ? styles.sticky : ''}`}>
       <canvas ref={canvasRef} className={styles.visualizer} />
+      <button className={styles.stickyToggle} onClick={toggleStickyMode}>
+        <i className={`fas ${isSticky ? 'fa-thumbtack' : 'fa-map-pin'}`}></i>
+        {isSticky ? 'Unpin' : 'Pin to top'}
+      </button>
     </div>
   )
 }

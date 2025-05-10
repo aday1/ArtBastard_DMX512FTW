@@ -1,5 +1,5 @@
-import { jsx as _jsx } from "react/jsx-runtime";
-import { useRef, useEffect } from 'react';
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef, useEffect, useState } from 'react';
 import { useStore } from '../../store';
 import styles from './DmxWebglVisualizer.module.scss';
 // WebGL shader code
@@ -37,7 +37,7 @@ const fragmentShaderSource = `
     gl_FragColor = vec4(color, 1.0);
   }
 `;
-export const DmxWebglVisualizer = () => {
+export const DmxWebglVisualizer = ({ sticky = false }) => {
     const canvasRef = useRef(null);
     const dmxChannels = useStore(state => state.dmxChannels);
     const selectedChannels = useStore(state => state.selectedChannels);
@@ -45,6 +45,11 @@ export const DmxWebglVisualizer = () => {
     const programInfoRef = useRef(null);
     const textureRef = useRef(null);
     const startTimeRef = useRef(Date.now());
+    const [isSticky, setIsSticky] = useState(sticky);
+    // Toggle sticky mode
+    const toggleStickyMode = () => {
+        setIsSticky(!isSticky);
+    };
     // Initialize WebGL
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -273,5 +278,5 @@ export const DmxWebglVisualizer = () => {
             0, 0, 0, 1,
         ];
     };
-    return (_jsx("div", { className: styles.visualizerContainer, children: _jsx("canvas", { ref: canvasRef, className: styles.visualizer }) }));
+    return (_jsxs("div", { className: `${styles.visualizerContainer} ${isSticky ? styles.sticky : ''}`, children: [_jsx("canvas", { ref: canvasRef, className: styles.visualizer }), _jsxs("button", { className: styles.stickyToggle, onClick: toggleStickyMode, children: [_jsx("i", { className: `fas ${isSticky ? 'fa-thumbtack' : 'fa-map-pin'}` }), isSticky ? 'Unpin' : 'Pin to top'] })] }));
 };

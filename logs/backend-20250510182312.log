@@ -18,11 +18,52 @@ ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+A user connected
+
+MidiInWinMM::initialize: no MIDI input devices currently available.
+
+Available MIDI Inputs: []
+Available MIDI Outputs: ["Microsoft GS Wavetable Synth"]
+MIDI interfaces found: []
+A user connected
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+DMX channel 6 set to 69
+DMX channel 6 set to 70
+DMX channel 6 set to 76
+DMX channel 6 set to 87
+DMX channel 6 set to 97
+DMX channel 6 set to 113
+DMX channel 6 set to 144
+DMX channel 6 set to 167
+DMX channel 6 set to 183
+DMX channel 6 set to 199
+DMX channel 6 set to 208
+DMX channel 6 set to 213
+DMX channel 6 set to 217
+DMX channel 6 set to 220
+DMX channel 6 set to 231
+DMX channel 6 set to 240
+DMX channel 6 set to 247
+DMX channel 6 set to 254
+DMX channel 6 set to 255
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
+DMX channel 505 set to 210
+DMX channel 505 set to 208
+DMX channel 505 set to 206
+DMX channel 505 set to 208
+DMX channel 505 set to 213
+DMX channel 505 set to 215
+DMX channel 505 set to 217
+DMX channel 505 set to 218
+DMX channel 505 set to 222
+DMX channel 505 set to 224
+DMX channel 505 set to 231
+DMX channel 505 set to 240
+DMX channel 505 set to 252
+DMX channel 505 set to 255
 ArtNet device at 192.168.1.199 is unreachable: Connection timed out
