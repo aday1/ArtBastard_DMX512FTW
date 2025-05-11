@@ -1,16 +1,124 @@
-2025-05-11T12:27:26.593Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.668Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
     at _write (node:internal/streams/writable:501:10)
     at Writable.write (node:internal/streams/writable:510:10)
     at console.value (node:internal/console/constructor:298:16)
-    at console.error (node:internal/console/constructor:412:26)
-    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:42:21)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.670Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.670Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.671Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.672Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.672Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.673Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.674Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.674Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
+    at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
+    at process.emit (node:events:518:28)
+    at process._fatalException (node:internal/process/execution:154:25)
+2025-05-11T12:29:20.675Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+Stack: Error: EPIPE: broken pipe, write
+    at Socket._write (node:internal/net:63:18)
+    at writeOrBuffer (node:internal/streams/writable:572:12)
+    at _write (node:internal/streams/writable:501:10)
+    at Writable.write (node:internal/streams/writable:510:10)
+    at console.value (node:internal/console/constructor:298:16)
+    at console.log (node:internal/console/constructor:384:26)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.594Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.676Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -18,11 +126,11 @@ Stack: Error: EPIPE: broken pipe, write
     at Writable.write (node:internal/streams/writable:510:10)
     at console.value (node:internal/console/constructor:298:16)
     at console.log (node:internal/console/constructor:384:26)
-    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:44:21)
+    at log (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\logger.js:52:21)
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.595Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.676Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -34,7 +142,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.595Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.677Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -46,7 +154,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.596Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.677Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -58,7 +166,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.597Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.678Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -70,7 +178,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.597Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.679Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -82,7 +190,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.598Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.679Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -94,7 +202,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.598Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.680Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -106,7 +214,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.599Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.680Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -118,7 +226,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.600Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.681Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -130,7 +238,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.601Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.681Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -142,7 +250,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.603Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.682Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -154,7 +262,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.604Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.683Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -166,7 +274,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.605Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.683Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -178,7 +286,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.606Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.684Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -190,7 +298,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.607Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.684Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -202,7 +310,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.607Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.685Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -214,7 +322,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.608Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.686Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -226,7 +334,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.610Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.686Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -238,7 +346,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.612Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.687Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -250,7 +358,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.612Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.688Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -262,7 +370,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.613Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.688Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -274,7 +382,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.614Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.689Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -286,7 +394,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.615Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.690Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -298,7 +406,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.616Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.690Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -310,7 +418,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.616Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.691Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -322,7 +430,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.618Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.692Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -334,7 +442,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.619Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.692Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -346,7 +454,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.620Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.693Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -358,7 +466,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.621Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.694Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -370,7 +478,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.621Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.694Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -382,7 +490,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.622Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.695Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -394,7 +502,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.623Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.696Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -406,7 +514,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.623Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.696Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -418,7 +526,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.624Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.697Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -430,7 +538,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.625Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.698Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -442,7 +550,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.625Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.698Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -454,7 +562,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.626Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.699Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -466,7 +574,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.626Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.700Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -478,7 +586,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.627Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.701Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -490,7 +598,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.627Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.702Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -502,7 +610,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.628Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.702Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -514,7 +622,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.629Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.703Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -526,7 +634,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.630Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.703Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -538,7 +646,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.630Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.704Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -550,7 +658,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.631Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.704Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -562,7 +670,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.632Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.705Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -574,7 +682,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.632Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.705Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -586,7 +694,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.633Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.706Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -598,7 +706,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.635Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.707Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -610,7 +718,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.636Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.707Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -622,7 +730,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.637Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.708Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -634,7 +742,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.637Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.708Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -646,7 +754,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.638Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.709Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -658,7 +766,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.639Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.709Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -670,7 +778,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.639Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.710Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -682,7 +790,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.640Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.710Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -694,7 +802,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.640Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.711Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -706,7 +814,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.641Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.712Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -718,7 +826,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.641Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.713Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -730,7 +838,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.642Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.714Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -742,7 +850,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.642Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.714Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -754,7 +862,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.643Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.715Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -766,7 +874,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.643Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.716Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -778,7 +886,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.644Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.716Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -790,7 +898,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.644Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.717Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -802,7 +910,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.644Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.718Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -814,7 +922,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.645Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.719Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -826,7 +934,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.645Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.719Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -838,7 +946,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.646Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.720Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -850,7 +958,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.646Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.721Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -862,7 +970,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.647Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.721Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -874,7 +982,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.648Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.722Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -886,7 +994,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.648Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.723Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -898,7 +1006,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.649Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.724Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -910,7 +1018,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.649Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.724Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -922,7 +1030,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.650Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.725Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
@@ -934,7 +1042,7 @@ Stack: Error: EPIPE: broken pipe, write
     at process.<anonymous> (C:\Users\aday\Documents\GitHub\ArtBastard_DMX512FTW\dist\server.js:102:26)
     at process.emit (node:events:518:28)
     at process._fatalException (node:internal/process/execution:154:25)
-2025-05-11T12:27:26.651Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
+2025-05-11T12:29:20.726Z - [INFO] Uncaught Exception: EPIPE: broken pipe, write
 Stack: Error: EPIPE: broken pipe, write
     at Socket._write (node:internal/net:63:18)
     at writeOrBuffer (node:internal/streams/writable:572:12)
