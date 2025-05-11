@@ -33,6 +33,7 @@ $BranchName = "main"
 # Define paths to clean relative to the Git root
 $PathsToClean = @(
     "logs",
+    "logs_backup",
     "errors.log",
     "dist",                             # Backend build output
     "react-app/dist",                   # Frontend build output
@@ -46,12 +47,19 @@ Write-Host "Step 1: Cleaning project directories and files..." -ForegroundColor 
 foreach ($RelativePath in $PathsToClean) {
     $FullPath = Join-Path $GitRoot $RelativePath
     if (Test-Path $FullPath) {
-        Write-Host "Removing $FullPath..."
+        Write-Host "Attempting to remove $FullPath..."
         try {
+            if (($RelativePath -eq "logs" -or $RelativePath -eq "logs_backup") -and (Test-Path $FullPath -PathType Container)) {
+                Write-Host "Removing contents of $FullPath first..." -ForegroundColor DarkGray
+                Get-ChildItem -Path $FullPath -Recurse -Force | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+            }
             Remove-Item -Path $FullPath -Recurse -Force -ErrorAction Stop
             Write-Host "Successfully removed $FullPath." -ForegroundColor Green
         } catch {
-            Write-Warning "Could not remove $FullPath. Error: $($_.Exception.Message)"
+            Write-Warning "Could not fully remove $FullPath. Error: $($_.Exception.Message)"
+            if ($RelativePath -eq "logs" -or $RelativePath -eq "logs_backup") {
+                Write-Warning "This might be due to active log files. Ensure your application is not writing to these logs while the script runs."
+            }
         }
     } else {
         Write-Host "Path not found, skipping: $FullPath"
@@ -105,6 +113,31 @@ try {
         }
     } else {
         Write-Host "Changes committed." -ForegroundColor Green
+
+        # Add a status check here before pulling
+        Write-Host "Verifying working directory cleanliness after commit and before pull..." -ForegroundColor Magenta
+        $GitStatusCommandBeforePull = "git.exe status --porcelain"
+        Write-Host "EXECUTING: $GitStatusCommandBeforePull (to check for unexpected changes)" -ForegroundColor Gray
+        $StatusOutputBeforePull = Invoke-Expression $GitStatusCommandBeforePull
+        $StatusCheckExitCode = $LASTEXITCODE
+
+        if ($StatusCheckExitCode -ne 0) {
+            Write-Warning "git status --porcelain before pull failed with exit code $StatusCheckExitCode. Output: $StatusOutputBeforePull"
+            Write-Warning "Proceeding with pull, but this might indicate an issue."
+        } elseif ($StatusOutputBeforePull) {
+            Write-Warning "GIT STATUS BEFORE PULL IS NOT CLEAN:"
+            Write-Warning $StatusOutputBeforePull
+            Write-Warning "This means Git detects changes in your working directory even AFTER the commit."
+            Write-Warning "This is often caused by line-ending normalization (LF/CRLF issues) on Windows."
+            Write-Warning "These unexpected changes are likely why 'git pull --rebase' fails."
+            Write-Warning "RECOMMENDATIONS:"
+            Write-Warning "1. Ensure you have a '.gitattributes' file to manage line endings consistently."
+            Write-Warning "   Example for typical projects: '* text=auto eol=lf'"
+            Write-Warning "2. Check your Git 'core.autocrlf' setting (git config core.autocrlf)."
+            Write-Warning "Proceeding with pull, but it may fail or lead to conflicts."
+        } else {
+            Write-Host "Working directory is clean after commit and before pull." -ForegroundColor Green
+        }
     }
 } catch {
     Write-Error "GIT COMMIT FAILED: $($_.Exception.Message)"
