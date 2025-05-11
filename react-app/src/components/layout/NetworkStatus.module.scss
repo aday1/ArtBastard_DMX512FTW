@@ -151,13 +151,26 @@
   }
   
   .statusOk {
-    color: #4caf50 !important;
-    animation: pulse 2s infinite;
+    color: #4caf50 !important; // Green
   }
   
   .statusDegraded {
-    color: #f44336 !important;
+    color: #ff9f43 !important; // Orange for degraded/warning by default now
     animation: flashWarning 1.5s infinite;
+  }
+
+  .statusError {
+    color: #f44336 !important; // Specifically for errors - strong red
+    animation: flashError 1s infinite; // More urgent flash
+  }
+
+  .statusWarning {
+    color: #ff9f43 !important; // Orange/yellow for disconnected, timeout
+    animation: flashWarning 1.5s infinite;
+  }
+
+  .statusUnknown {
+    color: #9e9e9e !important; // Grey for unknown or not initialized
   }
   
   .statusIndicator,
@@ -165,6 +178,33 @@
   .midiIndicator,
   .artnetIndicator {
     position: relative;
+    padding: 4px 8px; // Ensure padding is consistent
+    border-radius: 4px; // Ensure border-radius is consistent
+    
+    &.statusOkBackground {
+      background-color: rgba(76, 175, 80, 0.15); // Light green background
+      &:hover {
+        background-color: rgba(76, 175, 80, 0.25);
+      }
+    }
+    &.statusWarningBackground {
+      background-color: rgba(255, 159, 67, 0.15); // Light orange background
+      &:hover {
+        background-color: rgba(255, 159, 67, 0.25);
+      }
+    }
+    &.statusErrorBackground {
+      background-color: rgba(244, 67, 54, 0.15); // Light red background
+      &:hover {
+        background-color: rgba(244, 67, 54, 0.25);
+      }
+    }
+    &.statusUnknownBackground {
+      background-color: rgba(158, 158, 158, 0.1); // Light grey background
+      &:hover {
+        background-color: rgba(158, 158, 158, 0.2);
+      }
+    }
     
     &::after {
       content: '';
@@ -185,6 +225,12 @@
   }
 }
 
+// Add a specific class for the ArtNet status text if needed for further styling
+.artnetStatusText {
+  margin-left: 0.25rem; // Add a small space between icon and text
+  font-weight: 500; // Make text slightly bolder
+}
+
 @keyframes pulse {
   0% {
     opacity: 0.8;
@@ -199,14 +245,26 @@
 
 @keyframes flashWarning {
   0% {
-    opacity: 0.8;
+    opacity: 0.7;
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+    text-shadow: 0 0 4px rgba(255, 159, 67, 0.4);
   }
   100% {
-    opacity: 0.8;
+    opacity: 0.7;
+  }
+}
+
+@keyframes flashError {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 6px rgba(244, 67, 54, 0.6);
+    transform: scale(1.05);
   }
 }
 

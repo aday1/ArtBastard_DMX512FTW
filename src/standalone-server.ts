@@ -14,6 +14,7 @@ import easymidi from 'easymidi';
 import os from 'os';
 import { UDPPort } from 'osc';
 import dmxnet from 'dmxnet';
+import { log } from './logger'; // Import the new logger
 
 // Constants and configurations
 const DATA_DIR = path.join(__dirname, '..', 'data');
@@ -21,31 +22,6 @@ const SCENES_FILE = path.join(DATA_DIR, 'scenes.json');
 const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
 const LOGS_DIR = path.join(__dirname, '..', 'logs');
 const LOG_FILE = path.join(LOGS_DIR, 'app.log');
-
-// --- Logger Implementation (Inlined to avoid circular deps) ---
-function log(message: string): void {
-    const timestamp = new Date().toISOString();
-    const logMessage = `${timestamp} - ${message}\n`;
-
-    try {
-        // Ensure logs directory exists
-        if (!fs.existsSync(LOGS_DIR)) {
-            try {
-                fs.mkdirSync(LOGS_DIR, { recursive: true });
-            } catch (error) {
-                console.error(`Failed to create logs directory: ${error}`);
-            }
-        }
-        
-        // Write to log file
-        fs.appendFileSync(LOG_FILE, logMessage);
-    } catch (error) {
-        console.error(`Error writing to log file: ${error}`);
-    }
-
-    // Always log to console
-    console.log(message);
-}
 
 // --- Types (Inlined from various files) ---
 interface MidiMessage {
@@ -107,7 +83,7 @@ let midiInput: easymidi.Input | null = null;
 let currentMidiLearnChannel: number | null = null;
 let currentMidiLearnScene: string | null = null;
 let midiLearnTimeout: NodeJS.Timeout | null = null;
-let activeMidiInputs: {[name: string]: easymidi.Input} = {};
+let activeMidiInputs: { [name: string]: easymidi.Input } = {};
 let artNetConfig: ArtNetConfig = {
     ip: "192.168.1.199",
     subnet: 0,
@@ -125,8 +101,8 @@ function loadConfig() {
         const parsedConfig = JSON.parse(data);
         artNetConfig = { ...artNetConfig, ...parsedConfig.artNetConfig };
         midiMappings = parsedConfig.midiMappings || {};
-        log('Config loaded: ' + JSON.stringify(artNetConfig));
-        
+        log('Config loaded', 'INFO', { artNetConfig });
+
         return {
             artNetConfig,
             midiMappings
@@ -145,25 +121,25 @@ function saveConfig() {
         artNetConfig,
         midiMappings
     };
-    
+
     // Ensure the data directory exists
     if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
     }
-    
+
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(configToSave, null, 2));
-    log('Config saved');
+    log('Config saved', 'INFO');
 }
 
 function isRunningInWsl(): boolean {
-    return os.release().toLowerCase().includes('microsoft') || 
-           os.release().toLowerCase().includes('wsl');
+    return os.release().toLowerCase().includes('microsoft') ||
+        os.release().toLowerCase().includes('wsl');
 }
 
 function loadScenes() {
     if (fs.existsSync(SCENES_FILE)) {
         const data = fs.readFileSync(SCENES_FILE, 'utf-8');
-        log('Loading scenes from file');
+        log('Loading scenes from file', 'INFO');
         scenes = JSON.parse(data);
         return scenes;
     } else {
@@ -177,15 +153,15 @@ function saveScenes(scenesToSave?: Scene[]) {
     if (scenesToSave) {
         scenes = scenesToSave;
     }
-    
+
     // Ensure the data directory exists
     if (!fs.existsSync(DATA_DIR)) {
         fs.mkdirSync(DATA_DIR, { recursive: true });
     }
-    
+
     const scenesJson = JSON.stringify(scenes, null, 2);
     fs.writeFileSync(SCENES_FILE, scenesJson);
-    log('Scenes saved to file');
+    log('Scenes saved to file', 'INFO');
 }
 
 function updateDmxChannel(channel: number, value: number) {
@@ -194,7 +170,7 @@ function updateDmxChannel(channel: number, value: number) {
         artnetSender.setChannel(channel, value);
         artnetSender.transmit();
     } else {
-        log('ArtNet sender not initialized');
+        log('ArtNet sender not initialized', 'WARN');
     }
 }
 
@@ -221,10 +197,10 @@ function initializeArtNet() {
             base_refresh_interval: artNetConfig.base_refresh_interval
         });
 
-        log(`ArtNet sender initialized with config: ${JSON.stringify(artNetConfig)}`);
+        log('ArtNet sender initialized', 'ARTNET', { config: artNetConfig });
         return true;
     } catch (error) {
-        log(`Error initializing ArtNet: ${error}`);
+        log('Error initializing ArtNet', 'ERROR', { error });
         return false;
     }
 }
@@ -234,35 +210,35 @@ function pingArtNetDevice(io: Server, ip?: string) {
     const net = require('net');
     const socket = new net.Socket();
     const timeout = 1000; // 1 second timeout
-    
+
     socket.setTimeout(timeout);
-    
+
     const connectionPromise = new Promise((resolve, reject) => {
         socket.connect(artNetConfig.port, targetIp, () => {
             socket.end();
             resolve(true);
         });
-        
+
         socket.on('error', (err: Error) => {
             socket.destroy();
             reject(err);
         });
-        
+
         socket.on('timeout', () => {
             socket.destroy();
             reject(new Error('Connection timed out'));
         });
     });
-    
+
     connectionPromise
         .then(() => {
-            log(`ArtNet device at ${targetIp} is alive`);
+            log(`ArtNet device at ${targetIp} is alive`, 'ARTNET');
             io.emit('artnetStatus', { ip: targetIp, status: 'alive' });
         })
         .catch((error) => {
-            log(`ArtNet device at ${targetIp} is unreachable: ${error.message}`);
-            io.emit('artnetStatus', { 
-                ip: targetIp, 
+            log(`ArtNet device at ${targetIp} is unreachable`, 'WARN', { error: error.message });
+            io.emit('artnetStatus', {
+                ip: targetIp,
                 status: 'unreachable',
                 message: 'Device is not responding on ArtNet port'
             });
@@ -272,21 +248,21 @@ function pingArtNetDevice(io: Server, ip?: string) {
 function listMidiInterfaces() {
     try {
         if (isRunningInWsl()) {
-            log('WSL environment detected - MIDI hardware interfaces not accessible');
-            return { 
-                inputs: [], 
+            log('WSL environment detected - MIDI hardware interfaces not accessible', 'MIDI');
+            return {
+                inputs: [],
                 outputs: [],
                 isWsl: true
             };
         }
-        
+
         const inputs = easymidi.getInputs();
         const outputs = easymidi.getOutputs();
         return { inputs, outputs, isWsl: false };
     } catch (error) {
-        log(`Error listing MIDI interfaces: ${error}`);
-        return { 
-            inputs: [], 
+        log('Error listing MIDI interfaces', 'ERROR', { error });
+        return {
+            inputs: [],
             outputs: [],
             error: String(error)
         };
@@ -302,19 +278,19 @@ function initOsc(io: Server) {
         });
 
         oscPort.on("ready", () => {
-            log("OSC Port is ready");
+            log("OSC Port is ready", 'OSC');
             io.emit('oscStatus', { status: 'connected' });
             sender = oscPort;
         });
 
         oscPort.on("error", (error: Error) => {
-            log(`OSC error: ${error.message}`);
+            log('OSC error', 'ERROR', { error: error.message });
         });
 
         oscPort.open();
-        log("Opening OSC port...");
+        log("Opening OSC port...", 'OSC');
     } catch (error) {
-        log(`Error initializing OSC: ${error}`);
+        log('Error initializing OSC', 'ERROR', { error });
     }
 }
 
@@ -322,19 +298,19 @@ function initOsc(io: Server) {
 function createServer() {
     const app = express();
     const server = http.createServer(app);
-    
+
     // Ensure required directories exist
     [DATA_DIR, LOGS_DIR].forEach(dir => {
         if (!fs.existsSync(dir)) {
             try {
                 fs.mkdirSync(dir, { recursive: true });
-                log(`Created directory: ${dir}`);
+                log(`Created directory: ${dir}`, 'INFO');
             } catch (error) {
-                log(`Failed to create directory ${dir}: ${error}`);
+                log(`Failed to create directory ${dir}`, 'ERROR', { error });
             }
         }
     });
-    
+
     // CORS setup
     app.use(cors({
         origin: true,
@@ -342,9 +318,9 @@ function createServer() {
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization']
     }));
-    
+
     app.use(json());
-    
+
     // Socket.IO setup
     const io = new Server(server, {
         cors: {
@@ -357,26 +333,26 @@ function createServer() {
         transports: ['websocket', 'polling'],
         allowUpgrades: true
     });
-    
+
     // Error handlers
     process.on('uncaughtException', (err) => {
-        log(`Uncaught Exception: ${err.message}`);
+        log('Uncaught Exception', 'ERROR', { message: err.message, stack: err.stack });
     });
-    
+
     process.on('unhandledRejection', (reason) => {
-        log(`Unhandled Rejection: ${reason}`);
+        log('Unhandled Rejection', 'ERROR', { reason });
     });
-    
+
     // Initialize core functionality
     loadConfig();
     loadScenes();
     initializeArtNet();
     initOsc(io);
-    
+
     // Socket.IO handlers
     io.on('connection', (socket) => {
-        log('A user connected');
-        
+        log('A user connected', 'INFO', { socketId: socket.id });
+
         // Send initial state
         socket.emit('initialState', {
             dmxChannels,
@@ -388,17 +364,17 @@ function createServer() {
             artNetConfig,
             scenes
         });
-        
+
         // Send MIDI interfaces
         const midiInterfaces = listMidiInterfaces();
         socket.emit('midiInterfaces', midiInterfaces.inputs);
-        
+
         // Handle DMX channel updates
         socket.on('setDmxChannel', ({ channel, value }) => {
             updateDmxChannel(channel, value);
             io.emit('dmxUpdate', { channel, value });
         });
-        
+
         // Handle ArtNet config updates
         socket.on('updateArtNetConfig', (config) => {
             artNetConfig = { ...artNetConfig, ...config };
@@ -406,64 +382,64 @@ function createServer() {
             initializeArtNet();
             io.emit('artnetStatus', { status: 'configUpdated' });
         });
-        
+
         // Handle test connection
         socket.on('testArtNetConnection', (ip) => {
             pingArtNetDevice(io, ip);
         });
-        
+
         // Handle scene saving
         socket.on('saveScene', ({ name, oscAddress, state }) => {
             const existingSceneIndex = scenes.findIndex(s => s.name === name);
-            const newScene = { 
-                name, 
-                channelValues: Array.isArray(state) ? state : Object.values(state), 
-                oscAddress 
+            const newScene = {
+                name,
+                channelValues: Array.isArray(state) ? state : Object.values(state),
+                oscAddress
             };
-            
+
             if (existingSceneIndex !== -1) {
                 scenes[existingSceneIndex] = newScene;
             } else {
                 scenes.push(newScene);
             }
-            
+
             saveScenes();
             io.emit('sceneSaved', name);
             io.emit('sceneList', scenes);
         });
-        
+
         // Handle scene loading
         socket.on('loadScene', ({ name }) => {
             const scene = scenes.find(s => s.name === name);
             if (scene) {
-                let channelValues = Array.isArray(scene.channelValues) ? 
-                    scene.channelValues : 
+                let channelValues = Array.isArray(scene.channelValues) ?
+                    scene.channelValues :
                     Object.values(scene.channelValues);
-                  channelValues.forEach((value, index) => {
+                channelValues.forEach((value, index) => {
                     if (index < dmxChannels.length) {
                         updateDmxChannel(index, value as number);
                     }
                 });
-                
+
                 io.emit('sceneLoaded', { name, channelValues });
             }
         });
-        
+
         // Handle disconnect
         socket.on('disconnect', () => {
-            log('User disconnected');
+            log('User disconnected', 'INFO', { socketId: socket.id });
         });
     });
-    
+
     // Basic API routes
     app.get('/api/health', (req, res) => {
-        res.json({ 
+        res.json({
             status: 'ok',
             uptime: process.uptime(),
             timestamp: new Date().toISOString()
         });
     });
-    
+
     app.get('/api/state', (req, res) => {
         res.json({
             artNetConfig,
@@ -476,7 +452,7 @@ function createServer() {
             groups: []
         });
     });
-    
+
     // Serve static files
     const reactAppPath = path.join(__dirname, '..', 'react-app', 'dist');
     if (fs.existsSync(reactAppPath)) {
@@ -487,7 +463,7 @@ function createServer() {
                 res.setHeader('Expires', '0');
             }
         }));
-        
+
         // Serve React app for all other routes
         app.get('*', (req, res) => {
             res.sendFile(path.join(reactAppPath, 'index.html'));
@@ -524,7 +500,7 @@ function createServer() {
             `);
         });
     }
-    
+
     return { app, server, io };
 }
 
@@ -533,14 +509,14 @@ const { server } = createServer();
 const port = 3001; // Changed from 3000 to avoid conflict
 
 server.listen(port, () => {
-    log(`🚀 Server running at http://localhost:${port}`);
+    log(`🚀 Server running at http://localhost:${port}`, 'SERVER'); // Changed from INFO to SERVER for more specific type
 });
 
 server.on('error', (error: any) => {
     if (error.code === 'EADDRINUSE') {
-        log(`ERROR: Port ${port} is already in use. Please close any applications using this port and try again.`);
+        log(`Port ${port} is already in use. Please close any applications using this port and try again.`, 'ERROR'); // Changed from CRITICAL to ERROR
     } else {
-        log(`SERVER ERROR: ${error.message}`);
+        log('SERVER ERROR', 'ERROR', { message: error.message });
     }
 });
 

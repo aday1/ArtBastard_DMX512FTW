@@ -25,9 +25,9 @@ function ensureDirectoriesExist() {
     if (!fs.existsSync(dir)) {
       try {
         fs.mkdirSync(dir, { recursive: true });
-        log(`Created directory: ${dir}`);
+        log(`Created directory: ${dir}`, 'SYSTEM');
       } catch (error) {
-        log(`Failed to create directory ${dir}: ${error}`);
+        log(`Failed to create directory ${dir}`, 'ERROR', { error });
       }
     }
   });
@@ -109,35 +109,35 @@ try {
 
   // Add global error handlers
   io.engine.on("connection_error", (err) => {
-    log(`Socket.IO connection error: ${err.message}`);
+    log('Socket.IO connection error', 'ERROR', { code: err.code, message: err.message, context: err.context });
   });
 
   process.on('uncaughtException', (err) => {
-    log(`Uncaught Exception: ${err.message}\nStack: ${err.stack}`);
+    log('Uncaught Exception', 'ERROR', { message: err.message, stack: err.stack });
   });
 
   process.on('unhandledRejection', (reason) => {
-    log(`Unhandled Rejection: ${reason}`);
+    log('Unhandled Rejection', 'ERROR', { reason });
   });
 
   // Socket.IO connection handler
   io.on('connection', (socket) => {
-    log('A user connected');
+    log('A user connected', 'SERVER', { socketId: socket.id, transport: socket.conn.transport.name });
 
     // Send available MIDI interfaces to the client
     const midiInterfaces = listMidiInterfaces();
-    log(`MIDI interfaces found: ${JSON.stringify(midiInterfaces.inputs)}`);
+    log('MIDI interfaces found', 'MIDI', { inputs: midiInterfaces.inputs, isWsl: midiInterfaces.isWsl });
     socket.emit('midiInterfaces', midiInterfaces.inputs);
 
     // Handle MIDI interface selection
     socket.on('selectMidiInterface', (interfaceName) => {
-      log(`Selecting MIDI interface: ${interfaceName}`);
+      log('Selecting MIDI interface', 'MIDI', { interfaceName, socketId: socket.id });
       connectMidiInput(io, interfaceName);
     });
 
     // Handle MIDI interface disconnection
     socket.on('disconnectMidiInterface', (interfaceName) => {
-      log(`Disconnecting MIDI interface: ${interfaceName}`);
+      log('Disconnecting MIDI interface', 'MIDI', { interfaceName, socketId: socket.id });
       disconnectMidiInput(io, interfaceName);
     });
 
@@ -173,24 +173,24 @@ try {
     });
 
     socket.on('disconnect', (reason) => {
-      log(`User disconnected (${reason})`);
+      log('User disconnected', 'SERVER', { reason, socketId: socket.id });
     });
 
     // Handle reconnection attempts
     socket.on('reconnect_attempt', (attemptNumber) => {
-      log(`Reconnection attempt ${attemptNumber} from ${socket.id}`);
+      log('Reconnection attempt', 'SERVER', { attemptNumber, socketId: socket.id });
     });
 
     socket.on('reconnect', (attemptNumber) => {
-      log(`Client ${socket.id} reconnected after ${attemptNumber} attempts`);
+      log('Client reconnected', 'SERVER', { attemptNumber, socketId: socket.id });
     });
 
     socket.on('reconnect_error', (error) => {
-      log(`Reconnection error from ${socket.id} - ${error}`);
+      log('Reconnection error', 'ERROR', { error, socketId: socket.id });
     });
 
     socket.on('reconnect_failed', () => {
-      log(`Client ${socket.id} failed to reconnect after all attempts`);
+      log('Client failed to reconnect after all attempts', 'WARN', { socketId: socket.id });
     });
   });
 
@@ -216,7 +216,7 @@ try {
       res.sendFile(reactAppPath);
     } else {
       // If React app is not built, trigger a build first
-      log('React app not built. Building React app now...');
+      log('React app not built. Building React app now...', 'SYSTEM');
       
       try {
         // Execute the build in a synchronous way
@@ -227,10 +227,11 @@ try {
         
         // After successful build, serve the React app
         if (fs.existsSync(reactAppPath)) {
-          log('React app built successfully. Serving React app.');
+          log('React app built successfully. Serving React app.', 'SYSTEM');
           res.sendFile(reactAppPath);
         } else {
           // Still not found, send an error
+          log('React app still not found after build attempt.', 'ERROR');
           res.status(500).send(`
             <html>
               <body style="font-family: Arial, sans-serif; padding: 20px;">
@@ -243,7 +244,7 @@ try {
         }
       } catch (error) {
         // Build failed, send an error
-        log(`Error building React app: ${error}`);
+        log('Error building React app', 'ERROR', { error });
         res.status(500).send(`
           <html>
             <body style="font-family: Arial, sans-serif; padding: 20px;">
@@ -263,32 +264,26 @@ try {
   // Start the server
   const port = 3001;  // Changed from 3000 to avoid port conflict
   server.listen(port, () => {
-    log(`Server running at http://localhost:${port}`);
-    log(`React app available at http://localhost:${port}`);
+    log(`Server running at http://localhost:${port}`, 'SERVER');
+    log(`React app available at http://localhost:${port}`, 'SERVER');
     
     // Initialize application with Socket.IO instance
     try {
       startLaserTime(io);
     } catch (error) {
-      log(`ERROR initializing application: ${error instanceof Error ? error.message : String(error)}`);
-      if (error instanceof Error && error.stack) {
-        log(`Stack trace: ${error.stack}`);
-      }
+      log('ERROR initializing application', 'ERROR', { message: error instanceof Error ? error.message : String(error), stack: error instanceof Error ? error.stack : undefined });
     }
   });
   
   // Error handler for server
   server.on('error', (error) => {
     if ((error as any).code === 'EADDRINUSE') {
-      log(`ERROR: Port ${port} is already in use. Please close any applications using this port and try again.`);
+      log(`Port ${port} is already in use. Please close any applications using this port and try again.`, 'ERROR');
     } else {
-      log(`SERVER ERROR: ${error instanceof Error ? error.message : String(error)}`);
+      log('SERVER ERROR', 'ERROR', { message: error instanceof Error ? error.message : String(error) });
     }
   });
 
 } catch (error) {
-  log(`FATAL ERROR initializing Socket.IO: ${error instanceof Error ? error.message : String(error)}`);
-  if (error instanceof Error && error.stack) {
-    log(`Stack trace: ${error.stack}`);
-  }
+  log('FATAL ERROR initializing Socket.IO', 'ERROR', { message: error instanceof Error ? error.message : String(error), stack: error instanceof Error ? error.stack : undefined });
 }

@@ -62,7 +62,7 @@ apiRouter.use(express.json());
 
 // Add global error handler for API routes
 apiRouter.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  log(`API error: ${err.message}`);
+  log('API error', 'ERROR', { message: err.message, path: req.path, method: req.method });
   if (!res.headersSent) {
     res.status(500).json({ 
       error: `Server error: ${err.message}`, 
@@ -113,14 +113,14 @@ apiRouter.get('/state', (req, res) => {
       midiMappings: config.midiMappings,
       scenes,
       // Add any other state that needs to be initialized
-      dmxChannels: new Array(512).fill(0),
-      oscAssignments: new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`),
-      channelNames: new Array(512).fill('').map((_, i) => `CH ${i + 1}`),
-      fixtures: [], // These would be loaded from fixtures.json if it existed
-      groups: []    // These would be loaded from groups.json if it existed
+      dmxChannels: new Array(512).fill(0), // This is placeholder, actual state is in memory
+      oscAssignments: new Array(512).fill('').map((_, i) => `/fixture/DMX${i + 1}`), // Placeholder
+      channelNames: new Array(512).fill('').map((_, i) => `CH ${i + 1}`), // Placeholder
+      fixtures: [], 
+      groups: []    
     });
   } catch (error) {
-    log(`Error getting initial state: ${error}`);
+    log('Error getting initial state', 'ERROR', { error });
     res.status(500).json({ error: `Failed to get initial state: ${error}` });
   }
 });
@@ -138,7 +138,7 @@ const dmxHandler: RequestHandler = (req: Request, res: Response) => {
     setDmxChannel(channel, value);
     res.json({ success: true });
   } catch (error) {
-    log(`Error setting DMX channel: ${error}`);
+    log('Error setting DMX channel', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to set DMX channel: ${error}` });
   }
 };
@@ -161,7 +161,7 @@ const midiLearnHandler: RequestHandler = (req: Request, res: Response) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error starting MIDI learn: ${error}`);
+    log('Error starting MIDI learn', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to start MIDI learn: ${error}` });
   }
 };
@@ -176,7 +176,7 @@ apiRouter.post('/midi/cancel-learn', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error cancelling MIDI learn: ${error}`);
+    log('Error cancelling MIDI learn', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to cancel MIDI learn: ${error}` });
   }
 });
@@ -190,7 +190,7 @@ apiRouter.post('/midi/mapping', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error adding MIDI mapping: ${error}`);
+    log('Error adding MIDI mapping', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to add MIDI mapping: ${error}` });
   }
 });
@@ -208,7 +208,7 @@ apiRouter.delete('/midi/mapping/:channel', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error removing MIDI mapping: ${error}`);
+    log('Error removing MIDI mapping', 'ERROR', { error, params: req.params });
     res.status(500).json({ error: `Failed to remove MIDI mapping: ${error}` });
   }
 });
@@ -222,7 +222,7 @@ apiRouter.delete('/midi/mappings', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error clearing all MIDI mappings: ${error}`);
+    log('Error clearing all MIDI mappings', 'ERROR', { error });
     res.status(500).json({ error: `Failed to clear all MIDI mappings: ${error}` });
   }
 });
@@ -236,7 +236,7 @@ apiRouter.post('/scenes', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error saving scene: ${error}`);
+    log('Error saving scene', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to save scene: ${error}` });
   }
 });
@@ -249,7 +249,7 @@ apiRouter.post('/scenes/load', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error loading scene: ${error}`);
+    log('Error loading scene', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to load scene: ${error}` });
   }
 });
@@ -269,7 +269,7 @@ apiRouter.delete('/scenes/:name', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error deleting scene: ${error}`);
+    log('Error deleting scene', 'ERROR', { error, params: req.params });
     res.status(500).json({ error: `Failed to delete scene: ${error}` });
   }
 });
@@ -286,7 +286,7 @@ apiRouter.post('/config/artnet', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error updating ArtNet config: ${error}`);
+    log('Error updating ArtNet config', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to update ArtNet config: ${error}` });
   }
 });
@@ -307,7 +307,7 @@ apiRouter.post('/export', (req, res) => {
     
     res.json({ success: true, filePath: EXPORT_FILE });
   } catch (error) {
-    log(`Error exporting settings: ${error}`);
+    log('Error exporting settings', 'ERROR', { error });
     res.status(500).json({ error: `Failed to export settings: ${error}` });
   }
 });
@@ -341,7 +341,7 @@ const importHandler: RequestHandler = (req: Request, res: Response) => {
     
     res.json({ success: true, settings: allSettings });
   } catch (error) {
-    log(`Error importing settings: ${error}`);
+    log('Error importing settings', 'ERROR', { error });
     res.status(500).json({ error: `Failed to import settings: ${error}` });
   }
 };
@@ -357,7 +357,7 @@ apiRouter.post('/ping-artnet', (req, res) => {
     
     res.json({ success: true });
   } catch (error) {
-    log(`Error pinging ArtNet device: ${error}`);
+    log('Error pinging ArtNet device', 'ERROR', { error, body: req.body });
     res.status(500).json({ error: `Failed to ping ArtNet device: ${error}` });
   }
 });
@@ -384,7 +384,7 @@ function setupSocketHandlers(io: Server) {
         
         socket.emit('settingsExported', EXPORT_FILE);
       } catch (error) {
-        log(`Error exporting settings: ${error}`);
+        log('Error exporting settings via socket', 'ERROR', { error, socketId: socket.id });
         socket.emit('exportError', error instanceof Error ? error.message : String(error));
       }
     });
@@ -418,7 +418,7 @@ function setupSocketHandlers(io: Server) {
         
         socket.emit('settingsImported', allSettings);
       } catch (error) {
-        log(`Error importing settings: ${error}`);
+        log('Error importing settings via socket', 'ERROR', { error, socketId: socket.id });
         socket.emit('importError', error instanceof Error ? error.message : String(error));
       }
     });
@@ -436,7 +436,7 @@ function setupSocketHandlers(io: Server) {
           timestamp: Date.now()
         });
       } catch (error) {
-        log(`Error sending OSC message: ${error}`);
+        log('Error sending OSC message via socket', 'ERROR', { error, message, socketId: socket.id });
         socket.emit('error', `Failed to send OSC message: ${error}`);
       }
     });
@@ -451,7 +451,7 @@ function setupSocketHandlers(io: Server) {
 // OSC message handler (to be implemented in index.ts)
 function sendOscMessage(address: string, args: any[]) {
   // Implementation will depend on your OSC setup
-  log(`Sending OSC message to ${address} with args: ${JSON.stringify(args)}`);
+  log('Sending OSC message', 'OSC', { address, args });
   // Actual implementation should send message to OSC sender
 }
 

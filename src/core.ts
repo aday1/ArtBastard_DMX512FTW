@@ -29,6 +29,6 @@ export const updateArtNetConfig = index.updateArtNetConfig;
 
 // Direct implementation of startLaserTime to avoid circular references
 export function startLaserTime(io: Server): void {
-  log('Starting laser time sequence from core module');
+  log('Starting laser time sequence from core module', 'SYSTEM');
   return index.startLaserTime(io);
 }
